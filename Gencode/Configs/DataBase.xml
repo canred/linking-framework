@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+
+<DataBase>
+
+    <Type>ORACLE</Type>
+    <DataSchema>dbo</DataSchema>
+    <Case_Sensitive>false</Case_Sensitive>
+    
+    <DB Name="Suspyramid">        
+        <Connection>Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=10.11.9.128)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=istdb)));User Id=liteon_ghg;Password=liteon_ghg;pooling=false;</Connection> 
+    </DB>
+
+    <DB Name="Basic">
+        <Connection>Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=10.11.9.128)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=istdb)));User Id=liteon_ghg;Password=liteon_ghg;pooling=false;</Connection>        
+    </DB>
+
+</DataBase>
