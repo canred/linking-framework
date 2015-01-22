@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title></title>
+     <script type="text/javascript" src='http://10.11.80.145/WebTemplate/js/jquery-1.4.1.js'></script>
+    <script type="text/javascript" src='http://10.11.80.145/WebTemplate/js/shared/include-ext.js'></script>
+    <script type="text/javascript" src='http://10.11.80.145/WebTemplate/Proxy.ashx'></script>
+</head>
+<body>
+	<script language="javascript" type="text/javascript">
+		Ext.direct.Manager.addProvider(HR.AttendantAction);
+		Ext.onReady(function(){
+			Ext.create('Ext.form.Panel', {
+				layout : {
+					type : 'form',
+					align : 'stretch'
+				},		
+				itemId:'itemId',				
+				border : true,
+				bodyPadding : 5,
+				defaultType : 'textfield',
+				buttonAlign : 'center',
+				renderTo:'divMain',
+				items : [{
+					xtype:'button',
+					text:'get Data',
+					handler:function(handler,scope){
+						AttendantAction.getUserName("14043017113900056",function(obj,jsonObj){				
+							alert(jsonObj.result);
+						});
+					}
+				}]
+			})			
+		});
+	</script>
+	<div id="divMain"/>
+</body>
+</html>

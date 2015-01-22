@@ -1,0 +1,104 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="mpStand.master.cs" Inherits="LKWebTemplate.mpStand" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">    
+    <title><%= LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().Title %></title>
+    <link rel="SHORTCUT ICON" href="<%= Page.ResolveUrl(LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().SystemIcon)%>"/>
+    <%    
+        Response.Buffer = true;
+        Response.ExpiresAbsolute = DateTime.Now.AddSeconds(-1);
+        Response.Expires = 0;
+        Response.CacheControl = "no-cache";
+    %>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="robots" content="index, follow, noarchive" />
+    <meta name="keywords" content="website, css, center, margin, centered, content, simply, screen, page, today, auto, left, attributes, setup, float, file, container, looked, code, line" />
+    <link rel="stylesheet" href="<%= Page.ResolveUrl("~/css/mpStand.css")%>" type="text/css" />
+    <link rel="stylesheet" href="<%= Page.ResolveUrl("~/css/menu.css")%>" type="text/css" />
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/jquery-1.4.1.js")%>'></script>
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/superfish.js")%>'></script>
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/supersubs.js")%>'></script>
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/InitialiseMenu.js")%>'></script> 
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/system-config.ashx")%>'></script>
+	<style type ="text/css">
+    .x-tip {
+        width: auto !important;
+    }
+    .x-tip-body {
+        width: auto !important;
+    }
+    .x-tip-body span {
+        width: auto !important;
+    }
+    .pure-button-error  {
+        background: rgb(202, 60, 60); /* this is an orange */
+    }
+    </style>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </asp:ContentPlaceHolder>  
+	<script type="text/javascript" src='<%= Page.ResolveUrl("~/Proxy.ashx")%>'></script>
+	<script type="text/javascript">
+		var IsProductionServer = '<%=LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().IsProductionServer %>';		
+	</script>	
+	<script type="text/javascript" src='<%= Page.ResolveUrl("~/pagejs/ext-error-log.js")%>'></script>
+</head>
+<body id="mainpage">
+    <form id="form1" runat="server">   
+    <div id="center">
+        <div id="main">
+            <div id="contentmn">
+                <div id="header" style='background: #deebb5 url(<%= Page.ResolveUrl("~/css/custimages/mainBackGround.gif")%>  ) 0 0 repeat;
+                    width: 100%; height: 60px;'>
+                    <div style='float: left; background: url(<%= Page.ResolveUrl(LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().CompanyImage)%>) 0 0 no-repeat;
+                        width: 120px; height: 60px;'>
+                    </div>
+                    <div style="float: left;">
+                        <div style="margin-top: 10px; font-size: x-large; color: #000000;">
+                            <b><%= LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().SystemName%></b></div>
+                        <div style="color: Red; margin-left: 100px; margin-top: 10px; color: #000000;"><%= LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().SystemDescription%></div>
+                    </div>
+                    <div style="margin-left: 20px; color: Red; font-size: xx-large; margin-top: 20px;
+                        float: left; line-height: normal">
+                        <!--This is sample templete-->
+                    </div>
+                    <div style="float: right;">
+                         <div style="float: right;margin-top: 10px;margin-left:10px;margin-right:10px; color: #000000;" id="div1" runat="server">
+                            <%
+                                var user = getUser();
+                                if (user != null) { 
+                                    Response.Write("<input type='button' class='red-button'  value='登出'");
+                                    Response.Write("onclick='location.href=\"" + Page.ResolveUrl(LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().LogoutPage) + "\"' /></div>");                                    
+                                }    
+                            %>                            
+                        <div style="float: right;margin-top: 15px; color: #000000;" id="div_login_user" runat="server">
+                            <%
+                                var user = getUser();
+                                if (user != null) {
+                                    Response.Write( user.C_NAME);
+                                }    
+                            %>
+                            </div>                       
+                    </div>
+                </div>
+                <div class="menu" id="menu" style="float: left; width: 100%; height: 33px; background: #0d50a1;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;"
+                    runat="server">                    
+                </div>
+                <div id="content">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+                <div id="footer" style="color: #000000;">
+                    <center>
+                        <b><%= LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().SystemFoolter%></b>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </form>
+</body>
+</html>
