@@ -1,0 +1,17 @@
+D:\Projects\IST3.5_2013\IST\bin\Release\IST.dll.config
+D:\Projects\IST3.5_2013\IST\bin\Release\IST.dll
+D:\Projects\IST3.5_2013\IST\bin\Release\IST.pdb
+D:\Projects\IST3.5_2013\IST\bin\Release\log4net.dll
+D:\Projects\IST3.5_2013\IST\bin\Release\Newtonsoft.Json.Net35.dll
+D:\Projects\IST3.5_2013\IST\bin\Release\log4net.xml
+D:\Projects\IST3.5_2013\IST\obj\Release\IST.dll
+D:\Projects\IST3.5_2013\IST\obj\Release\IST.pdb
+D:\Project13\IST3.5.2013\IST\bin\Release\IST.dll.config
+D:\Project13\IST3.5.2013\IST\bin\Release\IST.dll
+D:\Project13\IST3.5.2013\IST\bin\Release\IST.pdb
+D:\Project13\IST3.5.2013\IST\bin\Release\log4net.dll
+D:\Project13\IST3.5.2013\IST\bin\Release\Newtonsoft.Json.Net35.dll
+D:\Project13\IST3.5.2013\IST\bin\Release\log4net.xml
+D:\Project13\IST3.5.2013\IST\obj\Release\IST.csprojResolveAssemblyReference.cache
+D:\Project13\IST3.5.2013\IST\obj\Release\IST.dll
+D:\Project13\IST3.5.2013\IST\obj\Release\IST.pdb

@@ -1,0 +1,17 @@
+D:\Projects\LD\LD\obj\Debug\ResolveAssemblyReference.cache
+D:\Projects\LD\LD\bin\Debug\LD.dll
+D:\Projects\LD\LD\bin\Debug\LD.pdb
+D:\Projects\LD\LD\bin\Debug\log4net.dll
+D:\Projects\LD\LD\obj\Debug\LD.dll
+D:\Projects\LD\LD\obj\Debug\LD.pdb
+D:\Projects\LD\LD\bin\Debug\MySql.Data.dll
+D:\Projects\LD\LD\bin\Debug\log4net.xml
+D:\Projects\LinkDb\LD\bin\Debug\LD.dll
+D:\Projects\LinkDb\LD\bin\Debug\LD.pdb
+D:\Projects\LinkDb\LD\bin\Debug\log4net.dll
+D:\Projects\LinkDb\LD\bin\Debug\MySql.Data.dll
+D:\Projects\LinkDb\LD\bin\Debug\Newtonsoft.Json.Net35.dll
+D:\Projects\LinkDb\LD\bin\Debug\log4net.xml
+D:\Projects\LinkDb\LD\obj\Debug\ResolveAssemblyReference.cache
+D:\Projects\LinkDb\LD\obj\Debug\LD.dll
+D:\Projects\LinkDb\LD\obj\Debug\LD.pdb

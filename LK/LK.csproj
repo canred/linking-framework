@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{432FAE84-A610-4369-8B98-09EB97C269CA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LK</RootNamespace>
+    <AssemblyName>LK</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>發行\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\refDll\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json.Net35, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\refDll\Newtonsoft.Json.Net35.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionLog\ActionLog.cs" />
+    <Compile Include="ActionLog\Table\GhgActionLog%40.cs" />
+    <Compile Include="ActionLog\Table\GhgActionLog.cs" />
+    <Compile Include="ActionLog\Table\Record\GhgActionLog_Record.cs" />
+    <Compile Include="Attribute\ColumnName.cs" />
+    <Compile Include="Attribute\LDDataBase.cs" />
+    <Compile Include="Attribute\LDLog.cs" />
+    <Compile Include="Attribute\LDRecord.cs" />
+    <Compile Include="Attribute\LDTable.cs" />
+    <Compile Include="Attribute\ModelName.cs" />
+    <Compile Include="Cloud.cs" />
+    <Compile Include="Config\ConfigBase.cs" />
+    <Compile Include="Config\ConfigEntity\DefaultConfigFileManager.cs" />
+    <Compile Include="Config\DataBase\DataBaseConfig.cs" />
+    <Compile Include="Config\DataBase\DataBaseConfigInfo.cs" />
+    <Compile Include="Config\DataBase\Factory.cs" />
+    <Compile Include="Config\DataBase\IDataBaseConfigInfo.cs" />
+    <Compile Include="Config\DirectAuth\DirectAuthFileManager.cs" />
+    <Compile Include="Config\DirectAuth\DirectAuthConfigInfo.cs" />
+    <Compile Include="Config\DirectAuth\DirectAuthConfigInfoCollection.cs" />
+    <Compile Include="Config\DirectAuth\DirectAughConfigs.cs" />
+    <Compile Include="Config\Dynamic\DynamicConfig.cs" />
+    <Compile Include="Config\Dynamic\DynamicConfigInfo.cs" />
+    <Compile Include="Config\IConfigFileManager.cs" />
+    <Compile Include="Config\IConfigInfo.cs" />
+    <Compile Include="Config\SerializationHelper.cs" />
+    <Compile Include="Config\Cloud\CloudConfigs.cs" />
+    <Compile Include="Config\Cloud\CloudConfigInfo.cs" />
+    <Compile Include="Config\Cloud\CloudConfigInfoCollection.cs" />
+    <Compile Include="Config\Cloud\CloudFileManager.cs" />
+    <Compile Include="DBAction\DBActionFactory.cs" />
+    <Compile Include="DBAction\OracleDBAction.cs" />
+    <Compile Include="DB\ADataBaseConnection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DB\DataBaseConnection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DB\DB.cs" />
+    <Compile Include="DB\IDBAction.cs" />
+    <Compile Include="DB\iTable.cs" />
+    <Compile Include="DB\RecordBase.cs" />
+    <Compile Include="DB\SQLCondition.cs" />
+    <Compile Include="DB\SQLCreater\ASQLCreater.cs" />
+    <Compile Include="DB\SQLCreater\ISQLCreater.cs" />
+    <Compile Include="DB\SQLCreater\Limit.cs" />
+    <Compile Include="DB\SQLCreater\SQLCreaterMSSQL.cs" />
+    <Compile Include="DB\SQLCreater\SQLCreaterMySQL.cs" />
+    <Compile Include="DB\SQLCreater\SQLCreaterOracle.cs" />
+    <Compile Include="DB\SQLDelete.cs" />
+    <Compile Include="DB\SQLUpdate.cs" />
+    <Compile Include="DB\TableBase.cs" />
+    <Compile Include="ExceptionParser\ExcpetionParserInfo.cs" />
+    <Compile Include="ExceptionParser\Parser.cs" />
+    <Compile Include="MyException\MyException.cs" />
+    <Compile Include="MyException\Table\ErrorLog%40.cs" />
+    <Compile Include="MyException\Table\ErrorLog.cs" />
+    <Compile Include="MyException\Table\Record\ErrorLog_Record.cs" />
+    <Compile Include="Pool\DataBaseConfigPool.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserInfo\IUserInfoConfigInfo.cs" />
+    <Compile Include="UserInfo\User.cs" />
+    <Compile Include="UserInfo\UserInfoConfig.cs" />
+    <Compile Include="UserInfo\UserInfoConfigInfo.cs" />
+    <Compile Include="Util\Encrypt\Encrypt.cs" />
+    <Compile Include="Util\Encrypt\SecurityClass.cs" />
+    <Compile Include="Util\JsonHelp.cs" />
+    <Compile Include="Util\Mail\Config\ISMTPConfig.cs" />
+    <Compile Include="Util\Mail\Config\SMTPConfig.cs" />
+    <Compile Include="Util\Mail\Config\SMTPConfigInfo.cs" />
+    <Compile Include="Util\Mail\SmtpMailer.cs" />
+    <Compile Include="Util\Mail\SmtpMailObj.cs" />
+    <Compile Include="Util\UID.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

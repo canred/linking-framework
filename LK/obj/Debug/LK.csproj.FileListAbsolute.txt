@@ -1,0 +1,16 @@
+D:\Project13\LK4.0\LK\bin\Debug\log4net.dll
+D:\Project13\LK4.0\LK\bin\Debug\Newtonsoft.Json.Net35.dll
+D:\Project13\LK4.0\LK\bin\Debug\log4net.xml
+D:\Project13\LK4.0\LK\bin\Debug\LK.dll.config
+D:\Project13\LK4.0\LK\bin\Debug\LK.dll
+D:\Project13\LK4.0\LK\bin\Debug\LK.pdb
+D:\Project13\LK4.0\LK\obj\Debug\LK.dll
+D:\Project13\LK4.0\LK\obj\Debug\LK.pdb
+D:\Project13\LK4\trunk\LK\bin\Debug\LK.dll.config
+D:\Project13\LK4\trunk\LK\bin\Debug\LK.dll
+D:\Project13\LK4\trunk\LK\bin\Debug\LK.pdb
+D:\Project13\LK4\trunk\LK\bin\Debug\log4net.dll
+D:\Project13\LK4\trunk\LK\bin\Debug\Newtonsoft.Json.Net35.dll
+D:\Project13\LK4\trunk\LK\bin\Debug\log4net.xml
+D:\Project13\LK4\trunk\LK\obj\Debug\LK.dll
+D:\Project13\LK4\trunk\LK\obj\Debug\LK.pdb
