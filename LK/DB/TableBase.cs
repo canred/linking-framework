@@ -363,7 +363,9 @@ namespace LK.DB
         {
             try
             {
-                //_sqlCreater_.Where(condition);
+                if (_sqlCreater_ == null) {
+                    setInit(this);
+                }
                 _sqlCreater_.SetUpdate(sqlupdate);
                 return this;
             }

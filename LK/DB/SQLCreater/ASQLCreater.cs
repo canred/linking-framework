@@ -24,6 +24,9 @@ namespace LK.DB.SQLCreater
         OrderLimit splitOrderLimit = null;
         string strOrder = null;
         string strGroupBy = null;
+		public string getTableName() {
+            return this.TableName;
+        }
         public enum SQLComplete { 
             NULL,UNComplete,Complete
         }
@@ -448,7 +451,7 @@ namespace LK.DB.SQLCreater
         /// </summary>
         /// <param name="_sql"></param>
         /// <returns></returns>
-        private string adjuestSql(string _sql) {
+        protected string adjuestSql(string _sql) {
             try
             {
                 string sql = _sql;

@@ -14,3 +14,4 @@ D:\Project13\LK4\trunk\Gencode\obj\Debug\LK_Gencode.Properties.Resources.resourc
 D:\Project13\LK4\trunk\Gencode\obj\Debug\LK-GgenCode.csproj.GenerateResource.Cache
 D:\Project13\LK4\trunk\Gencode\obj\Debug\LK_Gencode.exe
 D:\Project13\LK4\trunk\Gencode\obj\Debug\LK_Gencode.pdb
+D:\Project13\LK4\trunk\Gencode\obj\Debug\LK-GgenCode.csprojResolveAssemblyReference.cache

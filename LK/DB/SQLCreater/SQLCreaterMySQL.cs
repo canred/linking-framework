@@ -223,5 +223,20 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
+		
+		public override string DeleteSQL()
+        {
+            try
+            {
+                this._SQL_ = " DELETE FROM " + this.getTableName() + " " + _DELETESQL_;
+                return this.adjuestSql(this._SQL_);
+                
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw ex;
+            }
+        }
     }
 }
