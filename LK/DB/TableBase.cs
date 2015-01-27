@@ -275,6 +275,13 @@ namespace LK.DB
             DB db = new DB(this);
             return db.getParameter(pName, value, pType);
         }
+		
+		public System.Data.IDataParameter getParameter(string pName, object value,System.Data.DbType dbtype, System.Data.ParameterDirection pType)
+        {
+            DB db = new DB(this);
+            return db.getParameter(pName, value,dbtype, pType);
+        }
+		
         public TableBase From<T>(iTable a)
         where T : iTable, new()
         {

@@ -483,6 +483,26 @@ namespace LK.DB
                 throw ex;
             }
         }
+		
+		public IDbDataParameter getDataParameter(LK.DB.SQLCreater.ISQLCreater pSqlCreater, string pName, object pValue,System.Data.DbType dbtype, ParameterDirection pdirection)
+        {
+
+            try
+            {
+
+                var param = _factory.CreateParameter();
+                param.ParameterName = pName;
+                param.Value = pValue;
+                param.Direction = pdirection;
+                param.DbType = dbtype;
+                return pSqlCreater.createDbParameter(param, pdirection);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw ex;
+            }
+        }
        
 
     }

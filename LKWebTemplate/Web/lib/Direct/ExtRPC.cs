@@ -24,9 +24,9 @@ namespace ExtDirect.Direct
                     flag = false;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MyException.ErrorNoThrowException(this,ex);
+                MyException.ErrorNoThrowException(this, ex);
             }
             if (flag)
             {
@@ -42,8 +42,9 @@ namespace ExtDirect.Direct
                     jobject = JObject.Parse(requestData);
                     isMutilAction = false;
                 }
-                catch {
-                    jobject = JObject.Parse("{MUTIL_ACTION:"+requestData+"}");
+                catch
+                {
+                    jobject = JObject.Parse("{MUTIL_ACTION:" + requestData + "}");
                     isMutilAction = true;
                 }
                 if (isMutilAction)
@@ -58,7 +59,7 @@ namespace ExtDirect.Direct
                     }
                      */
                     ret = ret.Substring(0, ret.Length - 1);
-                    return "["+ret+"]";
+                    return "[" + ret + "]";
                 }
                 return runAction(jobject, data, requestData, tempDataList);
             }
@@ -66,11 +67,14 @@ namespace ExtDirect.Direct
             return jSri.Serialize(res);
         }
 
-        public JObject ExecuteRPCJObject(HttpRequest request,string bodyContext)
+        public JObject ExecuteRPCJObject(HttpRequest request, string bodyContext,HttpContext hc)
         {
             bool flag = true;
             var rpc = new ExtAction();
             var checkFormPost = request["extAction"];
+            /*Canred*/
+
+
             try
             {
                 if (!string.IsNullOrEmpty(checkFormPost) && checkFormPost.Length > 0)
@@ -79,9 +83,9 @@ namespace ExtDirect.Direct
 
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MyException.ErrorNoThrowException(this,ex);
+                MyException.ErrorNoThrowException(this, ex);
             }
             if (flag)
             {
@@ -92,9 +96,11 @@ namespace ExtDirect.Direct
                 string requestData = bodyContext;
                 var data = new Request();
                 data.HttpRequest = request;
+                data.HttpContext = hc;
+               
                 JObject jobject;
                 Boolean isMutilAction;
-                
+
                 try
                 {
                     jobject = JObject.Parse(requestData);
@@ -106,7 +112,7 @@ namespace ExtDirect.Direct
                     isMutilAction = true;
                 }
                 if (isMutilAction)
-                {                    
+                {
                     var jarray = new JArray();
                     foreach (var item in jobject["MUTIL_ACTION"].Children())
                     {
@@ -154,8 +160,8 @@ namespace ExtDirect.Direct
                 }
             }
             catch (InvalidOperationException ex)
-            {                
-                MyException.ErrorNoThrowException(this,ex);
+            {
+                MyException.ErrorNoThrowException(this, ex);
             }
             catch (Exception ex2)
             {
@@ -169,7 +175,7 @@ namespace ExtDirect.Direct
                 }
             }
             catch (InvalidOperationException ex)
-            {                
+            {
                 MyException.ErrorNoThrowException(this, ex);
             }
             catch (Exception ex2)
@@ -184,7 +190,7 @@ namespace ExtDirect.Direct
                 }
             }
             catch (InvalidOperationException ex)
-            {                
+            {
                 MyException.ErrorNoThrowException(this, ex);
             }
             catch (Exception ex2)
@@ -196,7 +202,7 @@ namespace ExtDirect.Direct
             {
                 if (jobject["data"].First["dir"] != null)
                 {
-                    newData.dir= jobject["data"].First["dir"].ToString();
+                    newData.dir = jobject["data"].First["dir"].ToString();
                 }
             }
             catch (InvalidOperationException ex)
@@ -212,7 +218,7 @@ namespace ExtDirect.Direct
                 if (runAction == DirectAction.Update)
                 {
                     d.Add(jobject["data"].First["updatedata"].ToString());
-                }               
+                }
                 else
                 {
                     d.AddRange(from object tmp in (jobject["data"].First).AsJEnumerable() select tmp.ToString().Split(':') into kv where kv[0] != "\"page\"" && kv[0] != "\"start\"" && kv[0] != "\"limit\"" && kv[0] != "\"sort\"" && kv[0] != "\"dir\"" select kv[1].Replace("\"", "").Trim());
@@ -240,7 +246,7 @@ namespace ExtDirect.Direct
                     {
                         try
                         {
-                            d.AddRange(from object tmp in (jobject["data"]).AsJEnumerable() where (((JValue) (tmp))).Type != JTokenType.Null select tmp.ToString());
+                            d.AddRange(from object tmp in (jobject["data"]).AsJEnumerable() where (((JValue)(tmp))).Type != JTokenType.Null select tmp.ToString());
                             /*
                             原來的程式
                              foreach (object tmp in (jobject["data"]).AsJEnumerable())
@@ -253,8 +259,9 @@ namespace ExtDirect.Direct
                             }
                              */
                         }
-                        catch (InvalidOperationException ex2) {                            
-                            MyException.ErrorNoThrowException(this,ex2);
+                        catch (InvalidOperationException ex2)
+                        {
+                            MyException.ErrorNoThrowException(this, ex2);
                         }
                     }
                 }
@@ -301,17 +308,19 @@ namespace ExtDirect.Direct
             var jSri = new JavaScriptSerializer();
             var rpc = new ExtAction();
             var newData = new Request();
-            newData.HttpRequest  = data.HttpRequest;
+            newData.HttpRequest = data.HttpRequest;
+            newData.HttpContext = data.HttpContext;
             newData.action = jobject["action"].ToString();
             newData.method = jobject["method"].ToString();
             newData.tid = Convert.ToInt32(jobject["tid"].ToString());
 
-            if (newData.action.IndexOf(".") > 0) {
+            if (newData.action.IndexOf(".") > 0)
+            {
                 newData.action = newData.action.Split('.')[1];
             }
 
             var obj = Assembly.GetExecutingAssembly().CreateInstance(newData.action);
-            
+
             Type thisType = obj.GetType();
             MethodInfo theMethod = thisType.GetMethod(newData.method);
 
@@ -459,7 +468,7 @@ namespace ExtDirect.Direct
                             {
                                 foreach (object tmp in (jobject["data"]).AsJEnumerable())
                                 {
-                                    if ((((JValue) (tmp))).Type != JTokenType.Null)
+                                    if ((((JValue)(tmp))).Type != JTokenType.Null)
                                     {
                                         var kv = tmp.ToString();
                                         d.Add(kv);
@@ -468,8 +477,8 @@ namespace ExtDirect.Direct
                             }
                         }
                         catch (InvalidOperationException ex2)
-                        {                            
-                            MyException.ErrorNoThrowException(this,ex2);
+                        {
+                            MyException.ErrorNoThrowException(this, ex2);
                         }
                     }
                 }
@@ -486,6 +495,7 @@ namespace ExtDirect.Direct
             newData.data = dd;
             data = newData;
             data.HttpRequest = newData.HttpRequest;
+            data.HttpContext = newData.HttpContext;
             var isNull = data.IsNullData();
             if (data.IsSpecialField())
             {
@@ -493,20 +503,20 @@ namespace ExtDirect.Direct
                 {
                     return rpc.ExecuteUpdateActionJObject(data);
                 }
-                if (isNull==false)                   
+                if (isNull == false)
                 {
                     _tempDataList = ExtractData(data.data[0].ToString());
                     return rpc.ExecuteCRUDJObject(data, _tempDataList);
                 }
             }
             else
-            {                
+            {
                 return rpc.ExecuteNormalAction2JObject(data);
             }
             return null;
             #endregion
         }
-        
+
         internal string StringFy(string str)
         {
             return str.Replace("\"", "");

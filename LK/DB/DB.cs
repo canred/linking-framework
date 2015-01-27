@@ -555,7 +555,19 @@ namespace LK.DB
             }
         }
 
-        
+        public IDbDataParameter getParameter(string pName, object value,System.Data.DbType dbtype, ParameterDirection direction)
+        {
+            try
+            {
+                this.initSQLCreater(this._connection.getDataBaseConfigInfo());
+                return this._connection.getDataParameter(_SQLCreater_, pName, value,dbtype, direction);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw ex;
+            }
+        }
 
         /*
         public void Connection() {

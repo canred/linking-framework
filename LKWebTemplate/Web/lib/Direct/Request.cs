@@ -51,6 +51,12 @@ namespace ExtDirect.Direct
             get;
             set;
         }
-        
+
+        public System.Web.HttpContext HttpContext
+        {
+            get;
+            set;
+        }
+
     }
 }
