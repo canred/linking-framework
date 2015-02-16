@@ -12,36 +12,71 @@
         Response.CacheControl = "no-cache";
     %>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="robots" content="index, follow, noarchive" />
-    <meta name="keywords" content="website, css, center, margin, centered, content, simply, screen, page, today, auto, left, attributes, setup, float, file, container, looked, code, line" />
+        
     <link rel="stylesheet" href="<%= Page.ResolveUrl("~/css/mpStand.css")%>" type="text/css" />
     <link rel="stylesheet" href="<%= Page.ResolveUrl("~/css/menu.css")%>" type="text/css" />
-    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/jquery-1.4.1.js")%>'></script>
-    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/superfish.js")%>'></script>
-    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/supersubs.js")%>'></script>
-    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/InitialiseMenu.js")%>'></script> 
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/jquery.js")%>'></script>
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/superfish.js")%>'></script>    
     <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/system-config.ashx")%>'></script>
-	<style type ="text/css">
-    .x-tip {
-        width: auto !important;
-    }
-    .x-tip-body {
-        width: auto !important;
-    }
-    .x-tip-body span {
-        width: auto !important;
-    }
-    .pure-button-error  {
-        background: rgb(202, 60, 60); /* this is an orange */
-    }
-    </style>
+    <!--引入ExtJs的程式-->
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/shared/include-ext.js")%>'></script>
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/Proxy.ashx")%>'></script>
+    <!--引入ExtJs相關的設定-->
+    <script language="javascript" type="text/javascript">
+        // 要引入一個UTIL變量
+        // /*設定ExtJs ux路徑*/
+        Ext.Loader.setPath('Ext.ux', SYSTEM_URL_ROOT + '/js/ux');
+        Ext.Loader.setPath('WS', SYSTEM_URL_ROOT + '/pagejs');
+        /*引入DataTip的package*/
+        Ext.require(['Ext.ux.DataTip']);
+        // /*初始化QuickTips的功能*/
+        Ext.QuickTips.init();
+        // /*最後一步*/
+        Ext.onReady(function () {
+            // /*引入ModelAll.js*/
+            Ext.Loader.loadScript([
+              SYSTEM_URL_ROOT + '/pagejs/AllModel.js'
+            ]);
 
+            /*初始化UTIL類*/
+            UTIL = Ext.create('WS.Util');
+            //引入ExtJs Direct Provider
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".ApplicationAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".ADAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".AttendantAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".AppPageAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".AuthorityAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".AdminCompanyAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".CompanyAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".GroupHeadAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".GroupAttendantAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".MenuAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".UserAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".SyncClientAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".SiteMapAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".ProxyAction"));
+        });
+    </script>
+	<style type ="text/css">
+        .x-tip {
+            width: auto !important;
+        }
+        .x-tip-body {
+            width: auto !important;
+        }
+        .x-tip-body span {
+            width: auto !important;
+        }
+        .pure-button-error  {
+            background: rgb(202, 60, 60); /* this is an orange */
+        }
+    </style>
     <asp:ContentPlaceHolder ID="head" runat="server">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </asp:ContentPlaceHolder>  
 	<script type="text/javascript" src='<%= Page.ResolveUrl("~/Proxy.ashx")%>'></script>
 	<script type="text/javascript">
-		var IsProductionServer = '<%=LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().IsProductionServer %>';		
+	    var IsProductionServer = '<%=LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().IsProductionServer %>';		
 	</script>	
 	<script type="text/javascript" src='<%= Page.ResolveUrl("~/pagejs/ext-error-log.js")%>'></script>
 </head>

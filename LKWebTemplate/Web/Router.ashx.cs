@@ -27,7 +27,8 @@ namespace LKWebTemplate
 
             string requestData = enc.GetString(requestDataInByte);
 
-            if (context.Request.Files.Count > 0) {
+            if (context.Request.Files.Count > 0)
+            {
                 action = context.Request["extAction"];
                 method = context.Request["extMethod"];
                 return "";
@@ -111,7 +112,7 @@ namespace LKWebTemplate
         {
             var rpc = new ExtDirect.Direct.ExtRPC();
             string action, method;
-            LKWebTemplate.Model.Basic.BasicModel mod = new Model.Basic.BasicModel();
+            LKWebTemplate.Model.Basic.BasicModel mod = new LKWebTemplate.Model.Basic.BasicModel();
             string INIT = "";
             IList<LKWebTemplate.Model.Basic.Table.Record.Proxy_Record> allProxy = new List<LKWebTemplate.Model.Basic.Table.Record.Proxy_Record>();
             if (context.Request.QueryString["init"] != null)
@@ -183,7 +184,7 @@ namespace LKWebTemplate
             #endregion
 
             #region
-           
+
             if (context.Request.Params["ServiceClass"] != null)
             {
                 var service = getServiceClassList();
@@ -257,7 +258,7 @@ namespace LKWebTemplate
             return;
             */
             #endregion
-            var ret = rpc.ExecuteRPCJObject(context.Request, bodyContent,context);
+            var ret = rpc.ExecuteRPCJObject(context.Request, bodyContent, context);
             if (ret["MUTIL_ACTION"] != null)
             {
                 context.Response.Write(ret["MUTIL_ACTION"].ToString());
@@ -285,5 +286,5 @@ namespace LKWebTemplate
         }
     }
 
-    
+
 }

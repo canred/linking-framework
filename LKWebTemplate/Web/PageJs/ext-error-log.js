@@ -1,4 +1,5 @@
-﻿var panel = undefined;
+﻿/*columns 使用default*/
+var panel = undefined;
 var panel_w = 1000;
 var panel_h = 390;
 Ext.onReady(function() {

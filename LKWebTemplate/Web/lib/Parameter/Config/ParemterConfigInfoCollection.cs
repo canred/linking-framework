@@ -39,7 +39,7 @@ namespace LKWebTemplate.Parameter.Config
         /// </summary>
         public ParemterConfigInfo this[int index]
         {
-            get { return ((ParemterConfigInfo) (List[index])); }
+            get { return ((ParemterConfigInfo)(List[index])); }
         }
 
         public int Add(ParemterConfigInfo value)
@@ -67,7 +67,7 @@ namespace LKWebTemplate.Parameter.Config
         {
             for (int i = 0; (i < value.Count); i = (i + 1))
             {
-                Add((ParemterConfigInfo) value.List[i]);
+                Add((ParemterConfigInfo)value.List[i]);
             }
         }
 
@@ -145,7 +145,7 @@ namespace LKWebTemplate.Parameter.Config
             /// </summary>
             public ParemterConfigInfo Current
             {
-                get { return ((ParemterConfigInfo) (_enumerator.Current)); }
+                get { return ((ParemterConfigInfo)(_enumerator.Current)); }
             }
 
             #region IEnumerator Members

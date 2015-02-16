@@ -22,15 +22,15 @@ namespace LKWebTemplate.Parameter.Config
         static ParemterConfigFileManager()
         {
             m_fileoldchange = File.GetLastWriteTime(ConfigFilePath);
-            m_configinfo = (ParemterConfigInfo) DeserializeInfo(ConfigFilePath, typeof (ParemterConfigInfo));
+            m_configinfo = (ParemterConfigInfo)DeserializeInfo(ConfigFilePath, typeof(ParemterConfigInfo));
         }
-        
+
         public new static IConfigInfo ConfigInfo
         {
             get { return m_configinfo; }
-            set { m_configinfo = (ParemterConfigInfo) value; }
+            set { m_configinfo = (ParemterConfigInfo)value; }
         }
-        
+
         public new static string ConfigFilePath
         {
             get
@@ -40,7 +40,7 @@ namespace LKWebTemplate.Parameter.Config
 
                 if (filename == null)
                 {
-                    nv = (NameValueCollection) ConfigurationManager.GetSection(DefaultSectionTag);
+                    nv = (NameValueCollection)ConfigurationManager.GetSection(DefaultSectionTag);
                     for (int i = 0; i < nv.AllKeys.Length; i++)
                     {
                         if (nv.AllKeys[i].ToUpper() == focusTag.ToUpper())

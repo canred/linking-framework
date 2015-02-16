@@ -10268,10 +10268,6 @@
     <Content Include="js\ux\Explorer.js" />
     <Content Include="js\ux\google\Api.js" />
     <Content Include="js\ux\google\Feeds.js" />
-    <Content Include="PageJs\Ext.Logon.js" />
-    <Content Include="PageJs\Ext.NoPermission.js" />
-    <Content Include="PageJs\Ext.ScheduleForm.js" />
-    <Content Include="PageJs\Ext.SystemInfo.js" />
     <Content Include="refDll\log4net.xml" />
     <Content Include="Warming\NoPermission.aspx" />
     <Content Include="Web.config" />
@@ -14077,16 +14073,6 @@
     <Content Include="js\ux\TabScrollerMenu.js" />
     <Content Include="js\ux\ToolbarDroppable.js" />
     <Content Include="js\ux\TreePicker.js" />
-    <Content Include="PageJs\Ext.ApplicationHeadForm.js" />
-    <Content Include="PageJs\Ext.AppMenuForm.js" />
-    <Content Include="PageJs\Ext.AppPageForm.js" />
-    <Content Include="PageJs\Ext.AppPagePicker.js" />
-    <Content Include="PageJs\Ext.AttendantForm.js" />
-    <Content Include="PageJs\Ext.AttendantPicker.js" />
-    <Content Include="PageJs\Ext.CompanyForm.js" />
-    <Content Include="PageJs\Ext.DepartmentForm.js" />
-    <Content Include="PageJs\Ext.GroupHeadForm.js" />
-    <Content Include="PageJs\keeySession.js" />
     <Content Include="refDll\log4net.dll" />
     <Content Include="refDll\MySql.Data.dll" />
     <Content Include="refDll\Newtonsoft.Json.Net35.dll" />
@@ -14972,9 +14958,6 @@
     <Content Include="initDataBase\SQL\MSSQL\DATA\key.txt" />
     <Content Include="initDataBase\SQL\MYSQL\DATA\key.txt" />
     <Content Include="initDataBase\SQL\ORACLE\DATA\key.txt" />
-    <Content Include="PageJs\ext-error-log.js" />
-    <Content Include="PageJs\Ext.ProxyForm.js" />
-    <Content Include="PageJs\Ext.ProxyPicker.js" />
     <Content Include="js\System-Config.ashx" />
     <Content Include="js\shared\states_remote\states.php" />
     <Content Include="js\resources\sencha-amf\build\resources\Readme.md" />
@@ -15010,6 +14993,7 @@
     <Folder Include="initDataBase\SQL\MSSQL\VIEW-Action\" />
     <Folder Include="initDataBase\SQL\MYSQL\VIEW-Action\" />
     <Folder Include="initDataBase\SQL\ORACLE\VIEW-Action\" />
+    <Folder Include="PageJs\" />
     <Folder Include="Upload\" />
   </ItemGroup>
   <PropertyGroup>

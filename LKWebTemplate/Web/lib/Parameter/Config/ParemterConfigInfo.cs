@@ -6,7 +6,7 @@ namespace LKWebTemplate.Parameter.Config
     [Serializable]
     public class ParemterConfigInfo : IConfigInfo
     {
-       
+
         private string _appName = "";
         public string AppName
         {
@@ -28,14 +28,21 @@ namespace LKWebTemplate.Parameter.Config
             set { _authenticationType = value; }
         }
 
-        private bool _enableGuestLogin=false;
+        private bool _enableGuestLogin = false;
         public bool EnableGuestLogin
         {
             get { return _enableGuestLogin; }
             set { _enableGuestLogin = value; }
         }
 
-        private string _guestAccount= "";
+        private bool _WhereAnyChangeAccount = false;
+        public bool WhereAnyChangeAccount
+        {
+            get { return _WhereAnyChangeAccount; }
+            set { _WhereAnyChangeAccount = value; }
+        }
+
+        private string _guestAccount = "";
         public string GuestAccount
         {
             get { return _guestAccount; }
@@ -226,7 +233,7 @@ namespace LKWebTemplate.Parameter.Config
             set { _GraphicsCertification = value; }
         }
 
-        
+
 
 
     }

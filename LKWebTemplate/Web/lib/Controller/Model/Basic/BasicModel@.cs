@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using LK.Attribute;
-using LK.DB;  
-using LK.DB.SQLCreater;  
+using LK.DB;
+using LK.DB.SQLCreater;
 using LKWebTemplate.Model.Basic.Table;
 using LKWebTemplate.Model.Basic.Table.Record;
 using System.Security;
@@ -19,7 +19,7 @@ namespace LKWebTemplate.Model.Basic
             {
                 dbc = LK.Config.DataBase.Factory.getInfo();
                 Department department = new Department(dbc);
-                var ret = department.Where(new SQLCondition(department).Equal(department.COMPANY_UUID,pCompanyUuid))
+                var ret = department.Where(new SQLCondition(department).Equal(department.COMPANY_UUID, pCompanyUuid))
                     .FetchAll<Department_Record>();
                 return ret;
             }
@@ -79,10 +79,10 @@ namespace LKWebTemplate.Model.Basic
                 throw ex;
             }
         }
-       
+
 
         #region Attendant
-        public IList<Attendant_Record> getAttendant_By_IsActive(string pIsActive,OrderLimit orderLimit)
+        public IList<Attendant_Record> getAttendant_By_IsActive(string pIsActive, OrderLimit orderLimit)
         {
             try
             {
@@ -90,13 +90,13 @@ namespace LKWebTemplate.Model.Basic
                 LKWebTemplate.Model.Basic.Table.Attendant attendant = new LKWebTemplate.Model.Basic.Table.Attendant(dbc);
                 var ret = attendant.Where(new SQLCondition(attendant).Equal(attendant.IS_ACTIVE, pIsActive))
                     .Limit(orderLimit)
-                    .FetchAll<Attendant_Record>();                
+                    .FetchAll<Attendant_Record>();
                 return ret;
             }
             catch (Exception ex)
             {
                 log.Error(ex);
-                LK.MyException.MyException.Error(this,ex);
+                LK.MyException.MyException.Error(this, ex);
                 throw ex;
             }
         }
@@ -116,7 +116,8 @@ namespace LKWebTemplate.Model.Basic
                 {
                     return result.First();
                 }
-                else {
+                else
+                {
                     return null;
                 }
             }
@@ -147,16 +148,16 @@ namespace LKWebTemplate.Model.Basic
         }
 
 
-        public IList<LKWebTemplate.Model.Basic.Table.Record.AttendantV_Record> getAttendantV_By_Company_Account_Password(string pCompanyName, string pAccount, string pPassword)
+        public IList<AttendantV_Record> getAttendantV_By_Company_Account_Password(string pCompanyName, string pAccount, string pPassword)
         {
             try
             {
                 dbc = LK.Config.DataBase.Factory.getInfo();
-                LKWebTemplate.Model.Basic.Table.AttendantV attendantv = new LKWebTemplate.Model.Basic.Table.AttendantV(dbc);
+                AttendantV attendantv = new AttendantV(dbc);
                 var result = attendantv.Where(new SQLCondition(attendantv)
-                                                .Equal(attendantv.COMPANY_ID, pCompanyName,false)
+                                                .Equal(attendantv.COMPANY_ID, pCompanyName, false)
                                                 .And()
-                                                .Equal(attendantv.ACCOUNT, pAccount,false)
+                                                .Equal(attendantv.ACCOUNT, pAccount, false)
                                                 .And()
                                                 .Equal(attendantv.PASSWORD, pPassword)
                                                 ).FetchAll<AttendantV_Record>();
@@ -170,12 +171,12 @@ namespace LKWebTemplate.Model.Basic
             }
         }
 
-        public IList<LKWebTemplate.Model.Basic.Table.Record.AttendantV_Record> getAttendantV_By_Company_Account_Password(string pCompanyName, string pAccount)
+        public IList<AttendantV_Record> getAttendantV_By_Company_Account_Password(string pCompanyName, string pAccount)
         {
             try
             {
                 dbc = LK.Config.DataBase.Factory.getInfo();
-                LKWebTemplate.Model.Basic.Table.AttendantV attendantv = new LKWebTemplate.Model.Basic.Table.AttendantV(dbc);
+                var attendantv = new AttendantV(dbc);
                 var result = attendantv.Where(new SQLCondition(attendantv)
                                                 .Equal(attendantv.COMPANY_ID, pCompanyName)
                                                 .And()
@@ -199,7 +200,8 @@ namespace LKWebTemplate.Model.Basic
                 LKWebTemplate.Model.Basic.Table.AttendantV attendantv = new LKWebTemplate.Model.Basic.Table.AttendantV(dbc);
                 var condition = new SQLCondition(attendantv);
                 condition.Equal(attendantv.COMPANY_UUID, pCompanyUuid);
-                if (pKeyword.Trim().Length > 0) {
+                if (pKeyword.Trim().Length > 0)
+                {
                     condition.And().L()
                        .iBLike(attendantv.ACCOUNT, pKeyword)
                        .Or()
@@ -379,7 +381,7 @@ namespace LKWebTemplate.Model.Basic
                     .iBLike(company.ID, pKeyword)
                     .Or()
                     .iBLike(company.NAME_ZH_CN, pKeyword)
-                    
+
                 .R()
                 .And()
                 .Equal(company.IS_ACTIVE, pIsActive))
@@ -394,7 +396,7 @@ namespace LKWebTemplate.Model.Basic
                 throw ex;
             }
         }
-       
+
         public IList<Company_Record> getCompany_By_KeyWord_IsActive(string pKeyword, string pIsActive, OrderLimit orderlimit)
         {
             try
@@ -410,7 +412,7 @@ namespace LKWebTemplate.Model.Basic
                     .iBLike(company.ID, pKeyword)
                     .Or()
                     .iBLike(company.NAME_ZH_CN, pKeyword)
-                    
+
                 .R()
                 .And()
                 .Equal(company.IS_ACTIVE, pIsActive))
@@ -440,8 +442,8 @@ namespace LKWebTemplate.Model.Basic
                     .Equal(department.PARENT_DEPARTMENT_UUID, pParentUuid))
                     .Order(new OrderLimit(department.C_NAME, OrderLimit.OrderMethod.ASC))
                     .FetchAll();
-                    //.FetchAll<LKWebTemplate.Model.Basic.Table.Record.Department_Record>();
-                return result;                
+                //.FetchAll<LKWebTemplate.Model.Basic.Table.Record.Department_Record>();
+                return result;
             }
             catch (Exception ex)
             {
@@ -450,20 +452,20 @@ namespace LKWebTemplate.Model.Basic
                 throw ex;
             }
         }
-       
+
         public IList<Department_Record> getDepartment_Root_By_CompanyUuid(string pComapnyUuid)
         {
             try
             {
                 dbc = LK.Config.DataBase.Factory.getInfo();
                 Department department = new Department(dbc);
-                
+
                 var result = department.Where(new SQLCondition(department)
                 .IsNull(department.PARENT_DEPARTMENT_UUID)
                 .And()
                 .Equal(department.COMPANY_UUID, pComapnyUuid)
                 ).FetchAll<Department_Record>();
-                
+
                 return result;
             }
             catch (Exception ex)
@@ -500,7 +502,7 @@ namespace LKWebTemplate.Model.Basic
             }
         }
 
-        public IList<ApplicationHead_Record> getApplicationHead_By_KeyWord(string pKeyWord,OrderLimit orderlimit)
+        public IList<ApplicationHead_Record> getApplicationHead_By_KeyWord(string pKeyWord, OrderLimit orderlimit)
         {
             try
             {
@@ -549,14 +551,14 @@ namespace LKWebTemplate.Model.Basic
         #endregion
 
         #region AppPage
-        public int getAppPage_By_KeyWord_Count(string pApplicationHeadUuid,string pKeyWord)
+        public int getAppPage_By_KeyWord_Count(string pApplicationHeadUuid, string pKeyWord)
         {
             try
             {
                 dbc = LK.Config.DataBase.Factory.getInfo();
                 LKWebTemplate.Model.Basic.Table.Apppage apppage = new LKWebTemplate.Model.Basic.Table.Apppage(dbc);
                 var result = apppage.Where(new SQLCondition(apppage)
-                .Equal(apppage.APPLICATION_HEAD_UUID,pApplicationHeadUuid)
+                .Equal(apppage.APPLICATION_HEAD_UUID, pApplicationHeadUuid)
                 .And()
                 .L()
                     .iBLike(apppage.DESCRIPTION, pKeyWord)
@@ -578,7 +580,7 @@ namespace LKWebTemplate.Model.Basic
             }
         }
 
-        public IList<Apppage_Record> getAppPage_By_KeyWord(string pApplicationHeadUuid, string pKeyWord,OrderLimit orderlimit)
+        public IList<Apppage_Record> getAppPage_By_KeyWord(string pApplicationHeadUuid, string pKeyWord, OrderLimit orderlimit)
         {
             try
             {
@@ -608,7 +610,7 @@ namespace LKWebTemplate.Model.Basic
                 throw ex;
             }
         }
-        #endregion 
+        #endregion
 
         #region Sitemap
         public System.Data.DataTable getSitemapV_By_RootUuid_DataTable(string pRootUuid)
@@ -639,7 +641,7 @@ namespace LKWebTemplate.Model.Basic
                 LKWebTemplate.Model.Basic.Table.SitemapV sitemapv = new LKWebTemplate.Model.Basic.Table.SitemapV(dbc);
                 var result = sitemapv.Where(new SQLCondition(sitemapv)
                 .Equal(sitemapv.APPLICATION_HEAD_UUID, pApplicationHeadUuid)
-        
+
                 ).FetchAll<SitemapV_Record>();
 
                 return result;
@@ -685,7 +687,7 @@ namespace LKWebTemplate.Model.Basic
                 List<string> gh_lst = new List<string>();
                 if (!string.IsNullOrEmpty(attendant_uuid))
                 {
-                   IList<GroupAttendantV_Record> gaV = this.getGroupAttendantBy(application_head_uuid, company_uuid, attendant_uuid);
+                    IList<GroupAttendantV_Record> gaV = this.getGroupAttendantBy(application_head_uuid, company_uuid, attendant_uuid);
                     foreach (GroupAttendantV_Record vr in gaV)
                         gh_lst.Add(vr.GROUP_HEAD_UUID);
                 }
@@ -755,7 +757,8 @@ namespace LKWebTemplate.Model.Basic
 
                 return result;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.Error(ex);
                 LK.MyException.MyException.Error(this, ex);
                 throw ex;
@@ -763,7 +766,7 @@ namespace LKWebTemplate.Model.Basic
         }
 
         public IList<GroupHeadV_Record> getGroupHead_By(string company_uuid, string application_head_uuid,
-            string attendant_uuid, string searchkey,OrderLimit orderlimit)
+            string attendant_uuid, string searchkey, OrderLimit orderlimit)
         {
             try
             {
@@ -782,7 +785,7 @@ namespace LKWebTemplate.Model.Basic
                 else
                 {
                     return this.getGroupHead_ByParam
-                        (company_uuid, application_head_uuid, gh_lst, searchkey,orderlimit);
+                        (company_uuid, application_head_uuid, gh_lst, searchkey, orderlimit);
                 }
             }
             catch (Exception ex)
@@ -844,14 +847,15 @@ namespace LKWebTemplate.Model.Basic
 
                 return result;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.Error(ex);
                 LK.MyException.MyException.Error(this, ex);
                 throw ex;
             }
         }
 
-        public  IList<GroupAttendantV_Record> getGroupAttendantBy(string application_head_uuid, string company_uuid, string attendant_uuid)
+        public IList<GroupAttendantV_Record> getGroupAttendantBy(string application_head_uuid, string company_uuid, string attendant_uuid)
         {
             try
             {
@@ -859,24 +863,28 @@ namespace LKWebTemplate.Model.Basic
                 LKWebTemplate.Model.Basic.Table.GroupAttendantV table = new LKWebTemplate.Model.Basic.Table.GroupAttendantV(dbc);
 
                 SQLCondition con = new SQLCondition(table);
-                if(application_head_uuid.Trim().Length>0){
-                    con.Equal(table.APPLICATION_HEAD_UUID, application_head_uuid).And();                
+                if (application_head_uuid.Trim().Length > 0)
+                {
+                    con.Equal(table.APPLICATION_HEAD_UUID, application_head_uuid).And();
                 }
 
-                if(company_uuid.Trim().Length>0){
-                    con.Equal(table.COMPANY_UUID, company_uuid).And();                
+                if (company_uuid.Trim().Length > 0)
+                {
+                    con.Equal(table.COMPANY_UUID, company_uuid).And();
                 }
 
-                 if(attendant_uuid.Trim().Length>0){
-                    con.Equal(table.ATTENDANT_UUID, attendant_uuid).And();                
+                if (attendant_uuid.Trim().Length > 0)
+                {
+                    con.Equal(table.ATTENDANT_UUID, attendant_uuid).And();
                 }
 
-               con.CheckSQL();
+                con.CheckSQL();
 
                 var result = table.Where(con).FetchAll<GroupAttendantV_Record>();
                 return result;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.Error(ex);
                 LK.MyException.MyException.Error(this, ex);
                 throw ex;
@@ -896,7 +904,8 @@ namespace LKWebTemplate.Model.Basic
                 var result = table.Where(con).FetchAll<GroupAttendantV_Record>();
                 return result;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.Error(ex);
                 LK.MyException.MyException.Error(this, ex);
                 throw ex;
@@ -916,7 +925,8 @@ namespace LKWebTemplate.Model.Basic
                 var result = table.Where(con).FetchAll<GroupAttendant_Record>();
                 return result;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.Error(ex);
                 LK.MyException.MyException.Error(this, ex);
                 throw ex;
@@ -924,19 +934,20 @@ namespace LKWebTemplate.Model.Basic
         }
 
         public IList<GroupAttendantV_Record> getGroupAttendantVByGroupHeadUuidxAttendantUuid
-            (string group_head_uuid,string attendant_uuid)
+            (string group_head_uuid, string attendant_uuid)
         {
-            try{
-            dbc = LK.Config.DataBase.Factory.getInfo();
-            LKWebTemplate.Model.Basic.Table.GroupAttendantV table = new LKWebTemplate.Model.Basic.Table.GroupAttendantV(dbc);
+            try
+            {
+                dbc = LK.Config.DataBase.Factory.getInfo();
+                LKWebTemplate.Model.Basic.Table.GroupAttendantV table = new LKWebTemplate.Model.Basic.Table.GroupAttendantV(dbc);
 
-            SQLCondition con = new SQLCondition(table)
-                .Equal(table.GROUP_HEAD_UUID, group_head_uuid)
-                .And()
-                .Equal(table.ATTENDANT_UUID,attendant_uuid);
+                SQLCondition con = new SQLCondition(table)
+                    .Equal(table.GROUP_HEAD_UUID, group_head_uuid)
+                    .And()
+                    .Equal(table.ATTENDANT_UUID, attendant_uuid);
 
-            var result = table.Where(con).FetchAll<GroupAttendantV_Record>();
-            return result;
+                var result = table.Where(con).FetchAll<GroupAttendantV_Record>();
+                return result;
             }
             catch (Exception ex)
             {
@@ -963,30 +974,31 @@ namespace LKWebTemplate.Model.Basic
 
         public void deleteGroupHeadAll(string group_head_uuid)
         {
-            try{
-            var drGroupAppmenu = getGroupAppmenuV_By_GroupHeadUuid(group_head_uuid);
-            if (drGroupAppmenu.Count > 0)
+            try
             {
-                foreach (GroupAppmenu_Record r in drGroupAppmenu)
+                var drGroupAppmenu = getGroupAppmenuV_By_GroupHeadUuid(group_head_uuid);
+                if (drGroupAppmenu.Count > 0)
                 {
-                    r.gotoTable().Delete(r);
+                    foreach (GroupAppmenu_Record r in drGroupAppmenu)
+                    {
+                        r.gotoTable().Delete(r);
+                    }
+
                 }
-                
-            }
-            var drGroupAttendant =  getGroupAttendantByGroupHeadUuid(group_head_uuid);
-            if (drGroupAttendant.Count > 0)
-            {
-                foreach (GroupAttendant_Record r in drGroupAttendant)
+                var drGroupAttendant = getGroupAttendantByGroupHeadUuid(group_head_uuid);
+                if (drGroupAttendant.Count > 0)
                 {
-                    r.gotoTable().Delete(r);
+                    foreach (GroupAttendant_Record r in drGroupAttendant)
+                    {
+                        r.gotoTable().Delete(r);
+                    }
                 }
-            }
-            var drGroupHead = getGroupHead_By_Uuid(group_head_uuid);
-            if (drGroupHead.AllRecord().Count == 1)
-            {
-                var data = drGroupHead.AllRecord().First();
-                data.gotoTable().Delete(data);
-            }
+                var drGroupHead = getGroupHead_By_Uuid(group_head_uuid);
+                if (drGroupHead.AllRecord().Count == 1)
+                {
+                    var data = drGroupHead.AllRecord().First();
+                    data.gotoTable().Delete(data);
+                }
             }
             catch (Exception ex)
             {
@@ -1002,13 +1014,151 @@ namespace LKWebTemplate.Model.Basic
         #region Appmenu
 
         #region getAppmenuV_By_ParentUuid_DataTable
-        public System.Data.DataTable getAppmenuV_By_ParentUuid_DataTable(string pParentUuid)
+        public System.Data.DataTable getAppmenuApppageV_By_ParentUuid_DataTable(string pParentUuid)
         {
             try
             {
                 dbc = LK.Config.DataBase.Factory.getInfo();
-                LKWebTemplate.Model.Basic.Table.AppmenuApppageV appmenuv = 
-                    new LKWebTemplate.Model.Basic.Table.AppmenuApppageV(dbc);
+                AppmenuApppageV appmenuv =
+                    new AppmenuApppageV(dbc);
+                SQLCondition con = new SQLCondition(appmenuv)
+                    .Equal(appmenuv.APPMENU_UUID, pParentUuid);
+                OrderLimit order = new OrderLimit(appmenuv.NAME_ZH_TW, OrderLimit.OrderMethod.ASC);
+                var result = appmenuv.Where(con)
+                     .Limit(order)
+                     .FetchAll();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                LK.MyException.MyException.Error(this, ex);
+                throw ex;
+            }
+        }
+        public IList<AppmenuApppageV_Record> getAppmenuApppageV_By_ParentUuid(string pParentUuid)
+        {
+            try
+            {
+                dbc = LK.Config.DataBase.Factory.getInfo();
+                AppmenuApppageV appmenuv =
+                    new AppmenuApppageV(dbc);
+                SQLCondition con = new SQLCondition(appmenuv)
+                    .Equal(appmenuv.APPMENU_UUID, pParentUuid);
+                OrderLimit order = new OrderLimit(appmenuv.NAME_ZH_TW, OrderLimit.OrderMethod.ASC);
+                var result = appmenuv.Where(con)
+                     .Limit(order)
+                     .FetchAll<AppmenuApppageV_Record>();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                LK.MyException.MyException.Error(this, ex);
+                throw ex;
+            }
+        }
+
+        public IList<AppmenuApppageV_Record> getAppmenuApppageV_By_ApplicationHeadUuid(string pApplicationHeadUuid)
+        {
+            try
+            {
+                dbc = LK.Config.DataBase.Factory.getInfo();
+                AppmenuApppageV appmenuv =
+                    new AppmenuApppageV(dbc);
+                SQLCondition con = new SQLCondition(appmenuv)
+                    .Equal(appmenuv.APPLICATION_HEAD_UUID, pApplicationHeadUuid);
+                OrderLimit order = new OrderLimit(appmenuv.NAME_ZH_TW, OrderLimit.OrderMethod.ASC);
+                var result = appmenuv.Where(con)
+                     .Limit(order)
+                     .FetchAll<AppmenuApppageV_Record>();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                LK.MyException.MyException.Error(this, ex);
+                throw ex;
+            }
+        }
+        
+        public IList<Appmenu_Record> getAppmenu_By_ParentUuid(string pParentUuid)
+        {
+            try
+            {
+                dbc = LK.Config.DataBase.Factory.getInfo();
+                Appmenu appmenuv =
+                    new Appmenu(dbc);
+                SQLCondition con = new SQLCondition(appmenuv)
+                    .Equal(appmenuv.APPMENU_UUID, pParentUuid);
+                OrderLimit order = new OrderLimit(appmenuv.NAME_ZH_TW, OrderLimit.OrderMethod.ASC);
+                var result = appmenuv.Where(con)
+                     .Limit(order)
+                     .FetchAll<Appmenu_Record>();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                LK.MyException.MyException.Error(this, ex);
+                throw ex;
+            }
+        }
+
+        public IList<AppmenuApppageV_Record> getAppmenuV_Root_By_ApplicationHead(string pApplicationHeadUuid)
+        {
+            try
+            {
+                dbc = LK.Config.DataBase.Factory.getInfo();
+                AppmenuApppageV appmenuv = new AppmenuApppageV(dbc);
+                var result = appmenuv.Where(new SQLCondition(appmenuv)
+                    .Equal(appmenuv.APPLICATION_HEAD_UUID, pApplicationHeadUuid)
+                    .And()
+                    .IsNull(appmenuv.APPMENU_UUID)
+                ).FetchAll<AppmenuApppageV_Record>();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                LK.MyException.MyException.Error(this, ex);
+                throw ex;
+            }
+        }
+
+        //public System.Data.DataTable getAppmenuV_By_ParentUuid_DataTable(string pApplicationHeadUuid)
+        //{
+        //    try
+        //    {
+        //        dbc = LK.Config.DataBase.Factory.getInfo();
+        //        AppmenuApppageV appmenuv =
+        //            new AppmenuApppageV(dbc);
+        //        SQLCondition con = new SQLCondition(appmenuv)
+        //            .Equal(appmenuv.APPLICATION_HEAD_UUID, pApplicationHeadUuid);
+        //        OrderLimit order = new OrderLimit(appmenuv.NAME_ZH_TW, OrderLimit.OrderMethod.ASC);
+        //        var result = appmenuv.Where(con)
+        //             .Limit(order)
+        //             .FetchAll();
+        //        return result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        log.Error(ex);
+        //        LK.MyException.MyException.Error(this, ex);
+        //        throw ex;
+        //    }
+        //}
+        #endregion
+
+        #region getAppmenu_By_ParentUuid_DataTable
+        public System.Data.DataTable getAppmenu_By_ParentUuid_DataTable(string pParentUuid)
+        {
+            try
+            {
+                dbc = LK.Config.DataBase.Factory.getInfo();
+                LKWebTemplate.Model.Basic.Table.Appmenu appmenuv =
+                    new LKWebTemplate.Model.Basic.Table.Appmenu(dbc);
                 SQLCondition con = new SQLCondition(appmenuv)
                     .Equal(appmenuv.APPMENU_UUID, pParentUuid);
                 OrderLimit order = new OrderLimit(appmenuv.NAME_ZH_TW, OrderLimit.OrderMethod.ASC);
@@ -1026,33 +1176,8 @@ namespace LKWebTemplate.Model.Basic
         }
         #endregion
 
-        #region getAppmenu_By_ParentUuid_DataTable
-        public IList<Appmenu_Record> getAppmenu_By_ParentUuid_DataTable(string pParentUuid)
-        {
-            try
-            {
-                dbc = LK.Config.DataBase.Factory.getInfo();
-                LKWebTemplate.Model.Basic.Table.Appmenu appmenuv =
-                    new LKWebTemplate.Model.Basic.Table.Appmenu(dbc);
-                SQLCondition con = new SQLCondition(appmenuv)
-                    .Equal(appmenuv.APPMENU_UUID, pParentUuid);
-                OrderLimit order = new OrderLimit(appmenuv.NAME_ZH_TW, OrderLimit.OrderMethod.ASC);
-                var result = appmenuv.Where(con)
-                     .Limit(order)
-                     .FetchAll<Appmenu_Record>();
-                return result;
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-                LK.MyException.MyException.Error(this, ex);
-                throw ex;
-            }
-        }
-        #endregion
-
         #region getAppmenuV_Root_By_ApplicationHead
-        public IList<AppmenuApppageV_Record> getAppmenuV_Root_By_ApplicationHead(string pApplicationHeadUuid)
+        public IList<Appmenu_Record> getAppmenu_Root_By_ApplicationHead(string pApplicationHeadUuid)
         {
             try
             {
@@ -1062,7 +1187,27 @@ namespace LKWebTemplate.Model.Basic
                     .Equal(appmenuv.APPLICATION_HEAD_UUID, pApplicationHeadUuid)
                     .And()
                     .IsNull(appmenuv.APPMENU_UUID)
-                ).FetchAll<AppmenuApppageV_Record>();
+                ).FetchAll<Appmenu_Record>();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                LK.MyException.MyException.Error(this, ex);
+                throw ex;
+            }
+        }
+
+        public IList<Appmenu_Record> getAppmenu_By_ApplicationHead(string pApplicationHeadUuid)
+        {
+            try
+            {
+                dbc = LK.Config.DataBase.Factory.getInfo();
+                LKWebTemplate.Model.Basic.Table.AppmenuApppageV appmenuv = new LKWebTemplate.Model.Basic.Table.AppmenuApppageV(dbc);
+                var result = appmenuv.Where(new SQLCondition(appmenuv)
+                    .Equal(appmenuv.APPLICATION_HEAD_UUID, pApplicationHeadUuid)                    
+                ).FetchAll<Appmenu_Record>();
 
                 return result;
             }
@@ -1207,7 +1352,7 @@ namespace LKWebTemplate.Model.Basic
                 LKWebTemplate.Model.Basic.Table.GroupAppmenuV groupAppMenuv = new LKWebTemplate.Model.Basic.Table.GroupAppmenuV(dbc);
                 var result = groupAppMenuv.Where(new SQLCondition(groupAppMenuv)
                     .Equal(groupAppMenuv.GROUP_HEAD_UUID, pGroupHeadUuid)
-                ).FetchAll <GroupAppmenu_Record>();
+                ).FetchAll<GroupAppmenu_Record>();
 
                 return result;
             }
@@ -1244,7 +1389,7 @@ namespace LKWebTemplate.Model.Basic
         }
         #endregion getGroupAppmenuV_By_Param
 
-        #region getGroupAppmenuV_By_AppMenuUuid 
+        #region getGroupAppmenuV_By_AppMenuUuid
         public IList<GroupAppmenu_Record> getGroupAppmenuV_By_AppMenuUuid
             (string pGroupHeadUuid, IList<string> AppMenuUuid)
         {
@@ -1259,17 +1404,17 @@ namespace LKWebTemplate.Model.Basic
                 {
                     sc.And()
                         .L();
-                   foreach(string s in AppMenuUuid)
-                   {
-                       if (count < AppMenuUuid.Count - 1)
-                           sc.Equal(groupAppMenuv.APPMENU_UUID, s)
-                               .Or();
-                       else
-                           sc.Equal(groupAppMenuv.APPMENU_UUID, s);
+                    foreach (string s in AppMenuUuid)
+                    {
+                        if (count < AppMenuUuid.Count - 1)
+                            sc.Equal(groupAppMenuv.APPMENU_UUID, s)
+                                .Or();
+                        else
+                            sc.Equal(groupAppMenuv.APPMENU_UUID, s);
 
-                       count++;
-                   }
-                   sc.R();
+                        count++;
+                    }
+                    sc.R();
                 }
 
                 var result = groupAppMenuv.Where(sc).FetchAll<GroupAppmenu_Record>();
@@ -1293,14 +1438,14 @@ namespace LKWebTemplate.Model.Basic
         /// <param name="search_text"></param>
         /// <param name="orderLimit"></param>
         /// <returns></returns>
-        public IList<AttendantV_Record> getAttendantNotInGroupAttendant(string company_uuid, 
-            string group_head_uuid, string search_text,string pIsActive,OrderLimit orderLimit)
+        public IList<AttendantV_Record> getAttendantNotInGroupAttendant(string company_uuid,
+            string group_head_uuid, string search_text, string pIsActive, OrderLimit orderLimit)
         {
             try
             {
                 IList<AttendantV_Record> attLst = getAttendantV_By_CompanyUuid_KeyWord(company_uuid, search_text, pIsActive, orderLimit);
                 IList<GroupAttendantV_Record> groupLst = getGroupAttendantVByGroupHeadUuid(group_head_uuid);
-                
+
                 return (from c in attLst where !(from s in groupLst select s.ATTENDANT_UUID).Contains(c.UUID) select c).ToList();
             }
             catch (Exception ex)
@@ -1392,17 +1537,17 @@ namespace LKWebTemplate.Model.Basic
         #endregion
 
         #region authority_menu_v
-        public IList<AuthorityMenuV_Record> getAuthorityMenuVByAttendantUuid(string attendant_uuid,string application_head_uuid)
+        public IList<AuthorityMenuV_Record> getAuthorityMenuVByAttendantUuid(string attendant_uuid, string application_head_uuid)
         {
             dbc = LK.Config.DataBase.Factory.getInfo();
             LKWebTemplate.Model.Basic.Table.AuthorityMenuV table = new LKWebTemplate.Model.Basic.Table.AuthorityMenuV(dbc);
-            
+
 
             SQLCondition con = new SQLCondition(table)
-               
+
                 .Equal(table.ATTENDANT_UUID, attendant_uuid)
-                .And()                
-                .Equal(table.APPLICATION_HEAD_UUID,application_head_uuid);
+                .And()
+                .Equal(table.APPLICATION_HEAD_UUID, application_head_uuid);
 
             var result = table.Where(con).FetchAll<AuthorityMenuV_Record>();
             return result;
@@ -1492,7 +1637,7 @@ namespace LKWebTemplate.Model.Basic
             }
         }
 
-        public IList<Proxy_Record> getProxy_By_KeyWord(string pApplicationHeadUuid, string pKeyWord,OrderLimit orderlimit)
+        public IList<Proxy_Record> getProxy_By_KeyWord(string pApplicationHeadUuid, string pKeyWord, OrderLimit orderlimit)
         {
             try
             {
@@ -1527,7 +1672,7 @@ namespace LKWebTemplate.Model.Basic
             }
         }
 
-        public IList<AppmenuProxyMap_Record> getAppmenuProxyMap_By_AppMenuUuid(string pAppMenuUuid,OrderLimit orderlimit)
+        public IList<AppmenuProxyMap_Record> getAppmenuProxyMap_By_AppMenuUuid(string pAppMenuUuid, OrderLimit orderlimit)
         {
             try
             {
@@ -1535,8 +1680,8 @@ namespace LKWebTemplate.Model.Basic
                 LKWebTemplate.Model.Basic.Table.AppmenuProxyMap appmenuproxymap = new LKWebTemplate.Model.Basic.Table.AppmenuProxyMap(dbc);
                 return appmenuproxymap.Where(new SQLCondition(appmenuproxymap)
                 .Equal(appmenuproxymap.APPMENU_UUID, pAppMenuUuid)
-                ).Limit(orderlimit).                
-                FetchAll<AppmenuProxyMap_Record>();                
+                ).Limit(orderlimit).
+                FetchAll<AppmenuProxyMap_Record>();
             }
             catch (Exception ex)
             {
@@ -1547,7 +1692,7 @@ namespace LKWebTemplate.Model.Basic
         #endregion
 
         #region  VAppmenuProxyMap
-        public int getVAppmenuProxyMap_Count(string pApplicationHeadUuid,string pAppmenuUuid, string pKeyWord)
+        public int getVAppmenuProxyMap_Count(string pApplicationHeadUuid, string pAppmenuUuid, string pKeyWord)
         {
             try
             {
@@ -1576,11 +1721,12 @@ namespace LKWebTemplate.Model.Basic
                     .iBLike(table.REDIRECT_SRC, pKeyWord)
                 .R();
 
-                if (pAppmenuUuid.Trim().Length > 0) {
+                if (pAppmenuUuid.Trim().Length > 0)
+                {
                     condition.And()
                         .Equal(table.APPMENU_UUID, pAppmenuUuid);
                 }
-                
+
                 var result = table.Where(condition).FetchCount();
                 return result;
             }
@@ -1592,7 +1738,7 @@ namespace LKWebTemplate.Model.Basic
             }
         }
 
-        public IList<VAppmenuProxyMap_Record> getVAppmenuProxyMap(string pApplicationHeadUuid, string pAppmenuUuid, string pKeyWord,OrderLimit orderlimit)
+        public IList<VAppmenuProxyMap_Record> getVAppmenuProxyMap(string pApplicationHeadUuid, string pAppmenuUuid, string pKeyWord, OrderLimit orderlimit)
         {
             try
             {
@@ -1640,7 +1786,7 @@ namespace LKWebTemplate.Model.Basic
         #endregion
 
 
-        public IList<AppmenuProxyMap_Record> getAppmenuProxyMap_By_AppMenuUuid_ProxyUuid(string pAppMenuUuid,string pProxyUuid)
+        public IList<AppmenuProxyMap_Record> getAppmenuProxyMap_By_AppMenuUuid_ProxyUuid(string pAppMenuUuid, string pProxyUuid)
         {
             try
             {
@@ -1650,7 +1796,7 @@ namespace LKWebTemplate.Model.Basic
                 .Equal(appmenuproxymap.APPMENU_UUID, pAppMenuUuid)
                 .And()
                 .Equal(appmenuproxymap.PROXY_UUID, pProxyUuid)
-                ).FetchAll<AppmenuProxyMap_Record>();                
+                ).FetchAll<AppmenuProxyMap_Record>();
             }
             catch (Exception ex)
             {
@@ -1668,7 +1814,7 @@ namespace LKWebTemplate.Model.Basic
                 return vauthproxy.Where(new SQLCondition(vauthproxy)
                 .Equal(vauthproxy.ATTENDANT_UUID, pAttendantUuid)
                 ).FetchAll<VAuthProxy_Record>();
-                
+
             }
             catch (Exception ex)
             {
@@ -1677,7 +1823,7 @@ namespace LKWebTemplate.Model.Basic
             }
         }
 
-        public int getVAuthProxy_By_AttendantUuid_ProxyAction_ProxyMethod(string pAttendantUuid,string pProxyAction,string pProxyMethod)
+        public int getVAuthProxy_By_AttendantUuid_ProxyAction_ProxyMethod(string pAttendantUuid, string pProxyAction, string pProxyMethod)
         {
             try
             {
@@ -1715,7 +1861,7 @@ namespace LKWebTemplate.Model.Basic
                 .BLike(vscheduletime.RUN_URL_PARAMETER, pKeyWork)
                 ).FetchCount();
 
-                
+
             }
             catch (Exception ex)
             {
@@ -1723,7 +1869,7 @@ namespace LKWebTemplate.Model.Basic
                 throw ex;
             }
         }
-        public IList<VScheduleTime_Record> getVScheduleTime_By_Keyword(string pKeyWork,OrderLimit orderlimit)
+        public IList<VScheduleTime_Record> getVScheduleTime_By_Keyword(string pKeyWork, OrderLimit orderlimit)
         {
             try
             {
@@ -1754,17 +1900,17 @@ namespace LKWebTemplate.Model.Basic
         {
             try
             {
-                DateTime s = new DateTime(startDate.Year, startDate.Month, startDate.Day,startDate.Hour,startDate.Minute,0);
+                DateTime s = new DateTime(startDate.Year, startDate.Month, startDate.Day, startDate.Hour, startDate.Minute, 0);
                 DateTime e = s.AddMinutes(1).AddSeconds(-1);
                 dbc = LK.Config.DataBase.Factory.getInfo();
                 LKWebTemplate.Model.Basic.Table.VScheduleTime vscheduletime = new LKWebTemplate.Model.Basic.Table.VScheduleTime(dbc);
                 return vscheduletime.Where(new SQLCondition(vscheduletime)
-                .OverEqual(vscheduletime.START_TIME,s)
+                .OverEqual(vscheduletime.START_TIME, s)
                 .And()
-                .LessEqual(vscheduletime.START_TIME,e)
+                .LessEqual(vscheduletime.START_TIME, e)
                 .And()
-                .Equal(vscheduletime.STATUS,"READY")
-                )                
+                .Equal(vscheduletime.STATUS, "READY")
+                )
                 .FetchAll<VScheduleTime_Record>();
             }
             catch (Exception ex)
@@ -1800,7 +1946,7 @@ namespace LKWebTemplate.Model.Basic
         }
 
 
-        public IList<Schedule_Record> getSchedule_By_Keyword(string pKeyWork,OrderLimit orderlimit)
+        public IList<Schedule_Record> getSchedule_By_Keyword(string pKeyWork, OrderLimit orderlimit)
         {
             try
             {
@@ -1815,7 +1961,7 @@ namespace LKWebTemplate.Model.Basic
                 .Or()
                 .BLike(schedule.RUN_URL_PARAMETER, pKeyWork)
                 )
-                .Limit(orderlimit)                
+                .Limit(orderlimit)
                 .FetchAll<Schedule_Record>();
 
 
@@ -1834,8 +1980,8 @@ namespace LKWebTemplate.Model.Basic
                 dbc = LK.Config.DataBase.Factory.getInfo();
                 LKWebTemplate.Model.Basic.Table.Schedule schedule = new LKWebTemplate.Model.Basic.Table.Schedule(dbc);
                 return schedule.Where(new SQLCondition(schedule)
-                .BLike(schedule.EXPEND_ALL,"N")                
-                )                
+                .BLike(schedule.EXPEND_ALL, "N")
+                )
                 .FetchAll<Schedule_Record>();
             }
             catch (Exception ex)
@@ -1844,7 +1990,7 @@ namespace LKWebTemplate.Model.Basic
                 throw ex;
             }
         }
-        
+
         public IList<ScheduleTime_Record> getScheduleTime_By_ScheduleUuid(string pScheduleUuid)
         {
             try
@@ -1854,7 +2000,7 @@ namespace LKWebTemplate.Model.Basic
                 return scheduletime.Where(new SQLCondition(scheduletime)
                 .Equal(scheduletime.SCHEDULE_UUID, pScheduleUuid))
                 .FetchAll<ScheduleTime_Record>();
-                
+
             }
             catch (Exception ex)
             {
@@ -1863,12 +2009,12 @@ namespace LKWebTemplate.Model.Basic
             }
         }
 
-        public IList<LKWebTemplate.Model.Basic.Table.Record.AttendantV_Record> getAttendantV_By_Company_Account_Password_FormDomain(string pCompanyName, string pAccount, string pPassword, string pDomain)
+        public IList<AttendantV_Record> getAttendantV_By_Company_Account_Password_FormDomain(string pCompanyName, string pAccount, string pPassword, string pDomain)
         {
             try
             {
                 dbc = LK.Config.DataBase.Factory.getInfo();
-                LKWebTemplate.Model.Basic.Table.AttendantV attendantv = new LKWebTemplate.Model.Basic.Table.AttendantV(dbc);
+                var attendantv = new AttendantV(dbc);
                 var result = attendantv.Where(new SQLCondition(attendantv)
                                                 .Equal(attendantv.COMPANY_ID, pCompanyName, false)
                                                 .And()
@@ -1918,6 +2064,24 @@ namespace LKWebTemplate.Model.Basic
                 throw ex;
             }
         }
+
+        public IList<GroupAppmenu_Record> getGroupAppmenu_By_AppMenuUuid(string pAppMenuUuid)
+        {
+            try
+            {
+                dbc = LK.Config.DataBase.Factory.getInfo();
+                LKWebTemplate.Model.Basic.Table.GroupAppmenu groupappmenu = new LKWebTemplate.Model.Basic.Table.GroupAppmenu(dbc);
+                return groupappmenu.Where(new SQLCondition(groupappmenu)
+                    .Equal(groupappmenu.APPMENU_UUID, pAppMenuUuid)
+                    ).FetchAll<GroupAppmenu_Record>();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex); LK.MyException.MyException.Error(this, ex);
+                throw ex;
+            }
+        }
+
     }
 }
 
