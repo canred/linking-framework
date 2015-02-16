@@ -8,7 +8,7 @@ using ExtDirect.Direct;
 using System.Web.SessionState;
 using System.Text;
 using System.Reflection;
-namespace LKWebTemplate.js
+namespace Limew.js
 {
     /// <summary>
     /// $codebehindclassname$ 的摘要描述
@@ -22,7 +22,7 @@ namespace LKWebTemplate.js
         {
             context.Response.ContentType = "text/JavaScript";
             var systemConfig = HttpContext.Current.Application.Get("system-config");
-            if (systemConfig == null || LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().IsProductionServer==false)
+            if (systemConfig == null || LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().IsProductionServer == false)
             {
                 var srJs = System.IO.File.OpenText(HttpContext.Current.Request.PhysicalApplicationPath.ToString() + "js/system-config.js");
                 var jsContext = srJs.ReadToEnd();
@@ -30,8 +30,8 @@ namespace LKWebTemplate.js
                 jsContext += "SYSTEM_APPLICATION='" + LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().DirectApplicationName + "';";
                 HttpContext.Current.Application.Set("system-config", jsContext);
                 systemConfig = HttpContext.Current.Application.Get("system-config");
-            }            
-            context.Response.Write(systemConfig as string);                            
+            }
+            context.Response.Write(systemConfig as string);
         }
 
         public bool IsReusable
