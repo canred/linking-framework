@@ -1,0 +1,57 @@
+<mxGraphModel>
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+    <mxCell id="2" style="table" parent="1" vertex="1">
+      <Table name="TABLE1" as="value"/>
+      <mxGeometry x="10" y="30" width="200" height="80" as="geometry">
+        <mxRectangle width="200" height="54" as="alternateBounds"/>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="3" parent="2" vertex="1" connectable="0">
+      <Column name="TABLE1_ID" type="INTEGER" primaryKey="1" autoIncrement="1" as="value"/>
+      <mxGeometry y="28" width="200" height="26" as="geometry"/>
+    </mxCell>
+    <mxCell id="6" vertex="1" connectable="0" parent="2">
+      <Column name="TABLE2_ID" type="INTEGER" as="value"/>
+      <mxGeometry y="54" width="200" height="26" as="geometry"/>
+    </mxCell>
+    <mxCell id="4" style="table" vertex="1" parent="1">
+      <Table name="TABLE2" as="value"/>
+      <mxGeometry x="440" y="130" width="200" height="80" as="geometry">
+        <mxRectangle width="200" height="54" as="alternateBounds"/>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="5" vertex="1" connectable="0" parent="4">
+      <Column name="TABLE2_ID" type="INTEGER" primaryKey="1" autoIncrement="1" as="value"/>
+      <mxGeometry y="28" width="200" height="26" as="geometry"/>
+    </mxCell>
+    <mxCell id="10" vertex="1" connectable="0" parent="4">
+      <Column name="TABLE3_ID" type="INTEGER" as="value"/>
+      <mxGeometry y="54" width="200" height="26" as="geometry"/>
+    </mxCell>
+    <mxCell id="7" edge="1" parent="1" source="6" target="5">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="8" style="table" vertex="1" parent="1">
+      <Table name="TABLE3" as="value"/>
+      <mxGeometry x="440" y="30" width="200" height="80" as="geometry">
+        <mxRectangle width="200" height="54" as="alternateBounds"/>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="9" vertex="1" connectable="0" parent="8">
+      <Column name="TABLE3_ID" type="INTEGER" primaryKey="1" autoIncrement="1" as="value"/>
+      <mxGeometry y="28" width="200" height="26" as="geometry"/>
+    </mxCell>
+    <mxCell id="12" vertex="1" connectable="0" parent="8">
+      <Column name="TABLE1_ID" type="INTEGER" as="value"/>
+      <mxGeometry y="54" width="200" height="26" as="geometry"/>
+    </mxCell>
+    <mxCell id="11" edge="1" parent="1" source="10" target="9">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+    <mxCell id="13" edge="1" parent="1" source="12" target="3">
+      <mxGeometry relative="1" as="geometry"/>
+    </mxCell>
+  </root>
+</mxGraphModel>
