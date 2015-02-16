@@ -30,7 +30,7 @@ public class ScheduleAction : BaseAction
     public JObject loadSchedule(string keyword, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
-         List<JObject> jobject = new List<JObject>();
+        List<JObject> jobject = new List<JObject>();
         BasicModel model = new BasicModel();
         AttendantV_Record table = new AttendantV_Record();
         OrderLimit orderLimit = null;
@@ -123,7 +123,8 @@ public class ScheduleAction : BaseAction
             var drSchedule = model.getSchedule_By_Uuid(pUuid);
             var drScheduleTime = drSchedule.Link_ScheduleTime_By_ScheduleUuid();
 
-            foreach (var delItem in drScheduleTime) {
+            foreach (var delItem in drScheduleTime)
+            {
                 delItem.gotoTable().Delete(delItem);
             }
 
@@ -133,7 +134,7 @@ public class ScheduleAction : BaseAction
             }
 
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
-            
+
         }
         catch (Exception ex)
         {
@@ -166,12 +167,12 @@ string c_week_of_year,
 string run_url,
 string run_url_parameter,
 string run_attendant_uuid,
-string is_active, 
+string is_active,
         string run_security,
         string start_date,
         HttpRequest request)
     {
-        
+
 
         #region Declare
         var action = SubmitAction.None;
@@ -202,20 +203,21 @@ string is_active,
             else
             {
                 action = SubmitAction.Create;
-                record.UUID = LK.Util.UID.Instance.GetUniqueID();                
+                record.UUID = LK.Util.UID.Instance.GetUniqueID();
             }
 
-            
+
             record.SCHEDULE_NAME = schedule_name;
-            record.SCHEDULE_END_DATE = Convert.ToDateTime( schedule_end_date );
+            record.SCHEDULE_END_DATE = Convert.ToDateTime(schedule_end_date);
             //record.LAST_RUN_TIME = last_run_time;
             //record.LAST_RUN_STATUS = last_run_status;
             record.IS_CYCLE = is_cycle;
             if (is_cycle == "N")
             {
-                record.SINGLE_DATE = Convert.ToDateTime(single_date+" "+request["cmbSingleHour"].ToString()+":"+request["cmbSingleMinute"].ToString());
+                record.SINGLE_DATE = Convert.ToDateTime(single_date + " " + request["cmbSingleHour"].ToString() + ":" + request["cmbSingleMinute"].ToString());
             }
-            else {
+            else
+            {
                 record.SINGLE_DATE = null;
             }
 
@@ -228,7 +230,8 @@ string is_active,
             {
                 record.C_MINUTE = Convert.ToInt16(c_minute);
             }
-            else {
+            else
+            {
                 record.C_MINUTE = null;
             }
 
@@ -236,35 +239,40 @@ string is_active,
             {
                 record.C_HOUR = Convert.ToInt16(c_hour);
             }
-            else {
+            else
+            {
                 record.C_HOUR = null;
             }
             if (c_day.Length > 0)
             {
                 record.C_DAY = Convert.ToInt16(c_day);
             }
-            else {
+            else
+            {
                 record.C_DAY = null;
             }
             if (c_week.Length > 0)
             {
                 record.C_WEEK = Convert.ToInt16(c_week);
             }
-            else {
+            else
+            {
                 record.C_WEEK = null;
             }
             if (c_day_of_week.Length > 0)
             {
                 record.C_DAY_OF_WEEK = c_day_of_week;
             }
-            else {
+            else
+            {
                 record.C_DAY_OF_WEEK = null;
             }
             if (c_month.Length > 0)
             {
                 record.C_MONTH = Convert.ToInt16(c_month);
             }
-            else {
+            else
+            {
                 record.C_MONTH = null;
             }
 
@@ -272,21 +280,24 @@ string is_active,
             {
                 record.C_DAY_OF_MONTH = c_day_of_month;
             }
-            else {
+            else
+            {
                 record.C_DAY_OF_MONTH = null;
             }
             if (c_week_of_month.Length > 0)
             {
                 record.C_WEEK_OF_MONTH = c_week_of_month;
             }
-            else {
+            else
+            {
                 record.C_WEEK_OF_MONTH = null;
             }
-            if (c_year!=null && c_year.Length > 0)
+            if (c_year != null && c_year.Length > 0)
             {
                 record.C_YEAR = Convert.ToInt16(c_year);
             }
-            else {
+            else
+            {
                 record.C_YEAR = null;
             }
             record.C_WEEK_OF_YEAR = c_week_of_year;
@@ -310,7 +321,7 @@ string is_active,
             System.Collections.Hashtable otherParam = new System.Collections.Hashtable();
             otherParam.Add("UUID", record.UUID);
 
-            expentToScheduleTime(record.UUID,false);
+            expentToScheduleTime(record.UUID, false);
 
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject(otherParam);
         }
@@ -321,10 +332,12 @@ string is_active,
         }
     }
 
-    public void expentToScheduleTime(string scheduleUuid,bool isContinue) {
+    public void expentToScheduleTime(string scheduleUuid, bool isContinue)
+    {
         BasicModel model = new BasicModel();
         Schedule_Record record = new Schedule_Record();
-        try {
+        try
+        {
             var drSchedule = model.getSchedule_By_Uuid(scheduleUuid).AllRecord().First();
             DateTime? startDate = drSchedule.START_DATE;
             DateTime? endDate = drSchedule.SCHEDULE_END_DATE;
@@ -339,9 +352,10 @@ string is_active,
             ScheduleTime_Record st = new ScheduleTime_Record();
             if (drSchedule.IS_CYCLE == "Y")
             {
-                var oldData = model.getScheduleTime_By_ScheduleUuid(drSchedule.UUID);                
+                var oldData = model.getScheduleTime_By_ScheduleUuid(drSchedule.UUID);
                 /*把原來有的排程作一個刪除標記*/
-                foreach (var old in oldData) {
+                foreach (var old in oldData)
+                {
                     if (old.START_TIME > DateTime.Now)
                     {
                         old.STATUS = "DEL";
@@ -351,38 +365,43 @@ string is_active,
 
                 /*週期任務*/
                 if (drSchedule.CYCLE_TYPE == "每分重複")
-                { 
+                {
                     #region 每分重複
 
-                    if(isContinue==true){                    
+                    if (isContinue == true)
+                    {
                         startDate = drSchedule.CONTIUNE_DATETIME.Value.AddMinutes(Convert.ToInt16(cMinute));
                     }
-                    else {
+                    else
+                    {
                         startDate = startDate.Value.AddMinutes(Convert.ToInt16(cMinute));
                     }
-                    
+
                     ScheduleTime stTable = new ScheduleTime();
 
-                    DateTime? genData = null;                    
+                    DateTime? genData = null;
                     while (endDate > startDate)
                     {
-                        if (startDate < DateTime.Now) {
+                        if (startDate < DateTime.Now)
+                        {
                             startDate = startDate.Value.AddMinutes(Convert.ToInt16(cMinute));
                             continue;
                         }
-                        if (genData == null) {
+                        if (genData == null)
+                        {
                             genData = new DateTime(startDate.Value.Year, startDate.Value.Month, startDate.Value.Day);
                         }
                         st = new ScheduleTime_Record();
                         st.UUID = LK.Util.UID.Instance.GetUniqueID();
-                        st.SCHEDULE_UUID = drSchedule.UUID;                        
+                        st.SCHEDULE_UUID = drSchedule.UUID;
                         st.STATUS = "READY";
                         st.START_TIME = startDate;
                         //st.gotoTable().Insert_Empty2Null(st);
                         stTable.AllRecord().Add(st.Clone());
                         startDate = startDate.Value.AddMinutes(Convert.ToInt16(cMinute));
 
-                        if (genData.Value.Day != startDate.Value.Day) {
+                        if (genData.Value.Day != startDate.Value.Day)
+                        {
                             drSchedule.EXPEND_ALL = "N";
                             drSchedule.CONTIUNE_DATETIME = startDate;
                             drSchedule.gotoTable().Update_Empty2Null(drSchedule);
@@ -396,7 +415,7 @@ string is_active,
                             break;
                         }
 
-                        
+
                     }
                     stTable.InsertAllRecord();
                     #endregion
@@ -414,7 +433,7 @@ string is_active,
                         startDate = startDate.Value.AddHours(Convert.ToInt16(drSchedule.HOUR)).AddMinutes(Convert.ToInt16(drSchedule.MINUTE));
                     }
 
-                    DateTime? genData = null;        
+                    DateTime? genData = null;
                     while (endDate > startDate)
                     {
                         if (startDate < DateTime.Now)
@@ -456,7 +475,7 @@ string is_active,
                 if (drSchedule.CYCLE_TYPE == "每月重複")
                 {
                     #region 每月重複
-                    
+
                     if (drSchedule.C_DAY_OF_MONTH.Trim().Length > 0)
                     {
                         #region 每月重複by日
@@ -480,7 +499,7 @@ string is_active,
                             drSchedule.START_DATE = drSchedule.START_DATE.Value.AddMonths(Convert.ToInt32(cMonth));
                         }
                         drSchedule.START_DATE = oldStart;
-                        
+
                         #endregion
                     }
                     else if (drSchedule.C_WEEK_OF_MONTH.Length > 0)
@@ -493,23 +512,25 @@ string is_active,
                         //getFirstDayInMonth(oldStart.Value.Year, oldStart.Value.Month, 1);
 
                         while (endDate > drSchedule.START_DATE)
-                        {    
+                        {
                             foreach (var week in weekOfMonth)
                             {
-                                foreach (var day in dayOfWeek) {
-                                    var dayInWeek = getFirstDayInMonth(oldStart.Value.Year, oldStart.Value.Month, Convert.ToInt16(week));                                  
+                                foreach (var day in dayOfWeek)
+                                {
+                                    var dayInWeek = getFirstDayInMonth(oldStart.Value.Year, oldStart.Value.Month, Convert.ToInt16(week));
                                     st = new ScheduleTime_Record();
                                     st.UUID = LK.Util.UID.Instance.GetUniqueID();
                                     st.SCHEDULE_UUID = drSchedule.UUID;
                                     st.STATUS = "READY";
 
-                                    if (dayInWeek == null) {
+                                    if (dayInWeek == null)
+                                    {
                                         continue;
                                     }
 
                                     st.START_TIME = dayInWeek[Convert.ToInt16(day)].AddHours(Convert.ToInt16(drSchedule.HOUR)).AddMinutes(Convert.ToInt16(drSchedule.MINUTE));
-                                    st.gotoTable().Insert_Empty2Null(st);                                    
-                                }                               
+                                    st.gotoTable().Insert_Empty2Null(st);
+                                }
                             }
                             oldStart = oldStart.Value.AddMonths(Convert.ToInt32(cMonth));
                             drSchedule.START_DATE = drSchedule.START_DATE.Value.AddMonths(Convert.ToInt32(cMonth));
@@ -536,7 +557,7 @@ string is_active,
                         startDate = startDate.Value.AddHours(Convert.ToInt16(cHour)).AddMinutes(Convert.ToInt16(drSchedule.MINUTE));
                     }
 
-                    DateTime? genData = null;   
+                    DateTime? genData = null;
                     while (endDate > startDate)
                     {
                         if (startDate < DateTime.Now)
@@ -584,13 +605,14 @@ string is_active,
 
                     while (endDate > startDate)
                     {
-                        foreach (var day in dayOfWeek) {
+                        foreach (var day in dayOfWeek)
+                        {
                             st.UUID = LK.Util.UID.Instance.GetUniqueID();
                             st.SCHEDULE_UUID = drSchedule.UUID;
                             st.STATUS = "READY";
                             st.START_TIME = startDate.Value.AddDays(Convert.ToInt16(day));
                             st.gotoTable().Insert_Empty2Null(st);
-                            startDate = startDate.Value.AddDays(Convert.ToInt16(drSchedule.C_WEEK*7));
+                            startDate = startDate.Value.AddDays(Convert.ToInt16(drSchedule.C_WEEK * 7));
                         }
 
                     }
@@ -601,10 +623,11 @@ string is_active,
                     #endregion
                 }
 
-                
+
 
             }
-            else { 
+            else
+            {
                 /*單次任務*/
                 if (drSchedule.CYCLE_TYPE == "單次任務")
                 {
@@ -622,12 +645,13 @@ string is_active,
         }
         catch (Exception ex)
         {
-            log.Error(ex); LK.MyException.MyException.Error(this, ex);            
+            log.Error(ex); LK.MyException.MyException.Error(this, ex);
         }
     }
 
 
-    private DateTime[] getFirstDayInMonth(int year,int month,int week) {
+    private DateTime[] getFirstDayInMonth(int year, int month, int week)
+    {
         DateTime jan1 = new DateTime(year, month, 1);
 
         var cal = CultureInfo.CurrentCulture.Calendar;
@@ -635,12 +659,12 @@ string is_active,
 
         firstWeek = firstWeek + (week - 1);
 
-        var ret =WeekDays(year,month,week);
+        var ret = WeekDays(year, month, week);
 
         return (DateTime[])ret[month.ToString() + "." + week.ToString()];
 
-        
-        
+
+
     }
 
     private static DateTime GetIso8601FirstWeekOfYear(int year)
@@ -660,18 +684,20 @@ string is_active,
             }
             return time;
         }
-        else {
-            while (cal.GetDayOfWeek(time) != DayOfWeek.Sunday) {
+        else
+        {
+            while (cal.GetDayOfWeek(time) != DayOfWeek.Sunday)
+            {
                 time = time.AddDays(1);
             }
             return time;
-        }        
+        }
     }
 
-    private static System.Collections.Hashtable WeekDays(int Year,int month,int week)
+    private static System.Collections.Hashtable WeekDays(int Year, int month, int week)
     {
         //System.Collections.Hashtable ht = new System.Collections.Hashtable();
-        IDictionary<string, DateTime[]> ht = new Dictionary<string,DateTime[]>() ;
+        IDictionary<string, DateTime[]> ht = new Dictionary<string, DateTime[]>();
 
 
         //DateTime start = new DateTime(Year, 1, 1).AddDays(7 * WeekNumber);
@@ -680,34 +706,37 @@ string is_active,
         //start = start.AddDays(7 * WeekNumber);
         start = start.AddDays(-((int)start.DayOfWeek));
         int weekOfYear = 0;
-        
-        while ((Year + 1) > start.Year) {
+
+        while ((Year + 1) > start.Year)
+        {
 
             weekOfYear++;
             var value = Enumerable.Range(0, 7).Select(num => start.AddDays(num)).ToArray();
             string key = "";
-            var count = value.Count(c=>c.Month.Equals(start.Month));
-            if (start.Month == 6) {
+            var count = value.Count(c => c.Month.Equals(start.Month));
+            if (start.Month == 6)
+            {
                 //var debug = true;
             }
             if (count >= 4)
             {
                 key = start.Month.ToString() + "." + weekOfYear.ToString();
             }
-            else {
+            else
+            {
 
                 key = (start.AddDays(7).Month).ToString() + "." + weekOfYear.ToString();
             }
-            
+
             ht.Add(key, value);
             start = start.AddDays(7);
-              
+
         }
 
         System.Collections.Hashtable returnData = new System.Collections.Hashtable();
         string nowMonth = "";
         int seq = 1;
-        
+
 
 
         try
@@ -728,15 +757,16 @@ string is_active,
                 {
                     seq++;
                 }
-                
+
                 returnData.Add(nowMonth + "." + seq.ToString(), ht[key.Key]);
             }
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             throw ex;
         }
 
-        
+
 
         return returnData;
     }

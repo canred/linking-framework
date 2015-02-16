@@ -24,11 +24,11 @@ using System.Diagnostics;
 public class GroupHeadAction : BaseAction
 {
     [DirectMethod("load", DirectAction.Store, MethodVisibility.Visible)]
-    public JObject load(string company_uuid,string application_head_uuid, string attendant_uuid,
+    public JObject load(string company_uuid, string application_head_uuid, string attendant_uuid,
         string keyword, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
-         List<JObject> jobject = new List<JObject>();
+        List<JObject> jobject = new List<JObject>();
         BasicModel basicModel = new BasicModel();
         GroupHead table = new GroupHead();
         OrderLimit orderLimit = null;
@@ -100,9 +100,9 @@ public class GroupHeadAction : BaseAction
     }
 
     [DirectMethod("submit", DirectAction.FormSubmission, MethodVisibility.Visible)]
-    public JObject submit(string uuid,string create_date,string update_date,string is_active,
-        string company_uuid,string name_zh_tw,string name_zh_cn,string name_en_us,string id,
-        string src_uuid,string application_head_uuid, HttpRequest request)
+    public JObject submit(string uuid, string create_date, string update_date, string is_active,
+        string company_uuid, string name_zh_tw, string name_zh_cn, string name_en_us, string id,
+        string src_uuid, string application_head_uuid, HttpRequest request)
     {
         #region Declare
         var action = SubmitAction.None;
@@ -140,13 +140,13 @@ public class GroupHeadAction : BaseAction
                 record.ID = id;
                 record.APPLICATION_HEAD_UUID = application_head_uuid;
             }
-            record.CREATE_USER = getUser().UUID;           
+            record.CREATE_USER = getUser().UUID;
             record.IS_ACTIVE = is_active;
             record.UPDATE_DATE = DateTime.Now;
             record.NAME_ZH_TW = name_zh_tw;
             record.NAME_ZH_CN = name_zh_cn;
             record.NAME_EN_US = name_en_us;
-            
+
             if (action == SubmitAction.Edit)
             {
                 record.gotoTable().Update_Empty2Null(record);

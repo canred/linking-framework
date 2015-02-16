@@ -28,7 +28,7 @@ public class ApplicationAction : BaseAction
     public JObject loadApplication(string pKeyWord, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
-         List<JObject> jobject = new List<JObject>();
+        List<JObject> jobject = new List<JObject>();
         BasicModel modBasic = new BasicModel();
         ApplicationHead tblApplication = new ApplicationHead();
         OrderLimit orderLimit = null;
@@ -89,11 +89,11 @@ public class ApplicationAction : BaseAction
                 throw new Exception("Permission Denied!");
             };
             /*取得資料*/
-            
+
             var data = modBasic.getApplicationHead_By_Uuid(pUuid);
-            if (data!=null)
+            if (data != null)
             {
-                /*將List<RecordBase>變成JSON字符串*/                
+                /*將List<RecordBase>變成JSON字符串*/
                 jobject = JsonHelper.RecordBaseJObject(data.AllRecord().First());
             }
             /*使用Store Std out 『Sotre物件標準輸出格式』*/
@@ -106,9 +106,9 @@ public class ApplicationAction : BaseAction
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
-     
+
     [DirectMethod("submit", DirectAction.FormSubmission, MethodVisibility.Visible)]
-    public JObject submit(  string uuid,
+    public JObject submit(string uuid,
                                         string create_date,
                                         string update_date,
                                         string is_active,
@@ -153,7 +153,7 @@ public class ApplicationAction : BaseAction
                 drApplicationHead.CREATE_DATE = DateTime.Now;
                 drApplicationHead.CREATE_USER = getUser().UUID;
                 drApplicationHead.UPDATE_USER = getUser().UUID;
-                drApplicationHead.CREATE_DATE = DateTime.Now;              
+                drApplicationHead.CREATE_DATE = DateTime.Now;
             }
             /*固定要更新的欄位*/
             drApplicationHead.UPDATE_DATE = DateTime.Now;
@@ -164,7 +164,7 @@ public class ApplicationAction : BaseAction
             drApplicationHead.ID = id;
             drApplicationHead.NAME = name;
             drApplicationHead.WEB_SITE = web_site;
-            
+
             if (action == SubmitAction.Edit)
             {
                 drApplicationHead.gotoTable().Update(drApplicationHead);
@@ -189,7 +189,7 @@ public class ApplicationAction : BaseAction
     public JObject info(string pUuid, Request request)
     {
         #region Declare
-        BasicModel modBasic = new BasicModel();       
+        BasicModel modBasic = new BasicModel();
         #endregion
         try
         { /*Cloud身份檢查*/
@@ -203,11 +203,11 @@ public class ApplicationAction : BaseAction
             {
                 throw new Exception("Permission Denied!");
             };
-            var dtApplicationHead  = modBasic.getApplicationHead_By_Uuid(pUuid);
+            var dtApplicationHead = modBasic.getApplicationHead_By_Uuid(pUuid);
             if (dtApplicationHead.AllRecord().Count > 0)
             {
                 /*將List<RecordBase>變成JSON字符串*/
-                return ExtDirect.Direct.Helper.Form.OutputJObject(JsonHelper.RecordBaseJObject(dtApplicationHead.AllRecord().First()));   
+                return ExtDirect.Direct.Helper.Form.OutputJObject(JsonHelper.RecordBaseJObject(dtApplicationHead.AllRecord().First()));
             }
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("Data Not Found!"));
         }

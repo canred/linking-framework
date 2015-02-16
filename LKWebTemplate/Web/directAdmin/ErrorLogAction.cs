@@ -27,7 +27,7 @@ public class ErrorLogAction : BaseAction
     public JObject load(string is_read, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
-         List<JObject> jobject = new List<JObject>();
+        List<JObject> jobject = new List<JObject>();
         BasicModel basicModel = new BasicModel();
         ErrorLog table = new ErrorLog();
         OrderLimit orderLimit = null;

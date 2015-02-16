@@ -27,7 +27,7 @@ public class ProxyAction : BaseAction
     public JObject loadProxy(string pApplicationHeadUuid, string pKeyWord, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
-         List<JObject> jobject = new List<JObject>();
+        List<JObject> jobject = new List<JObject>();
         BasicModel modBasic = new BasicModel();
         Apppage tblApppage = new Apppage();
         OrderLimit orderLimit = null;
@@ -45,10 +45,10 @@ public class ProxyAction : BaseAction
             };
             /*是Store操作一下就可能含有分頁資訊。*/
             orderLimit = ExtDirect.Direct.Helper.Order.getOrderLimit(pageNo, limitNo, sort, dir);
-            /*取得總資料數*/            
-            var totalCount = modBasic.getProxy_By_KeyWord_Count(pApplicationHeadUuid,pKeyWord);
+            /*取得總資料數*/
+            var totalCount = modBasic.getProxy_By_KeyWord_Count(pApplicationHeadUuid, pKeyWord);
             /*取得資料*/
-            var data = modBasic.getProxy_By_KeyWord (pApplicationHeadUuid, pKeyWord, orderLimit);
+            var data = modBasic.getProxy_By_KeyWord(pApplicationHeadUuid, pKeyWord, orderLimit);
             if (data.Count > 0)
             {
                 /*將List<RecordBase>變成JSON字符串*/
@@ -64,7 +64,7 @@ public class ProxyAction : BaseAction
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
-     
+
     [DirectMethod("submitProxy", DirectAction.FormSubmission, MethodVisibility.Visible)]
     public JObject submitProxy(string uuid,
 string proxy_action,
@@ -106,13 +106,13 @@ string application_head_uuid,
             else
             {
                 action = SubmitAction.Create;
-                drProxy.UUID = LK.Util.UID.Instance.GetUniqueID();                
+                drProxy.UUID = LK.Util.UID.Instance.GetUniqueID();
             }
             /*固定要更新的欄位*/
             //drProxy.UPDATE_DATE = DateTime.Now;
 
             /*非固定更新的欄位*/
-            
+
             drProxy.DESCRIPTION = description;
             drProxy.PROXY_ACTION = proxy_action;
             drProxy.PROXY_METHOD = proxy_method;
@@ -123,7 +123,7 @@ string application_head_uuid,
             drProxy.APPLICATION_HEAD_UUID = application_head_uuid;
             drProxy.REDIRECT_SRC = redirect_src;
             //drAppPage.WEB_SITE = web_site;
-            
+
             if (action == SubmitAction.Edit)
             {
                 drProxy.gotoTable().Update_Empty2Null(drProxy);
@@ -148,7 +148,7 @@ string application_head_uuid,
     public JObject infoProxy(string pUuid, Request request)
     {
         #region Declare
-        BasicModel modBasic = new BasicModel();       
+        BasicModel modBasic = new BasicModel();
         #endregion
         try
         {  /*Cloud身份檢查*/
@@ -165,7 +165,7 @@ string application_head_uuid,
             if (dtAppPage.AllRecord().Count > 0)
             {
                 /*將List<RecordBase>變成JSON字符串*/
-                return ExtDirect.Direct.Helper.Form.OutputJObject(JsonHelper.RecordBaseJObject(dtAppPage.AllRecord().First()));   
+                return ExtDirect.Direct.Helper.Form.OutputJObject(JsonHelper.RecordBaseJObject(dtAppPage.AllRecord().First()));
             }
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("Data Not Found!"));
         }
@@ -216,7 +216,7 @@ string application_head_uuid,
         #region Declare
         List<JObject> jobject = new List<JObject>();
         BasicModel modBasic = new BasicModel();
-        
+
         OrderLimit orderLimit = null;
         #endregion
         try
@@ -233,7 +233,7 @@ string application_head_uuid,
             /*是Store操作一下就可能含有分頁資訊。*/
             orderLimit = ExtDirect.Direct.Helper.Order.getOrderLimit(pageNo, limitNo, sort, dir);
             /*取得總資料數*/
-            var totalCount = modBasic.getVAppmenuProxyMap_Count(pApplicationHeadUuid, pAppmenuUuid, pKeyWord);            
+            var totalCount = modBasic.getVAppmenuProxyMap_Count(pApplicationHeadUuid, pAppmenuUuid, pKeyWord);
             /*取得資料*/
             var data = modBasic.getVAppmenuProxyMap(pApplicationHeadUuid, pAppmenuUuid, pKeyWord, orderLimit);
             if (data.Count > 0)
@@ -276,13 +276,13 @@ string application_head_uuid,
             orderLimit = ExtDirect.Direct.Helper.Order.getOrderLimit(pageNo, limitNo, sort, dir);
             /*取得總資料數*/
             //var dataAll  = modBasic(pApplicationHeadUuid, pKeyWord);
-            
+
             /*取得資料*/
             var data = modBasic.getAppmenuProxyMap_By_AppMenuUuid(pAppmenuUuid, null);
             var dataAll = modBasic.getProxy_By_KeyWord(pApplicationHeadUuid, pKeyWord, orderLimit);
 
             var retData = dataAll.Where(c => !data.Any(d => d.PROXY_UUID == c.UUID)).ToList();
-            
+
             if (retData.Count > 0)
             {
                 /*將List<RecordBase>變成JSON字符串*/
@@ -305,7 +305,7 @@ string application_head_uuid,
         #region Declare
         List<JObject> jobject = new List<JObject>();
         BasicModel modBasic = new BasicModel();
-        AppmenuProxyMap_Record recore = new AppmenuProxyMap_Record();        
+        AppmenuProxyMap_Record recore = new AppmenuProxyMap_Record();
         #endregion
         try
         {  /*Cloud身份檢查*/
@@ -324,7 +324,7 @@ string application_head_uuid,
             //var dataAll  = modBasic(pApplicationHeadUuid, pKeyWord);
 
             /*取得資料*/
-            var nowData = modBasic.getAppmenuProxyMap_By_AppMenuUuid(pAppmenuUuid,null);
+            var nowData = modBasic.getAppmenuProxyMap_By_AppMenuUuid(pAppmenuUuid, null);
             var checkDataExist = nowData.Where(c => c.PROXY_UUID.Equals(pProxyUuid)).Count();
 
             if (checkDataExist == 0)
@@ -334,9 +334,10 @@ string application_head_uuid,
                 recore.APPMENU_UUID = pAppmenuUuid;
                 recore.gotoTable().Insert_Empty2Null(recore);
             }
-            else {
+            else
+            {
                 throw new Exception("資料已存在!");
-            }            
+            }
             /*使用Store Std out 『Sotre物件標準輸出格式』*/
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
         }
@@ -349,11 +350,11 @@ string application_head_uuid,
     }
 
     [DirectMethod("removeAppmenuProxyMap", DirectAction.Store, MethodVisibility.Visible)]
-    public JObject removeAppmenuProxyMap( string pAppmenuUuid, string pProxyUuid, Request request)
+    public JObject removeAppmenuProxyMap(string pAppmenuUuid, string pProxyUuid, Request request)
     {
         #region Declare
         List<JObject> jobject = new List<JObject>();
-        BasicModel modBasic = new BasicModel();        
+        BasicModel modBasic = new BasicModel();
         #endregion
         try
         {  /*Cloud身份檢查*/
@@ -369,12 +370,13 @@ string application_head_uuid,
             /*取得資料*/
             var dt = modBasic.getAppmenuProxyMap_By_AppMenuUuid_ProxyUuid(pAppmenuUuid, pProxyUuid);
 
-            if (dt.Count >0 )
+            if (dt.Count > 0)
             {
-                foreach (var item in dt) {
+                foreach (var item in dt)
+                {
                     item.gotoTable().Delete(item);
                 }
-            }            
+            }
             /*使用Store Std out 『Sotre物件標準輸出格式』*/
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
         }

@@ -27,7 +27,7 @@ public class UtilAction : BaseAction
     public JObject getUid(Request request)
     {
         #region Declare
-        
+
         #endregion
         try
         {   /*Cloud身份檢查*/
@@ -41,23 +41,23 @@ public class UtilAction : BaseAction
                 throw new Exception("Permission Denied!");
             };
             var uid = LK.Util.UID.Instance.GetUniqueID();
-            System.Data.DataTable dt = new DataTable();            
+            System.Data.DataTable dt = new DataTable();
             dt.Columns.Add("uid");
-            var nr = dt.NewRow();            
+            var nr = dt.NewRow();
             nr["uid"] = uid;
-            dt.Rows.Add(nr);            
-            return ExtDirect.Direct.Helper.Store.OutputJObject(JsonHelper.DataRowSerializerJObject(dt.Rows[0]));                            
+            dt.Rows.Add(nr);
+            return ExtDirect.Direct.Helper.Store.OutputJObject(JsonHelper.DataRowSerializerJObject(dt.Rows[0]));
         }
         catch (Exception ex)
         {
-            log.Error(ex); 
+            log.Error(ex);
             LK.MyException.MyException.Error(this, ex);
             /*將Exception轉成EXT Exception JSON格式*/
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
 
-    }
+}
 
 
 

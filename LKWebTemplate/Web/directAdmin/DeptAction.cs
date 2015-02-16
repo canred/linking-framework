@@ -30,7 +30,7 @@ public class DeptAction : BaseAction
         #region Declare
         JArray jobject = null;
         BasicModel model = new BasicModel();
-        
+
         #endregion
         try
         {  /*Cloud身份檢查*/
@@ -45,10 +45,10 @@ public class DeptAction : BaseAction
             };
             /*是Store操作一下就可能含有分頁資訊。*/
             /*取得資料*/
-            var dtDepartment = new Department(); 
-        
+            var dtDepartment = new Department();
+
             var dataTable = model.getDepartment_By_ParentUuid(parentUuid);
-           /*將List<RecordBase>變成JSON字符串*/
+            /*將List<RecordBase>變成JSON字符串*/
             dataTable.Columns.Add("leaf");
             //dataTable.Columns.Add("id");
             foreach (DataRow dr in dataTable.Rows)
@@ -80,9 +80,9 @@ public class DeptAction : BaseAction
     public JObject loadTreeRoot(string pCompanyUuid, Request request)
     {
         #region Declare
-         List<JObject> jobject = new List<JObject>();
+        List<JObject> jobject = new List<JObject>();
         BasicModel model = new BasicModel();
-        Department table = new Department();        
+        Department table = new Department();
         #endregion
         try
         {  /*Cloud身份檢查*/
@@ -136,7 +136,7 @@ public class DeptAction : BaseAction
                 return ExtDirect.Direct.Helper.Form.OutputJObject(JsonHelper.RecordBaseJObject(data.AllRecord().First()));
             }
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("Data Not Found!"));
-            
+
         }
         catch (Exception ex)
         {
@@ -148,11 +148,11 @@ public class DeptAction : BaseAction
 
     [DirectMethod("submit", DirectAction.FormSubmission, MethodVisibility.Visible)]
     public JObject submit(
-        string uuid, 
-        string is_active, 
-        string company_uuid, 
+        string uuid,
+        string is_active,
+        string company_uuid,
         string id
-       , string c_name, 
+       , string c_name,
         string e_name
        , string parent_department_uuid,
         string manager_id,
@@ -194,7 +194,7 @@ public class DeptAction : BaseAction
                 record.UUID = LK.Util.UID.Instance.GetUniqueID();
                 record.CREATE_DATE = DateTime.Now;
             }
-           
+
             record.IS_ACTIVE = is_active;
             record.UPDATE_DATE = DateTime.Now;
 
@@ -204,7 +204,7 @@ public class DeptAction : BaseAction
             record.S_NAME = s_name;
             record.COST_CENTER = cost_center;
             record.SRC_UUID = src_uuid;
-            record.COMPANY_UUID = company_uuid;            
+            record.COMPANY_UUID = company_uuid;
             record.MANAGER_ID = manager_id;
             record.MANAGER_UUID = manager_uuid;
             record.PARENT_DEPARTMENT_UUID = parent_department_uuid;
@@ -229,7 +229,7 @@ public class DeptAction : BaseAction
     [DirectMethod("destroy", DirectAction.FormSubmission, MethodVisibility.Visible)]
     public JObject destroy(string uuid, HttpRequest request)
     {
-        BasicModel modBasic = new BasicModel();        
+        BasicModel modBasic = new BasicModel();
         try
         {  /*Cloud身份檢查*/
             checkUser(request);

@@ -24,12 +24,12 @@ using System.Diagnostics;
 public class GroupAttendantAction : BaseAction
 {
     [DirectMethod("loadAttendantStoreInGroup", DirectAction.Store, MethodVisibility.Visible)]
-    public JObject loadAttendantStoreInGroup(string pCompanyUuid,string group_head_uuid, 
+    public JObject loadAttendantStoreInGroup(string pCompanyUuid, string group_head_uuid,
         string pKeyword, string pIsActive,
         string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
-         List<JObject> jobject = new List<JObject>();
+        List<JObject> jobject = new List<JObject>();
         BasicModel basicModel = new BasicModel();
         OrderLimit orderLimit = null;
         #endregion
@@ -47,13 +47,13 @@ public class GroupAttendantAction : BaseAction
             /*是Store操作一下就可能含有分頁資訊。*/
             orderLimit = ExtDirect.Direct.Helper.Order.getOrderLimit(pageNo, limitNo, sort, dir);
             /*取得總資料數*/
-           // var totalCount = basicModel.getGroupHead_By_Count(group_head_uuid);
+            // var totalCount = basicModel.getGroupHead_By_Count(group_head_uuid);
             /*取得資料*/
             var data = basicModel.getAttendantInGroupAttendant(pCompanyUuid, group_head_uuid,
-                pKeyword, pIsActive,orderLimit);//basicModel.getGroupHead_By(group_head_uuid, orderLimit);
+                pKeyword, pIsActive, orderLimit);//basicModel.getGroupHead_By(group_head_uuid, orderLimit);
             if (data.Count > 0)
             {
-                /*將List<RecordBase>變成JSON字符串*/                
+                /*將List<RecordBase>變成JSON字符串*/
                 jobject = JsonHelper.RecordBaseListJObject(data);
             }
             /*使用Store Std out 『Sotre物件標準輸出格式』*/
@@ -73,7 +73,7 @@ public class GroupAttendantAction : BaseAction
         string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
-         List<JObject> jobject = new List<JObject>();
+        List<JObject> jobject = new List<JObject>();
         BasicModel modBasic = new BasicModel();
         OrderLimit orderLimit = null;
         #endregion
@@ -122,7 +122,7 @@ public class GroupAttendantAction : BaseAction
                 throw new Exception("Permission Denied!");
             };
             var dtGroupAtt = modBasic.getGroupAttendantByGroupHeadUuidxAttendantUuid
-                (pGroupHeadUuid,pAttedantUuid);
+                (pGroupHeadUuid, pAttedantUuid);
             if (dtGroupAtt.Count > 0)
             {
                 /*將List<RecordBase>變成JSON字符串*/

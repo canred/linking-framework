@@ -33,7 +33,7 @@ public class SiteMapAction : BaseAction
     public JObject loadSiteMapTree(string parentUuid, Request request)
     {
         #region Declare
-         List<JObject> jobject = new List<JObject>();
+        List<JObject> jobject = new List<JObject>();
         BasicModel model = new BasicModel();
         SitemapV tblSitemap = new SitemapV();
         #endregion
@@ -50,12 +50,13 @@ public class SiteMapAction : BaseAction
             };
             /*取得資料*/
             var genTable = new LKWebTemplate.Model.Basic.Table.SitemapV();
-            var dataTable = model.getSitemapV_By_RootUuid_DataTable(parentUuid);    
+            var dataTable = model.getSitemapV_By_RootUuid_DataTable(parentUuid);
             dataTable.Columns.Add("leaf");
             dataTable.Columns.Add("id");
-            dataTable.Columns.Add("checked",typeof(Boolean));
-          
-            for (int i = 0; i < dataTable.Rows.Count; i++) {
+            dataTable.Columns.Add("checked", typeof(Boolean));
+
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
                 if (dataTable.Rows[i]["ROOT_UUID"].ToString() == dataTable.Rows[i]["UUID"].ToString())
                 {
                     dataTable.Rows.RemoveAt(i);
@@ -65,19 +66,19 @@ public class SiteMapAction : BaseAction
 
             foreach (DataRow dr in dataTable.Rows)
             {
-                
-                    var children = model.getSitemapV_By_RootUuid_DataTable(dr[tblSitemap.UUID].ToString());
-                    if (children.Rows.Count == 0)
-                    {
-                        dr["leaf"] = "true";
-                    }
-                    else
-                    {
-                        dr["leaf"] = "false";
-                    }
-                    dr["id"] = dr[tblSitemap.UUID].ToString();
-                    dr["checked"] = dr["IS_ACTIVE"].ToString().ToLower() == "y" ? true : false;
-               
+
+                var children = model.getSitemapV_By_RootUuid_DataTable(dr[tblSitemap.UUID].ToString());
+                if (children.Rows.Count == 0)
+                {
+                    dr["leaf"] = "true";
+                }
+                else
+                {
+                    dr["leaf"] = "false";
+                }
+                dr["id"] = dr[tblSitemap.UUID].ToString();
+                dr["checked"] = dr["IS_ACTIVE"].ToString().ToLower() == "y" ? true : false;
+
             }
             //jsonStr.Append(JsonHelper.DataTableSerializer(dataTable));
             JArray jarray = new JArray();
@@ -102,7 +103,7 @@ public class SiteMapAction : BaseAction
     public JObject loadTreeRoot(string parentUuid, Request request)
     {
         #region Declare
-         List<JObject> jobject = new List<JObject>();
+        List<JObject> jobject = new List<JObject>();
         BasicModel model = new BasicModel();
         Sitemap table = new Sitemap();
         #endregion
@@ -118,12 +119,14 @@ public class SiteMapAction : BaseAction
                 throw new Exception("Permission Denied!");
             };
             var data = model.getSitemapV_By_ApplicationHead(parentUuid);
-            foreach (var dr in data) {
-                if (dr.UUID == dr.ROOT_UUID) {
+            foreach (var dr in data)
+            {
+                if (dr.UUID == dr.ROOT_UUID)
+                {
                     return JsonHelper.RecordBaseJObject(dr);
                 }
             }
-           
+
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("Data Not Found!"));
         }
         catch (Exception ex)
@@ -146,13 +149,13 @@ public class SiteMapAction : BaseAction
     /// <param name="request"></param>
     /// <returns></returns>
     [DirectMethod("load", DirectAction.Store, MethodVisibility.Visible)]
-    public JObject load(string pApplicationHeadUuid,string pIsActive, string pageNo, string limitNo, string sort, string dir, Request request)
+    public JObject load(string pApplicationHeadUuid, string pIsActive, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
-         List<JObject> jobject = new List<JObject>();
+        List<JObject> jobject = new List<JObject>();
         BasicModel modBasic = new BasicModel();
         OrderLimit orderLimit = null;
-        SitemapV tblSitmap = new SitemapV();        
+        SitemapV tblSitmap = new SitemapV();
         #endregion
         try
         {  /*Cloud身份檢查*/
@@ -167,13 +170,13 @@ public class SiteMapAction : BaseAction
             };
             /*是Store操作一下就可能含有分頁資訊。*/
             orderLimit = ExtDirect.Direct.Helper.Order.getOrderLimit(pageNo, limitNo, sort, dir);
-            /*取得總資料數*/            
-            var totalCount = modBasic.getSitmapV_By_ApplicationHeadUuid_Count(pApplicationHeadUuid,pIsActive);
+            /*取得總資料數*/
+            var totalCount = modBasic.getSitmapV_By_ApplicationHeadUuid_Count(pApplicationHeadUuid, pIsActive);
             /*取得資料*/
             var data = modBasic.getSitmapV_By_ApplicationHeadUuid(pApplicationHeadUuid, pIsActive, orderLimit);
             if (data.Count > 0)
             {
-                /*將List<RecordBase>變成JSON字符串*/                
+                /*將List<RecordBase>變成JSON字符串*/
                 jobject = JsonHelper.RecordBaseListJObject(data);
             }
             /*使用Store Std out 『Sotre物件標準輸出格式』*/
@@ -257,7 +260,7 @@ public class SiteMapAction : BaseAction
     /// <param name="request"></param>
     /// <returns></returns>
     [DirectMethod("submit", DirectAction.FormSubmission, MethodVisibility.Visible)]
-    public JObject submit(  string uuid,
+    public JObject submit(string uuid,
                                         string is_active,
                                         string create_date,
                                         string create_user,
@@ -304,7 +307,7 @@ public class SiteMapAction : BaseAction
                 drAppPage.CREATE_DATE = DateTime.Now;
                 drAppPage.CREATE_USER = getUser().UUID;
                 drAppPage.UPDATE_USER = getUser().UUID;
-                drAppPage.CREATE_DATE = DateTime.Now;              
+                drAppPage.CREATE_DATE = DateTime.Now;
             }
             /*固定要更新的欄位*/
             drAppPage.UPDATE_DATE = DateTime.Now;
@@ -319,7 +322,7 @@ public class SiteMapAction : BaseAction
             drAppPage.APPLICATION_HEAD_UUID = application_head_uuid;
             drAppPage.P_MODE = p_mode;
             //drAppPage.WEB_SITE = web_site;
-            
+
             if (action == SubmitAction.Edit)
             {
                 drAppPage.gotoTable().Update(drAppPage);
@@ -350,7 +353,7 @@ public class SiteMapAction : BaseAction
     public JObject info(string pUuid, Request request)
     {
         #region Declare
-        BasicModel modBasic = new BasicModel();       
+        BasicModel modBasic = new BasicModel();
         #endregion
         try
         {  /*Cloud身份檢查*/
@@ -367,7 +370,7 @@ public class SiteMapAction : BaseAction
             if (dtAppPage.AllRecord().Count > 0)
             {
                 /*將List<RecordBase>變成JSON字符串*/
-                return ExtDirect.Direct.Helper.Form.OutputJObject(JsonHelper.RecordBaseJObject(dtAppPage.AllRecord().First()));   
+                return ExtDirect.Direct.Helper.Form.OutputJObject(JsonHelper.RecordBaseJObject(dtAppPage.AllRecord().First()));
             }
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("Data Not Found!"));
         }
@@ -425,7 +428,7 @@ public class SiteMapAction : BaseAction
     /// <param name="request"></param>
     /// <returns></returns>
     [DirectMethod("setSiteMapIsActive", DirectAction.Store, MethodVisibility.Visible)]
-    public JObject setSiteMapIsActive(string pUuid,string is_active, Request request)
+    public JObject setSiteMapIsActive(string pUuid, string is_active, Request request)
     {
         #region Declare
         BasicModel modBasic = new BasicModel();
@@ -450,7 +453,8 @@ public class SiteMapAction : BaseAction
                 {
                     drSitemap.IS_ACTIVE = "Y";
                 }
-                else {
+                else
+                {
                     drSitemap.IS_ACTIVE = "N";
                 }
                 drSitemap.UPDATE_DATE = DateTime.Now;
@@ -475,7 +479,7 @@ public class SiteMapAction : BaseAction
     /// <param name="request"></param>
     /// <returns></returns>
     [DirectMethod("deleteSiteMap", DirectAction.Store, MethodVisibility.Visible)]
-    public JObject deleteSiteMap(string pUuid,string pApplictionUuid, Request request)
+    public JObject deleteSiteMap(string pUuid, string pApplictionUuid, Request request)
     {
         #region Declare
         BasicModel modBasic = new BasicModel();
@@ -509,7 +513,7 @@ public class SiteMapAction : BaseAction
                     return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
                 }
                 return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("delete SiteMap record fail."));
-            }         
+            }
         }
         catch (Exception ex)
         {

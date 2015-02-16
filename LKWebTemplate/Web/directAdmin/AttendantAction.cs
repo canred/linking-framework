@@ -29,7 +29,7 @@ public class AttendantAction : BaseAction
     {
         #region Declare
         BasicModel model = new BasicModel();
-        #endregion 
+        #endregion
         try
         {  /*Cloud身份檢查*/
             checkUser(request.HttpRequest);
@@ -43,13 +43,14 @@ public class AttendantAction : BaseAction
             };
             var data = model.getAttendant_By_Uuid(pUuid);
             if (data.AllRecord().Count == 1)
-            {                
+            {
                 return ExtDirect.Direct.Helper.JObjectHelper.StringOnly(data.AllRecord().First().C_NAME);
             }
-            
+
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("Data Not Found!"));
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             log.Error(ex); LK.MyException.MyException.Error(this, ex);
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
@@ -59,7 +60,7 @@ public class AttendantAction : BaseAction
     public JObject load(string company_uuid, string keyword, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
-         List<JObject> jobject = new List<JObject>();
+        List<JObject> jobject = new List<JObject>();
         BasicModel model = new BasicModel();
         AttendantV_Record table = new AttendantV_Record();
         OrderLimit orderLimit = null;
@@ -97,6 +98,47 @@ public class AttendantAction : BaseAction
         }
     }
 
+
+    [DirectMethod("loadAnyWhere", DirectAction.Store, MethodVisibility.Visible)]
+    public JObject loadAnyWhere(string company_uuid, string keyword, string pageNo, string limitNo, string sort, string dir, Request request)
+    {
+        #region Declare
+        List<JObject> jobject = new List<JObject>();
+        BasicModel model = new BasicModel();
+        AttendantV_Record table = new AttendantV_Record();
+        OrderLimit orderLimit = null;
+        #endregion
+        try
+        {
+
+            /*是Store操作一下就可能含有分頁資訊。*/
+            if (LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().WhereAnyChangeAccount)
+            {
+                orderLimit = ExtDirect.Direct.Helper.Order.getOrderLimit(pageNo, limitNo, sort, dir);
+                /*取得總資料數*/
+                var totalCount = model.getAttendantV_By_CompanyUuid_KeyWord_Count(company_uuid, keyword);
+                /*取得資料*/
+                var data = model.getAttendantV_By_CompanyUuid_KeyWord(company_uuid, keyword, orderLimit);
+                if (data.Count > 0)
+                {
+                    /*將List<RecordBase>變成JSON字符串*/
+                    jobject = JsonHelper.RecordBaseListJObject(data);
+                }
+                /*使用Store Std out 『Sotre物件標準輸出格式』*/
+                return ExtDirect.Direct.Helper.Store.OutputJObject(jobject, totalCount);
+            }
+            else
+            {
+                return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("動作不允許"));
+            }
+        }
+        catch (Exception ex)
+        {
+            log.Error(ex); LK.MyException.MyException.Error(this, ex);
+            /*將Exception轉成EXT Exception JSON格式*/
+            return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
+        }
+    }
     [DirectMethod("info", DirectAction.Load, MethodVisibility.Visible)]
     public JObject info(string pUuid, Request request)
     {
@@ -158,7 +200,7 @@ string id,
 string src_uuid,
 string is_default_pass, HttpRequest request)
     {
-        
+
 
         #region Declare
         var action = SubmitAction.None;
@@ -189,7 +231,7 @@ string is_default_pass, HttpRequest request)
             {
                 action = SubmitAction.Create;
                 record.UUID = LK.Util.UID.Instance.GetUniqueID();
-                record.CREATE_DATE = DateTime.Now;              
+                record.CREATE_DATE = DateTime.Now;
             }
             record.ACCOUNT = account;
             record.BIRTHDAY = null;
@@ -212,7 +254,7 @@ string is_default_pass, HttpRequest request)
             record.PHONE = phone;
             record.CODE_PAGE = "TW";
             record.SITE_UUID = null;
-            
+
             record.IS_ACTIVE = is_active;
             record.UPDATE_DATE = DateTime.Now;
 

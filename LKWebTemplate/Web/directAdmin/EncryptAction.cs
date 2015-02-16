@@ -25,10 +25,10 @@ using System.Diagnostics;
 public class EncryptAction : BaseAction
 {
     [DirectMethod("Encode", DirectAction.Load, MethodVisibility.Visible)]
-    public JObject Encode(string yourstring , Request request)
+    public JObject Encode(string yourstring, Request request)
     {
         #region Declare
-        
+
         #endregion
         try
         {
@@ -50,19 +50,19 @@ public class EncryptAction : BaseAction
             var nr = dt.NewRow();
             nr["yourstring"] = yourstring;
             nr["encrypt"] = encodeString;
-            dt.Rows.Add(nr);            
-            return ExtDirect.Direct.Helper.Store.OutputJObject(JsonHelper.DataRowSerializerJObject(dt.Rows[0]));                            
+            dt.Rows.Add(nr);
+            return ExtDirect.Direct.Helper.Store.OutputJObject(JsonHelper.DataRowSerializerJObject(dt.Rows[0]));
         }
         catch (Exception ex)
         {
-            log.Error(ex); 
+            log.Error(ex);
             LK.MyException.MyException.Error(this, ex);
             /*將Exception轉成EXT Exception JSON格式*/
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
 
-    }
+}
 
 
 

@@ -29,10 +29,10 @@ public class ADAction : BaseAction
     public JObject loadUser(Request request)
     {
         #region Declare
-         List<JObject> jobject = new List<JObject>();
+        List<JObject> jobject = new List<JObject>();
         BasicModel modBasic = new BasicModel();
         ApplicationHead tblApplication = new ApplicationHead();
-       // OrderLimit orderLimit = null;
+        // OrderLimit orderLimit = null;
         #endregion
         try
         {   /*Cloud身份檢查
@@ -50,21 +50,25 @@ public class ADAction : BaseAction
              * */
             /*是Store操作一下就可能含有分頁資訊。*/
             var drCompany = modBasic.getCompany_By_Uuid(this.getUser().COMPANY_UUID).AllRecord().First();
-            if (drCompany.IS_SYNC_AD_USER.ToUpper() != "Y") {
+            if (drCompany.IS_SYNC_AD_USER.ToUpper() != "Y")
+            {
                 throw new Exception("AD人員同步功能未啟動!");
             }
-            var allUser = syncUser(drCompany.AD_LDAP,drCompany.AD_LDAP_USER,drCompany.AD_LDAP_USER_PASSWORD);
+            var allUser = syncUser(drCompany.AD_LDAP, drCompany.AD_LDAP_USER, drCompany.AD_LDAP_USER_PASSWORD);
             var drsUser = modBasic.getAttendant_By_CompanyUuid(this.getUser().COMPANY_UUID);
 
             /*先設定所有人員的有啟用為 「否」，但除了admin外*/
-            foreach (var user in drsUser) {
-                if (user.IS_ADMIN != "Y") {
+            foreach (var user in drsUser)
+            {
+                if (user.IS_ADMIN != "Y")
+                {
                     user.IS_ACTIVE = "N";
                     user.gotoTable().Update_Empty2Null(user);
                 }
             }
 
-            foreach (System.Collections.DictionaryEntry user in allUser) {
+            foreach (System.Collections.DictionaryEntry user in allUser)
+            {
                 var isExistCount = drsUser.Where(c => c.ACCOUNT.ToUpper().Equals(user.Key.ToString().ToUpper())).Count();
                 if (isExistCount == 0)
                 {
@@ -96,14 +100,15 @@ public class ADAction : BaseAction
                     newAt.EMAIL = newAt.ACCOUNT;
                     newAt.gotoTable().Insert_Empty2Null(newAt);
                 }
-                else {
+                else
+                {
                     var drUser = drsUser.Where(c => c.ACCOUNT.ToUpper().Equals(user.Key.ToString().ToUpper())).First();
                     drUser.IS_ACTIVE = "Y";
                     drUser.gotoTable().Update_Empty2Null(drUser);
                 }
             }
 
-            
+
             /*使用Store Std out 『Sotre物件標準輸出格式』*/
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
         }
@@ -117,18 +122,18 @@ public class ADAction : BaseAction
     }
 
     [DirectMethod("testLDAP", DirectAction.Load, MethodVisibility.Visible)]
-    public JObject testLDAP(string ADString,string account,string password, Request request)
+    public JObject testLDAP(string ADString, string account, string password, Request request)
     {
         #region Declare
         List<JObject> jobject = new List<JObject>();
         BasicModel modBasic = new BasicModel();
         ApplicationHead tblApplication = new ApplicationHead();
-       // OrderLimit orderLimit = null;
+        // OrderLimit orderLimit = null;
         #endregion
         try
         {
-            
-            var ht = syncUser(ADString,account,password);
+
+            var ht = syncUser(ADString, account, password);
 
             if (ht.Count > 0)
             {
@@ -137,7 +142,8 @@ public class ADAction : BaseAction
                 /*使用Store Std out 『Sotre物件標準輸出格式』*/
                 return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
             }
-            else {
+            else
+            {
                 return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("Test AD Fail!"));
             }
         }
@@ -150,12 +156,12 @@ public class ADAction : BaseAction
         }
     }
 
-    private System.Collections.Hashtable syncUser(string ADString,string account ,string password)
-    {        
+    private System.Collections.Hashtable syncUser(string ADString, string account, string password)
+    {
         System.Collections.Hashtable ht = new System.Collections.Hashtable();
         string sFromWhere = ADString;
         DirectoryEntry deBase = new DirectoryEntry(sFromWhere, account, password);
-        DirectorySearcher dsLookFor = new DirectorySearcher(deBase);        
+        DirectorySearcher dsLookFor = new DirectorySearcher(deBase);
         dsLookFor.SearchScope = SearchScope.Subtree;
         dsLookFor.PropertiesToLoad.Add("cn");
         SearchResultCollection srcUsers = dsLookFor.FindAll();
@@ -165,13 +171,14 @@ public class ADAction : BaseAction
             if (srcUser.GetDirectoryEntry().SchemaClassName == "user")
             {
                 var obj = srcUser.GetDirectoryEntry();
-                if(obj.Name.Split('=').Length>1){
+                if (obj.Name.Split('=').Length > 1)
+                {
                     var _account = obj.Name.Split('=')[1].Split(new char[] { ' ', '(' })[0].Trim();
                     if (_account.Length > 0)
                     {
                         ht.Add(_account, obj.Name);
                     }
-                }                
+                }
             }
         }
         return ht;

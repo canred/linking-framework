@@ -26,9 +26,9 @@ public class AdminCompanyAction : BaseAction
 {
     [DirectMethod("loadCompany", DirectAction.Store, MethodVisibility.Visible)]
     public JObject loadCompany(string pKeyword, string pIsActive, string pageNo, string limitNo, string sort, string dir, Request request)
-    {      
+    {
         #region Declare
-         List<JObject> jobject = new List<JObject>();
+        List<JObject> jobject = new List<JObject>();
         BasicModel basicModel = new BasicModel();
         CompanyAction table = new CompanyAction();
         OrderLimit orderLimit = null;
@@ -37,7 +37,8 @@ public class AdminCompanyAction : BaseAction
         {
             /*Cloud身份檢查*/
             checkUser(request.HttpRequest);
-            if (this.getUser() == null) {
+            if (this.getUser() == null)
+            {
                 throw new Exception("Identity authentication failed.");
             }
 
@@ -53,11 +54,11 @@ public class AdminCompanyAction : BaseAction
             var totalCount = basicModel.getCompany_By_KeyWord_IsActive_Count(pKeyword, pIsActive);
 
             /*取得資料*/
-            var data = basicModel.getCompany_By_KeyWord_IsActive(pKeyword,pIsActive,orderLimit);
+            var data = basicModel.getCompany_By_KeyWord_IsActive(pKeyword, pIsActive, orderLimit);
             if (data.Count > 0)
             {
                 /*將List<RecordBase>變成JSON字符串*/
-                jobject = JsonHelper.RecordBaseListJObject(data);                
+                jobject = JsonHelper.RecordBaseListJObject(data);
             }
             /*使用Store Std out 『Sotre物件標準輸出格式』*/
             return ExtDirect.Direct.Helper.Store.OutputJObject(jobject, totalCount);
@@ -68,7 +69,7 @@ public class AdminCompanyAction : BaseAction
             /*將Exception轉成EXT Exception JSON格式*/
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
-    }    
+    }
 
     [DirectMethod("info", DirectAction.Load, MethodVisibility.Visible)]
     public JObject info(string pUuid, Request request)
@@ -107,10 +108,10 @@ public class AdminCompanyAction : BaseAction
 
     [DirectMethod("submit", DirectAction.FormSubmission, MethodVisibility.Visible)]
     public JObject submit(string uuid, string c_name, string e_name, string id, string is_active, string week_shift, string name_zh_cn,
-        string is_sync_ad_user, 
-        string ad_ldap, 
+        string is_sync_ad_user,
+        string ad_ldap,
         string ad_ldap_user,
-        string ad_ldap_user_password, 
+        string ad_ldap_user_password,
         HttpRequest request)
     {
         #region Declare
@@ -122,14 +123,16 @@ public class AdminCompanyAction : BaseAction
         {
             /*Cloud身份檢查*/
             checkUser(request);
-            if (this.getUser() == null) {
+            if (this.getUser() == null)
+            {
                 throw new Exception("Identity authentication failed.");
             }
             /*權限檢查*/
-            if (!checkProxy(new StackTrace().GetFrame(0))) {
+            if (!checkProxy(new StackTrace().GetFrame(0)))
+            {
                 throw new Exception("Permission Denied!");
             };
-            
+
             bool isSuccess = true;
             /*
              * 所有Form的動作最終是使用Submit的方式將資料傳出；
@@ -144,14 +147,14 @@ public class AdminCompanyAction : BaseAction
             {
                 action = SubmitAction.Create;
                 record.UUID = LK.Util.UID.Instance.GetUniqueID();
-                record.CREATE_DATE = DateTime.Now;                
+                record.CREATE_DATE = DateTime.Now;
             }
             record.IS_ACTIVE = is_active;
             record.ID = id;
-            record.WEEK_SHIFT = Convert.ToInt32( week_shift);
+            record.WEEK_SHIFT = Convert.ToInt32(week_shift);
             record.C_NAME = c_name;
             record.E_NAME = e_name;
-            record.NAME_ZH_CN = name_zh_cn;            
+            record.NAME_ZH_CN = name_zh_cn;
             record.UPDATE_DATE = DateTime.Now;
             record.IS_SYNC_AD_USER = is_sync_ad_user;
             record.AD_LDAP = ad_ldap;
@@ -171,7 +174,7 @@ public class AdminCompanyAction : BaseAction
                 int repeatCount = company.Where(new LK.DB.SQLCondition(company)
                     .Equal(company.ID, id)
                     ).FetchCount();
-                
+
                 if (repeatCount > 0)
                 {
                     isSuccess = false;
@@ -198,6 +201,6 @@ public class AdminCompanyAction : BaseAction
             log.Error(ex); LK.MyException.MyException.Error(this, ex);
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
-    }    
+    }
 }
 

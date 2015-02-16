@@ -34,7 +34,7 @@ public class InitAction : BaseAction
         List<JObject> jobject = new List<JObject>();
         BasicModel basicModel = new BasicModel();
         ErrorLog table = new ErrorLog();
-       // OrderLimit orderLimit = null;
+        // OrderLimit orderLimit = null;
         #endregion
         try
         { /*權限檢查*/
@@ -70,7 +70,7 @@ public class InitAction : BaseAction
 
                 if (needReplace)
                 {
-                    System.IO.StreamWriter sw = new StreamWriter(file,false,Encoding.UTF8);
+                    System.IO.StreamWriter sw = new StreamWriter(file, false, Encoding.UTF8);
                     sw.WriteLine(content);
                     sw.Close();
                 }
@@ -107,7 +107,7 @@ public class InitAction : BaseAction
                     if (typeof(DirectServiceAttribute) == directType)
                     {
                         string className = theType.Name;
-                        List<string> allFunction = DirectProxyGenerator.generateDirectApiNameList(className,prexString);
+                        List<string> allFunction = DirectProxyGenerator.generateDirectApiNameList(className, prexString);
                         if (allFunction.Count() > 0)
                         {
                             foreach (var item in allFunction)
@@ -159,7 +159,7 @@ public class InitAction : BaseAction
         List<JObject> jobject = new List<JObject>();
         BasicModel basicModel = new BasicModel();
         ErrorLog table = new ErrorLog();
-       // OrderLimit orderLimit = null;
+        // OrderLimit orderLimit = null;
         #endregion
         try
         { /*權限檢查*/
@@ -273,7 +273,7 @@ public class InitAction : BaseAction
         List<JObject> jobject = new List<JObject>();
         BasicModel basicModel = new BasicModel();
         ErrorLog table = new ErrorLog();
-       // OrderLimit orderLimit = null;
+        // OrderLimit orderLimit = null;
         #endregion
         try
         { /*權限檢查*/

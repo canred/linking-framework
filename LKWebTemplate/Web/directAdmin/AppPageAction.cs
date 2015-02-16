@@ -27,7 +27,7 @@ public class AppPageAction : BaseAction
     public JObject loadAppPage(string pApplicationHeadUuid, string pKeyWord, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
-         List<JObject> jobject = new List<JObject>();
+        List<JObject> jobject = new List<JObject>();
         BasicModel modBasic = new BasicModel();
         Apppage tblApppage = new Apppage();
         OrderLimit orderLimit = null;
@@ -47,9 +47,9 @@ public class AppPageAction : BaseAction
             /*是Store操作一下就可能含有分頁資訊。*/
             orderLimit = ExtDirect.Direct.Helper.Order.getOrderLimit(pageNo, limitNo, sort, dir);
             /*取得總資料數*/
-            var totalCount = modBasic.getAppPage_By_KeyWord_Count(pApplicationHeadUuid,pKeyWord);
+            var totalCount = modBasic.getAppPage_By_KeyWord_Count(pApplicationHeadUuid, pKeyWord);
             /*取得資料*/
-            var data = modBasic.getAppPage_By_KeyWord(pApplicationHeadUuid, pKeyWord,orderLimit);
+            var data = modBasic.getAppPage_By_KeyWord(pApplicationHeadUuid, pKeyWord, orderLimit);
             if (data.Count > 0)
             {
                 /*將List<RecordBase>變成JSON字符串*/
@@ -65,9 +65,9 @@ public class AppPageAction : BaseAction
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
-     
+
     [DirectMethod("submit", DirectAction.FormSubmission, MethodVisibility.Visible)]
-    public JObject submit(  string uuid,
+    public JObject submit(string uuid,
                                         string is_active,
                                         string create_date,
                                         string create_user,
@@ -115,7 +115,7 @@ public class AppPageAction : BaseAction
                 drAppPage.CREATE_DATE = DateTime.Now;
                 drAppPage.CREATE_USER = getUser().UUID;
                 drAppPage.UPDATE_USER = getUser().UUID;
-                drAppPage.CREATE_DATE = DateTime.Now;              
+                drAppPage.CREATE_DATE = DateTime.Now;
             }
             /*固定要更新的欄位*/
             drAppPage.UPDATE_DATE = DateTime.Now;
@@ -130,7 +130,7 @@ public class AppPageAction : BaseAction
             drAppPage.APPLICATION_HEAD_UUID = application_head_uuid;
             drAppPage.P_MODE = p_mode;
             //drAppPage.WEB_SITE = web_site;
-            
+
             if (action == SubmitAction.Edit)
             {
                 drAppPage.gotoTable().Update(drAppPage);
@@ -155,7 +155,7 @@ public class AppPageAction : BaseAction
     public JObject info(string pUuid, Request request)
     {
         #region Declare
-        BasicModel modBasic = new BasicModel();       
+        BasicModel modBasic = new BasicModel();
         #endregion
         try
         { /*Cloud身份檢查*/
@@ -173,7 +173,7 @@ public class AppPageAction : BaseAction
             if (dtAppPage.AllRecord().Count > 0)
             {
                 /*將List<RecordBase>變成JSON字符串*/
-                return ExtDirect.Direct.Helper.Form.OutputJObject(JsonHelper.RecordBaseJObject(dtAppPage.AllRecord().First()));   
+                return ExtDirect.Direct.Helper.Form.OutputJObject(JsonHelper.RecordBaseJObject(dtAppPage.AllRecord().First()));
             }
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("Data Not Found!"));
         }
