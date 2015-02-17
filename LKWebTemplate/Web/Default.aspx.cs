@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using LKWebTemplate.Model.Basic;
+using LKWebTemplate.Model.Basic.Table;
 using LKWebTemplate.Model.Basic.Table.Record;
 namespace LKWebTemplate
 {
@@ -12,7 +13,7 @@ namespace LKWebTemplate
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-          
+            
         }
 
         public string getCompany() {

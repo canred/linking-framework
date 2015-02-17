@@ -222,6 +222,7 @@ namespace LK.DB
                         {
                             throw new NotImplementedException("未實作" + config.GetDBType().ToString() + "的SQLCreater");
                         }
+                        
                     }
                 }
                 else
@@ -1430,6 +1431,58 @@ where T : RecordBase
                 _sqlCreater_.isComplete = ASQLCreater.SQLComplete.Complete;
                 db.ExecuteNonQuery();
                 db = null;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw ex;
+            }
+        }
+
+        public enum TruncateConfirm { 
+            OK,Null
+        }
+
+       /// <summary>
+       /// Truncate Table 
+       /// </summary>
+        public void TruncateTable(TruncateConfirm pTruncateConfirm)
+        {
+            try
+            {
+                if (pTruncateConfirm == TruncateConfirm.OK)
+                {
+                    DB db = new DB(this);
+                    SQLCondition condition = new SQLCondition(this);
+                    if (_sqlCreater_ == null)
+                    {
+                        setInit(this);
+                    }
+                    _sqlCreater_.setTableName(this.getTableName());
+                    db.removeAllParameter();
+                    _sqlCreater_.removeSelfParameter();
+                    db.CommandText = _sqlCreater_.TruncateTable().SQL();
+                    db.ExecuteNonQuery(db);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw ex;
+            }
+
+        }
+
+        public string getTableName()
+        {
+            try
+            {
+                var attrs = this.GetType().GetCustomAttributes(typeof(LK.Attribute.TableView), false);
+                if (attrs.Length == 1)
+                {
+                    return ((LK.Attribute.TableView)attrs[0]).getName();
+                }
+                return null;
             }
             catch (Exception ex)
             {

@@ -49,7 +49,7 @@ namespace LK.Util
                     if (value.GetType().Name == "DateTime")
                     {
                         DateTime dateValue = System.Convert.ToDateTime(value);
-                        jsonString += "\"" + dateValue.ToString("yyyy/MM/dd H:mm:ss") + "\"";
+                        jsonString += "\"" + dateValue.ToString("yyyy/MM/dd HH:mm:ss") + "\"";
                     }
                     else
                     {
@@ -103,7 +103,7 @@ namespace LK.Util
                         if (value.GetType().Name == "DateTime")
                         {
                             DateTime dateValue = System.Convert.ToDateTime(value);
-                            jsonString += "\"" + dateValue.ToString("yyyy/MM/dd H:mm:ss") + "\"";                            
+                            jsonString += "\"" + dateValue.ToString("yyyy/MM/dd HH:mm:ss") + "\"";                            
                         }
                         else
                         {

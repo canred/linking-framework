@@ -24,6 +24,10 @@ namespace LK.DB.SQLCreater
         OrderLimit splitOrderLimit = null;
         string strOrder = null;
         string strGroupBy = null;
+
+        public void setTableName(string tableName) {
+            this.TableName = tableName;
+        }
 		public string getTableName() {
             return this.TableName;
         }
@@ -302,6 +306,21 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
+
+        public virtual ASQLCreater TruncateTable()
+        {
+            try
+            {                
+                this._SQL_ = "TRUNCATE TABLE " + this.getTableName();
+                return this;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw ex;
+            }
+        }
+
         /// <summary>
         /// 取得要執行的Delete 的 的部份SQL語句，產出的語句不含WHERE的語句，
         /// 使用的時侯要搭配where方法使用，由where餵入SQLCondition. 
