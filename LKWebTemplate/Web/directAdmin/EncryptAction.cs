@@ -33,15 +33,15 @@ public class EncryptAction : BaseAction
         try
         {
             /*Cloud身份檢查*/
-            checkUser(request.HttpRequest);
-            if (this.getUser() == null)
-            {
-                throw new Exception("Identity authentication failed.");
-            }/*權限檢查*/
-            if (!checkProxy(new StackTrace().GetFrame(0)))
-            {
-                throw new Exception("Permission Denied!");
-            };
+            //checkUser(request.HttpRequest);
+            //if (this.getUser() == null)
+            //{
+            //    throw new Exception("Identity authentication failed.");
+            //}/*權限檢查*/
+            //if (!checkProxy(new StackTrace().GetFrame(0)))
+            //{
+            //    throw new Exception("Permission Denied!");
+            //};
             var encodeString = LK.Util.Encrypt.pwdEncode(yourstring);
 
             System.Data.DataTable dt = new DataTable();

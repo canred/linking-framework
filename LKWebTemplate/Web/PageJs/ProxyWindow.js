@@ -258,8 +258,7 @@ Ext.define('WS.ProxyWindow', {
                     };
                 },
                 scope: this
-            })
-
+            });
         },
         'close': function() {
             this.closeEvent();
