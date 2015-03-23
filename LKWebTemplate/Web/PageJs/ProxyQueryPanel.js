@@ -25,7 +25,6 @@ Ext.define('WS.ProxyQueryPanel', {
         application: Ext.create('Ext.data.Store', {
             successProperty: 'success',
             autoLoad: true,
-            /*:::Table設定:::*/
             model: 'APPLICATION',
             pageSize: 10,
             proxy: {
@@ -52,7 +51,7 @@ Ext.define('WS.ProxyQueryPanel', {
                         });
                     }
                 }
-            },           
+            },
             remoteSort: true,
             sorters: [{
                 property: 'NAME'
@@ -98,6 +97,9 @@ Ext.define('WS.ProxyQueryPanel', {
         var html = "<img src='" + SYSTEM_URL_ROOT;
         return value === "Y" ? html + "/css/custimages/active03.png'>" : html + "/css/custimages/unactive03.png'>";
     },
+    fnCallBackReloadGrid: function(obj, jsonObj) {
+        obj.param.parentObj.myStore.proxy.reload();
+    },
     initComponent: function() {
         if (Ext.isEmpty(this.subWinProxy)) {
             Ext.MessageBox.show({
@@ -108,7 +110,6 @@ Ext.define('WS.ProxyQueryPanel', {
             });
             return false;
         };
-        
         this.items = [{
             xtype: 'panel',
             title: '資源',
@@ -132,7 +133,7 @@ Ext.define('WS.ProxyQueryPanel', {
                     itemId: 'cmbApplication',
                     listeners: {
                         keyup: function(e, t, eOpts) {
-                            var keyCode = t.parentEvent.keyCode;
+                            var keyCode = t.keyCode;
                             if (keyCode == Ext.event.Event.ENTER) {
                                 this.up('panel').down("#btnQuery").handler();
                             };
@@ -147,7 +148,7 @@ Ext.define('WS.ProxyQueryPanel', {
                     enableKeyEvents: true,
                     listeners: {
                         keyup: function(e, t, eOpts) {
-                            var keyCode = t.parentEvent.keyCode;
+                            var keyCode = t.keyCode;
                             if (keyCode == Ext.event.Event.ENTER) {
                                 this.up('panel').down("#btnQuery").handler();
                             };
@@ -186,93 +187,91 @@ Ext.define('WS.ProxyQueryPanel', {
                 paramOrder: ['NAME'],
                 idProperty: 'UUID',
                 paramsAsHash: false,
+                itemId: 'grdProxy',
                 padding: 5,
-                columns: [{
-                    text: "編輯",
-                    xtype: 'actioncolumn',
-                    dataIndex: 'UUID',
-                    align: 'center',
-                    width: 60,
+                columns: {
+                    defaults: {
+                        align:'left'
+                    },
                     items: [{
-                        tooltip: '*編輯',
-                        icon: SYSTEM_URL_ROOT + '/css/images/edit16x16.png',
-                        handler: function(grid, rowIndex, colIndex) {
-                            var main = grid.up('panel').up('panel').up('panel');
-                            if (!main.subWinProxy) {
-                                Ext.MessageBox.show({
-                                    title: '系統訊息',
-                                    icon: Ext.MessageBox.INFO,
-                                    buttons: Ext.Msg.OK,
-                                    msg: '未實現 subWinProxy 物件,無法進行編輯操作!'
+                        text: "編輯",
+                        xtype: 'actioncolumn',
+                        dataIndex: 'UUID',
+                        align: 'center',
+                        width: 60,
+                        items: [{
+                            tooltip: '*編輯',
+                            icon: SYSTEM_URL_ROOT + '/css/images/edit16x16.png',
+                            handler: function(grid, rowIndex, colIndex) {
+                                var main = grid.up('panel').up('panel').up('panel');
+                                if (!main.subWinProxy) {
+                                    Ext.MessageBox.show({
+                                        title: '系統訊息',
+                                        icon: Ext.MessageBox.INFO,
+                                        buttons: Ext.Msg.OK,
+                                        msg: '未實現 subWinProxy 物件,無法進行編輯操作!'
+                                    });
+                                    return false;
+                                };
+                                var subWin = Ext.create(main.subWinProxy, {
+                                    param: {
+                                        uuid: grid.getStore().getAt(rowIndex).data.UUID,
+                                        parentObj: main
+                                    }
                                 });
-                                return false;
-                            };
-                            var subWin = Ext.create(main.subWinProxy, {
-                                param: {
-                                    uuid: grid.getStore().getAt(rowIndex).data.UUID
-                                }
-                            });
-                            subWin.on('closeEvent', main.fnCallBackReloadGrid, main);
-                            main.subWinProxy.show();
+                                subWin.on('closeEvent', main.fnCallBackReloadGrid);
+                                subWin.show();
+                            }
+                        }],
+                        sortable: false,
+                        hideable: false
+                    }, {
+                        header: "Action",
+                        dataIndex: 'PROXY_ACTION',                        
+                        flex: 2
+                    }, {
+                        header: "Method",
+                        dataIndex: 'PROXY_METHOD',
+                        flex: 2
+                    }, {
+                        header: "功能描述",
+                        dataIndex: 'DESCRIPTION',
+                        flex: 2,
+                        renderer: function(value) {
+                            return '<div align="left">' + value + '</div>';
                         }
-                    }],
-                    sortable: false,
-                    hideable: false
-                }, {
-                    header: "Action",
-                    dataIndex: 'PROXY_ACTION',
-                    align: 'left',
-                    flex: 2
-                }, {
-                    header: "Method",
-                    dataIndex: 'PROXY_METHOD',
-                    align: 'left',
-                    flex: 2
-                }, {
-                    header: "功能描述",
-                    align: 'left',
-                    dataIndex: 'DESCRIPTION',
-                    flex: 2,
-                    renderer: function(value) {
-                        return '<div align="left">' + value + '</div>';
-                    }
-                }, {
-                    header: "方式",
-                    align: 'center',
-                    dataIndex: 'PROXY_TYPE',
-                    flex: 1,
-                    renderer: function(value) {
-                        return '<div align="left">' + value + '</div>';
-                    }
-                }, {
-                    header: '跨服務',
-                    dataIndex: 'NEED_REDIRECT',
-                    align: 'center',
-                    flex: 1,
-                    renderer: this.fnActiveRender
-                }, {
-                    header: "SRC(跨服務)",
-                    dataIndex: 'REDIRECT_SRC',
-                    align: 'left',
-                    flex: 1,
-                    hidden: true
-                }, {
-                    header: "Action(跨服務)",
-                    dataIndex: 'REDIRECT_PROXY_ACTION',
-                    align: 'left',
-                    flex: 1,
-                    hidden: true
-                }, {
-                    header: "Method(跨服務)",
-                    dataIndex: 'REDIRECT_PROXY_METHOD',
-                    align: 'left',
-                    flex: 1,
-                    hidden: true
-                }],
-                height: $(document).height() - 240,
-                tbarCfg: {
-                    buttonAlign: 'right'
+                    }, {
+                        header: "方式",
+                        align: 'center',
+                        dataIndex: 'PROXY_TYPE',
+                        width:60,
+                        renderer: function(value) {
+                            return '<div align="left">' + value + '</div>';
+                        }
+                    }, {
+                        header: '跨服務',
+                        dataIndex: 'NEED_REDIRECT',
+                        align: 'center',
+                        width:60,
+                        renderer: this.fnActiveRender
+                    }, {
+                        header: "SRC(跨服務)",
+                        dataIndex: 'REDIRECT_SRC',                        
+                        flex: 1,
+                        hidden: true
+                    }, {
+                        header: "Action(跨服務)",
+                        dataIndex: 'REDIRECT_PROXY_ACTION',
+                        flex: 1,
+                        hidden: true
+                    }, {
+                        header: "Method(跨服務)",
+                        dataIndex: 'REDIRECT_PROXY_METHOD',
+                        flex: 1,
+                        hidden: true
+                    }]
                 },
+                height: $(document).height() - 240,                
                 bbar: Ext.create('Ext.toolbar.Paging', {
                     store: this.myStore.proxy,
                     displayInfo: true,
@@ -283,30 +282,31 @@ Ext.define('WS.ProxyQueryPanel', {
                     icon: SYSTEM_URL_ROOT + '/css/images/add16x16.png',
                     text: '新增',
                     handler: function() {
-                        if (myForm == undefined) {
-                            myForm = Ext.create('ProxyForm', {});
-                            myForm.on('closeEvent', function(obj) {
-                                storeProxy.load();
+                        var mainPanel = this.up('panel').up('panel').up('panel'),
+                            subWin = Ext.create('WS.ProxyWindow', {
+                                param: {
+                                    parentObj: mainPanel,
+                                    uuid: undefined
+                                }
                             });
-                        };
-                        myForm.uuid = undefined;
-                        myForm.show();
+                        subWin.on('closeEvent', mainPanel.fnCallBackReloadGrid);
+                        subWin.show();
                     }
                 }]
             }]
         }];
         this.callParent(arguments);
     },
-    listeners:{
-        afterrender:function(obj,eOpts){
+    listeners: {
+        afterrender: function(obj, eOpts) {
             this.myStore.application.load({
-                callback : function(obj) {
-                    if(obj.length>0){
+                callback: function(obj) {
+                    if (obj.length > 0) {
                         this.down('#cmbApplication').setValue(obj[0].data.UUID);
                     };
                     this.down('#btnQuery').handler(this.down('#btnQuery'));
                 },
-                scope:this
+                scope: this
             });
         }
     }
