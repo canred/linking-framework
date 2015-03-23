@@ -40,7 +40,12 @@
     var scriptEls = document.getElementsByTagName('script'),
         path = scriptEls[scriptEls.length - 1].src,
         rtl = getQueryParam('rtl'),
-        theme = getQueryParam('theme') || 'neptune',
+        //theme = getQueryParam('theme') || 'neptune',
+        theme = getQueryParam('theme') || 'crisp',
+        //theme = getQueryParam('theme') || 'gray',
+        //theme = getQueryParam('theme') || 'neutral',
+        //theme = getQueryParam('theme') || 'aria',        
+        //theme = getQueryParam('theme') || 'classic',
         includeCSS = !hasOption('nocss', path),
         useDebug = hasOption('debug'),
         hasOverrides = !hasOption('nooverrides', path) && !!{
