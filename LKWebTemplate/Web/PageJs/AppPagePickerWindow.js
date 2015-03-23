@@ -70,10 +70,12 @@ Ext.define('WS.AppPagePickerWindow', {
                 xtype: 'container',
                 layout: 'hbox',
                 margin: 5,
+                defaults: {
+                    margin: '0 5 0 0',
+                },
                 items: [{
                     xtype: 'textfield',
                     fieldLabel: '關鍵字',
-                    margin: '0 5 0 0',
                     itemId: 'txtKeywork',
                     labelAlign: 'left',
                     labelWidth: 50,
@@ -89,14 +91,15 @@ Ext.define('WS.AppPagePickerWindow', {
                     xtype: 'button',
                     icon: SYSTEM_URL_ROOT + '/css/custimages/find.png',
                     text: '查詢',
-                    margin: '0 0 0 20',
                     width: 80,
                     itemId: 'btnQuery',
                     handler: function() {
-                        var mainWin = this.up('window');
-                        mainWin.myStore.apppage.getProxy().setExtraParam('pKeyword', mainWin.down('#txtKeywork').getValue());
-                        mainWin.myStore.apppage.getProxy().setExtraParam('pApplicationHeadUuid', mainWin.param.applicationHeadUuid);
-                        mainWin.myStore.apppage.loadPage(1);
+                        var mainWin = this.up('window'),
+                            proxy = mainWin.myStore.apppage.getProxy(),
+                            store = mainWin.myStore.apppage;
+                        proxy.setExtraParam('pKeyword', mainWin.down('#txtKeywork').getValue());
+                        proxy.setExtraParam('pApplicationHeadUuid', mainWin.param.applicationHeadUuid);
+                        store.loadPage(1);
                     }
                 }]
             }, {
@@ -108,57 +111,55 @@ Ext.define('WS.AppPagePickerWindow', {
                 border: true,
                 padding: 5,
                 height: 480,
-                columns: [{
-                    text: "挑選",
-                    xtype: 'actioncolumn',
-                    dataIndex: 'UUID',
-                    align: 'center',
-                    width: 80,
+                columns: {
+                    defaults: {
+                        align: 'left'
+                    },
                     items: [{
-                        tooltip: '*挑選',
-                        icon: SYSTEM_URL_ROOT + '/css/images/add16x16.png',
-                        handler: function(grid, rowIndex, colIndex) {
-                            var mainWin = grid.up('window');
-                            mainWin.selectedEvent(grid.getStore().getAt(rowIndex).data);
-                        }
-                    }],
-                    sortable: false,
-                    hideable: false
-                }, {
-                    text: "功能名稱",
-                    dataIndex: 'NAME',
-                    align: 'left',
-                    flex: 1
-                }, {
-                    text: "描述",
-                    dataIndex: 'DESCRIPTION',
-                    align: 'left',
-                    flex: 1
-                }, {
-                    text: "參數",
-                    dataIndex: 'PARAMETER_CLASS',
-                    align: 'left',
-                    flex: 2
-                }],
+                        text: "挑選",
+                        xtype: 'actioncolumn',
+                        dataIndex: 'UUID',
+                        align: 'center',
+                        width: 80,
+                        items: [{
+                            tooltip: '*挑選',
+                            icon: SYSTEM_URL_ROOT + '/css/images/add16x16.png',
+                            handler: function(grid, rowIndex, colIndex) {
+                                var mainWin = grid.up('window');
+                                mainWin.selectedEvent(grid.getStore().getAt(rowIndex).data);
+                            }
+                        }],
+                        sortable: false,
+                        hideable: false
+                    }, {
+                        text: "功能名稱",
+                        dataIndex: 'NAME',
+                        flex: 1
+                    }, {
+                        text: "描述",
+                        dataIndex: 'DESCRIPTION',
+                        flex: 1
+                    }, {
+                        text: "參數",
+                        dataIndex: 'PARAMETER_CLASS',
+                        flex: 2
+                    }]
+                },
                 bbar: Ext.create('Ext.toolbar.Paging', {
                     store: this.myStore.apppage,
                     displayInfo: true,
                     displayMsg: '第{0}~{1}資料/共{2}筆',
                     emptyMsg: "無資料顯示"
-                }),
-                tbarCfg: {
-                    buttonAlign: 'right'
-                }
+                })
             }],
-            fbar: [{
-                type: 'button',
+            buttons: [{
                 icon: SYSTEM_URL_ROOT + '/css/custimages/exit16x16.png',
                 text: '關閉',
                 handler: function() {
                     this.up('window').close();
                 }
             }]
-        })]
+        })];
         this.callParent(arguments);
     },
     closeEvent: function() {

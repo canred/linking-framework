@@ -22,7 +22,6 @@ Ext.define('WS.GroupWindow', {
     title: '權限維護',
     icon: SYSTEM_URL_ROOT + '/css/images/lock16x16.png',
     closeAction: 'destroy',
-    
     border: false,
     param: {
         uuid: undefined,
@@ -37,7 +36,6 @@ Ext.define('WS.GroupWindow', {
         proxy.setExtraParam('company_uuid', mainWin.param.companyUuid);
         store.loadPage(1);
     },
-
     myStore: {
         applicationheadheadv: Ext.create('Ext.data.Store', {
             successProperty: 'success',
@@ -190,7 +188,7 @@ Ext.define('WS.GroupWindow', {
             items: [{
                 xtype: 'container',
                 layout: 'hbox',
-                margin:'5 0 0 0',
+                margin: '5 0 0 0',
                 items: [{
                     fieldLabel: '系統',
                     labelAlign: 'right',
@@ -201,7 +199,6 @@ Ext.define('WS.GroupWindow', {
                     valueField: 'UUID',
                     name: 'APPLICATION_HEAD_UUID',
                     anchor: '100%',
-                    
                     editable: false,
                     hidden: false,
                     store: this.myStore.applicationheadheadv
@@ -212,57 +209,46 @@ Ext.define('WS.GroupWindow', {
                     labelWidth: 100,
                     itemId: 'groupHeadId',
                     name: 'ID',
-                    
                     maxLength: 50
                 }]
             }, {
                 xtype: 'container',
                 layout: 'hbox',
-                margin:'5 0 5 0',
+                margin: '5 0 5 0',
+                defaults: {
+                    anchor: '0 0',
+                    labelWidth: 100,
+                    labelAlign: 'right'
+                },
                 items: [{
                     xtype: 'textfield',
                     fieldLabel: '群組繁中',
-                    labelAlign: 'right',
-                    id: 'NAME_ZH_TW',
-                    labelWidth: 100,
                     name: 'NAME_ZH_TW',
-                    
-                    anchor: '100%',
                     maxLength: 100,
                     allowBlank: false
                 }, {
                     xtype: 'textfield',
                     fieldLabel: '群組簡中',
-                    labelAlign: 'right',
-                    labelWidth: 100,
                     name: 'NAME_ZH_CN',
-                    
-                    anchor: '100%',
                     maxLength: 100,
                     allowBlank: false
                 }, {
                     xtype: 'textfield',
                     fieldLabel: '群組英文',
                     labelWidth: 100,
-                    labelAlign: 'right',
                     name: 'NAME_EN_US',
-                    
                     maxLength: 100
                 }]
             }, {
-                xtype: 'hidden',
+                xtype: 'hiddenfield',
                 fieldLabel: 'UUID',
                 name: 'UUID',
-                
-                anchor: '100%',
                 maxLength: 84,
                 itemId: 'groupHeadFormUuid'
             }, {
-                xtype: 'hidden',
+                xtype: 'hiddenfield',
                 fieldLabel: 'IS_ACTIVE',
                 name: 'IS_ACTIVE',
-                
-                anchor: '100%',
                 maxLength: 1,
                 value: 'Y'
             }],
@@ -354,7 +340,7 @@ Ext.define('WS.GroupWindow', {
             itemId: 'tabMain',
             plain: true,
             padding: 10,
-            border: true,
+            border: false,
             maxWidth: 880,
             items: [{
                 title: '權限維護',
@@ -363,7 +349,6 @@ Ext.define('WS.GroupWindow', {
                     itemId: 'AppMenuPanel',
                     xtype: 'panel',
                     frame: false,
-                    
                     autoHeight: true,
                     autoWidth: true,
                     companyUuid: undefined,
@@ -372,7 +357,6 @@ Ext.define('WS.GroupWindow', {
                         xtype: 'treepanel',
                         fieldLabel: '權限維護',
                         itemId: 'appMenuTree',
-                        
                         border: true,
                         autoWidth: true,
                         autoHeight: true,
@@ -382,68 +366,65 @@ Ext.define('WS.GroupWindow', {
                         multiSelect: true,
                         rootVisible: false,
                         loadMask: true,
-                        columns: [{
-                            text: '<center>UUID</center>',
-                            flex: 2,
-                            sortable: false,
-                            dataIndex: 'UID值',
-                            hidden: true
-                        }, {
-                            xtype: 'treecolumn',
-                            text: '<center>名稱</center>',
-                            flex: 2,
-                            sortable: false,
-                            dataIndex: 'NAME_ZH_TW'
-                        }, {
-                            text: '<center>行為模式</center>',
-                            flex: 1,
-                            dataIndex: 'ACTION_MODE',
-                            align: 'left',
-                            sortable: false
-                        }, {
-                            text: "<center>預設頁面</center>",
-                            dataIndex: 'DEFAULT_PAGE_CHECKED',
-                            align: 'center',
-                            flex: 1,
-                            xtype: 'checkcolumn',
-                            listeners: {
-                                'checkchange': function(obj, rowIndex, checked) {
-                                    var mainWin = this.up('window'),
-                                        store = mainWin.myStore.appmenutree,
-                                        record = store.getAt(rowIndex),
-                                        pUuid = record.data.UUID,
-                                        pIsDefaultPage = record.data.IS_DEFAULT_PAGE;
-                                    WS.AuthorityAction.setGroupAppmenuIsDefaultPage(pUuid,
-                                        mainWin.param.uuid, checked,
-                                        function(data) {
-                                            if (checked) {
-                                                record.set('checked', checked);
-                                            };
-                                        });
-                                }
+                        columns: {
+                            defaults: {
+                                align: 'left',
+                                sortable: false
                             },
-                            sortable: false,
-                            hideable: false
-                        }, {
-                            text: '<center>功能描述</center>',
-                            flex: 1,
-                            dataIndex: 'DESCRIPTION',
-                            align: 'left',
-                            hidden: true,
-                            sortable: false
-                        }, {
-                            text: '<center>虛擬路徑</center>',
-                            flex: 1,
-                            dataIndex: 'URL',
-                            align: 'left',
-                            sortable: false
-                        }, {
-                            text: '<center>參數</center>',
-                            flex: 1,
-                            dataIndex: 'PARAMETER_CLASS',
-                            align: 'left',
-                            sortable: false
-                        }],
+                            items: [{
+                                text: '<center>UUID</center>',
+                                flex: 2,
+                                dataIndex: 'UID值',
+                                hidden: true
+                            }, {
+                                xtype: 'treecolumn',
+                                text: '名稱',
+                                flex: 2,
+                                dataIndex: 'NAME_ZH_TW'
+                            }, {
+                                text: '<center>行為模式</center>',
+                                flex: 1,
+                                dataIndex: 'ACTION_MODE',
+                                sortable: false
+                            }, {
+                                text: "預設頁面",
+                                dataIndex: 'DEFAULT_PAGE_CHECKED',
+                                align: 'center',
+                                width: 80,
+                                xtype: 'checkcolumn',
+                                listeners: {
+                                    'checkchange': function(obj, rowIndex, checked) {
+                                        var mainWin = this.up('window'),
+                                            store = mainWin.myStore.appmenutree,
+                                            record = store.getAt(rowIndex),
+                                            pUuid = record.data.UUID,
+                                            pIsDefaultPage = record.data.IS_DEFAULT_PAGE;
+                                        WS.AuthorityAction.setGroupAppmenuIsDefaultPage(pUuid,
+                                            mainWin.param.uuid, checked,
+                                            function(data) {
+                                                if (checked) {
+                                                    record.set('checked', checked);
+                                                };
+                                            });
+                                    }
+                                },
+                                sortable: false,
+                                hideable: false
+                            }, {
+                                text: '<center>功能描述</center>',
+                                flex: 1,
+                                dataIndex: 'DESCRIPTION',
+                                hidden: true
+                            }, {
+                                text: '<center>虛擬路徑</center>',
+                                flex: 1,
+                                dataIndex: 'URL'
+                            }, {
+                                text: '<center>參數</center>',
+                                flex: 1,
+                                dataIndex: 'PARAMETER_CLASS'
+                            }]
+                        },
                         listeners: {
                             checkchange: function(node, checked, eOpts) {
                                 var mainWin = this.up('window'),
@@ -463,7 +444,6 @@ Ext.define('WS.GroupWindow', {
                                             Ext.get(Ext.get(_tree.view.all.elements[_rowNumber].childNodes[3].id)).checked = false;
                                         };
                                     }, mainWin);
-
                                 };
                             }
                         }
@@ -472,13 +452,12 @@ Ext.define('WS.GroupWindow', {
             }, {
                 title: '使用者維護',
                 icon: SYSTEM_URL_ROOT + '/css/images/manb16x16.png',
+                border: true,
                 items: [{
                     xtype: 'panel',
-                    id: 'myUserPanel',
                     frame: false,
-                    
-                    bodyStyle: "padding:2px 0px 0",
                     border: false,
+                    padding: 5,
                     items: [{
                         xtype: 'fieldset',
                         title: '搜尋條件',
@@ -499,8 +478,9 @@ Ext.define('WS.GroupWindow', {
                                 enableKeyEvents: true,
                                 listeners: {
                                     keyup: function(e, t, eOpts) {
-                                        if (t.button == 12) {
-                                            btn_Query_Click();
+                                        var keyCode = t.keyCode;
+                                        if (keyCode == Ext.event.Event.ENTER) {
+                                            this.up('window').fnQuery.call(this.up('window').down('#bnt_Query'));
                                         };
                                     }
                                 }
@@ -526,12 +506,11 @@ Ext.define('WS.GroupWindow', {
                             type: 'hbox',
                             align: 'stretch'
                         },
-                        width: '100%',
                         height: 400,
                         items: [{
                             xtype: 'gridpanel',
                             multiSelect: true,
-                            margin:5,
+                            margin: '5 5 0 0',
                             border: true,
                             viewConfig: {
                                 plugins: {
@@ -560,7 +539,7 @@ Ext.define('WS.GroupWindow', {
                                 width: '20%',
                                 dataIndex: 'E_NAME'
                             }, {
-                                id: 'unselected_account',
+
                                 header: "帳號",
                                 sortable: true,
                                 width: '20%',
@@ -578,7 +557,7 @@ Ext.define('WS.GroupWindow', {
                             xtype: 'gridpanel',
                             multiSelect: true,
                             border: true,
-                            margin: 5,
+                            margin: '5 0 0 5',
                             viewConfig: {
                                 plugins: {
                                     ptype: 'gridviewdragdrop',
@@ -606,7 +585,7 @@ Ext.define('WS.GroupWindow', {
                                 width: '20%',
                                 dataIndex: 'E_NAME'
                             }, {
-                                id: 'selected_account',
+
                                 header: "帳號",
                                 width: '20%',
                                 sortable: true,
@@ -624,7 +603,7 @@ Ext.define('WS.GroupWindow', {
                     }]
                 }]
             }]
-        }]
+        }];
         this.callParent(arguments);
     },
     closeEvent: function() {
@@ -657,8 +636,7 @@ Ext.define('WS.GroupWindow', {
                     params: {
                         'pUuid': this.param.uuid
                     },
-                    success: function(response, a, b) {
-
+                    success: function(response, jsonObj) {
                         WS.AuthorityAction.loadTreeRoot(
                             this.down('#groupheafFormApplicationHead').getValue(),
                             function(data) {
@@ -670,7 +648,7 @@ Ext.define('WS.GroupWindow', {
                                 });
                             }, this);
                     },
-                    failure: function(response, a, b) {
+                    failure: function(response, jsonObj) {
                         r = Ext.decode(response.responseText);
                         alert('err:' + r);
                     },

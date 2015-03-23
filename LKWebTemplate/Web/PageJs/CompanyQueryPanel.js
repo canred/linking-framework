@@ -80,15 +80,16 @@ Ext.define('WS.CompanyQueryPanel', {
             title: '公司維護',
             icon: SYSTEM_URL_ROOT + '/css/images/company16x16.png',
             frame: true,
-            padding: 5,
-            border: false,
+            border: true,
             height: $(document).height() - 150,
             autoWidth: true,
-            padding: '5 20 5 5',
             items: [{
                 xtype: 'container',
                 layout: 'hbox',
                 margin: '5 0 0 5',
+                defaults: {
+                    labelAlign: 'right'
+                },
                 items: [{
                     xtype: 'textfield',
                     fieldLabel: '關鍵字',
@@ -106,8 +107,7 @@ Ext.define('WS.CompanyQueryPanel', {
                 }, {
                     xtype: 'combobox',
                     queryMode: 'local',
-                    fieldLabel: '是否啟用',
-                    margin: '0 0 0 20',
+                    fieldLabel: '啟用',
                     labelWidth: 60,
                     width: 150,
                     displayField: 'name',
@@ -168,60 +168,62 @@ Ext.define('WS.CompanyQueryPanel', {
                 store: this.myStore.company,
                 itemId: 'grdCompanyQuery',
                 border: true,
-                height: $(document).height() - 240,
-                padding: '5 15 5 5',
-                columns: [{
-                    text: "編輯",
-                    xtype: 'actioncolumn',
-                    dataIndex: 'UUID',
-                    align: 'center',
-                    width: 60,
+                height: $(document).height() - 220,
+                padding: 5,
+                columns: {
+                    defaults: {
+                        align: 'left'
+                    },
                     items: [{
-                        tooltip: '*編輯',
-                        icon: SYSTEM_URL_ROOT + '/css/images/edit16x16.png',
-                        handler: function(grid, rowIndex, colIndex) {
-                            var main = grid.up('panel').up('panel').up('panel');
-                            if (!main.subWinCompany) {
-                                Ext.MessageBox.show({
-                                    title: '系統訊息',
-                                    icon: Ext.MessageBox.INFO,
-                                    buttons: Ext.Msg.OK,
-                                    msg: '未實現 subWinCompany 物件,無法進行編輯操作!'
-                                });
-                                return false;
-                            };
-                            var subWin = Ext.create(main.subWinCompany, {});
-                            subWin.on('closeEvent', function(obj) {
-                                main.down("#grdCompanyQuery").getStore().load();
-                            }, main);
-                            subWin.param.uuid = grid.getStore().getAt(rowIndex).data.UUID;
-                            subWin.show();
-                        }
-                    }],
-                    sortable: false,
-                    hideable: false
-                }, {
-                    header: "名稱-繁中",
-                    dataIndex: 'C_NAME',
-                    align: 'left',
-                    flex: 1
-                }, {
-                    header: "名稱-簡中",
-                    align: 'left',
-                    dataIndex: 'NAME_ZH_CN',
-                    flex: 1
-                }, {
-                    header: "名稱-英文",
-                    dataIndex: 'E_NAME',
-                    align: 'left',
-                    flex: 1
-                }, {
-                    header: '啟用',
-                    dataIndex: 'IS_ACTIVE',
-                    align: 'center',
-                    flex: 1,
-                    renderer: this.fnActiveRender
-                }],
+                        text: "編輯",
+                        xtype: 'actioncolumn',
+                        dataIndex: 'UUID',
+                        align: 'center',
+                        width: 60,
+                        items: [{
+                            tooltip: '*編輯',
+                            icon: SYSTEM_URL_ROOT + '/css/images/edit16x16.png',
+                            handler: function(grid, rowIndex, colIndex) {
+                                var main = grid.up('panel').up('panel').up('panel');
+                                if (!main.subWinCompany) {
+                                    Ext.MessageBox.show({
+                                        title: '系統訊息',
+                                        icon: Ext.MessageBox.INFO,
+                                        buttons: Ext.Msg.OK,
+                                        msg: '未實現 subWinCompany 物件,無法進行編輯操作!'
+                                    });
+                                    return false;
+                                };
+                                var subWin = Ext.create(main.subWinCompany, {});
+                                subWin.on('closeEvent', function(obj) {
+                                    main.down("#grdCompanyQuery").getStore().load();
+                                }, main);
+                                subWin.param.uuid = grid.getStore().getAt(rowIndex).data.UUID;
+                                subWin.show();
+                            }
+                        }],
+                        sortable: false,
+                        hideable: false
+                    }, {
+                        header: "名稱-繁中",
+                        dataIndex: 'C_NAME',
+                        flex: 1
+                    }, {
+                        header: "名稱-簡中",
+                        dataIndex: 'NAME_ZH_CN',
+                        flex: 1
+                    }, {
+                        header: "名稱-英文",
+                        dataIndex: 'E_NAME',
+                        flex: 1
+                    }, {
+                        header: '啟用',
+                        dataIndex: 'IS_ACTIVE',
+                        align: 'center',
+                        width: 60,
+                        renderer: this.fnActiveRender
+                    }]
+                },
                 tbarCfg: {
                     buttonAlign: 'right'
                 },

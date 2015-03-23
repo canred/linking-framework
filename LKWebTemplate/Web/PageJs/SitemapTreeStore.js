@@ -8,6 +8,7 @@ Ext.define('Model.SiteMap', {
         name: 'DESCRIPTION'
     }]
 });
+
 Ext.define('WS.SitemapTreeStore', {
     extend: 'Ext.data.TreeStore',
     root: {

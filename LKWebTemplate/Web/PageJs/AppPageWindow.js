@@ -52,10 +52,6 @@ Ext.define('WS.AppPageWindow', {
     },
     initComponent: function() {
         this.items = [Ext.create('Ext.form.Panel', {
-            layout: {
-                type: 'form',
-                align: 'stretch'
-            },
             api: {
                 load: WS.AppPageAction.info,
                 submit: WS.AppPageAction.submit,
@@ -64,13 +60,16 @@ Ext.define('WS.AppPageWindow', {
             itemId: 'AppPageForm',
             paramOrder: ['pUuid'],
             border: true,
-            bodyPadding: 5,
             defaultType: 'textfield',
             buttonAlign: 'center',
-            items: [{
-                labelWidth: 100,
-                fieldLabel: '系統',
+            defaults: {
+                anchor: '95%',
                 labelAlign: 'right',
+                labelWidth: 100
+            },
+            items: [{
+                margin: '5 0 5 0',
+                fieldLabel: '系統',
                 xtype: 'combo',
                 name: 'APPLICATION_HEAD_UUID',
                 itemId: 'Ext_AppPageForm_Form_application_head_uuid',
@@ -81,89 +80,60 @@ Ext.define('WS.AppPageWindow', {
                 store: this.myStore.application
             }, {
                 fieldLabel: '功能代碼',
-                labelAlign: 'right',
-                labelWidth: 100,
                 name: 'ID',
-                padding: 5,
-                anchor: '100%',
                 maxLength: 84,
                 allowBlank: false
             }, {
                 fieldLabel: '功能名稱',
-                labelAlign: 'right',
-                labelWidth: 100,
                 name: 'NAME',
-                padding: 5,
-                anchor: '100%',
                 maxLength: 84,
                 allowBlank: false
             }, {
                 fieldLabel: '描述',
-                labelAlign: 'right',
-                labelWidth: 100,
                 name: 'DESCRIPTION',
-                padding: 5,
-                anchor: '100%',
                 maxLength: 84,
                 allowBlank: true
             }, {
                 fieldLabel: '行為',
-                labelAlign: 'right',
-                labelWidth: 100,
                 name: 'P_MODE',
-                padding: 5,
-                anchor: '100%',
                 maxLength: 84,
                 allowBlank: true
             }, {
                 fieldLabel: '參數',
-                labelAlign: 'right',
-                labelWidth: 100,
                 name: 'PARAMETER_CLASS',
-                padding: 5,
-                anchor: '100%',
                 maxLength: 84,
                 allowBlank: true
             }, {
                 fieldLabel: '路徑',
-                labelAlign: 'right',
-                labelWidth: 100,
                 name: 'URL',
-                padding: 5,
-                anchor: '100%',
                 maxLength: 84,
                 allowBlank: false
             }, {
                 xtype: 'container',
                 layout: 'hbox',
-                fieldLabel: '是否啟用',
-                defaultType: 'radiofield',
+                fieldLabel: '啟用',                
+                defaultType: 'radiofield',                
                 items: [{
                     fieldLabel: '啟用',
                     labelAlign: 'right',
                     boxLabel: '是',
                     name: 'IS_ACTIVE',
                     inputValue: 'Y',
-                    id: 'IS_ACTIVE_Y',
                     checked: true
                 }, {
                     boxLabel: '否',
                     name: 'IS_ACTIVE',
                     inputValue: 'N',
-                    id: 'IS_ACTIVE_N',
                     margin: '0 0 0 60'
                 }]
             }, {
-                xtype: 'hidden',
+                xtype: 'hiddenfield',
                 fieldLabel: 'UUID',
                 name: 'UUID',
-                padding: 5,
-                anchor: '100%',
                 maxLength: 84,
                 itemId: 'UUID'
             }],
-            fbar: [{
-                type: 'button',
+            buttons: [{
                 icon: SYSTEM_URL_ROOT + '/css/custimages/save16x16.png',
                 text: '儲存',
                 handler: function() {
@@ -200,7 +170,6 @@ Ext.define('WS.AppPageWindow', {
                     });
                 }
             }, {
-                type: 'button',
                 itemId: 'btnDelete',
                 icon: SYSTEM_URL_ROOT + '/css/custimages/delete.png',
                 text: '刪除',
@@ -221,7 +190,7 @@ Ext.define('WS.AppPageWindow', {
                                             icon: Ext.MessageBox.ERROR,
                                             buttons: Ext.Msg.OK
                                         });
-                                    }
+                                    };
                                 }, this);
                             };
                         },
@@ -229,14 +198,13 @@ Ext.define('WS.AppPageWindow', {
                     });
                 }
             }, {
-                type: 'button',
                 icon: SYSTEM_URL_ROOT + '/css/custimages/exit16x16.png',
                 text: '關閉',
                 handler: function() {
                     this.up('window').hide();
                 }
             }]
-        })]
+        })];
         this.callParent(arguments);
     },
     closeEvent: function() {
@@ -253,7 +221,7 @@ Ext.define('WS.AppPageWindow', {
                         this.down('#AppPageForm').getForm().load({
                             params: {
                                 'pUuid': this.param.uuid
-                            },                            
+                            },
                             failure: function(form, jsonObj) {
                                 Ext.MessageBox.show({
                                     title: 'Warning',
@@ -267,7 +235,7 @@ Ext.define('WS.AppPageWindow', {
                         this.down('#btnDelete').setDisabled(true);
                         this.down('#Ext_AppPageForm_Form_application_head_uuid').setReadOnly(false);
                         this.down('#AppPageForm').getForm().reset();
-                    }
+                    };
                 },
                 scope: this
             });

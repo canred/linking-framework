@@ -90,7 +90,11 @@ Ext.define('WS.AttendantQueryPanel', {
             items: [{
                 xtype: 'container',
                 layout: 'hbox',
-                margin: '5 5 5 5',
+                margin: '5 0 0 0',
+                defaults: {
+                    margin: '0 5 0 0',
+                    labelAlign: 'right'
+                },
                 items: [{
                     xtype: 'textfield',
                     fieldLabel: '關鍵字',
@@ -108,7 +112,6 @@ Ext.define('WS.AttendantQueryPanel', {
                 }, {
                     xtype: 'button',
                     width: 70,
-                    margin: '0 5 0 5',
                     icon: SYSTEM_URL_ROOT + '/css/custimages/find.png',
                     text: '查詢',
                     itemId: 'btnQuery',
@@ -123,7 +126,6 @@ Ext.define('WS.AttendantQueryPanel', {
                 }, {
                     xtype: 'button',
                     width: 70,
-                    margin: '0 5 0 5',
                     icon: SYSTEM_URL_ROOT + '/css/custimages/clear.png',
                     text: '清除',
                     tooltip: '*清除目前所有的條件查詢',
@@ -138,63 +140,64 @@ Ext.define('WS.AttendantQueryPanel', {
                 itemId: 'grdAttendantQuery',
                 padding: 5,
                 border: true,
-                height: $(document).height() - 240,
-                columns: [{
-                    text: "編輯",
-                    xtype: 'actioncolumn',
-                    dataIndex: 'UUID',
-                    align: 'center',
-                    width: 60,
+                height: $(document).height() - 220,
+                columns: {
+                    defaults: {
+                        align: 'left'
+                    },
                     items: [{
-                        tooltip: '*編輯',
-                        icon: '../../css/images/edit16x16.png',
-                        handler: function(grid, rowIndex, colIndex) {
-                            var main = grid.up('panel').up('panel').up('panel');
-                            if (!main.subWinAttendant) {
-                                Ext.MessageBox.show({
-                                    title: '系統訊息',
-                                    icon: Ext.MessageBox.INFO,
-                                    buttons: Ext.Msg.OK,
-                                    msg: '未實現 subWinAttendant 物件,無法進行編輯操作!'
+                        text: "編輯",
+                        xtype: 'actioncolumn',
+                        dataIndex: 'UUID',
+                        align: 'center',
+                        width: 60,
+                        items: [{
+                            tooltip: '*編輯',
+                            icon: '../../css/images/edit16x16.png',
+                            handler: function(grid, rowIndex, colIndex) {
+                                var main = grid.up('panel').up('panel').up('panel');
+                                if (!main.subWinAttendant) {
+                                    Ext.MessageBox.show({
+                                        title: '系統訊息',
+                                        icon: Ext.MessageBox.INFO,
+                                        buttons: Ext.Msg.OK,
+                                        msg: '未實現 subWinAttendant 物件,無法進行編輯操作!'
+                                    });
+                                    return false;
+                                };
+                                /*註冊事件*/
+                                var subWin = Ext.create(main.subWinAttendant, {
+                                    param: {
+                                        uuid: grid.getStore().getAt(rowIndex).data.UUID
+                                    }
                                 });
-                                return false;
-                            };
-                            /*註冊事件*/
-                            var subWin = Ext.create(main.subWinAttendant,{
-                                param:{
-                                    uuid:grid.getStore().getAt(rowIndex).data.UUID
-                                }
-                            });
-                            subWin.on('closeEvent', function(obj) {
-                                main.down("#grdAttendantQuery").getStore().load();
-                            }, main);                            
-                            subWin.show();
-                        }
-                    }],
-                    sortable: false,
-                    hideable: false
-                }, {
-                    header: "帳號",
-                    dataIndex: 'ACCOUNT',
-                    align: 'left',
-                    flex: 1
-                }, {
-                    header: "名稱-繁中",
-                    dataIndex: 'C_NAME',
-                    align: 'left',
-                    flex: 1
-                }, {
-                    header: "名稱-英文",
-                    dataIndex: 'E_NAME',
-                    align: 'left',
-                    flex: 1
-                }, {
-                    header: '啟用',
-                    dataIndex: 'IS_ACTIVE',
-                    align: 'center',
-                    flex: 1,
-                    renderer: this.fnActiveRender
-                }],
+                                subWin.on('closeEvent', function(obj) {
+                                    main.down("#grdAttendantQuery").getStore().load();
+                                }, main);
+                                subWin.show();
+                            }
+                        }],
+                        sortable: false,
+                        hideable: false
+                    }, {
+                        header: "帳號",
+                        dataIndex: 'ACCOUNT'
+                    }, {
+                        header: "名稱-繁中",
+                        dataIndex: 'C_NAME',
+                        flex: 1
+                    }, {
+                        header: "名稱-英文",
+                        dataIndex: 'E_NAME',
+                        flex: 1
+                    }, {
+                        header: '啟用',
+                        dataIndex: 'IS_ACTIVE',
+                        align: 'center',
+                        width: 60,
+                        renderer: this.fnActiveRender
+                    }]
+                },
                 tbarCfg: {
                     buttonAlign: 'right'
                 },
@@ -218,15 +221,15 @@ Ext.define('WS.AttendantQueryPanel', {
                             });
                             return false;
                         };
-                        var subWin = Ext.create(main.subWinAttendant,{
-                            param:{
-                                uuid:undefined
+                        var subWin = Ext.create(main.subWinAttendant, {
+                            param: {
+                                uuid: undefined
                             }
                         });
                         /*註冊事件*/
                         subWin.on('closeEvent', function(obj) {
                             main.down("#grdAttendantQuery").getStore().load();
-                        }, main);                        
+                        }, main);
                         subWin.show();
                     }
                 }, {
@@ -259,7 +262,7 @@ Ext.define('WS.AttendantQueryPanel', {
                                     }
                                 });
                                 this.myStore.attendantV.loadPage(1);
-                            }
+                            };
                         }, main);
                     }
                 }, {
@@ -288,7 +291,7 @@ Ext.define('WS.AttendantQueryPanel', {
                                     buttons: Ext.Msg.OK,
                                     msg: jsonObj.result.message
                                 });
-                            }
+                            };
                         }, main);
                     }
                 }]
@@ -296,10 +299,10 @@ Ext.define('WS.AttendantQueryPanel', {
         }];
         this.callParent(arguments);
     },
-    listeners:{
-        afterrender:function(obj,eOpts){
-            this.myStore.attendantV.load({                
-                scope:this
+    listeners: {
+        afterrender: function(obj, eOpts) {
+            this.myStore.attendantV.load({
+                scope: this
             });
         }
     }

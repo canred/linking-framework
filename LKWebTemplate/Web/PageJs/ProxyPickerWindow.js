@@ -4,15 +4,15 @@ Ext.define('WS.ProxyPickerWindow', {
     title: '挑選資源',
     icon: SYSTEM_URL_ROOT + '/css/images/connector16x16.png',
     closeAction: 'destroy',
-    closable: false,
+    closable: true,
     param: {
         applicationHeadUuid: undefined,
         menuUuid: undefined,
         parentObject: undefined
     },
     width: 800,
-    autoHeight: true,
-    maxHeight: $(window).height() * 0.9,
+    minHeight: $(window).height() * 0.9,
+    y: 10,
     layout: 'fit',
     resizable: false,
     draggable: false,
@@ -20,7 +20,7 @@ Ext.define('WS.ProxyPickerWindow', {
         proxy: Ext.create('Ext.data.Store', {
             successProperty: 'success',
             model: 'PROXY',
-            pageSize: 1000,
+            pageSize: 9999,
             proxy: {
                 type: 'direct',
                 api: {
@@ -56,8 +56,8 @@ Ext.define('WS.ProxyPickerWindow', {
     },
     initComponent: function() {
         this.items = [Ext.create('Ext.form.Panel', {
-            border: true,
-            bodyPadding: 5,
+            border: false,
+            padding: 5,
             buttonAlign: 'center',
             items: [{
                 xtype: 'container',
@@ -67,10 +67,11 @@ Ext.define('WS.ProxyPickerWindow', {
                     fieldLabel: '關鍵字',
                     itemId: 'txtKeyword',
                     labelAlign: 'right',
+                    labelWidth: 50,
                     enableKeyEvents: true,
                     listeners: {
                         keyup: function(obj, t) {
-                            var keyCode = t.parentEvent.keyCode;
+                            var keyCode = t.keyCode;
                             if (keyCode == Ext.event.Event.ENTER) {
                                 this.up('panel').down("#btnQuery").handler();
                             };
@@ -98,42 +99,41 @@ Ext.define('WS.ProxyPickerWindow', {
                 border: true,
                 padding: 5,
                 autoWidth: true,
-                columns: [{
-                    text: "挑選",
-                    xtype: 'actioncolumn',
-                    dataIndex: 'UUID',
-                    align: 'center',
-                    width: 80,
+                columns: {
+                    defaults: {
+                        align: 'left'
+                    },
                     items: [{
-                        tooltip: '*挑選',
-                        icon: SYSTEM_URL_ROOT + '/css/images/add16x16.png',
-                        handler: function(grid, rowIndex, colIndex) {
-                            var mainWin = grid.up('window');
-                            mainWin.selectEvent(grid.getStore().getAt(rowIndex).data);
-                        }
-                    }],
-                    sortable: false,
-                    hideable: false
-                }, {
-                    text: "Action",
-                    dataIndex: 'PROXY_ACTION',
-                    align: 'left',
-                    flex: 1
-                }, {
-                    text: "Method",
-                    dataIndex: 'PROXY_METHOD',
-                    align: 'left',
-                    flex: 1
-                }, {
-                    text: "描述",
-                    dataIndex: 'DESCRIPTION',
-                    align: 'left',
-                    flex: 1
-                }],
-                height: 420,
-                tbarCfg: {
-                    buttonAlign: 'right'
-                }
+                        text: "挑選",
+                        xtype: 'actioncolumn',
+                        dataIndex: 'UUID',
+                        align: 'center',
+                        width: 80,
+                        items: [{
+                            tooltip: '*挑選',
+                            icon: SYSTEM_URL_ROOT + '/css/images/add16x16.png',
+                            handler: function(grid, rowIndex, colIndex) {
+                                var mainWin = grid.up('window');
+                                mainWin.selectEvent(grid.getStore().getAt(rowIndex).data);
+                            }
+                        }],
+                        sortable: false,
+                        hideable: false
+                    }, {
+                        text: "Action",
+                        dataIndex: 'PROXY_ACTION',
+                        flex: 1
+                    }, {
+                        text: "Method",
+                        dataIndex: 'PROXY_METHOD',
+                        flex: 1
+                    }, {
+                        text: "描述",
+                        dataIndex: 'DESCRIPTION',
+                        flex: 1
+                    }]
+                },
+                autoHeight: true
             }],
             fbar: [{
                 type: 'button',
@@ -143,7 +143,7 @@ Ext.define('WS.ProxyPickerWindow', {
                     this.up('window').close();
                 }
             }]
-        })]
+        })];
         this.callParent(arguments);
     },
     closeEvent: function() {

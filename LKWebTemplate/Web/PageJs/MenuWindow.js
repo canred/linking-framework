@@ -21,7 +21,7 @@ Ext.define('WS.MenuWindow', {
         sitemap: Ext.create('Ext.data.Store', {
             extend: 'Ext.data.Store',
             autoLoad: false,
-            model:'SITEMAP',
+            model: 'SITEMAP',
             pageSize: 10,
             proxy: {
                 type: 'direct',
@@ -186,11 +186,7 @@ Ext.define('WS.MenuWindow', {
             return false;
         };
         this.items = [Ext.create('Ext.form.Panel', {
-            padding: '5 25 5 5',
-            layout: {
-                type: 'form',
-                align: 'stretch'
-            },
+            layout: 'anchor',
             api: {
                 load: WS.MenuAction.info,
                 submit: WS.MenuAction.submit,
@@ -201,64 +197,53 @@ Ext.define('WS.MenuWindow', {
             border: false,
             defaultType: 'textfield',
             buttonAlign: 'center',
-            autoScroll: true,
-            monitorvalid: true,
+            autoScroll: false,
+            defaults: {
+                margin: '5 0 0 0',
+                anchor: '-10 0'
+            },
             items: [{
                 fieldLabel: '代碼',
-                padding: 5,
                 allowBlank: false,
                 maxLength: 33,
                 name: 'ID',
-                labelAlign: 'right',
-                id: 'Ext.AppMenuForm.Form.ID'
+                labelAlign: 'right'
             }, {
                 fieldLabel: '排序',
                 labelAlign: 'right',
-                padding: 5,
                 allowBlank: false,
                 maxLength: 33,
                 name: 'ORD',
                 xtype: 'numberfield',
-                minValue: 0,
-                id: 'Ext_AppMenuForm_Form_ORD'
+                minValue: 0
             }, {
                 fieldLabel: '繁中名稱',
                 labelAlign: 'right',
                 name: 'NAME_ZH_TW',
-                padding: 5,
-                anchor: '50%',
                 allowBlank: false,
                 maxLength: 128
             }, {
                 fieldLabel: '簡中名稱',
                 labelAlign: 'right',
                 name: 'NAME_ZH_CN',
-                padding: 5,
-                anchor: '50%',
                 allowBlank: false,
                 maxLength: 128
             }, {
                 fieldLabel: '英文名稱',
                 labelAlign: 'right',
                 name: 'NAME_EN_US',
-                padding: 5,
-                anchor: '50%',
                 allowBlank: false,
                 maxLength: 128
             }, {
                 fieldLabel: '參數',
                 labelAlign: 'right',
                 name: 'PARAMETER_CLASS',
-                padding: 5,
-                anchor: '50%',
                 allowBlank: true,
                 maxLength: 128
             }, {
                 fieldLabel: 'Icon路徑',
                 labelAlign: 'right',
                 name: 'IMAGE',
-                padding: 5,
-                anchor: '50%',
                 allowBlank: true,
                 maxLength: 128
             }, {
@@ -290,11 +275,9 @@ Ext.define('WS.MenuWindow', {
                 fieldLabel: '入口網頁',
                 xtype: 'combobox',
                 labelAlign: 'right',
-                id: 'Ext_AppMenuForm_Form_SITEMAP_UUID',
                 displayField: 'NAME',
                 valueField: 'UUID',
                 name: 'SITEMAP_UUID',
-                padding: 5,
                 editable: false,
                 hidden: false,
                 store: this.myStore.sitemap
@@ -306,7 +289,6 @@ Ext.define('WS.MenuWindow', {
                 displayField: 'NAME_ZH_TW',
                 valueField: 'UUID',
                 name: 'APPMENU_UUID',
-                padding: 5,
                 editable: false,
                 hidden: false,
                 store: this.myStore.menu,
@@ -316,9 +298,6 @@ Ext.define('WS.MenuWindow', {
                 fieldLabel: '預設頁面',
                 layout: 'hbox',
                 labelAlign: 'right',
-                defaults: {
-                    margins: '0 10 0 0'
-                },
                 defaultType: 'radiofield',
                 items: [{
                     boxLabel: '是',
@@ -336,9 +315,6 @@ Ext.define('WS.MenuWindow', {
                 fieldLabel: '系統管理員',
                 layout: 'hbox',
                 labelAlign: 'right',
-                defaults: {
-                    margins: '0 10 0 0'
-                },
                 defaultType: 'radiofield',
                 items: [{
                     boxLabel: '是',
@@ -356,9 +332,6 @@ Ext.define('WS.MenuWindow', {
                 fieldLabel: '是否啟用',
                 labelAlign: 'right',
                 layout: 'hbox',
-                defaults: {
-                    margins: '0 10 0 0'
-                },
                 defaultType: 'radiofield',
                 items: [{
                     boxLabel: '啟用',
@@ -372,18 +345,17 @@ Ext.define('WS.MenuWindow', {
                     margin: '0 0 0 47'
                 }]
             }, {
-                xtype: 'hidden',
+                xtype: 'hiddenfield',
                 fieldLabel: 'UUID',
                 name: 'UUID',
                 itemId: 'UUID'
             }, {
-                xtype: 'hidden',
+                xtype: 'hiddenfield',
                 fieldLabel: 'APPLICATION_HEAD_UUID',
                 name: 'APPLICATION_HEAD_UUID',
                 itemId: 'APPLICATION_HEAD_UUID'
             }],
-            fbar: [{
-                type: 'button',
+            buttons: [{
                 icon: SYSTEM_URL_ROOT + '/css/custimages/save16x16.png',
                 text: '儲存',
                 formBind: true,
@@ -418,7 +390,6 @@ Ext.define('WS.MenuWindow', {
                 }
             }, {
                 itemId: 'btnDelete',
-                type: 'button',
                 icon: SYSTEM_URL_ROOT + '/css/images/delete16x16.png',
                 text: '刪除',
                 handler: function() {
@@ -455,7 +426,6 @@ Ext.define('WS.MenuWindow', {
                     });
                 }
             }, {
-                type: 'button',
                 icon: SYSTEM_URL_ROOT + '/css/custimages/exit16x16.png',
                 text: '關閉',
                 handler: function() {
@@ -464,7 +434,7 @@ Ext.define('WS.MenuWindow', {
             }]
         }), {
             xtype: 'tabpanel',
-            padding: '5 25 5 5',
+            padding: 5,
             maxWidth: 880,
             plain: true,
             items: [{
@@ -490,72 +460,70 @@ Ext.define('WS.MenuWindow', {
                     }],
                     itemId: 'gridProxy',
                     store: this.myStore.vappmenuproxymap,
-                    padding: 5,
                     autoScroll: true,
-                    columns: [{
-                        text: "操作",
-                        xtype: 'actioncolumn',
-                        dataIndex: 'UUID',
-                        align: 'center',
-                        width: 80,
+                    columns: {
+                        defaults: {
+                            align: 'left'
+                        },
                         items: [{
-                            tooltip: '*刪除',
-                            icon: SYSTEM_URL_ROOT + '/css/images/delete16x16.png',
-                            handler: function(grid, rowIndex, colIndex) {
-                                var mainWin = grid.up('window');
-                                Ext.MessageBox.confirm('刪除資源通知', '要刪除此項資源?', function(result) {
-                                    var menUuid = grid.getStore().getAt(rowIndex).data.APPMENU_UUID,
-                                        proxyUuid = grid.getStore().getAt(rowIndex).data.PROXY_UUID;
-                                    if (result == 'yes') {
-                                        WS.ProxyAction.removeAppmenuProxyMap(menUuid, proxyUuid, function(obj, jsonObj) {
-                                            if (jsonObj.result.success) {
-                                                Ext.data.StoreManager.lookup('storevappmenuproxymap').loadPage(1);
-                                            } else {
-                                                Ext.MessageBox.show({
-                                                    title: 'Warning',
-                                                    msg: jsonObj.result.message,
-                                                    icon: Ext.MessageBox.ERROR,
-                                                    buttons: Ext.Msg.OK
-                                                });
-                                            };
-                                        });
-                                    };
-                                });
-                            }
-                        }],
-                        sortable: false,
-                        hideable: false
-                    }, {
-                        text: "Action",
-                        dataIndex: 'PROXY_ACTION',
-                        align: 'left',
-                        flex: 1
-                    }, {
-                        text: "Method",
-                        dataIndex: 'PROXY_METHOD',
-                        align: 'left',
-                        flex: 1
-                    }, {
-                        text: "說明",
-                        dataIndex: 'DESCRIPTION',
-                        align: 'left',
-                        flex: 1
-                    }, {
-                        text: "ReDirect",
-                        dataIndex: 'NEED_REDIRECT',
-                        align: 'left',
-                        flex: 1
-                    }, {
-                        text: "Proxy[R]",
-                        dataIndex: 'REDIRECT_PROXY_ACTION',
-                        align: 'left',
-                        flex: 1
-                    }, {
-                        text: "Method[R]",
-                        dataIndex: 'REDIRECT_PROXY_METHOD',
-                        align: 'left',
-                        flex: 1
-                    }],
+                            text: "操作",
+                            xtype: 'actioncolumn',
+                            dataIndex: 'UUID',
+                            align: 'center',
+                            width: 50,
+                            items: [{
+                                tooltip: '*刪除',
+                                icon: SYSTEM_URL_ROOT + '/css/images/delete16x16.png',
+                                handler: function(grid, rowIndex, colIndex) {
+                                    var mainWin = grid.up('window');
+                                    Ext.MessageBox.confirm('刪除資源通知', '要刪除此項資源?', function(result) {
+                                        var menUuid = grid.getStore().getAt(rowIndex).data.APPMENU_UUID,
+                                            proxyUuid = grid.getStore().getAt(rowIndex).data.PROXY_UUID;
+                                        if (result == 'yes') {
+                                            WS.ProxyAction.removeAppmenuProxyMap(menUuid, proxyUuid, function(obj, jsonObj) {
+                                                if (jsonObj.result.success) {
+                                                    Ext.data.StoreManager.lookup('storevappmenuproxymap').loadPage(1);
+                                                } else {
+                                                    Ext.MessageBox.show({
+                                                        title: 'Warning',
+                                                        msg: jsonObj.result.message,
+                                                        icon: Ext.MessageBox.ERROR,
+                                                        buttons: Ext.Msg.OK
+                                                    });
+                                                };
+                                            });
+                                        };
+                                    });
+                                }
+                            }],
+                            sortable: false,
+                            hideable: false
+                        }, {
+                            text: "Action",
+                            dataIndex: 'PROXY_ACTION',
+                            flex: 1
+                        }, {
+                            text: "Method",
+                            dataIndex: 'PROXY_METHOD',
+                            flex: 1
+                        }, {
+                            text: "說明",
+                            dataIndex: 'DESCRIPTION',
+                            flex: 1
+                        }, {
+                            text: "ReDirect",
+                            dataIndex: 'NEED_REDIRECT',
+                            flex: 1
+                        }, {
+                            text: "Proxy[R]",
+                            dataIndex: 'REDIRECT_PROXY_ACTION',
+                            flex: 1
+                        }, {
+                            text: "Method[R]",
+                            dataIndex: 'REDIRECT_PROXY_METHOD',
+                            flex: 1
+                        }]
+                    },
                     height: 300,
                     bbar: Ext.create('Ext.toolbar.Paging', {
                         store: Ext.data.StoreManager.lookup('storevappmenuproxymap'),

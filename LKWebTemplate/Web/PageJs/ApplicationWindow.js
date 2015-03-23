@@ -15,10 +15,6 @@ Ext.define('WS.ApplicationWindow', {
     draggable: false,
     initComponent: function() {
         this.items = [Ext.create('Ext.form.Panel', {
-            layout: {
-                type: 'form',
-                align: 'stretch'
-            },
             api: {
                 load: WS.ApplicationAction.info,
                 submit: WS.ApplicationAction.submit
@@ -26,46 +22,35 @@ Ext.define('WS.ApplicationWindow', {
             itemId: 'ApplicationForm',
             paramOrder: ['pUuid'],
             border: true,
-            bodyPadding: 5,
             defaultType: 'textfield',
             buttonAlign: 'center',
+            defaults: {
+                margin: '5 0 0 0',
+                labelWidth: 100,
+                anchor: '100%',
+                labelAlign: 'right'
+            },
             items: [{
                 fieldLabel: '公司代碼',
                 itemId: 'ID',
-                labelWidth: 100,
                 name: 'ID',
-                padding: 5,
-                anchor: '100%',
                 maxLength: 36,
-                allowBlank: false,
-                labelAlign: 'right'
+                allowBlank: false
             }, {
                 fieldLabel: '名稱',
-                labelWidth: 100,
                 name: 'NAME',
-                padding: 5,
-                anchor: '100%',
                 maxLength: 84,
-                allowBlank: false,
-                labelAlign: 'right'
+                allowBlank: false
             }, {
                 fieldLabel: '描述',
-                labelWidth: 100,
                 name: 'DESCRIPTION',
-                padding: 5,
-                anchor: '100%',
                 maxLength: 84,
-                allowBlank: false,
-                labelAlign: 'right'
+                allowBlank: false
             }, {
                 fieldLabel: 'Web Site',
-                labelWidth: 100,
                 name: 'WEB_SITE',
-                padding: 5,
-                anchor: '100%',
                 maxLength: 84,
-                allowBlank: true,
-                labelAlign: 'right'
+                allowBlank: true
             }, {
                 xtype: 'container',
                 layout: 'hbox',
@@ -86,11 +71,9 @@ Ext.define('WS.ApplicationWindow', {
                     margin: '0 0 0 60'
                 }]
             }, {
-                xtype: 'hidden',
+                xtype: 'hiddenfield',
                 fieldLabel: 'UUID',
                 name: 'UUID',
-                padding: 5,
-                anchor: '100%',
                 maxLength: 84,
                 itemId: 'UUID'
             }],
@@ -99,7 +82,8 @@ Ext.define('WS.ApplicationWindow', {
                 icon: SYSTEM_URL_ROOT + '/css/custimages/save16x16.png',
                 text: '儲存',
                 handler: function() {
-                    var mainWin = this.up('window'),form = mainWin.down("#ApplicationForm").getForm();
+                    var mainWin = this.up('window'),
+                        form = mainWin.down("#ApplicationForm").getForm();
                     if (form.isValid() == false) {
                         return;
                     };
@@ -136,7 +120,7 @@ Ext.define('WS.ApplicationWindow', {
                     this.up('window').close();
                 }
             }]
-        })]
+        })];
         this.callParent(arguments);
     },
     closeEvent: function() {

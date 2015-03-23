@@ -222,63 +222,67 @@ Ext.define('WS.MenuQueryPanel', {
                 autoHeight: true,
                 minHeight: $(document).height() - 230,
                 store: this.myStore.tree,
-                multiSelect: true,
                 rootVisible: false,
-                columns: [{
-                    xtype: 'treecolumn',
-                    text: '選單',
-                    flex: 2,
-                    sortable: false,
-                    dataIndex: 'NAME_ZH_TW'
-                }, {
-                    text: '啟用',
-                    flex: .5,
-                    dataIndex: 'IS_ACTIVE',
-                    align: 'center',
-                    sortable: false,
-                    hidden: true,
-                    renderer: this.fnActiveRender
-                }, {
-                    text: '順序',
-                    flex: .5,
-                    dataIndex: 'ORD',
-                    align: 'center',
-                    sortable: false
-                }, {
-                    text: "維護",
-                    xtype: 'actioncolumn',
-                    dataIndex: 'UUID',
-                    align: 'center',
-                    sortable: false,
-                    flex: 1,
+                columns: {
+                    defaults: {
+                        align:'left'
+                    },
                     items: [{
-                        tooltip: '*編輯',
-                        icon: SYSTEM_URL_ROOT + '/css/images/edit16x16.png',
-                        handler: function(grid, rowIndex, colIndex) {
-                            var mainPanel = grid.up('panel').up('panel').up('panel'),
-                                uuid = grid.getStore().getAt(rowIndex).data.UUID;
-                            mainPanel.fnEditMenu(uuid);
-                        }
+                        xtype: 'treecolumn',
+                        text: '選單',
+                        flex: 2,
+                        sortable: false,
+                        dataIndex: 'NAME_ZH_TW'
                     }, {
-                        tooltip: '*新增子節點',
-                        icon: SYSTEM_URL_ROOT + '/css/images/add16x16.png',
-                        handler: function(grid, rowIndex, colIndex) {
-                            var mainPanel = grid.up('panel').up('panel').up('panel'),
-                                uuid = grid.getStore().getAt(rowIndex).data.UUID;
-                            mainPanel.fnAddMenuChild(uuid);
-                        }
+                        text: '啟用',
+                        width:60,
+                        dataIndex: 'IS_ACTIVE',
+                        align: 'center',
+                        sortable: false,
+                        hidden: true,
+                        renderer: this.fnActiveRender
                     }, {
-                        tooltip: '*刪除',
-                        icon: SYSTEM_URL_ROOT + '/css/images/delete16x16.png',
-                        margin: '0 0 0 40',
-                        handler: function(grid, rowIndex, colIndex) {
-                            var mainPanel = grid.up('panel').up('panel').up('panel'),
-                                uuid = grid.getStore().getAt(rowIndex).data.UUID;;
-                            mainPanel.fnRemoveMenu(mainPanel, uuid);
-                        }
-                    }],
-                    hideable: false
-                }]
+                        text: '順序',
+                        width:60,
+                        dataIndex: 'ORD',
+                        align: 'center',
+                        sortable: false
+                    }, {
+                        text: "維護",
+                        xtype: 'actioncolumn',
+                        dataIndex: 'UUID',
+                        align: 'center',
+                        sortable: false,
+                        width:100,
+                        items: [{
+                            tooltip: '*編輯',
+                            icon: SYSTEM_URL_ROOT + '/css/images/edit16x16.png',
+                            handler: function(grid, rowIndex, colIndex) {
+                                var mainPanel = grid.up('panel').up('panel').up('panel'),
+                                    uuid = grid.getStore().getAt(rowIndex).data.UUID;
+                                mainPanel.fnEditMenu(uuid);
+                            }
+                        }, {
+                            tooltip: '*新增子節點',
+                            icon: SYSTEM_URL_ROOT + '/css/images/add16x16.png',
+                            handler: function(grid, rowIndex, colIndex) {
+                                var mainPanel = grid.up('panel').up('panel').up('panel'),
+                                    uuid = grid.getStore().getAt(rowIndex).data.UUID;
+                                mainPanel.fnAddMenuChild(uuid);
+                            }
+                        }, {
+                            tooltip: '*刪除',
+                            icon: SYSTEM_URL_ROOT + '/css/images/delete16x16.png',
+                            margin: '0 0 0 40',
+                            handler: function(grid, rowIndex, colIndex) {
+                                var mainPanel = grid.up('panel').up('panel').up('panel'),
+                                    uuid = grid.getStore().getAt(rowIndex).data.UUID;;
+                                mainPanel.fnRemoveMenu(mainPanel, uuid);
+                            }
+                        }],
+                        hideable: false
+                    }]
+                }
             }]
         }];
         this.callParent(arguments);
@@ -292,7 +296,7 @@ Ext.define('WS.MenuQueryPanel', {
                     };
                 },
                 'scope': this
-            })
+            });
         }
     }
 });

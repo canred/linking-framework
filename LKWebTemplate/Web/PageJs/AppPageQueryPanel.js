@@ -113,27 +113,30 @@ Ext.define('WS.AppPageQueryPanel', {
             title: '功能清單',
             icon: SYSTEM_URL_ROOT + '/css/images/apppage16x16.png',
             frame: true,
-            height: 580,
+            height: $(document).height() - 150,
             autoWidth: true,
             items: [{
                 xtype: 'container',
                 layout: 'hbox',
-                margin: 5,
+                margin: '5 0 0 0',
+                defaults: {
+                    labelWidth: 50,
+                    labelAlign: 'right',
+                    margin: '0 5 0 0',
+                },
                 items: [{
                     xtype: 'combo',
-                    margin: '0 5 0 5',
                     editable: false,
                     store: this.myStore.application,
                     enableKeyEvents: true,
                     displayField: 'NAME',
                     fieldLabel: '系統',
-                    labelAlign: 'right',
-                    labelWidth: 50,
                     valueField: 'UUID',
                     itemId: 'function_Query_Application',
                     listeners: {
                         keyup: function(e, t, eOpts) {
-                            var keyCode = t.parentEvent.keyCode,mainPanel=this.up('panel');
+                            var keyCode = t.parentEvent.keyCode,
+                                mainPanel = this.up('panel');
                             if (keyCode == Ext.event.Event.ENTER) {
                                 mainPanel.down("#btnQuery").handler();
                             };
@@ -142,13 +145,12 @@ Ext.define('WS.AppPageQueryPanel', {
                 }, {
                     xtype: 'textfield',
                     itemId: 'txt_search',
-                    margin: '0 5 0 5',
                     fieldLabel: '關鍵字',
-                    labelWidth: 50,
                     enableKeyEvents: true,
                     listeners: {
                         keyup: function(e, t, eOpts) {
-                            var keyCode = t.parentEvent.keyCode,mainPanel=this.up('panel');
+                            var keyCode = t.parentEvent.keyCode,
+                                mainPanel = this.up('panel');
                             if (keyCode == Ext.event.Event.ENTER) {
                                 mainPanel.down("#btnQuery").handler();
                             };
@@ -159,10 +161,11 @@ Ext.define('WS.AppPageQueryPanel', {
                     icon: SYSTEM_URL_ROOT + '/css/custimages/find.png',
                     text: '查詢',
                     width: 80,
-                    margin: '0 5 0 5',
                     itemId: 'btnQuery',
                     handler: function() {
-                        var main = this.up('panel').up('panel'),_txtSearch = main.down("#txt_search").getValue(),_application = main.down("#function_Query_Application").getValue();
+                        var main = this.up('panel').up('panel'),
+                            _txtSearch = main.down("#txt_search").getValue(),
+                            _application = main.down("#function_Query_Application").getValue();
                         if (Ext.isEmpty(_application)) {
                             Ext.MessageBox.show({
                                 title: '系統提示',
@@ -172,14 +175,15 @@ Ext.define('WS.AppPageQueryPanel', {
                             });
                             return false;
                         };
-                        main.myStore.apppage.getProxy().setExtraParam('pKeyword', _txtSearch);
-                        main.myStore.apppage.getProxy().setExtraParam('pApplicationHeadUuid', _application);
-                        main.myStore.apppage.loadPage(1);
+                        var proxy = main.myStore.apppage.getProxy(),
+                            store = main.myStore.apppage;
+                        proxy.setExtraParam('pKeyword', _txtSearch);
+                        proxy.setExtraParam('pApplicationHeadUuid', _application);
+                        store.loadPage(1);
                     }
                 }, {
                     xtype: 'button',
                     width: 80,
-                    margin: '0 0 0 5',
                     icon: SYSTEM_URL_ROOT + '/css/custimages/clear.png',
                     text: '清除',
                     handler: function() {
@@ -190,79 +194,79 @@ Ext.define('WS.AppPageQueryPanel', {
                 xtype: 'gridpanel',
                 store: this.myStore.apppage,
                 itemId: 'grdAppPage',
-                height: 500,
+                height: $(document).height() - 225,
                 padding: 5,
                 border: true,
-                columns: [{
-                    text: "編輯",
-                    xtype: 'actioncolumn',
-                    dataIndex: 'UUID',
-                    align: 'center',
-                    width: 60,
+                columns: {
+                    defaults: {
+                        align: 'left'
+                    },
                     items: [{
-                        tooltip: '*編輯',
-                        icon: SYSTEM_URL_ROOT + '/css/images/edit16x16.png',
-                        handler: function(grid, rowIndex, colIndex) {
-                            var main = grid.up('panel').up('panel').up('panel');
-                            if (!main.subWinAppPage) {
-                                Ext.MessageBox.show({
-                                    title: '系統訊息',
-                                    icon: Ext.MessageBox.INFO,
-                                    buttons: Ext.Msg.OK,
-                                    msg: '未實現 subWinAppPage 物件,無法進行編輯操作!'
+                        text: "編輯",
+                        xtype: 'actioncolumn',
+                        dataIndex: 'UUID',
+                        align: 'center',
+                        width: 60,
+                        items: [{
+                            tooltip: '*編輯',
+                            icon: SYSTEM_URL_ROOT + '/css/images/edit16x16.png',
+                            handler: function(grid, rowIndex, colIndex) {
+                                var main = grid.up('panel').up('panel').up('panel');
+                                if (!main.subWinAppPage) {
+                                    Ext.MessageBox.show({
+                                        title: '系統訊息',
+                                        icon: Ext.MessageBox.INFO,
+                                        buttons: Ext.Msg.OK,
+                                        msg: '未實現 subWinAppPage 物件,無法進行編輯操作!'
+                                    });
+                                    return false;
+                                };
+                                var subWin = Ext.create(main.subWinAppPage, {
+                                    param: {
+                                        uuid: grid.getStore().getAt(rowIndex).data.UUID
+                                    }
                                 });
-                                return false;
-                            };
-                            var subWin = Ext.create(main.subWinAppPage,{
-                                param:{
-                                    uuid:grid.getStore().getAt(rowIndex).data.UUID
-                                }
-                            });
-                            subWin.on('closeEvent', main.fnCallBackReloadGrid, main);
-                            subWin.show();
+                                subWin.on('closeEvent', main.fnCallBackReloadGrid, main);
+                                subWin.show();
+                            }
+                        }],
+                        sortable: false,
+                        hideable: false
+                    }, {
+                        header: "<center>功能代碼</center>",
+                        dataIndex: 'ID',
+                        flex: 1
+                    }, {
+                        header: "功能名稱",
+                        dataIndex: 'NAME',
+                        flex: 1
+                    }, {
+                        header: "<center>功能描述</center>",
+                        dataIndex: 'DESCRIPTION',
+                        flex: 1,
+                        renderer: function(value) {
+                            return '<div align="left">' + value + '</div>';
                         }
-                    }],
-                    sortable: false,
-                    hideable: false
-                }, {
-                    header: "<center>功能代碼</center>",
-                    dataIndex: 'ID',
-                    align: 'left',
-                    flex: 1
-                }, {
-
-                    header: "功能名稱",
-                    dataIndex: 'NAME',
-                    align: 'left',
-                    flex: 1
-                }, {
-                    header: "<center>功能描述</center>",
-                    align: 'left',
-                    dataIndex: 'DESCRIPTION',
-                    flex: 1,
-                    renderer: function(value) {
-                        return '<div align="left">' + value + '</div>';
-                    }
-                }, {
-                    header: "<center>路徑</center>",
-                    dataIndex: 'URL',
-                    align: 'left',
-                    flex: 1
-                }, {
-                    header: "<center>行為</center>",
-                    align: 'center',
-                    dataIndex: 'P_MODE',
-                    flex: 1,
-                    renderer: function(value) {
-                        return '<div align="left">' + value + '</div>';
-                    }
-                }, {
-                    header: '<center>啟用</center>',
-                    dataIndex: 'IS_ACTIVE',
-                    align: 'center',
-                    flex: 1,
-                    renderer: this.fnActiveRender
-                }],
+                    }, {
+                        header: "<center>路徑</center>",
+                        dataIndex: 'URL',
+                        flex: 1
+                    }, {
+                        header: "<center>行為</center>",
+                        align: 'center',
+                        dataIndex: 'P_MODE',
+                        flex: 1,
+                        renderer: function(value) {
+                            return '<div align="left">' + value + '</div>';
+                        }
+                    }, {
+                        header: '<center>啟用</center>',
+                        dataIndex: 'IS_ACTIVE',
+                        align: 'center',
+                        width: 60,
+                        renderer: this.fnActiveRender
+                    }]
+                },
                 tbarCfg: {
                     buttonAlign: 'right'
                 },
@@ -286,9 +290,9 @@ Ext.define('WS.AppPageQueryPanel', {
                             });
                             return false;
                         };
-                        var subWin = Ext.create(main.subWinAppPage,{
-                            param:{
-                                uuid:undefined
+                        var subWin = Ext.create(main.subWinAppPage, {
+                            param: {
+                                uuid: undefined
                             }
                         });
                         subWin.on('closeEvent', main.fnCallBackReloadGrid, main);
@@ -299,17 +303,16 @@ Ext.define('WS.AppPageQueryPanel', {
         }];
         this.callParent(arguments);
     },
-    listeners:{
-        afterrender:function(obj,eOpts){
+    listeners: {
+        afterrender: function(obj, eOpts) {
             this.myStore.application.load({
-                callback : function(obj) {
-                    console.log(obj[0]);
-                    if(obj.length>0){
+                callback: function(obj) {                    
+                    if (obj.length > 0) {
                         this.down('#function_Query_Application').setValue(obj[0].data.UUID);
                         this.down('#btnQuery').handler(this.down('#btnQuery'));
                     };
                 },
-                scope:this
+                scope: this
             })
         }
     }

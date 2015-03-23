@@ -82,6 +82,10 @@ Ext.define('WS.SystemQueryPanel', {
                 xtype: 'container',
                 layout: 'hbox',
                 margin: 5,
+                defaults: {
+                    labelAlign: 'right',
+                    margin: '0 5 0 0',
+                },
                 items: [{
                     xtype: 'textfield',
                     itemId: 'txt_search',
@@ -99,10 +103,8 @@ Ext.define('WS.SystemQueryPanel', {
                 }, {
                     xtype: 'button',
                     text: '查詢',
-                    margin: '0 0 0 20',
                     icon: SYSTEM_URL_ROOT + '/css/custimages/find.png',
                     width: 80,
-                    margin: '0 5 0 5',
                     itemId: 'btnQuery',
                     handler: function() {
                         var store = this.up('panel').up('panel').myStore.application;
@@ -115,7 +117,6 @@ Ext.define('WS.SystemQueryPanel', {
                     icon: SYSTEM_URL_ROOT + '/css/custimages/clear.png',
                     text: '清除',
                     width: 80,
-                    margin: '0 5 0 5',
                     handler: function() {
                         this.up('panel').up('panel').down("#txt_search").setValue('');
                     }
@@ -126,65 +127,66 @@ Ext.define('WS.SystemQueryPanel', {
                 padding: 5,
                 border: true,
                 height: $(document).height() - 225,
-                columns: [{
-                    text: "編輯",
-                    xtype: 'actioncolumn',
-                    dataIndex: 'UUID',
-                    align: 'center',
-                    width: 60,
+                columns: {
+                    defaults: {
+                        align: 'left'
+                    },
                     items: [{
-                        tooltip: '*編輯',
-                        icon: SYSTEM_URL_ROOT + '/css/images/edit16x16.png',
-                        handler: function(grid, rowIndex, colIndex) {
-                            var main = grid.up('panel').up('panel').up('panel'),
-                                subWin = Ext.create(main.subWinApplication, {
-                                    param: {
-                                        uuid: grid.getStore().getAt(rowIndex).data.UUID
-                                    }
+                        text: "編輯",
+                        xtype: 'actioncolumn',
+                        dataIndex: 'UUID',
+                        align: 'center',
+                        width: 60,
+                        items: [{
+                            tooltip: '*編輯',
+                            icon: SYSTEM_URL_ROOT + '/css/images/edit16x16.png',
+                            handler: function(grid, rowIndex, colIndex) {
+                                var main = grid.up('panel').up('panel').up('panel'),
+                                    subWin = Ext.create(main.subWinApplication, {
+                                        param: {
+                                            uuid: grid.getStore().getAt(rowIndex).data.UUID
+                                        }
+                                    });
+                                subWin.on('closeEvent', function(obj) {
+                                    main.myStore.application.load();
                                 });
-                            subWin.on('closeEvent', function(obj) {
-                                main.myStore.application.load();
-                            });
-                            subWin.show();
+                                subWin.show();
+                            }
+                        }],
+                        sortable: false,
+                        hideable: false
+                    }, {
+                        header: "名稱",
+                        dataIndex: 'NAME',
+                        flex: 1
+                    }, {
+                        header: "描述",
+                        align: 'left',
+                        dataIndex: 'DESCRIPTION',
+                        renderer: function(value) {
+                            return '<div align="left">' + value + '</div>';
                         }
-                    }],
-                    sortable: false,
-                    hideable: false
-                }, {
-                    header: "名稱",
-                    dataIndex: 'NAME',
-                    align: 'left',
-                    flex: 1
-                }, {
-                    header: "描述",
-                    align: 'left',
-                    dataIndex: 'DESCRIPTION',
-                    flex: 1,
-                    renderer: function(value) {
-                        return '<div align="left">' + value + '</div>';
-                    }
-                }, {
-                    header: "ID代碼",
-                    dataIndex: 'ID',
-                    align: 'left',
-                    flex: 1,
-                    hidden: true
-                }, {
+                    }, {
+                        header: "ID代碼",
+                        dataIndex: 'ID',
+                        align: 'left',
+                        hidden: true
+                    }, {
 
-                    header: "網址",
-                    align: 'left',
-                    dataIndex: 'WEB_SITE',
-                    flex: 1,
-                    renderer: function(value) {
-                        return '<div align="left">' + value + '</div>';
-                    }
-                }, {
-                    header: '啟用',
-                    dataIndex: 'IS_ACTIVE',
-                    align: 'center',
-                    flex: 1,
-                    renderer: this.fnActiveRender
-                }],
+                        header: "網址",
+                        dataIndex: 'WEB_SITE',
+                        flex: 1,
+                        renderer: function(value) {
+                            return '<div align="left">' + value + '</div>';
+                        }
+                    }, {
+                        header: '啟用',
+                        dataIndex: 'IS_ACTIVE',
+                        align: 'center',
+                        width:60,
+                        renderer: this.fnActiveRender
+                    }]
+                },
                 tbarCfg: {
                     buttonAlign: 'right'
                 },

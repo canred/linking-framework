@@ -73,7 +73,7 @@ Ext.define('WS.SitemapQueryPanel', {
                 SiteMapVTaskFlag = true;
             }, obj);
         } else {
-            alert('err..................');
+            alert('發生錯誤!');
         }
     },
     fnActiveRender: function(value, id, r) {
@@ -225,45 +225,49 @@ Ext.define('WS.SitemapQueryPanel', {
                 store: this.myStore.tree,
                 rootVisible: false,
                 useArrows: false,
-                columns: [{
-                    xtype: 'treecolumn',
-                    text: '地圖功能',
-                    flex: 2,
-                    sortable: true,
-                    dataIndex: 'NAME'
-                }, {
-                    text: '描述',
-                    flex: 2,
-                    dataIndex: 'DESCRIPTION',
-                    align: 'left',
-                    sortable: true
-                }, {
-                    text: "維護",
-                    xtype: 'actioncolumn',
-                    dataIndex: 'UUID',
-                    align: 'center',
-                    flex: 1,
+                columns: {
+                    defaults: {
+                        align: 'left',
+                    },
                     items: [{
-                        tooltip: '*新增子節點',
-                        icon: '../../css/images/add16x16.png',
-                        handler: function(grid, rowIndex, colIndex) {
-                            var mainPanel = grid.up('panel').up('panel').up('panel'),
-                                uuid = grid.getStore().getAt(rowIndex).data.UUID;
-                            mainPanel.fnOpenOrgn(undefined, uuid);
-                        }
+                        xtype: 'treecolumn',
+                        text: '地圖功能',
+                        flex: 2,
+                        sortable: true,
+                        dataIndex: 'NAME'
                     }, {
-                        tooltip: '*刪除此節點',
-                        icon: '../../css/images/delete16x16.png',
-                        margin: '0 0 0 40',
-                        handler: function(grid, rowIndex, colIndex) {
-                            var mainPanel = grid.up('panel').up('panel').up('panel'),
-                                uuid = grid.getStore().getAt(rowIndex).data.UUID;;
-                            mainPanel.fnDelSitemap(uuid);
-                        }
-                    }],
-                    sortable: false,
-                    hideable: false
-                }],
+                        text: '描述',
+                        flex: 2,
+                        dataIndex: 'DESCRIPTION',
+                        sortable: true
+                    }, {
+                        text: "維護",
+                        xtype: 'actioncolumn',
+                        dataIndex: 'UUID',
+                        align: 'center',
+                        flex: 1,
+                        items: [{
+                            tooltip: '*新增子節點',
+                            icon: SYSTEM_URL_ROOT + '/css/images/add16x16.png',
+                            handler: function(grid, rowIndex, colIndex) {
+                                var mainPanel = grid.up('panel').up('panel').up('panel'),
+                                    uuid = grid.getStore().getAt(rowIndex).data.UUID;
+                                mainPanel.fnOpenOrgn(undefined, uuid);
+                            }
+                        }, {
+                            tooltip: '*刪除此節點',
+                            icon: SYSTEM_URL_ROOT + '/css/images/delete16x16.png',
+                            margin: '0 0 0 40',
+                            handler: function(grid, rowIndex, colIndex) {
+                                var mainPanel = grid.up('panel').up('panel').up('panel'),
+                                    uuid = grid.getStore().getAt(rowIndex).data.UUID;;
+                                mainPanel.fnDelSitemap(uuid);
+                            }
+                        }],
+                        sortable: false,
+                        hideable: false
+                    }]
+                },
                 listeners: {
                     beforeload: function(tree, node, eOpts) {
                         var mainPanel = this.up('panel').up('panel'),
@@ -276,15 +280,15 @@ Ext.define('WS.SitemapQueryPanel', {
                             };
                         };
                     },
-                    checkchange: function(a, b, c, d) {
-                        var oUuid = a.data.UUID;
-                        if (a.data.checked == true) {
+                    checkchange: function(obj, rowIndex, checked, eOpts) {
+                        var oUuid = obj.data.UUID;
+                        if (obj.data.checked == true) {
                             /*表加入*/
                             WS.SiteMapAction.setSiteMapIsActive(oUuid, "1", function(ret) {
                                 if (ret.success == false) {
                                     Ext.MessageBox.show({
-                                        title: 'WARNING',
-                                        msg: "ok",
+                                        title: '系統提示',
+                                        msg: "發生異常錯誤。",
                                         icon: Ext.MessageBox.WARNING,
                                         buttons: Ext.Msg.OK
                                     });
@@ -295,7 +299,7 @@ Ext.define('WS.SitemapQueryPanel', {
                                 if (ret.success == false) {
                                     Ext.MessageBox.show({
                                         title: 'WARNING',
-                                        msg: "ok",
+                                        msg: "發生異常錯誤。",
                                         icon: Ext.MessageBox.WARNING,
                                         buttons: Ext.Msg.OK
                                     });
