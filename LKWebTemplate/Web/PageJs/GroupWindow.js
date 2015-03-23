@@ -22,7 +22,7 @@ Ext.define('WS.GroupWindow', {
     title: '權限維護',
     icon: SYSTEM_URL_ROOT + '/css/images/lock16x16.png',
     closeAction: 'destroy',
-    padding: 10,
+    
     border: false,
     param: {
         uuid: undefined,
@@ -190,7 +190,7 @@ Ext.define('WS.GroupWindow', {
             items: [{
                 xtype: 'container',
                 layout: 'hbox',
-                margin: 5,
+                margin:'5 0 0 0',
                 items: [{
                     fieldLabel: '系統',
                     labelAlign: 'right',
@@ -201,7 +201,7 @@ Ext.define('WS.GroupWindow', {
                     valueField: 'UUID',
                     name: 'APPLICATION_HEAD_UUID',
                     anchor: '100%',
-                    padding: 5,
+                    
                     editable: false,
                     hidden: false,
                     store: this.myStore.applicationheadheadv
@@ -212,13 +212,13 @@ Ext.define('WS.GroupWindow', {
                     labelWidth: 100,
                     itemId: 'groupHeadId',
                     name: 'ID',
-                    padding: 5,
+                    
                     maxLength: 50
                 }]
             }, {
                 xtype: 'container',
                 layout: 'hbox',
-                margin: 5,
+                margin:'5 0 5 0',
                 items: [{
                     xtype: 'textfield',
                     fieldLabel: '群組繁中',
@@ -226,7 +226,7 @@ Ext.define('WS.GroupWindow', {
                     id: 'NAME_ZH_TW',
                     labelWidth: 100,
                     name: 'NAME_ZH_TW',
-                    padding: 5,
+                    
                     anchor: '100%',
                     maxLength: 100,
                     allowBlank: false
@@ -236,7 +236,7 @@ Ext.define('WS.GroupWindow', {
                     labelAlign: 'right',
                     labelWidth: 100,
                     name: 'NAME_ZH_CN',
-                    padding: 5,
+                    
                     anchor: '100%',
                     maxLength: 100,
                     allowBlank: false
@@ -246,14 +246,14 @@ Ext.define('WS.GroupWindow', {
                     labelWidth: 100,
                     labelAlign: 'right',
                     name: 'NAME_EN_US',
-                    padding: 5,
+                    
                     maxLength: 100
                 }]
             }, {
                 xtype: 'hidden',
                 fieldLabel: 'UUID',
                 name: 'UUID',
-                padding: 5,
+                
                 anchor: '100%',
                 maxLength: 84,
                 itemId: 'groupHeadFormUuid'
@@ -261,7 +261,7 @@ Ext.define('WS.GroupWindow', {
                 xtype: 'hidden',
                 fieldLabel: 'IS_ACTIVE',
                 name: 'IS_ACTIVE',
-                padding: 5,
+                
                 anchor: '100%',
                 maxLength: 1,
                 value: 'Y'
@@ -363,7 +363,7 @@ Ext.define('WS.GroupWindow', {
                     itemId: 'AppMenuPanel',
                     xtype: 'panel',
                     frame: false,
-                    padding: 5,
+                    
                     autoHeight: true,
                     autoWidth: true,
                     companyUuid: undefined,
@@ -372,7 +372,7 @@ Ext.define('WS.GroupWindow', {
                         xtype: 'treepanel',
                         fieldLabel: '權限維護',
                         itemId: 'appMenuTree',
-                        padding: 5,
+                        
                         border: true,
                         autoWidth: true,
                         autoHeight: true,
@@ -476,7 +476,7 @@ Ext.define('WS.GroupWindow', {
                     xtype: 'panel',
                     id: 'myUserPanel',
                     frame: false,
-                    padding: 5,
+                    
                     bodyStyle: "padding:2px 0px 0",
                     border: false,
                     items: [{
@@ -531,7 +531,7 @@ Ext.define('WS.GroupWindow', {
                         items: [{
                             xtype: 'gridpanel',
                             multiSelect: true,
-                            margin: '0 10 0 0',
+                            margin:5,
                             border: true,
                             viewConfig: {
                                 plugins: {
@@ -578,7 +578,7 @@ Ext.define('WS.GroupWindow', {
                             xtype: 'gridpanel',
                             multiSelect: true,
                             border: true,
-                            margin: '0 0 0 10',
+                            margin: 5,
                             viewConfig: {
                                 plugins: {
                                     ptype: 'gridviewdragdrop',

@@ -39,6 +39,38 @@ namespace ExtDirect.Direct
                 }
             }
 
+            public static JObject OutputJObject(List<JObject> jobject, double totalCount, System.Collections.Hashtable pOtherParam)
+            {
+                try
+                {
+                    var ret = JObject.Parse("{data:[],success:true,total:" + totalCount.ToString(CultureInfo.InvariantCulture) + "}");
+                    var jarray = new JArray();
+                    foreach (var item in jobject)
+                    {
+                        jarray.Add(item);
+                    }
+                    ret["data"] = jarray;
+
+
+
+                    if (pOtherParam.Count > 0)
+                    {
+                        foreach (var item in pOtherParam.Keys)
+                        {
+                            ret[item] = new JValue(pOtherParam[item]);
+                        }
+                    }
+
+                    return ret;
+                }
+                catch (Exception ex)
+                {
+                    LK.MyException.MyException.ErrorStaticClass(ex);
+                    //MyException.ErrorNoThrowExceptionForStaticClass(ex);
+                    return null;
+                }
+            }
+
             public static JObject OutputJObject(System.Data.DataTable source,int start, int limit)
             {
                 try

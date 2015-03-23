@@ -44,15 +44,25 @@ namespace LKWebTemplate
             {
                 try
                 {
-                    var jobj = JObject.Parse(requestData);
-                    if (jobj["action"] != null)
+                    try
                     {
-                        _action = jobj["action"].Value<string>();
+                        var jobj = JObject.Parse(requestData);
+                        if (jobj["action"] != null)
+                        {
+                            _action = jobj["action"].Value<string>();
+                        }
+                        if (jobj["method"] != null)
+                        {
+                            _method = jobj["method"].Value<string>();
+                        }
                     }
-                    if (jobj["method"] != null)
-                    {
-                        _method = jobj["method"].Value<string>();
+                    catch {
+                        action = context.Request["extAction"];
+                        method = context.Request["extMethod"];
+
+
                     }
+                    
                 }
                 catch
                 {

@@ -7,7 +7,7 @@ namespace ExtDirect.Direct
 {
     public static class DirectProxyGenerator
     {
-        public static string generateDirectApi(string pClassName)
+        public static string generateDirectApi(string pClassName,bool isTouch)
         {
             var resStr = new StringBuilder();
             var myDomain = AppDomain.CurrentDomain;
@@ -40,7 +40,13 @@ namespace ExtDirect.Direct
                             if (className.ToLower().IndexOf("sitemap")>0) {
                                 //var debug = "";
                             }
-                            resStr.Append("{\"" + LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().DirectApplicationName + "." + className + "\":[");                            
+                            if (isTouch) {
+                                resStr.Append("{\"" + className + "\":[");                            
+                            }
+                            else {
+                                resStr.Append("{\"" + LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().DirectApplicationName + "." + className + "\":[");                            
+                            }
+                            
                             MethodInfo[] methodInfo = theType.GetMethods();
 
                             var methodList = new List<string>();

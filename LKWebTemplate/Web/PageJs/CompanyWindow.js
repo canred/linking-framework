@@ -23,8 +23,7 @@ Ext.define('WS.CompanyWindow', {
             },
             itemId: 'CompanyForm',
             paramOrder: ['pUuid'],
-            border: true,
-            bodyPadding: 5,
+            border: true,            
             buttonAlign: 'center',
             items: [{
                     xtype: 'container',
@@ -35,7 +34,6 @@ Ext.define('WS.CompanyWindow', {
                         fieldLabel: '公司代碼',
                         itemId: 'ID',
                         name: 'ID',
-                        padding: 5,
                         anchor: '0 0',
                         maxLength: 12,
                         allowBlank: false,
@@ -44,7 +42,6 @@ Ext.define('WS.CompanyWindow', {
                         fieldLabel: '名稱-繁中',
                         labelWidth: 100,
                         name: 'C_NAME',
-                        padding: 5,
                         anchor: '100%',
                         maxLength: 84,
                         allowBlank: false,
@@ -54,14 +51,12 @@ Ext.define('WS.CompanyWindow', {
                         labelWidth: 100,
                         name: 'E_NAME',
                         anchor: '0 0',
-                        padding: 5,
                         maxLength: 340,
                         labelAlign: 'right'
                     }, {
                         fieldLabel: '名稱-簡中',
                         labelWidth: 100,
                         name: 'NAME_ZH_CN',
-                        padding: 5,
                         anchor: '100%',
                         maxLength: 84,
                         allowBlank: false,
@@ -183,7 +178,6 @@ Ext.define('WS.CompanyWindow', {
                     xtype: 'hidden',
                     fieldLabel: 'UUID',
                     name: 'UUID',
-                    padding: 5,
                     anchor: '100%',
                     maxLength: 84,
                     itemId: 'UUID'
@@ -228,7 +222,7 @@ Ext.define('WS.CompanyWindow', {
                 icon: SYSTEM_URL_ROOT + '/css/custimages/exit16x16.png',
                 text: '關閉',
                 handler: function() {
-                    this.up('window').hide();
+                    this.up('window').close();
                 }
             }]
         })]
@@ -263,7 +257,7 @@ Ext.define('WS.CompanyWindow', {
                 this.down("#CompanyForm").getForm().reset();
             };
         },
-        'hide': function() {
+        'close': function() {
             Ext.getBody().unmask();
             this.closeEvent();
         }

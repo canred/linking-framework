@@ -73,6 +73,7 @@
     </None>
     <None Include="Configs\Parameter.config" />
     <Content Include="admin\basic\changeattendant.aspx" />
+    <Content Include="app\ist\index.aspx" />
     <Content Include="chrome.ico" />
     <Content Include="css\custImages\active02.png" />
     <Content Include="css\custImages\active03.png" />
@@ -10721,6 +10722,7 @@
     <Content Include="refDll\log4net.xml" />
     <Content Include="Warming\NoPermission.aspx" />
     <Content Include="Web.config" />
+    <Content Include="ProxyTouch.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="admin\basic\changeattendant.aspx.cs">
@@ -10729,6 +10731,13 @@
     </Compile>
     <Compile Include="admin\basic\changeattendant.aspx.designer.cs">
       <DependentUpon>changeattendant.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="app\ist\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="app\ist\index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
     </Compile>
     <Compile Include="directAdmin\ADAction.cs">
       <SubType>Code</SubType>
@@ -10821,6 +10830,9 @@
       <DependentUpon>mpStand.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProxyTouch.ashx.cs">
+      <DependentUpon>ProxyTouch.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Warming\NoPermission.aspx.cs">
       <DependentUpon>NoPermission.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

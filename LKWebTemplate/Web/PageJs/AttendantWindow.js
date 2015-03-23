@@ -180,8 +180,7 @@ Ext.define('WS.AttendantWindow', {
                 name: 'ID',
                 padding: 5,
                 anchor: '100%',
-                maxLength: 84,
-                id: 'AttendantForm.ID'
+                maxLength: 84
             }],
             fbar: [{
                 type: 'button',

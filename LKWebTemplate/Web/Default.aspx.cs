@@ -13,7 +13,9 @@ namespace LKWebTemplate
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (((System.Web.Configuration.HttpCapabilitiesBase)Request.Browser).IsMobileDevice == true) {
+                Response.Redirect("~/app/ist/index.aspx");
+            }
         }
 
         public string getCompany() {

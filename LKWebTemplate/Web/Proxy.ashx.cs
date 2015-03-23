@@ -66,7 +66,7 @@ namespace LKWebTemplate
                             rem += "url: \"" + newUrl + "\",";
                             rem += "type:\"remoting\",";
                             rem += "timeout:" + LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().DirectTimeOut.ToString() + ",";
-                            string json = DirectProxyGenerator.generateDirectApi(className);
+                            string json = DirectProxyGenerator.generateDirectApi(className,false);
                             rem += json;
                             rem += "};";
                             rem = LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().DirectApplicationName + "." + className + " =" + rem;

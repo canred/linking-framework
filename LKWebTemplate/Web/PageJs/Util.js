@@ -13,7 +13,7 @@ Ext.define('WS.Util', {
                             location.href = this.param.redirectUrl;
                         };
                     } catch (ex) {
-                        location.href = redirectUrl;
+                        location.href = this.param.redirectUrl;
                     }
                 }, this);
             }
