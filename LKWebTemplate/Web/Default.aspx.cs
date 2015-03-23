@@ -17,7 +17,6 @@ namespace LKWebTemplate
                 Response.Redirect("~/app/ist/index.aspx");
             }
         }
-
         public string getCompany() {
             if (LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().IsProductionServer == false)
             {
@@ -31,7 +30,6 @@ namespace LKWebTemplate
                 return "";
             }
         }
-
         public string getAccount()
         {
             if (LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().IsProductionServer==false)
@@ -55,7 +53,6 @@ namespace LKWebTemplate
                 return "";
             }
         }
-
         public string getPassword()
         {
             BasicModel modBasic = new BasicModel();

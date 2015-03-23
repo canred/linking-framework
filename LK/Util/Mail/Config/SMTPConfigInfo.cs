@@ -1,143 +1,3 @@
-//using System;
-//using LK.Config;
-
-//namespace LK.Util.Mail.Config
-//{
-//    /// <summary>
-//    /// 基本設置描述類, 加[Serializable]標記為可序列化
-//    /// </summary>
-//    [Serializable]
-//    public class SMTPConfigInfo : IConfigInfo
-//    {
-//        #region 私有字段
-
-//        private string _DebugEmail = "";
-//        private string _administratorEmail = "";
-//        private string _fromEmail = "";
-//        private string _isSend = "";
-//        private string _isSendAdminMail = "";
-//        private string _isSendDebugMail = "";
-//        private string _isSendMail = "";
-//        private string _smtpServerHost = "";
-//        private string _smtpServerPort = "";
-
-//        #endregion
-
-//        #region 屬性
-
-//        public string AdministratorEmail
-//        {
-//            get
-//            {
-//                return _administratorEmail;
-//            }
-//            set
-//            {
-//                _administratorEmail = value;
-//            }
-//        }
-
-//        public string DebugEmail
-//        {
-//            get
-//            {
-//                return _DebugEmail;
-//            }
-//            set
-//            {
-//                _DebugEmail = value;
-//            }
-//        }
-
-//        public string IsSend
-//        {
-//            get
-//            {
-//                return _isSend;
-//            }
-//            set
-//            {
-//                _isSend = value;
-//            }
-//        }
-
-
-//        public string IsSendAdminMail
-//        {
-//            get
-//            {
-//                return _isSendAdminMail;
-//            }
-//            set
-//            {
-//                _isSendAdminMail = value;
-//            }
-//        }
-
-//        public string IsSendDebugMail
-//        {
-//            get
-//            {
-//                return _isSendDebugMail;
-//            }
-//            set
-//            {
-//                _isSendDebugMail = value;
-//            }
-//        }
-
-//        public string IsSendMail
-//        {
-//            get
-//            {
-//                return _isSendMail;
-//            }
-//            set
-//            {
-//                _isSendMail = value;
-//            }
-//        }
-
-//        public string FromEmail
-//        {
-//            get
-//            {
-//                return _fromEmail;
-//            }
-//            set
-//            {
-//                _fromEmail = value;
-//            }
-//        }
-
-//        public string SMTPServerHost
-//        {
-//            get
-//            {
-//                return _smtpServerHost;
-//            }
-//            set
-//            {
-//                _smtpServerHost = value;
-//            }
-//        }
-
-//        public string SMTPServerPort
-//        {
-//            get
-//            {
-//                return _smtpServerPort;
-//            }
-//            set
-//            {
-//                _smtpServerPort = value;
-//            }
-//        }
-
-//        #endregion
-//    }
-//}
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -357,7 +217,21 @@ namespace LK.Util.Mail
             }
         }
 
+        public string CredentialsAccount
+        {
+            get
+            {
+                return GetTag("CredentialsAccount");
+            }
+        }
 
+        public string CredentialsPassword
+        {
+            get
+            {
+                return GetTag("CredentialsPassword");
+            }
+        }
        
     }
 }

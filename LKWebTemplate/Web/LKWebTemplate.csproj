@@ -73,7 +73,6 @@
     </None>
     <None Include="Configs\Parameter.config" />
     <Content Include="admin\basic\changeattendant.aspx" />
-    <Content Include="app\ist\index.aspx" />
     <Content Include="chrome.ico" />
     <Content Include="css\custImages\active02.png" />
     <Content Include="css\custImages\active03.png" />
@@ -10732,13 +10731,6 @@
     <Compile Include="admin\basic\changeattendant.aspx.designer.cs">
       <DependentUpon>changeattendant.aspx</DependentUpon>
     </Compile>
-    <Compile Include="app\ist\index.aspx.cs">
-      <DependentUpon>index.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="app\ist\index.aspx.designer.cs">
-      <DependentUpon>index.aspx</DependentUpon>
-    </Compile>
     <Compile Include="directAdmin\ADAction.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -15416,6 +15408,7 @@
     <Content Include="ValidateCode\ValidateCode.ashx" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\ist\" />
     <Folder Include="App_Data\" />
     <Folder Include="direct\" />
     <Folder Include="document\DataBase\Oracle\" />

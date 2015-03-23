@@ -19,9 +19,7 @@ namespace LK.Util.Mail
         private static string focusTag = "SMTPConfig";
         /// <summary>配置文件所在路徑</summary>
         public static string filename;
-
         #region DataBaseConfigFileManager()
-
         /// <summary>
         /// 初始化文件修改時間和對像實例
         /// </summary>

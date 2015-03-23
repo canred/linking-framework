@@ -162,12 +162,17 @@ namespace LK.Util.Mail
                 var mailClinet = new SmtpClient();
                 mailClinet.Host = SMTPConfigInfo.SMTPServerHost;
                 if (!string.IsNullOrEmpty(SMTPConfigInfo.SMTPServerPort))
+                {
                     mailClinet.Port = Convert.ToInt16(SMTPConfigInfo.SMTPServerPort);
+                }
+
+                if (SMTPConfigInfo.CredentialsAccount.Trim().Length > 0 && SMTPConfigInfo.CredentialsPassword.Trim().Length > 0) {
+                    mailClinet.Credentials = new System.Net.NetworkCredential(SMTPConfigInfo.CredentialsAccount, SMTPConfigInfo.CredentialsPassword);
+                };               
 
                 if (SMTPConfigInfo.IsSend.Trim() == "Y")
                 {
-                    mailClinet.Send(mail);
-                    
+                    mailClinet.Send(mail);                    
                 }
 
                 try
