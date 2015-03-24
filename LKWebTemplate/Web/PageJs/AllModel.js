@@ -95,6 +95,14 @@ Ext.define('ATTEDNANTVV', {
     ]
 });
 
+Ext.define('ERROR_LOG', {
+    extend: 'Ext.data.Model',
+    fields: ['UUID', 'ERROR_CODE', 'ERROR_TIME',
+        'ERROR_MESSAGE', 'APPLICATION_NAME', 'ATTENDANT_UUID',
+        'ERROR_TYPE', 'IS_READ', 'CREATE_DATE', 'C_NAME'
+    ]
+});
+
 Ext.define('MENU', {
     extend: 'Ext.data.Model',
     fields: ['UUID', 'IS_ACTIVE', 'CREATE_DATE', 'CREATE_USER', 'UPDATE_DATE', 'UPDATE_USER', 'NAME_ZH_TW', 'NAME_ZH_CN', 'NAME_EN_US', 'ID', 'APPMENU_UUID', 'HASCHILD', 'APPLICATION_HEAD_UUID', 'ORD', 'PARAMETER_CLASS', 'IMAGE', 'SITEMAP_UUID', 'ACTION_MODE', 'IS_DEFAULT_PAGE', 'IS_ADMIN']
