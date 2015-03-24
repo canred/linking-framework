@@ -7,7 +7,7 @@
             subWinProxy:'WS.ProxyWindow'
         });
         WS_PROXYQUERYPANEL.render('divMain');
-        UTIL.session.fnKeep();
+        UTIL.runAll();
     });
     
 </script>

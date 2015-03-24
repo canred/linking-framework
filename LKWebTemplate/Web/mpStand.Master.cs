@@ -25,7 +25,6 @@ namespace LKWebTemplate
                     string attendant_uuid = user.UUID;
                     //var menuList = model.getAuthorityMenuVByAttendantUuid(attendant_uuid, "13111517364100129");
                     //setMenu(attendant_uuid, menuList);
-
                     var menuList = model.getAuthorityMenuVByAttendantUuid(attendant_uuid, LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().InitAppUuid);
                     menuList=menuList.OrderBy(c => c.ORD).ToList();
                     setMenu(attendant_uuid, menuList);
@@ -72,6 +71,8 @@ namespace LKWebTemplate
                 menu.InnerHtml = html;//"<ul class='sf-menu'><li><a>溫室氣體盤查邊界設定</a><ul><li><a href='http://localhost/GHG/organization/organization_query.aspx'>組織邊界及營運邊界維護</a></li></ul></li><li><a>基本參數管理</a><ul><li><a href='http://localhost/GHG/ghg_type/ghg_type_query.aspx'>溫室氣體涵蓋種類維護</a></li><li><a href='http://localhost/GHG/method/method_query.aspx'>評估報告出處及年份維護</a></li><li><a href='http://localhost/GHG/reason/reason_query.aspx'>係數種類維護</a></li><li><a href='http://localhost/GHG/gwp/gwp_query.aspx'>全球暖化潛勢(GWP)值維護</a></li><li><a href='http://localhost/GHG/region/region_query.aspx'>地區維護</a></li><li><a href='http://localhost/GHG/factor/factor_query.aspx'>排放係數維護</a></li><li><a href='http://localhost/GHG/emission_source_type/emission_source_type_query.aspx'>排放源型式維護</a></li><li><a href='http://localhost/GHG/mfg_process/mfg_process_query.aspx'>製程代碼及名稱維護</a></li><li><a href='http://localhost/GHG/facility/facility_query.aspx'>設備代碼及名稱維護</a></li><li><a href='http://localhost/GHG/material/material_query.aspx'>原料別維護</a></li><li><a href='http://localhost/GHG/industry/industry_category_query.aspx'>行業別維護</a></li><li><a href='http://localhost/GHG/administrative_area/administrative_area.aspx'>縣市鄉鎮維護</a></li></ul></li><li><a>溫室氣體盤查報告書資訊管理</a><ul><li><a href='http://localhost/GHG/intended_user/intended_user_query.aspx'>預期使用者維護</a></li><li><a href='http://localhost/GHG/job/job_query.aspx'>專案工作維護</a></li><li><a href='http://localhost/GHG/title/title_query.aspx'>盤查專案推動小組維護</a></li></ul></li><li><a>排放源管理</a><ul><li><a href='http://localhost/GHG/emission/emission_data_list_query.aspx'>排放源活動數據</a></li></ul></li><li><a>盤查作業</a><ul><li><a href='http://localhost/GHG/project/project_query.aspx'><img style='height:16px;'src='http://localhost/GHG/css/custImages/project.gif'/>專案</a></li><li><a href='http://localhost/GHG/project/project2_query.aspx'><img style='height:16px;'src='http://localhost/GHG/css/custImages/project.gif'/>專案(營運邊界)</a></li><li><a href='http://localhost/GHG/project/overview.aspx'>專案總覽</a></li></ul></li><li><a href='http://localhost/GHG/product/product_query.aspx'>產品維護</a></li><li><a>管理者</a><ul><li><a>基本資料維護</a><ul><li><a href='http://localhost/GHG/admin/basic/company.aspx'>公司維護</a></li><li><a href='http://localhost/GHG/admin/basic/dept.aspx'>部門維護</a></li><li><a href='http://localhost/GHG/admin/basic/attendant.aspx'>人員維護</a></li></ul></li><li><a>系統設定</a><ul><li><a href='http://localhost/GHG/admin/system/system.aspx'>系統</a></li><li><a href='http://localhost/GHG/admin/system/function.aspx'>功能</a></li><li><a href='http://localhost/GHG/admin/system/sitemap.aspx'>Site Map</a></li><li><a href='http://localhost/GHG/admin/system/menu.aspx'>選單</a></li></ul></li></ul></li><ul>";
             }
         }
+
+        
         #endregion setMenu
 
         #region getMenuHTML
@@ -110,14 +111,14 @@ namespace LKWebTemplate
                     if (url.Trim().Length > 0)
                     {
                         if (image.Trim().Length > 0)
-                            ret += " href='" + ResolveUrl(url) + "'><img style='height:14px;' src='" + ResolveUrl(image) + "' />" + name + "</a>";
+                            ret += " href='" + ResolveUrl(url) + "'><img style='height:14px;padding-right:5px;' src='" + ResolveUrl(image) + "' />" + name + "</a>";
                         else
                             ret += " href='" + ResolveUrl(url) + "'>" + name + "</a>";
                     }
                     else
                     {
                         if (image.Trim().Length > 0)
-                            ret += "><img style='height:14px;' src='" + ResolveUrl(image) + "' />" + name + "</a>";
+                            ret += "><img style='height:14px;padding-right:5px;' src='" + ResolveUrl(image) + "' />" + name + "</a>";
                         else
                             ret += ">" + name + "</a>";
                     }
@@ -145,6 +146,8 @@ namespace LKWebTemplate
             }
             return ret;
         }
+
+      
         #endregion
     }
 }

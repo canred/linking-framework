@@ -67,23 +67,23 @@ ul.sf-menu li li li.sfHover ul {
 	text-decoration:none;
 }
 .sf-menu a, .sf-menu a:visited  { /* visited pseudo selector so IE6 applies text colour*/
-	color:			 White; /*menu font color*/
+	color:			 #5e5e5e; /*文字的預設顏色 menu font color */
 }
 .sf-menu li {
-	background:		#117175; /*Root Menu default background*/
-	border-top-left-radius:5px;
-	-moz-border-top-left-radius:5px;
+	background:		#e7e7e7; /*Root Menu default background*/
+	/*border-top-left-radius:5px;*/
+	/*-moz-border-top-left-radius:5px;
 	-webkit-border-top-left-radius:5px;
 	
 	border-bottom-left-radius:5px;
 	-moz-border-bottom-left-radius:5px;
-	-webkit-border-bottom-left-radius:5px;
+	-webkit-border-bottom-left-radius:5px;*/
 	
 }
 .sf-menu li li {
-	background:		#2CA29B;/*sub menu default background*/
+	background:		#e7e7e7;/*sub menu default background*/
 	z-index:99999;
-	border-top-left-radius:0px;
+	/*border-top-left-radius:0px;
 	-moz-border-top-left-radius:0px;
 	-webkit-border-top-left-radius:0px;
 
@@ -101,7 +101,7 @@ ul.sf-menu li li li.sfHover ul {
 
 	border-bottom-right-radius:15px;
 	-moz-border-bottom-right-radius:15px;
-	-webkit-border-bottom-right-radius:15px;
+	-webkit-border-bottom-right-radius:15px;*/
 
 	border-left: solid;
 	border-right: solid;
@@ -111,7 +111,7 @@ ul.sf-menu li li li.sfHover ul {
 
 }
 .sf-menu li li li {
-	background:		#00ADA9;
+	background:		#e7e7e7;
 	z-index:99999;
 	margin-left: 23px;
 
@@ -119,12 +119,13 @@ ul.sf-menu li li li.sfHover ul {
 }
 .sf-menu li:hover, .sf-menu li.sfHover,
 .sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active {
-	background:		#117175;
+	background:		#A7A7A7;
 	outline:		0;
-	color: White;
+	color: black;
 	z-index:99999;
-	
-	border-top-right-radius:15px;
+	text-decoration:none;  
+
+	/*border-top-right-radius:15px;
 	-moz-border-top-right-radius:15px;
 	-webkit-border-top-right-radius:15px;
 
@@ -134,10 +135,10 @@ ul.sf-menu li li li.sfHover ul {
 
 	border-bottom-right-radius:15px;
 	-moz-border-bottom-right-radius:15px;
-	-webkit-border-bottom-right-radius:15px;
+	-webkit-border-bottom-right-radius:15px;*/
 
-	padding-left: 10px;
-	padding-right: 10px;
+	/*padding-left: 10px;
+	padding-right: 10px;*/
 }
 
 /*** arrows **/
@@ -187,10 +188,10 @@ li.sfHover > a > .sf-sub-indicator {
 .sf-shadow ul {
 	background:	url('Images/sfmenu_shadow.gif') no-repeat bottom right;
 	padding: 0 8px 9px 0;
-	-moz-border-radius-bottomleft: 17px;
+	/*-moz-border-radius-bottomleft: 17px;
 	-moz-border-radius-topright: 17px;
 	-webkit-border-top-right-radius: 17px;
-	-webkit-border-bottom-left-radius: 17px;
+	-webkit-border-bottom-left-radius: 17px;*/
 }
 .sf-shadow ul.sf-shadow-off {
 	background: transparent;
