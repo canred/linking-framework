@@ -103,7 +103,7 @@ Ext.define('WS.AttendantQueryPanel', {
                     enableKeyEvents: true,
                     listeners: {
                         keyup: function(e, t, eOpts) {
-                            var keyCode = t.parentEvent.keyCode;
+                            var keyCode = t.keyCode;
                             if (keyCode == Ext.event.Event.ENTER) {
                                 this.up('panel').down("#btnQuery").handler();
                             };

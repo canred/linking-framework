@@ -168,3 +168,35 @@ Ext.define('V_APPMENU_PROXY_MAP', {
         'APPMENU_UUID',
     ]
 });
+
+Ext.define('SCHEDULE', {
+    extend: 'Ext.data.Model',
+    fields: [
+        'UUID',
+        'SCHEDULE_NAME',
+        'SCHEDULE_END_DATE',
+        'LAST_RUN_TIME',
+        'LAST_RUN_STATUS',
+        'IS_CYCLE',
+        'SINGLE_DATE',
+        'HOUR',
+        'MINUTE',
+        'CYCLE_TYPE',
+        'C_MINUTE',
+        'C_HOUR',
+        'C_DAY',
+        'C_WEEK',
+        'C_DAY_OF_WEEK',
+        'C_MONTH',
+        'C_DAY_OF_MONTH',
+        'C_WEEK_OF_MONTH',
+        'C_YEAR',
+        'C_WEEK_OF_YEAR',
+        'RUN_URL',
+        'RUN_URL_PARAMETER',
+        'RUN_ATTENDANT_UUID',
+        'IS_ACTIVE',
+        'START_DATE',
+        'RUN_SECURITY'
+    ]
+});
