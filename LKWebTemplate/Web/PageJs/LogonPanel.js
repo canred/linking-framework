@@ -55,7 +55,7 @@ Ext.define('WS.LogonPanel', {
                 enableKeyEvents: true,
                 listeners: {
                     keyup: function(e, t, eOpts) {
-                        var keyCode = t.parentEvent.keyCode;
+                        var keyCode = t.keyCode;
                         if (keyCode == Ext.event.Event.ENTER) {
                             WS_LOGONPANEL.down("bntLogin").handler();
                         };
@@ -75,7 +75,7 @@ Ext.define('WS.LogonPanel', {
                 enableKeyEvents: true,
                 listeners: {
                     keyup: function(e, t, eOpts) {
-                        var keyCode = t.parentEvent.keyCode;
+                        var keyCode = t.keyCode;
                         if (keyCode == Ext.event.Event.ENTER) {
                             WS_LOGONPANEL.down("bntLogin").handler();
                         };
@@ -96,7 +96,7 @@ Ext.define('WS.LogonPanel', {
                 enableKeyEvents: true,
                 listeners: {
                     keyup: function(e, t, eOpts) {
-                        var keyCode = t.parentEvent.keyCode;
+                        var keyCode = t.keyCode;
                         if (keyCode == Ext.event.Event.ENTER) {
                             WS_LOGONPANEL.down("bntLogin").handler();
                         };
