@@ -51,6 +51,7 @@
             Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".MenuAction"));
             Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".UserAction"));
             Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".SyncClientAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".ScheduleAction"));
             Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".SiteMapAction"));
             Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".ProxyAction"));
 

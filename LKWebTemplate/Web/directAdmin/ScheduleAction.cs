@@ -622,9 +622,6 @@ string is_active,
 
                     #endregion
                 }
-
-
-
             }
             else
             {
