@@ -22,7 +22,7 @@ Ext.define('WS.MenuWindow', {
             extend: 'Ext.data.Store',
             autoLoad: false,
             model: 'SITEMAP',
-            pageSize: 10,
+            pageSize: 999,
             proxy: {
                 type: 'direct',
                 api: {

@@ -3,7 +3,7 @@ Ext.define('WS.AttendantWindow', {
     extend: 'Ext.window.Window',
     icon: SYSTEM_URL_ROOT + '/css/images/manb16x16.png',
     title: '人員維護',
-    closable:false,
+    closable: false,
     closeAction: 'destroy',
     param: {
         uuid: undefined
@@ -14,12 +14,7 @@ Ext.define('WS.AttendantWindow', {
     resizable: false,
     draggable: false,
     initComponent: function() {
-        /*uuid的參數設check*/
         this.items = [Ext.create('Ext.form.Panel', {
-            layout: {
-                type: 'form',
-                align: 'stretch'
-            },
             api: {
                 load: WS.AttendantAction.info,
                 submit: WS.AttendantAction.submit
@@ -27,69 +22,57 @@ Ext.define('WS.AttendantWindow', {
             itemId: 'AttendantForm',
             paramOrder: ['pUuid'],
             border: true,
-            autoScroll: true,
             defaultType: 'textfield',
             buttonAlign: 'center',
             items: [{
                 xtype: 'container',
                 layout: 'anchor',
+                margin: '5 0 0 0',
                 defaultType: 'textfield',
+                defaults: {
+                    anchor: '-20 0',
+                    labelAlign: 'right',
+                    labelWidth: 100
+                },
                 items: [{
                     fieldLabel: '帳號',
-                    labelAlign: 'right',
-                    labelWidth: 100,
                     name: 'ACCOUNT',
-                    anchor: '-50 0',
                     maxLength: 84,
                     allowBlank: false
                 }, {
                     fieldLabel: '密碼',
-                    labelAlign: 'right',
-                    labelWidth: 100,
                     name: 'PASSWORD',
-                    anchor: '-50 0',
                     maxLength: 84,
                     allowBlank: false
                 }, {
                     fieldLabel: '名稱-繁中',
-                    labelAlign: 'right',
-                    labelWidth: 100,
                     name: 'C_NAME',
-                    anchor: '-50 0',
                     maxLength: 84,
                     allowBlank: false
                 }, {
                     fieldLabel: '名稱-英文',
-                    labelAlign: 'right',
-                    labelWidth: 100,
                     name: 'E_NAME',
-                    anchor: '-50 0',
                     maxLength: 340
                 }, {
                     fieldLabel: 'E-Mail',
-                    labelAlign: 'right',
-                    labelWidth: 100,
                     name: 'EMAIL',
-                    anchor: '-50 0',
                     maxLength: 84,
                     allowBlank: false
                 }, {
                     fieldLabel: '電話',
-                    labelAlign: 'right',
-                    labelWidth: 100,
                     name: 'PHONE',
-                    anchor: '-50 0',
                     maxLength: 84,
                     allowBlank: true
                 }]
             }, {
                 xtype: 'container',
                 layout: 'hbox',
-                fieldLabel: '性別',
                 defaultType: 'radiofield',
+                defaults: {
+                    labelAlign: 'right'
+                },
                 items: [{
                     fieldLabel: '性別',
-                    labelAlign: 'right',
                     boxLabel: '男',
                     name: 'GENDER',
                     inputValue: 'M',
@@ -104,9 +87,11 @@ Ext.define('WS.AttendantWindow', {
                 xtype: 'container',
                 layout: 'hbox',
                 defaultType: 'radiofield',
+                defaults: {
+                    labelAlign: 'right'
+                },
                 items: [{
                     fieldLabel: '主管',
-                    labelAlign: 'right',
                     boxLabel: '是',
                     name: 'IS_MANAGER',
                     inputValue: 'Y',
@@ -121,9 +106,11 @@ Ext.define('WS.AttendantWindow', {
                 xtype: 'container',
                 layout: 'hbox',
                 defaultType: 'radiofield',
+                defaults: {
+                    labelAlign: 'right'
+                },
                 items: [{
                     fieldLabel: '直接人員',
-                    labelAlign: 'right',
                     boxLabel: '是',
                     name: 'IS_DIRECT',
                     inputValue: 'Y',
@@ -160,30 +147,23 @@ Ext.define('WS.AttendantWindow', {
                     padding: '0 0 0 60'
                 }]
             }, {
-                xtype: 'hidden',
+                xtype: 'hiddenfield',
                 fieldLabel: 'UUID',
                 name: 'UUID',
-                padding: 5,
-                anchor: '100%',
                 maxLength: 84,
                 itemId: 'UUID'
             }, {
-                xtype: 'hidden',
+                xtype: 'hiddenfield',
                 fieldLabel: 'COMPANY_UUID',
                 name: 'COMPANY_UUID',
-                padding: 5,
-                anchor: '100%',
                 maxLength: 84
             }, {
-                xtype: 'hidden',
+                xtype: 'hiddenfield',
                 fieldLabel: 'ID',
                 name: 'ID',
-                padding: 5,
-                anchor: '100%',
                 maxLength: 84
             }],
-            fbar: [{
-                type: 'button',
+            buttons: [{
                 icon: SYSTEM_URL_ROOT + '/css/custimages/save16x16.png',
                 text: '儲存',
                 handler: function() {
@@ -216,14 +196,13 @@ Ext.define('WS.AttendantWindow', {
                     });
                 }
             }, {
-                type: 'button',
                 icon: SYSTEM_URL_ROOT + '/css/custimages/exit16x16.png',
                 text: '關閉',
                 handler: function() {
                     this.up('window').hide();
                 }
             }]
-        })]
+        })];
         this.callParent(arguments);
     },
     closeEvent: function() {
@@ -237,8 +216,8 @@ Ext.define('WS.AttendantWindow', {
                     params: {
                         'pUuid': this.param.uuid
                     },
-                    success: function(response, a, b) {},
-                    failure: function(response, jsonObj, b) {
+                    success: function(response, jsonObj) {},
+                    failure: function(response, jsonObj) {
                         if (!jsonObj.result.success) {
                             Ext.MessageBox.show({
                                 title: 'Warning',
@@ -251,7 +230,7 @@ Ext.define('WS.AttendantWindow', {
                 });
             } else {
                 this.down('#AttendantForm').getForm().reset();
-            }
+            };
         },
         'hide': function() {
             Ext.getBody().unmask();

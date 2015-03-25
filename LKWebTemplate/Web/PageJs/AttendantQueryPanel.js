@@ -153,7 +153,7 @@ Ext.define('WS.AttendantQueryPanel', {
                         width: 60,
                         items: [{
                             tooltip: '*編輯',
-                            icon: '../../css/images/edit16x16.png',
+                            icon: SYSTEM_URL_ROOT+'/css/images/edit16x16.png',
                             handler: function(grid, rowIndex, colIndex) {
                                 var main = grid.up('panel').up('panel').up('panel');
                                 if (!main.subWinAttendant) {
