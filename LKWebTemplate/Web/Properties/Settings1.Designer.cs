@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LKLKWebTemplate.Properties {
+namespace LKWebTemplate.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -26,7 +26,7 @@ namespace LKLKWebTemplate.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ISTGPD-SQL\\ISTGPD;Initial Catalog=cloud4;User ID=sa;Password=5782266")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ISTGPD-SQL\\ISTGPD;Initial Catalog=Cloud;User ID=sa;Password=5782266")]
         public string BasicConnectionString {
             get {
                 return ((string)(this["BasicConnectionString"]));

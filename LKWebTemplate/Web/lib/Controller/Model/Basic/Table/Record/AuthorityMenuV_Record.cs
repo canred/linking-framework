@@ -10,7 +10,7 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 {
 	[LkRecord]
 	[TableView("AUTHORITY_MENU_V", false)]
-	[LkDataBase("BASIC")]
+    [LkDataBase("BASIC")]
 	[Serializable]
 	public class AuthorityMenuV_Record : RecordBase{
 		public AuthorityMenuV_Record(){}
@@ -41,6 +41,7 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 		string _URL=null;
 		string _FUNC_PARAMETER_CLASS=null;
 		string _P_MODE=null;
+		string _RUNJSFUNCTION=null;
 		/*欄位資訊 End*/
 
 		[ColumnName("IS_USER_DEFAULT_PAGE",false,typeof(string))]
@@ -378,6 +379,19 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 			get
 			{
 				return _P_MODE;
+			}
+		}
+
+		[ColumnName("RUNJSFUNCTION",false,typeof(string))]
+		public string RUNJSFUNCTION
+		{
+			set
+			{
+				_RUNJSFUNCTION=value;
+			}
+			get
+			{
+				return _RUNJSFUNCTION;
 			}
 		}
 		public AuthorityMenuV_Record Clone(){

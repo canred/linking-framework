@@ -9,7 +9,7 @@ using LK.DB.SQLCreater;
 using LKWebTemplate.Model.Basic.Table.Record  ;  
 namespace LKWebTemplate.Model.Basic.Table
 {
-	[LkDataBase("BASIC")]
+    [LkDataBase("BASIC")]
 	[TableView("APPPAGE", true)]
 	public partial class Apppage : TableBase{
 	/*固定物件*/
@@ -42,6 +42,7 @@ namespace LKWebTemplate.Model.Basic.Table
 		public string PARAMETER_CLASS {get{return "PARAMETER_CLASS" ; }}
 		public string APPLICATION_HEAD_UUID {get{return "APPLICATION_HEAD_UUID" ; }}
 		public string P_MODE {get{return "P_MODE" ; }}
+		public string RUNJSFUNCTION {get{return "RUNJSFUNCTION" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public Apppage_Record CurrentRecord(){

@@ -566,6 +566,7 @@ VIEW `authority_menu_v_sub3` AS
         `p`.`url` AS `url`,
         `p`.`parameter_class` AS `parameter_class`,
         `p`.`p_mode` AS `p_mode`,
+        `p`.`runJsFunction` AS `runjsfunction`,
         `si`.`application_head_uuid` AS `application_head_uuid`
     from
         (`sitemap` `si`
@@ -636,7 +637,8 @@ VIEW `authority_menu_v` AS
         `auth_m`.`application_name` AS `APPLICATION_NAME`,
         `x`.`url` AS `url`,
         `x`.`parameter_class` AS `func_parameter_class`,
-        `x`.`p_mode` AS `p_mode`
+        `x`.`p_mode` AS `p_mode`,
+        `x`.`runjsfunction` AS `runjsfunction`
     from
         ((`authority_menu_v_sub2` `auth_m`
         left join `authority_menu_v_sub3` `x` ON (((`auth_m`.`sitemap_uuid` = `x`.`uuid`)

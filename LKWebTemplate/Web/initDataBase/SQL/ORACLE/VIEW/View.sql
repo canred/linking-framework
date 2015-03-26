@@ -313,7 +313,8 @@ SELECT CASE WHEN d.is_user_default_page IS NULL THEN 'N' ELSE 'Y' END
           auth_m.APPLICATION_NAME,
           X.url,
           X.parameter_class func_parameter_class,
-          X.p_mode
+          X.p_mode,
+          X.runjsfunction
      FROM (SELECT m.*, b.attendant_uuid, b.application_name
              FROM (SELECT DISTINCT ga.attendant_uuid,
                                    ap.name application_name,

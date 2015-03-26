@@ -345,6 +345,7 @@ create table {user}.APPPAGE
   url                   VARCHAR2(200) not null,
   parameter_class       VARCHAR2(200),
   application_head_uuid VARCHAR2(36) not null,
+  runjsfunction         VARCHAR2(200) ,
   p_mode                VARCHAR2(100)
 );
 alter table {user}.APPPAGE

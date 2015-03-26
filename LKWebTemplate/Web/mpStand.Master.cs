@@ -81,7 +81,7 @@ namespace LKWebTemplate
         {
             string ret = string.Empty;
             foreach (AuthorityMenuV_Record r in menuQuery)
-            {
+            {                
                 if (r.IS_ACTIVE == "Y")
                 {
                     string hasChild = r.HASCHILD;
@@ -92,6 +92,7 @@ namespace LKWebTemplate
                     string action_mode = r.ACTION_MODE;
                     string _appmenu_uuid = r.APPMENU_UUID;
                     string _uuid = r.UUID;
+                    string _runjsfunction = r.RUNJSFUNCTION;
 
                     //url加上參數
                     if (url.Trim().Length > 0 && parameter.Trim().Length>0)
@@ -110,18 +111,39 @@ namespace LKWebTemplate
                     //是否有URL & 圖片
                     if (url.Trim().Length > 0)
                     {
-                        if (image.Trim().Length > 0)
-                            ret += " href='" + ResolveUrl(url) + "'><img style='height:14px;padding-right:5px;' src='" + ResolveUrl(image) + "' />" + name + "</a>";
+                        if (_runjsfunction.Trim().Length == 0)
+                        {
+                            if (image.Trim().Length > 0)
+                                ret += " href='" + ResolveUrl(url) + "'><img style='height:14px;padding-right:5px;' src='" + ResolveUrl(image) + "' />" + name + "</a>";
+                            else
+                                ret += " href='" + ResolveUrl(url) + "'>" + name + "</a>";
+                        }
                         else
-                            ret += " href='" + ResolveUrl(url) + "'>" + name + "</a>";
+                        {
+                            if (image.Trim().Length > 0)
+                                ret += " href='#' onclick='" + _runjsfunction.Replace("'", "\"") + ";void(0);'><img style='height:14px;padding-right:5px;' src='" + ResolveUrl(image) + "' />" + name + "</a>";
+                            else
+                                ret += " href='#' onclick='" + _runjsfunction.Replace("'", "\"") + ";void(0);'>" + name + "</a>";
+                        }
                     }
                     else
                     {
-                        if (image.Trim().Length > 0)
-                            ret += "><img style='height:14px;padding-right:5px;' src='" + ResolveUrl(image) + "' />" + name + "</a>";
+                        if (_runjsfunction.Trim().Length == 0)
+                        {
+                            if (image.Trim().Length > 0)
+                                ret += "><img style='height:14px;padding-right:5px;' src='" + ResolveUrl(image) + "' />" + name + "</a>";
+                            else
+                                ret += ">" + name + "</a>";
+                        }
                         else
-                            ret += ">" + name + "</a>";
+                        {
+                            if (image.Trim().Length > 0)
+                                ret += " href='#' onclick='" + _runjsfunction.Replace("'", "\"") + ";void(0);'><img style='height:14px;padding-right:5px;' src='" + ResolveUrl(image) + "' />" + name + "</a>";
+                            else
+                                ret += " href='#' onclick='" + _runjsfunction.Replace("'", "\"") + ";void(0);'>" + name + "</a>";
+                        }
                     }
+
 
                     if (hasChild == "Y")
                     {

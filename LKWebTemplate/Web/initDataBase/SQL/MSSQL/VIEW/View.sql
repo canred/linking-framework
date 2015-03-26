@@ -424,7 +424,8 @@ CREATE VIEW [authority_menu_v]
 			 auth_m.APPLICATION_NAME,
 			 X.url,
 			 X.parameter_class func_parameter_class,
-			 X.p_mode
+			 X.p_mode,
+			 X.runjsfunction
 	FROM (	SELECT
 				 m.*,
 				 b.attendant_uuid,

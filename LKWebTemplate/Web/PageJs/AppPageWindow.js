@@ -108,6 +108,12 @@ Ext.define('WS.AppPageWindow', {
                 name: 'URL',
                 maxLength: 84,
                 allowBlank: false
+            },{
+                fieldLabel:'RunJsFunction',
+                name:'RUNJSFUNCTION',
+                maxLength:84,
+                allowBlank:true,
+                emptyText:'執行Javascript的動作'
             }, {
                 xtype: 'container',
                 layout: 'hbox',

@@ -236,6 +236,7 @@ CREATE TABLE `apppage` (
   `parameter_class` varchar(200) DEFAULT NULL,
   `application_head_uuid` varchar(36) NOT NULL,
   `p_mode` varchar(100) DEFAULT NULL,
+  `runjsfunction` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`uuid`),
   UNIQUE KEY `APPPAGE_UK2` (`application_head_uuid`,`url`,`p_mode`,`parameter_class`)  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

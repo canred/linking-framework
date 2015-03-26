@@ -314,6 +314,7 @@ CREATE TABLE [dbo].[APPPAGE](
 	[parameter_class] [varchar](200) NULL,
 	[application_head_uuid] [varchar](36) NOT NULL,
 	[p_mode] [varchar](100) NULL,
+	[runjsfunction] [varchar](100) NULL,
  CONSTRAINT [APPPAGE_PK] PRIMARY KEY CLUSTERED 
 (
 	[uuid] ASC

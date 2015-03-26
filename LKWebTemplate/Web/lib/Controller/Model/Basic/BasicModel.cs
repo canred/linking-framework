@@ -256,20 +256,6 @@ namespace LKWebTemplate.Model.Basic
 		}
 
 		/*Templete Model A001*/
-		public LKWebTemplate.Model.Basic.Table.AuthorityMenuV getAuthorityMenuV_By_Uuid(string pUUID){
-			try{
-				dbc = LK.Config.DataBase.Factory.getInfo();
-				LKWebTemplate.Model.Basic.Table.AuthorityMenuV authoritymenuv = new LKWebTemplate.Model.Basic.Table.AuthorityMenuV(dbc);
-				authoritymenuv.Fill_By_PK(pUUID);
-				return authoritymenuv;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
-
-		/*Templete Model A001*/
 		public LKWebTemplate.Model.Basic.Table.ErrorLog getErrorLog_By_Uuid(string pUUID){
 			try{
 				dbc = LK.Config.DataBase.Factory.getInfo();
@@ -388,6 +374,20 @@ namespace LKWebTemplate.Model.Basic
 				LKWebTemplate.Model.Basic.Table.Schedule schedule = new LKWebTemplate.Model.Basic.Table.Schedule(dbc);
 				schedule.Fill_By_PK(pUUID);
 				return schedule;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+
+		/*Templete Model A001*/
+		public LKWebTemplate.Model.Basic.Table.AuthorityMenuV getAuthorityMenuV_By_Uuid(string pUUID){
+			try{
+				dbc = LK.Config.DataBase.Factory.getInfo();
+				LKWebTemplate.Model.Basic.Table.AuthorityMenuV authoritymenuv = new LKWebTemplate.Model.Basic.Table.AuthorityMenuV(dbc);
+				authoritymenuv.Fill_By_PK(pUUID);
+				return authoritymenuv;
 			}
 			catch (Exception ex){
 				log.Error(ex);LK.MyException.MyException.Error(this, ex);

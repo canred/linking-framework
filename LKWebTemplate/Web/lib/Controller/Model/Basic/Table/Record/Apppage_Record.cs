@@ -10,7 +10,7 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 {
 	[LkRecord]
 	[TableView("APPPAGE", true)]
-	[LkDataBase("BASIC")]
+    [LkDataBase("BASIC")]
 	[Serializable]
 	public class Apppage_Record : RecordBase{
 		public Apppage_Record(){}
@@ -28,6 +28,7 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 		string _PARAMETER_CLASS=null;
 		string _APPLICATION_HEAD_UUID=null;
 		string _P_MODE=null;
+		string _RUNJSFUNCTION=null;
 		/*欄位資訊 End*/
 
 		[ColumnName("UUID",true,typeof(string))]
@@ -196,6 +197,19 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 			get
 			{
 				return _P_MODE;
+			}
+		}
+
+		[ColumnName("RUNJSFUNCTION",false,typeof(string))]
+		public string RUNJSFUNCTION
+		{
+			set
+			{
+				_RUNJSFUNCTION=value;
+			}
+			get
+			{
+				return _RUNJSFUNCTION;
 			}
 		}
 		public Apppage_Record Clone(){

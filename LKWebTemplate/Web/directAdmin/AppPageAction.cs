@@ -80,6 +80,7 @@ public class AppPageAction : BaseAction
                                         string parameter_class,
                                         string application_head_uuid,
                                         string p_mode,
+                                        string runjsfunction,
                                         HttpRequest request)
     {
         #region Declare
@@ -129,6 +130,7 @@ public class AppPageAction : BaseAction
             drAppPage.PARAMETER_CLASS = parameter_class;
             drAppPage.APPLICATION_HEAD_UUID = application_head_uuid;
             drAppPage.P_MODE = p_mode;
+            drAppPage.RUNJSFUNCTION = runjsfunction;
             //drAppPage.WEB_SITE = web_site;
 
             if (action == SubmitAction.Edit)

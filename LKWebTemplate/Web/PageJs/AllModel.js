@@ -51,7 +51,8 @@ Ext.define('APPPAGE', {
         'URL',
         'PARAMETER_CLASS',
         'APPLICATION_HEAD_UUID',
-        'P_MODE'
+        'P_MODE',
+        'RUNJSFUNCTION'
     ]
 });
 
