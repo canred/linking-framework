@@ -23,15 +23,10 @@ namespace LKWebTemplate.admin.jobs
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "text/plain";
-            LKWebTemplate.Model.Basic.BasicModel mod = new LKWebTemplate.Model.Basic.BasicModel();
-                        
-            var currentTime = DateTime.Now;
-            
+            LKWebTemplate.Model.Basic.BasicModel mod = new LKWebTemplate.Model.Basic.BasicModel();                        
+            var currentTime = DateTime.Now;            
             /*再這一分鐘有需要執行的程式嗎?*/
             var runSchedule = mod.getVScheduleTime_By_StartDate(currentTime);
-
-            
-
             if (runSchedule.Count > 0) {
                 foreach (var vitem in runSchedule) {
                     var drSchedule = vitem.Link_Schedule_By_Uuid().First();
@@ -71,7 +66,6 @@ namespace LKWebTemplate.admin.jobs
                 }    
             }
             context.Response.End();
-
             /*先找出來未完全展開的項目*/
             var drsSchedule = mod.getSchedule_By_ExpendAll("N");
             ScheduleAction scheduleAction = new ScheduleAction();

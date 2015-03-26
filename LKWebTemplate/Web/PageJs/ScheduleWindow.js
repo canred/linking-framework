@@ -12,7 +12,12 @@
      resizable: false,
      draggable: false,
      weekChangeInWeek: function(obj) {
-         var thisValue = obj.data;
+         console.log('canred');
+         var thisValue = obj.html;
+         if (Ext.isEmpty(thisValue)) {
+             /*空的時侯不處理*/
+             return;
+         };
          var org = this.down("#C_DAY_OF_WEEK").getValue();
          var newVar = '';
          if (obj.checked) {
@@ -38,7 +43,9 @@
          var resultData = '';
          for (var tmp in thisValue) {
              if (typeof(thisValue[tmp]) == 'string') {
-                 resultData += thisValue[tmp] + ',';
+                 if (Ext.isNumber(parseFloat(thisValue[tmp]))) {
+                     resultData += thisValue[tmp] + ',';
+                 };
              }
          };
          if (resultData.length > 0 && resultData.substr(-1) == ',') {
@@ -47,7 +54,7 @@
          this.down("#C_DAY_OF_WEEK").setValue(resultData);
      },
      dayChangeInMonth: function(obj) {
-         var thisValue = obj.data;
+         var thisValue = obj.html;
          var org = this.down("#C_DAY_OF_MONTH").getValue();
          var newVar = '';
          if (obj.checked) {
@@ -73,8 +80,10 @@
          var resultData = '';
          for (var tmp in thisValue) {
              if (typeof(thisValue[tmp]) == 'string') {
-                 resultData += thisValue[tmp] + ',';
-             };
+                 if (Ext.isNumber(parseFloat(thisValue[tmp]))) {
+                     resultData += thisValue[tmp] + ',';
+                 };
+             }
          };
          if (resultData.length > 0 && resultData.substr(-1) == ',') {
              resultData = resultData.substr(0, resultData.length - 1);
@@ -82,7 +91,7 @@
          this.down("#C_DAY_OF_MONTH").setValue(resultData);
      },
      weekChangeInMonth: function(obj) {
-         var thisValue = obj.data;
+         var thisValue = obj.html;
          var org = this.down("#C_WEEK_OF_MONTH").getValue();
          var newVar = '';
          if (obj.checked) {
@@ -108,8 +117,10 @@
          var resultData = '';
          for (var tmp in thisValue) {
              if (typeof(thisValue[tmp]) == 'string') {
-                 resultData += thisValue[tmp] + ',';
-             };
+                 if (Ext.isNumber(parseFloat(thisValue[tmp]))) {
+                     resultData += thisValue[tmp] + ',';
+                 };
+             }
          };
          if (resultData.length > 0 && resultData.substr(-1) == ',') {
              resultData = resultData.substr(0, resultData.length - 1);
@@ -1630,16 +1641,20 @@
                          this.up('window').down('#C_WEEK_OF_MONTH').setValue('');
                      };
                      if (this.up('window').down('#txtCycleType').getValue() == '每週重複') {
+                         console.log('herr');
                          this.up('window').down('#C_DAY_OF_MONTH').setValue('');
                          this.up('window').down('#C_WEEK_OF_MONTH').setValue('');
                          for (var i = 1; i <= 5; i++) {
                              var _script = 'this.up("window").down("#chk_week_month_' + i + '").setValue(false);';
                              eval(_script);
                          };
+
                          for (var i = 0; i <= 6; i++) {
                              var _script = 'this.up("window").down("#chk_day_week_month_' + i + '").setValue(false);';
                              eval(_script);
                          };
+
+
                          if (this.up('window').down('#C_DAY_OF_WEEK').getValue() == '') {
                              Ext.MessageBox.show({
                                  title: '資料驗証問題',
@@ -1704,7 +1719,8 @@
                          }
                      };
                      form.submit({
-                         waitMsg: '更新中...',
+                         title: '工作排程更新中',
+                         waitMsg: '由於系統將展開執行時間，可能需要1-2分鐘的時間!',
                          success: function(form, action) {
                              mainWin.param.uuid = action.result.UUID;
                              mainWin.down('#UUID').setValue(action.result.UUID);

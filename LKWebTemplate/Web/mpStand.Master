@@ -20,6 +20,20 @@
     <!--引入ExtJs的程式-->
     <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/shared/include-ext.js")%>'></script>
     <script type="text/javascript" src='<%= Page.ResolveUrl("~/Proxy.ashx")%>'></script>
+    
+    <!--引入Echart相關的資料-->
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/echarts-2.2.1/build/source/echarts.js")%>'></script>
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/echarts-2.2.1/build/source/echarts-all.js")%>'></script>
+    <script type="text/javascript">        
+        require.config({
+            paths: {
+                echarts: '<%= Page.ResolveUrl("~/js/echarts-2.2.1/build/dist")%>'
+            }
+        });
+    </script>
+
+    
+
     <!--引入ExtJs相關的設定-->
     <script language="javascript" type="text/javascript">        
         /*設定ExtJs ux路徑*/

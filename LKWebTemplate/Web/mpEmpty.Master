@@ -1,0 +1,88 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="mpEmpty.master.cs" Inherits="LKWebTemplate.mpEmpty" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">    
+    <%    
+        Response.Buffer = true;
+        Response.ExpiresAbsolute = DateTime.Now.AddSeconds(-1);
+        Response.Expires = 0;
+        Response.CacheControl = "no-cache";
+    %>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title><%= LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().Title %></title>
+    <link rel="SHORTCUT ICON" href="<%= Page.ResolveUrl(LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().SystemIcon)%>"/>        
+    <link rel="stylesheet" href="<%= Page.ResolveUrl("~/css/mpStand.css")%>" type="text/css" />
+    <link rel="stylesheet" href="<%= Page.ResolveUrl("~/css/menu.css")%>" type="text/css" />
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/jquery.js")%>'></script>
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/superfish.js")%>'></script>    
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/system-config.ashx")%>'></script>
+    <!--引入ExtJs的程式-->
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/js/shared/include-ext.js")%>'></script>
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/Proxy.ashx")%>'></script>
+    <!--引入ExtJs相關的設定-->
+    <script language="javascript" type="text/javascript">
+        /*設定ExtJs ux路徑*/
+        Ext.Loader.setPath('Ext.ux', SYSTEM_URL_ROOT + '/js/ux');
+        Ext.Loader.setPath('WS', SYSTEM_URL_ROOT + '/pagejs');
+        /*引入DataTip的package*/
+        Ext.require(['Ext.ux.DataTip']);
+        /*初始化QuickTips的功能*/
+        Ext.QuickTips.init();
+        /*最後一步*/
+        Ext.onReady(function () {
+            /*引入ModelAll.js*/
+            Ext.Loader.loadScript([
+              SYSTEM_URL_ROOT + '/pagejs/AllModel.js'
+            ]);
+            /*初始化UTIL類*/
+            UTIL = Ext.create('WS.Util');
+            //引入ExtJs Direct Provider
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".ApplicationAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".ADAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".AttendantAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".AppPageAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".AuthorityAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".AdminCompanyAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".CompanyAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".ErrorLogAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".GroupHeadAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".GroupAttendantAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".MenuAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".UserAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".SyncClientAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".ScheduleAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".SiteMapAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".ProxyAction"));
+        });
+    </script>
+    <link rel="stylesheet" href="<%= Page.ResolveUrl("~/css/bootstrap/css/bootstrap.css")%>" type="text/css" />
+    <style type ="text/css">
+        .x-tip {
+            width: auto !important;
+        }
+        .x-tip-body {
+            width: auto !important;
+        }
+        .x-tip-body span {
+            width: auto !important;
+        }
+        .pure-button-error  {
+            background: rgb(202, 60, 60); /* this is an orange */
+        }       
+    </style>    
+    <asp:ContentPlaceHolder ID="head" runat="server">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </asp:ContentPlaceHolder>  
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/Proxy.ashx")%>'></script>
+    <script type="text/javascript">
+        var IsProductionServer = '<%=LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().IsProductionServer %>';     
+    </script>
+    </head>
+    <body id="mainpage">
+        <form id="form1" runat="server">   
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+        </form>
+    </body>
+</html>
