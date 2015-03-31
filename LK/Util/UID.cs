@@ -8,24 +8,18 @@ namespace LK.Util
     /// </summary>
     public sealed class UID
     {
-        public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        
+        public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);        
         #region singleton
-
         private static readonly UID _instance = new UID();
         private static int num;
-
         private UID()
         {
         }
-
         public static UID Instance
         {
             get { return _instance; }
         }
-
         #endregion singleton
-
         public String GetUniqueID()
         {
             try

@@ -12,8 +12,7 @@ namespace LK.DB
         public new static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public DataBaseConnection(IDataBaseConfigInfo batabaseConfigInfo)
             : base(batabaseConfigInfo)
-        { 
-        
+        {         
         }
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 namespace LK.DB.SQLCreater
 {
     public class OrderLimit
@@ -22,26 +21,21 @@ namespace LK.DB.SQLCreater
             _orderColumn.Add(column);
             _orderMethod.Add(method);
         }
-
         public void AddOrder(string column , OrderMethod method) {
             _orderColumn.Add(column);
             _orderMethod.Add(method);
         }
-
         public List<String> getOrderColumn()
         {
             return _orderColumn;
         }
-
         public List<OrderMethod> getOrderMethod() {
             return _orderMethod;
         }
         public void Clear() {
             _orderColumn = new List<string>();
             _orderMethod = new List<OrderMethod>();
-        }
-     
-
+        } 
         public decimal? Start {
             get {
                 return _start;
@@ -50,7 +44,6 @@ namespace LK.DB.SQLCreater
                 _start = value;
             }
         }
-
         public decimal? Limit {
             get
             {
@@ -61,6 +54,5 @@ namespace LK.DB.SQLCreater
                 _limit = value;
             }
         }
-
     }
 }

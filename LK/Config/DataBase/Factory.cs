@@ -23,8 +23,7 @@ namespace LK.Config.DataBase
                     LK.Config.DataBase.DataBaseConfigInfo ret = new DataBaseConfigInfo();
                     _idatabaseconfig = ret;
                     return _idatabaseconfig;
-                }
-                // return result.GetType().GetProperty("UUID").GetValue(result, null).ToString();                
+                }               
             }
             catch (Exception ex)
             {

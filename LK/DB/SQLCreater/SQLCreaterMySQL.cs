@@ -11,12 +11,10 @@ namespace LK.DB.SQLCreater
     public class SQLCreaterMySQL:LK.DB.SQLCreater.ASQLCreater
     {
         public new static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
         public override System.Data.IDataParameter justGenParameter(string name, object value,  System.Data.ParameterDirection parameterDirect)
         {
             try
             {
-
                 System.Data.IDataParameter para = new MySql.Data.MySqlClient.MySqlParameter(name, value);
                 para.Direction = parameterDirect;
                 return para;
@@ -27,7 +25,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         /// <summary>
         /// 產生一個Parameter，並直到放入物件中。
         /// </summary>
@@ -37,7 +34,6 @@ namespace LK.DB.SQLCreater
         {
             try
             {
-
                 System.Data.IDataParameter para = new MySql.Data.MySqlClient.MySqlParameter(name, value);
                 this.addParameter(para);
             }
@@ -47,27 +43,17 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
-       
-
-
-
-      
-        
-
         public override string __getParameterFlag()
         {
             return "?";
-        }
-        
+        }        
         /// <summary>
         /// 產生有關限制筆數的SQL語法
         /// </summary>
         /// <param name="SQL"></param>
         /// <returns></returns>
         public override string LimitSQL(string SQL)
-        {
-            
+        {            
             try
             {
                 if (this.getStartCount() == null || this.getFetchCount() == null)
@@ -84,26 +70,23 @@ namespace LK.DB.SQLCreater
                     }
                     bool jumpOrder = false;
                     for (int i = 0; i < orderLimit.getOrderColumn().Count; i++) {
-                        if (orderLimit.getOrderColumn()[i] == "")
+                        if (orderLimit.getOrderColumn()[i] == ""){
                             jumpOrder = true;
-                        else
+                        }
+                        else{
                             orderByString += " " + orderLimit.getOrderColumn()[i] + " " + orderLimit.getOrderMethod()[i] + ",";
-                    }
-
-                    
+                        }
+                    }                    
                     if (jumpOrder==false && orderByString.EndsWith(",")) {
                         orderByString = orderByString.Substring(0, orderByString.Length - 1);
                     }
-         
-                   
                     string newSQL = "";                    
                     newSQL += SQL;
                     if (jumpOrder == false)
                     {
                         newSQL += orderByString;
                     }
-                    newSQL += " LIMIT " + (this.getStartCount()-1).ToString() + "," + this.getFetchCount().ToString();
-              
+                    newSQL += " LIMIT " + (this.getStartCount()-1).ToString() + "," + this.getFetchCount().ToString();              
                     return newSQL;
                 }
             }
@@ -113,7 +96,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public override IDbDataParameter createDbParameter(System.Data.IDbDataParameter param, ParameterDirection pdirection)
         {
             try
@@ -127,7 +109,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public override string __ExecuteProcedureAndReturnSQL(string procedureName)
         {
             try
@@ -140,7 +121,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         /// <summary>
         /// 【注意】底層程式使用；請不要直接使用
         /// </summary>
@@ -163,12 +143,10 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public override ASQLCreater Insert(LK.DB.RecordBase rc)
         {
             try
-            {
-             
+            {             
                 this._SQL_ = "SET @@sql_mode = '';" +"INSERT INTO " + rc.getTableName() + " ";
                 Int16 no = 1;
                 this._SQL_ += " ( ";
@@ -209,7 +187,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public override ASQLCreater Delete(LK.DB.RecordBase rc)
         {
             try
@@ -222,8 +199,7 @@ namespace LK.DB.SQLCreater
                 log.Error(ex);
                 throw ex;
             }
-        }
-		
+        }		
 		public override string DeleteSQL()
         {
             try

@@ -10,7 +10,6 @@ using LK.DB.SQLCreater;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-
 using LKWebTemplate.Model.Basic;
 using LKWebTemplate.Model.Basic.Table;
 using LKWebTemplate.Model.Basic.Table.Record;
@@ -21,15 +20,11 @@ using System.Data;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
-
 #endregion
-
 [DirectService("CloudAction")]
 public class CloudAction : BaseAction
 {
-
-
-    [DirectMethod("loadActiveConnection", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("loadActiveConnection", DirectAction.Load)]
     public JObject loadActiveConnection(string activeConnectId, Request request)
     {
         LK.Cloud cloud = new LK.Cloud();
@@ -56,7 +51,7 @@ public class CloudAction : BaseAction
         }
     }
 
-    [DirectMethod("connectTest", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("connectTest", DirectAction.Load)]
     public JObject connectTest(string serverweburl, Request request)
     {
         LK.Cloud cloud = new LK.Cloud();
@@ -88,9 +83,7 @@ public class CloudAction : BaseAction
             cloud = null;
         }
     }
-
-
-    [DirectMethod("connect", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("connect", DirectAction.Load)]
     public JObject connect(string serverweburl, Request request)
     {
         try
@@ -105,23 +98,14 @@ public class CloudAction : BaseAction
             {
                 return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("Cloud->Rolue must be member"));
             }
-
             if (LK.Config.Cloud.CloudConfigs.GetConfig().SupportCloud != true)
             {
                 return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("Cloud->SupportCloud must be true"));
-            }
-            /*
-            if (LK.Config.Cloud.CloudConfigs.GetConfig().IsAuthCenter != false)
-            {
-                return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("Cloud->IsAuthCenter must be false"));
-            }
-             */
-
+            } 
             if (LK.Config.DirectAuth.DirectAuthConfigs.GetConfig().AllowCrossPost != true)
             {
                 return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("DirectAuth->AllowCrossPost must be true"));
             }
-
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
         }
         catch (Exception ex)
@@ -131,7 +115,7 @@ public class CloudAction : BaseAction
         }
     }
 
-    [DirectMethod("settingCloud", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("settingCloud", DirectAction.Load)]
     public JObject settingCloud(string serverweburl, Request request)
     {
         try
@@ -152,7 +136,6 @@ public class CloudAction : BaseAction
                     isExist = true;
                 }
             }
-
             if (isExist == false)
             {
                 JObject newSlave = new JObject(
@@ -160,8 +143,6 @@ public class CloudAction : BaseAction
                     new JProperty("ACTIVE", "R"));
                 jSlave.Add(newSlave);
             }
-
-
             System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
             doc.Load(InitAction.ConfigFilePath(InitAction.ConfigType.CloudFilePath));
             string saveSlave = "<![CDATA[";
@@ -169,10 +150,8 @@ public class CloudAction : BaseAction
             saveSlave += jSlave.ToString();
             saveSlave += "";
             saveSlave += "]]>";
-            //var newComment = doc.CreateComment(saveSlave);
             doc.GetElementsByTagName("Slave")[0].InnerXml = saveSlave;
             doc.Save(InitAction.ConfigFilePath(InitAction.ConfigType.CloudFilePath));
-
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
         }
         catch (Exception ex)
@@ -182,7 +161,7 @@ public class CloudAction : BaseAction
         }
     }
 
-    [DirectMethod("settingSlave", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("settingSlave", DirectAction.Load)]
     public JObject settingSlave(string serverweburl, Request request)
     {
         LK.Cloud cloud = new LK.Cloud();
@@ -198,9 +177,7 @@ public class CloudAction : BaseAction
                 serverweburl = serverweburl.Substring(0, serverweburl.Length - 1);
             }
             requestUrl = serverweburl + "\\router.ashx";
-
             string authCentetUrl = LK.Config.Cloud.CloudConfigs.GetConfig().AuthCenterPrototype + ":////" + LocalIPAddress() + "/" + LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().AppName + ":" + LK.Config.Cloud.CloudConfigs.GetConfig().AuthCenterPort;
-
             /*呼叫遠端的伺服器回應(是也就對方的電腦)*/
             var reutrnObj = cloud.CallDirect(requestUrl, "CloudAction.settingSlaveAuthMaster", new string[1] { authCentetUrl }, "");
 
@@ -222,7 +199,7 @@ public class CloudAction : BaseAction
         return LK.Config.Cloud.CloudConfigs.GetConfig().AuthCenterIP;
     }
 
-    [DirectMethod("settingSlaveAuthMaster", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("settingSlaveAuthMaster", DirectAction.Load)]
     public JObject settingSlaveAuthMaster(string authMaster, Request request)
     {
         try
@@ -235,7 +212,6 @@ public class CloudAction : BaseAction
             doc.Load(InitAction.ConfigFilePath(InitAction.ConfigType.CloudFilePath));
             doc.GetElementsByTagName("AuthMaster")[0].InnerText = authMaster;
             doc.Save(InitAction.ConfigFilePath(InitAction.ConfigType.CloudFilePath));
-
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
         }
         catch (Exception ex)
@@ -245,7 +221,7 @@ public class CloudAction : BaseAction
         }
     }
 
-    [DirectMethod("checkConfig", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("checkConfig", DirectAction.Load)]
     public JObject checkConfig(Request request)
     {
         try
@@ -262,11 +238,6 @@ public class CloudAction : BaseAction
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
-
-
-
-
-
 }
 
 

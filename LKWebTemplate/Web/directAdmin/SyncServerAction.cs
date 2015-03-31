@@ -10,7 +10,6 @@ using LK.DB.SQLCreater;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-
 using LKWebTemplate.Model.Basic;
 using LKWebTemplate.Model.Basic.Table;
 using LKWebTemplate.Model.Basic.Table.Record;
@@ -19,18 +18,12 @@ using System.Text;
 using LK.Util;
 using System.Data;
 using System.Diagnostics;
-
 #endregion
 
 [DirectService("SyncServerAction")]
 public class SyncServerAction : BaseAction
 {
-    /// <summary>
-    /// 取得所有company的資料
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [DirectMethod("loadCompany", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("loadCompany", DirectAction.Store)]
     public JObject loadCompany(Request request)
     {
         #region Declare
@@ -46,13 +39,11 @@ public class SyncServerAction : BaseAction
             {
                 throw new Exception("Identity authentication failed.");
             }
-
             /*權限檢查*/
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
                 throw new Exception("Permission Denied!");
             };
-
             /*取得資料*/
             var data = basicModel.getCompany();
             /*取得總資料數*/
@@ -72,13 +63,7 @@ public class SyncServerAction : BaseAction
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
-
-    /// <summary>
-    /// 取得所有attendant的資料
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [DirectMethod("loadAttendant", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("loadAttendant", DirectAction.Store)]
     public JObject loadAttendant(Request request)
     {
         #region Declare
@@ -94,13 +79,11 @@ public class SyncServerAction : BaseAction
             {
                 throw new Exception("Identity authentication failed.");
             }
-
             /*權限檢查*/
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
                 throw new Exception("Permission Denied!");
             };
-
             /*取得資料*/
             var data = basicModel.getAttendant();
             /*取得總資料數*/
@@ -121,12 +104,7 @@ public class SyncServerAction : BaseAction
         }
     }
 
-    /// <summary>
-    /// 取得所有dept的資料
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [DirectMethod("loadDept", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("loadDept", DirectAction.Store)]
     public JObject loadDept(Request request)
     {
         #region Declare
@@ -142,13 +120,11 @@ public class SyncServerAction : BaseAction
             {
                 throw new Exception("Identity authentication failed.");
             }
-
             /*權限檢查*/
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
                 throw new Exception("Permission Denied!");
             };
-
             /*取得資料*/
             var data = basicModel.getDepartment();
             /*取得總資料數*/
@@ -168,8 +144,4 @@ public class SyncServerAction : BaseAction
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
-
 }
-
-
-

@@ -6,24 +6,15 @@ using System.Web;
 using LK.Config;
 using log4net;
 using System.Reflection;
-
-
 namespace LK.ExceptionParser
 {
-    /// <summary>
-    /// 基本設置訊息管理類
-    /// </summary>
     public class Parser 
     {
         public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static string _focusTag = "ExceptionParser";
         private static string focusTag = "ExceptionParser";
-                /// <summary>配置文件所在路徑</summary>
         public static string filename;
         #region Parser()
-        /// <summary>
-        /// 初始化文件修改時間和對像實例
-        /// </summary>
         static Parser()
         {
         }
@@ -89,8 +80,6 @@ namespace LK.ExceptionParser
                 {
                     filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
                 }
-
-
                 if (!File.Exists(filename))
                 {
                     throw new Exception("發生錯誤: 沒有正確的" + focusTag + "文件");

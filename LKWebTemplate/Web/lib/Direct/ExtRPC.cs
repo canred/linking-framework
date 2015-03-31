@@ -67,14 +67,12 @@ namespace ExtDirect.Direct
             return jSri.Serialize(res);
         }
 
-        public JObject ExecuteRPCJObject(HttpRequest request, string bodyContext,HttpContext hc)
+        public JObject ExecuteRPCJObject(Request request, string bodyContext,HttpContext hc)
         {
             bool flag = true;
             var rpc = new ExtAction();
-            var checkFormPost = request["extAction"];
+            var checkFormPost = request.HttpRequest["extAction"];
             /*Canred*/
-
-
             try
             {
                 if (!string.IsNullOrEmpty(checkFormPost) && checkFormPost.Length > 0)
@@ -87,6 +85,13 @@ namespace ExtDirect.Direct
             {
                 MyException.ErrorNoThrowException(this, ex);
             }
+
+            var data = new Request();
+            data.HttpRequest = request.HttpRequest;
+            data.HttpContext = hc;
+            JObject jobject;
+            Boolean isMutilAction;
+
             if (flag)
             {
                 var tempDataList = new List<Dictionary<string, string>>();
@@ -94,13 +99,6 @@ namespace ExtDirect.Direct
                 //var enc = new ASCIIEncoding();
                 //string requestData = enc.GetString(requestDataInByte);
                 string requestData = bodyContext;
-                var data = new Request();
-                data.HttpRequest = request;
-                data.HttpContext = hc;
-               
-                JObject jobject;
-                Boolean isMutilAction;
-
                 try
                 {
                     jobject = JObject.Parse(requestData);
@@ -125,7 +123,7 @@ namespace ExtDirect.Direct
                 }
                 return runActionJObject(jobject, data, requestData, tempDataList);
             }
-            return rpc.ExecuteFormJObject(request);
+            return rpc.ExecuteFormJObject(data);
         }
 
         private string runAction(JObject jobject, Request data, string requestData, List<Dictionary<string, string>> _tempDataList)
@@ -215,33 +213,23 @@ namespace ExtDirect.Direct
             }
             try
             {
-                if (runAction == DirectAction.Update)
-                {
-                    d.Add(jobject["data"].First["updatedata"].ToString());
-                }
-                else
-                {
-                    d.AddRange(from object tmp in (jobject["data"].First).AsJEnumerable() select tmp.ToString().Split(':') into kv where kv[0] != "\"page\"" && kv[0] != "\"start\"" && kv[0] != "\"limit\"" && kv[0] != "\"sort\"" && kv[0] != "\"dir\"" select kv[1].Replace("\"", "").Trim());
-                    /*原來的程式
-                     foreach (object tmp in (jobject["data"].First).AsJEnumerable())
-                    {
-                        var kv = tmp.ToString().Split(':');
-                        if (kv[0] != "\"page\"" && kv[0] != "\"start\"" && kv[0] != "\"limit\"" && kv[0] != "\"sort\"" && kv[0] != "\"dir\"")
-                        {
-                            d.Add(kv[1].Replace("\"", "").Trim());
-                        }
-                    }
-                     */
-                }
+                //if (runAction == DirectAction.Update)
+                //{
+                //    d.Add(jobject["data"].First["updatedata"].ToString());
+                //}
+                //else
+                //{
+                    d.AddRange(from object tmp in (jobject["data"].First).AsJEnumerable() select tmp.ToString().Split(':') into kv where kv[0] != "\"page\"" && kv[0] != "\"start\"" && kv[0] != "\"limit\"" && kv[0] != "\"sort\"" && kv[0] != "\"dir\"" select kv[1].Replace("\"", "").Trim());                   
+                //}
             }
             catch
             {
-                if (runAction == DirectAction.Update)
-                {
-                    d.Add(jobject["data"].ToString());
-                }
-                else
-                {
+                //if (runAction == DirectAction.Update)
+                //{
+                //    d.Add(jobject["data"].ToString());
+                //}
+                //else
+                //{
                     if (jobject["data"] != null)
                     {
                         try
@@ -264,7 +252,7 @@ namespace ExtDirect.Direct
                             MyException.ErrorNoThrowException(this, ex2);
                         }
                     }
-                }
+                //}
             }
 
             var dd = d.Cast<object>().ToList();
@@ -281,10 +269,10 @@ namespace ExtDirect.Direct
             var isNull = data.IsNullData();
             if (data.IsSpecialField())
             {
-                if (runAction == DirectAction.Update)
-                {
-                    return rpc.ExecuteUpdateAction2(data);
-                }
+                //if (runAction == DirectAction.Update)
+                //{
+                //    return rpc.ExecuteUpdateAction2(data);
+                //}
                 if (isNull)
                 {
                     var parmList = new List<object>();
@@ -432,34 +420,24 @@ namespace ExtDirect.Direct
             }
             try
             {
-                if (runAction == DirectAction.Update)
-                {
-                    d.Add(jobject["data"].First["updatedata"].ToString());
-                }
-                else
-                {
+                //if (runAction == DirectAction.Update)
+                //{
+                //    d.Add(jobject["data"].First["updatedata"].ToString());
+                //}
+                //else
+                //{
                     d.AddRange(from object tmp in (jobject["data"].First).AsJEnumerable() select tmp.ToString().Split(':') into kv where kv[0] != "\"page\"" && kv[0] != "\"start\"" && kv[0] != "\"limit\"" && kv[0] != "\"sort\"" && kv[0] != "\"dir\"" select kv[1].Replace("\"", "").Trim());
-                    /*
-                    原來的程式
-                     foreach (object tmp in (jobject["data"].First).AsJEnumerable())
-                    {
-                        var kv = tmp.ToString().Split(':');
-                        if (kv[0] != "\"page\"" && kv[0] != "\"start\"" && kv[0] != "\"limit\"" && kv[0] != "\"sort\"" && kv[0] != "\"dir\"")
-                        {
-                            d.Add(kv[1].Replace("\"", "").Trim());
-                        }
-                    }
-                     */
-                }
+                    
+                //}
             }
             catch
             {
-                if (runAction == DirectAction.Update)
-                {
-                    d.Add(jobject["data"].ToString());
-                }
-                else
-                {
+                //if (runAction == DirectAction.Update)
+                //{
+                //    d.Add(jobject["data"].ToString());
+                //}
+                //else
+                //{
                     if (jobject["data"] != null)
                     {
                         try
@@ -481,7 +459,7 @@ namespace ExtDirect.Direct
                             MyException.ErrorNoThrowException(this, ex2);
                         }
                     }
-                }
+                //}
             }
 
             var dd = d.Cast<object>().ToList();
@@ -499,10 +477,10 @@ namespace ExtDirect.Direct
             var isNull = data.IsNullData();
             if (data.IsSpecialField())
             {
-                if (runAction == DirectAction.Update)
-                {
-                    return rpc.ExecuteUpdateActionJObject(data);
-                }
+                //if (runAction == DirectAction.Update)
+                //{
+                //    return rpc.ExecuteUpdateActionJObject(data);
+                //}
                 if (isNull == false)
                 {
                     _tempDataList = ExtractData(data.data[0].ToString());

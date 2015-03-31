@@ -23,7 +23,7 @@ using System.Diagnostics;
 [DirectService("GroupAttendantAction")]
 public class GroupAttendantAction : BaseAction
 {
-    [DirectMethod("loadAttendantStoreInGroup", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("loadAttendantStoreInGroup", DirectAction.Store)]
     public JObject loadAttendantStoreInGroup(string pCompanyUuid, string group_head_uuid,
         string pKeyword, string pIsActive,
         string pageNo, string limitNo, string sort, string dir, Request request)
@@ -45,10 +45,7 @@ public class GroupAttendantAction : BaseAction
                 throw new Exception("Permission Denied!");
             };
             /*是Store操作一下就可能含有分頁資訊。*/
-            orderLimit = ExtDirect.Direct.Helper.Order.getOrderLimit(pageNo, limitNo, sort, dir);
-            /*取得總資料數*/
-            // var totalCount = basicModel.getGroupHead_By_Count(group_head_uuid);
-            /*取得資料*/
+            orderLimit = ExtDirect.Direct.Helper.Order.getOrderLimit(pageNo, limitNo, sort, dir);           
             var data = basicModel.getAttendantInGroupAttendant(pCompanyUuid, group_head_uuid,
                 pKeyword, pIsActive, orderLimit);//basicModel.getGroupHead_By(group_head_uuid, orderLimit);
             if (data.Count > 0)
@@ -67,7 +64,7 @@ public class GroupAttendantAction : BaseAction
         }
     }
 
-    [DirectMethod("loadAttendantStoreNotInGroup", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("loadAttendantStoreNotInGroup", DirectAction.Store)]
     public JObject loadAttendantStoreNotInGroup(string pCompanyUuid, string pGroupHeadUuid,
         string pKeyword, string pIsActive,
         string pageNo, string limitNo, string sort, string dir, Request request)
@@ -104,7 +101,7 @@ public class GroupAttendantAction : BaseAction
         }
     }
 
-    [DirectMethod("addAttendnatGroupHead", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("addAttendnatGroupHead", DirectAction.Store)]
     public JObject addAttendnatGroupHead(string pGroupHeadUuid, string pAttedantUuid, Request request)
     {
         #region Declare
@@ -154,7 +151,7 @@ public class GroupAttendantAction : BaseAction
         }
     }
 
-    [DirectMethod("destroyBy", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("destroyBy", DirectAction.Store)]
     public JObject destroyBy(string pGroupHeadUuid, string pAttedantUuid, Request request)
     {
         #region Declare

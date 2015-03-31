@@ -10,7 +10,6 @@ using LK.DB.SQLCreater;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-
 using LKWebTemplate.Model.Basic;
 using LKWebTemplate.Model.Basic.Table;
 using LKWebTemplate.Model.Basic.Table.Record;
@@ -24,7 +23,7 @@ using System.Diagnostics;
 [DirectService("ApplicationAction")]
 public class ApplicationAction : BaseAction
 {
-    [DirectMethod("loadApplication", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("loadApplication", DirectAction.Store)]
     public JObject loadApplication(string pKeyWord, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
@@ -68,7 +67,7 @@ public class ApplicationAction : BaseAction
         }
     }
 
-    [DirectMethod("getApplication", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("getApplication", DirectAction.Store)]
     public JObject getApplication(string pUuid, Request request)
     {
         #region Declare
@@ -89,7 +88,6 @@ public class ApplicationAction : BaseAction
                 throw new Exception("Permission Denied!");
             };
             /*取得資料*/
-
             var data = modBasic.getApplicationHead_By_Uuid(pUuid);
             if (data != null)
             {
@@ -107,7 +105,7 @@ public class ApplicationAction : BaseAction
         }
     }
 
-    [DirectMethod("submit", DirectAction.FormSubmission, MethodVisibility.Visible)]
+    [DirectMethod("submit", DirectAction.FormSubmission)]
     public JObject submit(string uuid,
                                         string create_date,
                                         string update_date,
@@ -118,7 +116,7 @@ public class ApplicationAction : BaseAction
                                         string create_user,
                                         string update_user,
                                         string web_site,
-                                        HttpRequest request)
+                                        Request request)
     {
         #region Declare
         var action = SubmitAction.None;
@@ -127,7 +125,7 @@ public class ApplicationAction : BaseAction
         #endregion
         try
         { /*Cloud身份檢查*/
-            checkUser(request);
+            checkUser(request.HttpRequest);
             if (this.getUser() == null)
             {
                 throw new Exception("Identity authentication failed.");
@@ -136,11 +134,7 @@ public class ApplicationAction : BaseAction
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
                 throw new Exception("Permission Denied!");
-            };
-            /*
-             * 所有Form的動作最終是使用Submit的方式將資料傳出；
-             * 必須有一個特徵來判斷使用者，執行的動作；
-             */
+            };           
             if (uuid.Trim().Length > 0)
             {
                 action = SubmitAction.Edit;
@@ -157,14 +151,12 @@ public class ApplicationAction : BaseAction
             }
             /*固定要更新的欄位*/
             drApplicationHead.UPDATE_DATE = DateTime.Now;
-
             /*非固定更新的欄位*/
             drApplicationHead.IS_ACTIVE = is_active;
             drApplicationHead.DESCRIPTION = description;
             drApplicationHead.ID = id;
             drApplicationHead.NAME = name;
             drApplicationHead.WEB_SITE = web_site;
-
             if (action == SubmitAction.Edit)
             {
                 drApplicationHead.gotoTable().Update(drApplicationHead);
@@ -185,7 +177,7 @@ public class ApplicationAction : BaseAction
         }
     }
 
-    [DirectMethod("info", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("info", DirectAction.Store)]
     public JObject info(string pUuid, Request request)
     {
         #region Declare

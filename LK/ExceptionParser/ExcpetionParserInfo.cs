@@ -5,19 +5,13 @@ using LK.Config;
 using log4net;
 using System.Reflection;
 namespace LK.ExceptionHandler.Parser
-{
-    /// <summary>
-    /// 基本設置類
-    /// </summary>
+{    
     public class ParserInfo
     {
         public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly Timer baseConfigTimer = new Timer(ConfigBase.RefreshTime);
         private static System.Xml.XmlDocument m_configinfo;
-        private static System.Data.DataTable m_dt;
-        /// <summary>
-        /// 靜態構造函數初始化相應實例和定時器
-        /// </summary>
+        private static System.Data.DataTable m_dt;      
         static ParserInfo()
         {
             m_dt = new System.Data.DataTable();
@@ -33,10 +27,7 @@ namespace LK.ExceptionHandler.Parser
                 log.Error(ex);
                 throw ex;
             }
-        }
-        /// <summary>
-        /// 重設配置類實例
-        /// </summary>
+        }      
         public static void ResetConfig()
         {
         }
@@ -79,7 +70,6 @@ namespace LK.ExceptionHandler.Parser
             ret_message = ex.Message;
             var lan = language.ToUpper();
             m_configinfo = ExceptionParser.Parser.changeLanguage(lan);
-
             try
             {
                 if (m_dt.Rows.Count == 0 || alwaysReLoad)
@@ -119,7 +109,6 @@ namespace LK.ExceptionHandler.Parser
                         }
                     }
                 }
-
                 foreach (System.Data.DataRow item in m_dt.Rows)
                 {
                     if (item["count"] != System.DBNull.Value && item["hit"] != System.DBNull.Value)
@@ -137,10 +126,8 @@ namespace LK.ExceptionHandler.Parser
             {
                 log.Error(ex2);
                 throw ex;
-            }
-            
+            }            
         }
-
         public static System.Exception ParserMessage(string lan,string sourcePath, System.Exception ex)
         {
             try
@@ -153,7 +140,6 @@ namespace LK.ExceptionHandler.Parser
                 throw ex;
             }
         }
-
         public static System.Exception ParserMessage(string lan, string sourcePath, string ActionTag, System.Exception ex)
         {
             try

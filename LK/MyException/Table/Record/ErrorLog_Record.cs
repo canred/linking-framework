@@ -26,7 +26,6 @@ namespace LK.MyException.Table.Record
 		string _ATTENDANT_UUID=null;
 		string _ERROR_TYPE=null;
 		/*欄位資訊 End*/
-
 		[ColumnName("UUID",false,typeof(string))]
 		public string UUID
 		{
@@ -39,7 +38,6 @@ namespace LK.MyException.Table.Record
 				return _UUID;
 			}
 		}
-
 		[ColumnName("CREATE_DATE",false,typeof(DateTime?))]
 		public DateTime? CREATE_DATE
 		{
@@ -52,7 +50,6 @@ namespace LK.MyException.Table.Record
 				return _CREATE_DATE;
 			}
 		}
-
 		[ColumnName("UPDATE_DATE",false,typeof(DateTime?))]
 		public DateTime? UPDATE_DATE
 		{
@@ -65,7 +62,6 @@ namespace LK.MyException.Table.Record
 				return _UPDATE_DATE;
 			}
 		}
-
 		[ColumnName("IS_ACTIVE",false,typeof(string))]
 		public string IS_ACTIVE
 		{
@@ -78,7 +74,6 @@ namespace LK.MyException.Table.Record
 				return _IS_ACTIVE;
 			}
 		}
-
 		[ColumnName("ERROR_CODE",false,typeof(string))]
 		public string ERROR_CODE
 		{
@@ -91,7 +86,6 @@ namespace LK.MyException.Table.Record
 				return _ERROR_CODE;
 			}
 		}
-
 		[ColumnName("ERROR_TIME",false,typeof(string))]
 		public string ERROR_TIME
 		{
@@ -104,7 +98,6 @@ namespace LK.MyException.Table.Record
 				return _ERROR_TIME;
 			}
 		}
-
 		[ColumnName("ERROR_MESSAGE",false,typeof(string))]
 		public string ERROR_MESSAGE
 		{
@@ -117,7 +110,6 @@ namespace LK.MyException.Table.Record
 				return _ERROR_MESSAGE;
 			}
 		}
-
 		[ColumnName("APPLICATION_NAME",false,typeof(string))]
         public string APPLICATION_NAME
 		{
@@ -130,7 +122,6 @@ namespace LK.MyException.Table.Record
                 return _APPLICATION_NAME;
 			}
 		}
-
 		[ColumnName("ATTENDANT_UUID",false,typeof(string))]
 		public string ATTENDANT_UUID
 		{
@@ -143,7 +134,6 @@ namespace LK.MyException.Table.Record
 				return _ATTENDANT_UUID;
 			}
 		}
-
 		[ColumnName("ERROR_TYPE",false,typeof(string))]
 		public string ERROR_TYPE
 		{

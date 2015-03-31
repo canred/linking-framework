@@ -37,15 +37,12 @@ namespace LK.Config.DataBase
         /// 重設配置類實例
         /// </summary>
         public static void ResetConfig()
-        {
-            
+        {            
         }
-
         public  System.Xml.XmlDocument GetBaseConfig()
         {
             return m_configinfo;
         }
-
         public  System.Data.DataTable GetBaseConfig_DataTable()
         {
             try
@@ -106,11 +103,10 @@ namespace LK.Config.DataBase
                 throw ex;
             }
         }
-
         public  string GetTag(string actionTag, bool alwaysReLoad)
         {
             string ret_message = "";
-            m_configinfo = DataBaseConfig.Init();//.changeLanguage(lan);//.LoadConfig(lan);
+            m_configinfo = DataBaseConfig.Init();
             try
             {
                 if (m_dt.Rows.Count == 0 || alwaysReLoad)
@@ -133,7 +129,6 @@ namespace LK.Config.DataBase
                 return "";
             }
         }
-
         public  string GetTag(string ActionTag)
         {
             try
@@ -146,7 +141,6 @@ namespace LK.Config.DataBase
                 throw ex;
             }
         }
-
         public  string GetDB(string dataBaseName) {
             try
             {
@@ -158,7 +152,6 @@ namespace LK.Config.DataBase
                 throw ex;
             }
         }
-
         public string GetDBType()
         {
             try
@@ -171,12 +164,11 @@ namespace LK.Config.DataBase
                 throw ex;
             }
         }
-
         public string GetDBType(string dbName)
         {
             try
             {
-                m_configinfo = DataBaseConfig.Init();//.changeLanguage(lan);//.LoadConfig(lan);
+                m_configinfo = DataBaseConfig.Init();
                 if (m_dt.Rows.Count == 0)
                 {
                     GetBaseConfig_DataTable();
@@ -197,11 +189,10 @@ namespace LK.Config.DataBase
                 throw ex;
             } 
         }
-
         public string GetWhere(string dbName) {
             try
             {
-                m_configinfo = DataBaseConfig.Init();//.changeLanguage(lan);//.LoadConfig(lan);
+                m_configinfo = DataBaseConfig.Init();
                 if (m_dt.Rows.Count == 0)
                 {
                     GetBaseConfig_DataTable();
@@ -222,7 +213,6 @@ namespace LK.Config.DataBase
                 throw ex;
             }
         }
-
         public string GetCaseSensitive() {
             try
             {
@@ -234,11 +224,10 @@ namespace LK.Config.DataBase
                 throw ex;
             }
         }
-
         public string GetSchema(string dbName) {
             try
             {
-                m_configinfo = DataBaseConfig.Init();//.changeLanguage(lan);//.LoadConfig(lan);
+                m_configinfo = DataBaseConfig.Init();
                 if (m_dt.Rows.Count == 0)
                 {
                     GetBaseConfig_DataTable();
@@ -259,11 +248,10 @@ namespace LK.Config.DataBase
                 throw ex;
             }
         }
-
         public string GetCaseSensitive(string dbName) {
             try
             {
-                m_configinfo = DataBaseConfig.Init();//.changeLanguage(lan);//.LoadConfig(lan);
+                m_configinfo = DataBaseConfig.Init();
                 if (m_dt.Rows.Count == 0)
                 {
                     GetBaseConfig_DataTable();

@@ -85,7 +85,9 @@ namespace LKWebTemplate
                         var drAttendant = bmod.getAttendant_By_CompanyUuid_Account(drAc.COMPANY_UUID, drAc.ACCOUNT);
                         var drCompany = bmod.getCompany_By_Uuid(drAc.COMPANY_UUID).AllRecord().First();
                         UserAction u = new UserAction();
-                        u.logon(drCompany.ID, drAttendant.ACCOUNT, drAttendant.PASSWORD, httpRequest);
+                        ExtDirect.Direct.Request extDirectRequest = new ExtDirect.Direct.Request();
+                        extDirectRequest.HttpRequest = httpRequest;
+                        u.logon(drCompany.ID, drAttendant.ACCOUNT, drAttendant.PASSWORD, extDirectRequest);
                         if (drAc.IP != httpRequest.UserHostAddress) {
                             throw new System.Exception("Illegal connections");
                         }

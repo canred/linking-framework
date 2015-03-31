@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-
 namespace LK.UserInfo
 {
     public class User
@@ -13,12 +12,10 @@ namespace LK.UserInfo
             try
             {
                 UserInfoConfigInfo config = new UserInfoConfigInfo();
-
                 string asbLoadName = config.GetTag("User_Assembly_Load", false);
                 string asbLoadType = config.GetTag("User_Assembly_Type", false);
                 string asbMethod = config.GetTag("User_Assembly_Method", false);
                 string asbProperty = config.GetTag("User_Assembly_Property_Uuid", false);
-
                 var assembly = Assembly.Load(asbLoadName);
                 var assemblyType = assembly.GetType(asbLoadType);
                 var instance = Activator.CreateInstance(assemblyType);
@@ -32,18 +29,15 @@ namespace LK.UserInfo
                 return null;
             }
         }
-
         public static string CompanyUuid()
         {
             try
             {
                 UserInfoConfigInfo config = new UserInfoConfigInfo();
-
                 string asbLoadName = config.GetTag("User_Assembly_Load", false);
                 string asbLoadType = config.GetTag("User_Assembly_Type", false);
                 string asbMethod = config.GetTag("User_Assembly_Method", false);
                 string asbProperty = config.GetTag("User_Assembly_Property_CompanyUuid", false);
-
                 var assembly = Assembly.Load(asbLoadName);
                 var assemblyType = assembly.GetType(asbLoadType);
                 var instance = Activator.CreateInstance(assemblyType);
@@ -63,12 +57,10 @@ namespace LK.UserInfo
             try
             {
                 UserInfoConfigInfo config = new UserInfoConfigInfo();
-
                 string asbLoadName = config.GetTag("User_Assembly_Load", false);
                 string asbLoadType = config.GetTag("User_Assembly_Type", false);
                 string asbMethod = config.GetTag("User_Assembly_Method", false);
                 string asbProperty = config.GetTag("User_Assembly_Property_COMPANY_ID", false);
-
                 var assembly = Assembly.Load(asbLoadName);
                 var assemblyType = assembly.GetType(asbLoadType);
                 var instance = Activator.CreateInstance(assemblyType);
@@ -87,12 +79,10 @@ namespace LK.UserInfo
             try
             {
                 UserInfoConfigInfo config = new UserInfoConfigInfo();
-
                 string asbLoadName = config.GetTag("User_Assembly_Load", false);
                 string asbLoadType = config.GetTag("User_Assembly_Type", false);
                 string asbMethod = config.GetTag("User_Assembly_Method", false);
                 string asbProperty = config.GetTag("User_Assembly_Property_EMAIL", false);
-
                 var assembly = Assembly.Load(asbLoadName);
                 var assemblyType = assembly.GetType(asbLoadType);
                 var instance = Activator.CreateInstance(assemblyType);
@@ -111,12 +101,10 @@ namespace LK.UserInfo
             try
             {
                 UserInfoConfigInfo config = new UserInfoConfigInfo();
-
                 string asbLoadName = config.GetTag("User_Assembly_Load", false);
                 string asbLoadType = config.GetTag("User_Assembly_Type", false);
                 string asbMethod = config.GetTag("User_Assembly_Method", false);
                 string asbProperty = config.GetTag("User_Assembly_Property_IS_ADMIN", false);
-
                 var assembly = Assembly.Load(asbLoadName);
                 var assemblyType = assembly.GetType(asbLoadType);
                 var instance = Activator.CreateInstance(assemblyType);
@@ -136,12 +124,10 @@ namespace LK.UserInfo
             try
             {
                 UserInfoConfigInfo config = new UserInfoConfigInfo();
-
                 string asbLoadName = config.GetTag("User_Assembly_Load", false);
                 string asbLoadType = config.GetTag("User_Assembly_Type", false);
                 string asbMethod = config.GetTag("User_Assembly_Method", false);
                 string asbProperty = config.GetTag("User_Assembly_Property_ACCOUNT", false);
-
                 var assembly = Assembly.Load(asbLoadName);
                 var assemblyType = assembly.GetType(asbLoadType);
                 var instance = Activator.CreateInstance(assemblyType);

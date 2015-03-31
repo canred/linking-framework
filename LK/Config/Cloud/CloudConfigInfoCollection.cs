@@ -12,7 +12,6 @@ namespace LK.Config.Cloud
         public CloudConfigInfoCollection()
         {
         }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ParemterConfigInfoCollection">ParemterConfigInfoCollection</see> class containing the elements of the specified source collection.
         /// </summary>
@@ -21,7 +20,6 @@ namespace LK.Config.Cloud
         {
             AddRange(value);
         }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ParemterConfigInfoCollection">ParemterConfigInfoCollection</see> class containing the specified array of <see cref="ParemterConfigInfo">ParemterConfigInfo</see> Components.
         /// </summary>
@@ -30,7 +28,6 @@ namespace LK.Config.Cloud
         {
             AddRange(value);
         }
-
         /// <summary>
         /// Gets the <see cref="ParemterConfigInfoCollection">ParemterConfigInfoCollection</see> at the specified index in the collection.
         /// <para>
@@ -46,7 +43,6 @@ namespace LK.Config.Cloud
         {
             return List.Add(value);
         }
-
         /// <summary>
         /// Copies the elements of the specified <see cref="ParemterConfigInfo">ParemterConfigInfo</see> array to the end of the collection.
         /// </summary>
@@ -58,7 +54,6 @@ namespace LK.Config.Cloud
                 Add(value[i]);
             }
         }
-
         /// <summary>
         /// Adds the contents of another <see cref="ParemterConfigInfoCollection">ParemterConfigInfoCollection</see> to the end of the collection.
         /// </summary>
@@ -70,7 +65,6 @@ namespace LK.Config.Cloud
                 Add((CloudConfigInfo)value.List[i]);
             }
         }
-
         /// <summary>
         /// Gets a value indicating whether the collection contains the specified <see cref="ParemterConfigInfoCollection">ParemterConfigInfoCollection</see>.
         /// </summary>
@@ -80,7 +74,6 @@ namespace LK.Config.Cloud
         {
             return List.Contains(value);
         }
-
         /// <summary>
         /// Copies the collection Components to a one-dimensional <see cref="T:System.Array">Array</see> instance beginning at the specified index.
         /// </summary>
@@ -90,7 +83,6 @@ namespace LK.Config.Cloud
         {
             List.CopyTo(array, index);
         }
-
         /// <summary>
         /// Gets the index in the collection of the specified <see cref="ParemterConfigInfoCollection">ParemterConfigInfoCollection</see>, if it exists in the collection.
         /// </summary>
@@ -100,17 +92,14 @@ namespace LK.Config.Cloud
         {
             return List.IndexOf(value);
         }
-
         public void Insert(int index, CloudConfigInfo value)
         {
             List.Insert(index, value);
         }
-
         public void Remove(CloudConfigInfo value)
         {
             List.Remove(value);
         }
-
         /// <summary>
         /// Returns an enumerator that can iterate through the <see cref="ParemterConfigInfoCollection">ParemterConfigInfoCollection</see> instance.
         /// </summary>
@@ -119,9 +108,7 @@ namespace LK.Config.Cloud
         {
             return new CloudConfigInfoCollectionEnumerator(this);
         }
-
         #region Nested type: CloudConfigInfoCollectionEnumerator
-
         /// <summary>
         /// Supports a simple iteration over a <see cref="ParemterConfigInfoCollection">ParemterConfigInfoCollection</see>.
         /// </summary>
@@ -129,7 +116,6 @@ namespace LK.Config.Cloud
         {
             private readonly IEnumerator _enumerator;
             private readonly IEnumerable _temp;
-
             /// <summary>
             /// Initializes a new instance of the <see cref="BaseConfigInfoCollectionEnumerator">BaseConfigInfoCollectionEnumerator</see> class referencing the specified <see cref="ParemterConfigInfoCollection">ParemterConfigInfoCollection</see> object.
             /// </summary>
@@ -139,7 +125,6 @@ namespace LK.Config.Cloud
                 _temp = ((mappings));
                 _enumerator = _temp.GetEnumerator();
             }
-
             /// <summary>
             /// Gets the current element in the collection.
             /// </summary>
@@ -147,26 +132,20 @@ namespace LK.Config.Cloud
             {
                 get { return ((CloudConfigInfo)(_enumerator.Current)); }
             }
-
             #region IEnumerator Members
-
             object IEnumerator.Current
             {
                 get { return _enumerator.Current; }
             }
-
             bool IEnumerator.MoveNext()
             {
                 return _enumerator.MoveNext();
             }
-
             void IEnumerator.Reset()
             {
                 _enumerator.Reset();
             }
-
             #endregion
-
             /// <summary>
             /// Advances the enumerator to the next element of the collection.
             /// </summary>
@@ -175,7 +154,6 @@ namespace LK.Config.Cloud
             {
                 return _enumerator.MoveNext();
             }
-
             /// <summary>
             /// Sets the enumerator to its initial position, which is before the first element in the collection.
             /// </summary>
@@ -184,7 +162,6 @@ namespace LK.Config.Cloud
                 _enumerator.Reset();
             }
         }
-
         #endregion
     }
 }

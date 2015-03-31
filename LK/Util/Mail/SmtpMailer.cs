@@ -1,16 +1,13 @@
 using System;
 using System.Net.Mail;
 using System.Text;
-
 using log4net;
 using System.Reflection;
-
 namespace LK.Util.Mail
 {
     public class SmtpMailer
     {
-        public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        
+        public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);        
         #region Send
         public static void Send(SmtpMailObj mailObj)
         {
@@ -24,26 +21,25 @@ namespace LK.Util.Mail
                 throw ex;
             }
         }
-        #endregion //end of Send
-
+        #endregion
         private static void _Send(SmtpMailObj mailObj)
         {
             SMTPConfigInfo SMTPConfigInfo = new SMTPConfigInfo();
             try
             {
                 if (string.IsNullOrEmpty(mailObj.From.Trim()))
-                {
-                    
+                {                    
                     if (!string.IsNullOrEmpty(SMTPConfigInfo.FromEmail.Trim()))
                     {
                         mailObj.From = SMTPConfigInfo.FromEmail;
                     }
-                    else
+                    else{
                         throw new Exception("沒有設定寄件人 email address!");
+                    }
                 }
-
-                if (string.IsNullOrEmpty(mailObj.To.Trim()))
+                if (string.IsNullOrEmpty(mailObj.To.Trim())){
                     throw new Exception("沒有設定收件人 email address!");
+                }
 
                 if (string.IsNullOrEmpty(mailObj.Subject.Trim()))
                     throw new Exception("沒有設定 email 主旨!");
@@ -55,37 +51,25 @@ namespace LK.Util.Mail
 
                 if (SMTPConfigInfo.IsSendMail.Trim() == "Y")
                 {
-                    //MaillMessage物件....
-                    //mail = new MailMessage(mailObj.From.Trim(), mailObj.To.Trim(), mailObj.Subject.Trim(),
-                    //                       mailObj.Contents);
-
-
-
                     mail = new MailMessage();
-
                     mail.From = new MailAddress(mailObj.From.Trim());
                     mail.Subject = mailObj.Subject.Trim();
                     mail.Body = mailObj.Contents;
-
-
                     foreach (string addr in mailObj.GetToList())
                     {
                         if (!string.IsNullOrEmpty(addr.Trim()))
                             mail.To.Add(new MailAddress(addr.Trim()));
                     }
-
                     foreach (string addr in mailObj.GetCCList())
                     {
                         if (!string.IsNullOrEmpty(addr.Trim()))
                             mail.CC.Add(new MailAddress(addr.Trim()));
                     }
-
                     foreach (string addr in mailObj.GetBCCList())
                     {
                         if (!string.IsNullOrEmpty(addr.Trim()))
                             mail.Bcc.Add(new MailAddress(addr.Trim()));
                     }
-
                     if (SMTPConfigInfo.IsSendAdminMail.Trim().ToUpper() == "Y")
                     {
                         if (!string.IsNullOrEmpty(SMTPConfigInfo.AdministratorEmail.Trim()))
@@ -96,7 +80,6 @@ namespace LK.Util.Mail
                             }
                         }
                     }
-
                     if (SMTPConfigInfo.IsSendDebugMail.Trim().ToUpper() == "Y")
                     {
                         if (!string.IsNullOrEmpty(SMTPConfigInfo.DebugEmail.Trim()))
@@ -107,10 +90,9 @@ namespace LK.Util.Mail
                             }
                         }
                     }
-
                     foreach (string path in mailObj.AttachmentFilePathList)
                     {
-                        if (string.IsNullOrEmpty(path.Trim()))
+                        if (! string.IsNullOrEmpty(path.Trim()))
                         {
                             var att = new Attachment(path);
                             mail.Attachments.Add(att);
@@ -121,28 +103,21 @@ namespace LK.Util.Mail
                 {
                     var sbContent = new StringBuilder();
                     sbContent.Append(mailObj.Contents.Trim());
-
-                    //sbContent.Append("<br><br>Actual Mail:<br>To:" + mailObj.To.Trim());
-
                     sbContent.Append("<br><br>Actual Mail:<br>To:");
                     foreach (string addr in mailObj.GetToList())
                     {
                         sbContent.Append(addr.Trim() + ",");
                     }
-
                     sbContent.Append("<br>cc:");
                     foreach (string addr in mailObj.GetCCList())
                     {
                         sbContent.Append(addr.Trim()+",");
                     }
-
                     sbContent.Append("<br>bcc:");
                     foreach (string addr in mailObj.GetBCCList())
                     {
                         sbContent.Append(addr.Trim()+",");
                     }
-
-
                     mail = new MailMessage();
                     mail.From = new MailAddress(mailObj.From.Trim());
                     mail.Subject = mailObj.Subject.Trim();
@@ -152,29 +127,22 @@ namespace LK.Util.Mail
                             mail.To.Add(addr.Trim());
                         }
                     }
-                    //mail = new MailMessage(mailObj.From.Trim(), SMTPConfigInfo.DebugEmail, mailObj.Subject.Trim(),
-                                           //sbContent.ToString());
                 }
                 mail.IsBodyHtml = mailObj.IsBodyHtml;
                 mail.Priority = mailObj.Priority;
-
-
                 var mailClinet = new SmtpClient();
                 mailClinet.Host = SMTPConfigInfo.SMTPServerHost;
                 if (!string.IsNullOrEmpty(SMTPConfigInfo.SMTPServerPort))
                 {
                     mailClinet.Port = Convert.ToInt16(SMTPConfigInfo.SMTPServerPort);
                 }
-
                 if (SMTPConfigInfo.CredentialsAccount.Trim().Length > 0 && SMTPConfigInfo.CredentialsPassword.Trim().Length > 0) {
                     mailClinet.Credentials = new System.Net.NetworkCredential(SMTPConfigInfo.CredentialsAccount, SMTPConfigInfo.CredentialsPassword);
-                };               
-
+                }; 
                 if (SMTPConfigInfo.IsSend.Trim() == "Y")
                 {
                     mailClinet.Send(mail);                    
                 }
-
                 try
                 {
                     log.Info("----Mail Log----");
@@ -186,8 +154,7 @@ namespace LK.Util.Mail
                     log.Info("----Content----");
                     log.Info(mail.Body);
                 }
-                catch (Exception innerEx) { 
-                    
+                catch (Exception innerEx) {                     
                 }
             }
             catch (Exception ex)
@@ -197,17 +164,8 @@ namespace LK.Util.Mail
                 sb.Append(" ; To:" + mailObj.To + Environment.NewLine);
                 sb.Append(" ; Subject:" + mailObj.Subject + Environment.NewLine);
                 var newException = new Exception(ex + " ; " + sb);
-                //if (mailObj.ThrowException)
-                //{
-                    LK.MyException.MyException.ErrorNoThrowExceptionForStaticClass(ex);
-                   // throw MailExceptionPublisher.Publisher(ex, user);
-                //}
-                //else
-                //{
-                    //MailExceptionPublisher.Publisher(ex, user);
-                //}
+                LK.MyException.MyException.ErrorNoThrowExceptionForStaticClass(ex);
             }
-
             try
             {
                 //InsertDB(mailObj.From, mailObj.To, mailObj.Subject, mailObj.Contents);

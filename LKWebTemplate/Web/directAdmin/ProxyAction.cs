@@ -10,7 +10,6 @@ using LK.DB.SQLCreater;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-
 using LKWebTemplate.Model.Basic;
 using LKWebTemplate.Model.Basic.Table;
 using LKWebTemplate.Model.Basic.Table.Record;
@@ -23,7 +22,7 @@ using System.Diagnostics;
 [DirectService("ProxyAction")]
 public class ProxyAction : BaseAction
 {
-    [DirectMethod("loadProxy", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("loadProxy", DirectAction.Store)]
     public JObject loadProxy(string pApplicationHeadUuid, string pKeyWord, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
@@ -65,7 +64,7 @@ public class ProxyAction : BaseAction
         }
     }
 
-    [DirectMethod("submitProxy", DirectAction.FormSubmission, MethodVisibility.Visible)]
+    [DirectMethod("submitProxy", DirectAction.FormSubmission)]
     public JObject submitProxy(string uuid,
 string proxy_action,
 string proxy_method,
@@ -76,7 +75,7 @@ string redirect_proxy_action,
 string redirect_proxy_method,
 string application_head_uuid,
         string redirect_src,
-                                        HttpRequest request)
+                                        Request request)
     {
         #region Declare
         var action = SubmitAction.None;
@@ -85,7 +84,7 @@ string application_head_uuid,
         #endregion
         try
         {  /*Cloud身份檢查*/
-            checkUser(request);
+            checkUser(request.HttpRequest);
             if (this.getUser() == null)
             {
                 throw new Exception("Identity authentication failed.");
@@ -93,11 +92,7 @@ string application_head_uuid,
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
                 throw new Exception("Permission Denied!");
-            };
-            /*
-             * 所有Form的動作最終是使用Submit的方式將資料傳出；
-             * 必須有一個特徵來判斷使用者，執行的動作；
-             */
+            };          
             if (uuid.Trim().Length > 0)
             {
                 action = SubmitAction.Edit;
@@ -109,10 +104,7 @@ string application_head_uuid,
                 drProxy.UUID = LK.Util.UID.Instance.GetUniqueID();
             }
             /*固定要更新的欄位*/
-            //drProxy.UPDATE_DATE = DateTime.Now;
-
             /*非固定更新的欄位*/
-
             drProxy.DESCRIPTION = description;
             drProxy.PROXY_ACTION = proxy_action;
             drProxy.PROXY_METHOD = proxy_method;
@@ -122,8 +114,6 @@ string application_head_uuid,
             drProxy.REDIRECT_PROXY_METHOD = redirect_proxy_method;
             drProxy.APPLICATION_HEAD_UUID = application_head_uuid;
             drProxy.REDIRECT_SRC = redirect_src;
-            //drAppPage.WEB_SITE = web_site;
-
             if (action == SubmitAction.Edit)
             {
                 drProxy.gotoTable().Update_Empty2Null(drProxy);
@@ -132,7 +122,6 @@ string application_head_uuid,
             {
                 drProxy.gotoTable().Insert_Empty2Null(drProxy);
             }
-
             System.Collections.Hashtable otherParam = new System.Collections.Hashtable();
             otherParam.Add("UUID", drProxy.UUID);
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject(otherParam);
@@ -144,7 +133,7 @@ string application_head_uuid,
         }
     }
 
-    [DirectMethod("infoProxy", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("infoProxy", DirectAction.Store)]
     public JObject infoProxy(string pUuid, Request request)
     {
         #region Declare
@@ -176,7 +165,7 @@ string application_head_uuid,
         }
     }
 
-    [DirectMethod("destroyProxyByUuid", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("destroyProxyByUuid", DirectAction.Store)]
     public JObject destroyProxyByUuid(string pUuid, Request request)
     {
         #region Declare
@@ -210,13 +199,12 @@ string application_head_uuid,
     }
 
 
-    [DirectMethod("loadVAppmenuProxyMap", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("loadVAppmenuProxyMap", DirectAction.Store)]
     public JObject loadVAppmenuProxyMap(string pApplicationHeadUuid, string pAppmenuUuid, string pKeyWord, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
         List<JObject> jobject = new List<JObject>();
         BasicModel modBasic = new BasicModel();
-
         OrderLimit orderLimit = null;
         #endregion
         try
@@ -252,13 +240,12 @@ string application_head_uuid,
         }
     }
 
-    [DirectMethod("loadAppmenuProxyMapUnSelected", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("loadAppmenuProxyMapUnSelected", DirectAction.Store)]
     public JObject loadAppmenuProxyMapUnSelected(string pApplicationHeadUuid, string pAppmenuUuid, string pKeyWord, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
         List<JObject> jobject = new List<JObject>();
         BasicModel modBasic = new BasicModel();
-
         OrderLimit orderLimit = null;
         #endregion
         try
@@ -275,14 +262,10 @@ string application_head_uuid,
             /*是Store操作一下就可能含有分頁資訊。*/
             orderLimit = ExtDirect.Direct.Helper.Order.getOrderLimit(pageNo, limitNo, sort, dir);
             /*取得總資料數*/
-            //var dataAll  = modBasic(pApplicationHeadUuid, pKeyWord);
-
             /*取得資料*/
             var data = modBasic.getAppmenuProxyMap_By_AppMenuUuid(pAppmenuUuid, null);
             var dataAll = modBasic.getProxy_By_KeyWord(pApplicationHeadUuid, pKeyWord, orderLimit);
-
             var retData = dataAll.Where(c => !data.Any(d => d.PROXY_UUID == c.UUID)).ToList();
-
             if (retData.Count > 0)
             {
                 /*將List<RecordBase>變成JSON字符串*/
@@ -299,7 +282,7 @@ string application_head_uuid,
         }
     }
 
-    [DirectMethod("addAppmenuProxyMap", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("addAppmenuProxyMap", DirectAction.Store)]
     public JObject addAppmenuProxyMap(string pApplicationHeadUuid, string pAppmenuUuid, string pProxyUuid, Request request)
     {
         #region Declare
@@ -317,12 +300,7 @@ string application_head_uuid,
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
                 throw new Exception("Permission Denied!");
-            };
-            /*是Store操作一下就可能含有分頁資訊。*/
-            //orderLimit = ExtDirect.Direct.Helper.Order.getOrderLimit(pageNo, limitNo, sort, dir);
-            /*取得總資料數*/
-            //var dataAll  = modBasic(pApplicationHeadUuid, pKeyWord);
-
+            };           
             /*取得資料*/
             var nowData = modBasic.getAppmenuProxyMap_By_AppMenuUuid(pAppmenuUuid, null);
             var checkDataExist = nowData.Where(c => c.PROXY_UUID.Equals(pProxyUuid)).Count();
@@ -349,7 +327,7 @@ string application_head_uuid,
         }
     }
 
-    [DirectMethod("removeAppmenuProxyMap", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("removeAppmenuProxyMap", DirectAction.Store)]
     public JObject removeAppmenuProxyMap(string pAppmenuUuid, string pProxyUuid, Request request)
     {
         #region Declare
@@ -387,6 +365,4 @@ string application_head_uuid,
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
-
 }
-

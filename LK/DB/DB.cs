@@ -22,22 +22,7 @@ namespace LK.DB
             if (disposing)
             {
                 try
-                {
-                    /*
-                    if (_dbconnection_ != null)
-                    {
-                        try
-                        {
-                            _dataBaseConfigInfo = null;
-                            _dbconnection_.Close();
-                            _dbconnection_.Dispose();
-                        }
-                        catch (Exception ex)
-                        {
-                            throw ex;
-                        }
-                    }*/
-                }
+                {}
                 catch (Exception e)
                 {
                     throw e;
@@ -45,7 +30,6 @@ namespace LK.DB
             }
         }
         #endregion
-
         IDbTransaction __transaction__ = null;
         ADataBaseConnection _connection = null;
         System.Data.IDbCommand _command_ = null;
@@ -53,12 +37,10 @@ namespace LK.DB
         List<System.Data.IDataParameter> _commandParameter = new List<IDataParameter>();
         int _timeOut = 300;
         string _commandText_ = null;
-
         public enum TestFlag
         { 
             Success,Faild,Undefined
         }
-
         public TestFlag TestResult = TestFlag.Undefined;
         private void initSQLCreater(IDataBaseConfigInfo config) {
             try
@@ -85,19 +67,7 @@ namespace LK.DB
                 log.Error(ex);
                 throw ex;
             }
-        }        
-        //public DB(string ConnectionInfo)
-        //{
-        //    try
-        //    {
-        //        throw new NotImplementedException("在DB class中為實作public DB(string ConnectionInfo)");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        log.Error(ex);
-        //        throw ex;
-        //    }
-        //}
+        } 
         public DB(object modelObj) {
             try
             {
@@ -107,8 +77,7 @@ namespace LK.DB
                 {
                     dbName = ((LK.Attribute.LkDataBase)(attrs[0])).getDataBase();
                     LK.Config.DataBase.IDataBaseConfigInfo a = LK.Config.DataBase.Factory.getInfo();
-                    LK.DB.DataBaseConnection obj = new DataBaseConnection(a);
-                    
+                    LK.DB.DataBaseConnection obj = new DataBaseConnection(a);                    
                     obj.setDataBase(dbName);
                     _connection = obj;
                 }
@@ -123,7 +92,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         /// <summary>
         /// 使用注入的方式
         /// </summary>
@@ -156,7 +124,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         /// <summary>
         /// 使用注入的方式
         /// </summary>
@@ -187,7 +154,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public DB(ADataBaseConnection adatabaseconnection, string dbName)
         {
             try
@@ -202,11 +168,9 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         private string _GetConnectionString(string dataBaseFlag) {  
             return "";   
-        }      
-
+        }
         public bool Update(RecordBase record)
         {
             try
@@ -235,7 +199,6 @@ namespace LK.DB
         public bool Delete(RecordBase record) {
             return true;
         }
-
         public void ExecuteProcedure(string procedureName) {
             try
             {
@@ -256,8 +219,7 @@ namespace LK.DB
                 logSQL(ref _command_, false);
                 throw ex;
             }    
-        }
-        
+        }        
         public void ExecuteProcedure_NoParameter(string procedureName)
         {
             try
@@ -277,7 +239,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public void ExecuteProcedure(string procedureName, IDataParameter[] parameters)
         {
             try
@@ -304,7 +265,6 @@ namespace LK.DB
                 throw ex;
             }  
         }
-
         public void ExecuteProcedureAndReturn(string procedureName, IDataParameter[] parameters)
         {
             try
@@ -327,7 +287,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public DataTable ExecuteProcedureAndReturnTable(string procedureName, IDataParameter[] parameters)
         {
             try
@@ -352,7 +311,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public DataTable[] ExecuteProcedureAndReturnTables(string procedureName, IDataParameter[] parameters)
         {
             try
@@ -364,20 +322,16 @@ namespace LK.DB
                 _command_.CommandType = CommandType.StoredProcedure;
                 _SQLCreater_.__setExecuteProcedureAndReturnParameter(_connection, procedureName, _command_, parameters);
                 List<DataTable> tbls = new List<DataTable>();
-
                 var r = _command_.ExecuteReader();                
                 DataTable tt = new DataTable();
                 tt.Load(r);
                 tbls.Add(tt);
-
                 while (r.IsClosed == false && r.Read()) {
                     DataTable tmp = new DataTable();
                     tmp.Load(r);
                     tbls.Add(tmp);
                 }
-
                 this.closeConnection();
-
                 logSQL(ref _command_, true);
                 return tbls.ToArray();
             }
@@ -404,23 +358,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
-        //public DB BeginTransactionSelect()
-        //{
-        //    try
-        //    {
-        //        if (_connection.getConnection().State == ConnectionState.Closed)
-        //            _connection.getConnection().Open();
-        //        __transaction__ = _connection.getConnection().BeginTransaction(IsolationLevel.ReadUncommitted);
-        //        return this;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        log.Error(ex);
-        //        throw ex;
-        //    }
-        //}
-
         public bool TestConnection() {
             try
             {
@@ -461,7 +398,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public void Rollback() {
             try
             {
@@ -487,8 +423,7 @@ namespace LK.DB
                 log.Error(ex);
                 throw ex;
             }
-        }
-        
+        }        
         public string CommandText {
             get {
                 return _commandText_;
@@ -497,11 +432,8 @@ namespace LK.DB
                 _commandText_ = value;
             }
         }
-
-        public void addParameter() { 
-        
+        public void addParameter() {         
         }
-
         public void addParameter(List<System.Data.IDataParameter> parms)
         {
             try
@@ -514,7 +446,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public void addParameter(System.Data.IDataParameter parms)
         {
             try
@@ -527,7 +458,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public void removeAllParameter()
         {
             try
@@ -540,7 +470,6 @@ namespace LK.DB
                 throw ex;
             }            
         }
-
         public IDbDataParameter getParameter(string pName, object value, ParameterDirection direction)
         {
             try
@@ -554,7 +483,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public IDbDataParameter getParameter(string pName, object value,System.Data.DbType dbtype, ParameterDirection direction)
         {
             try
@@ -568,19 +496,10 @@ namespace LK.DB
                 throw ex;
             }
         }
-
-        /*
-        public void Connection() {
-        
-        }
-         */
-
         public IDbConnection getConnection()
         {
             return _connection.getConnection();
-        }
-
-       
+        }       
         public void ExecuteNonQuery() {
             try
             {
@@ -588,34 +507,22 @@ namespace LK.DB
                 _command_ = _connection.getConnection().CreateCommand();
                 _command_.CommandText = this.CommandText;
                 _command_.CommandTimeout = _timeOut;
-                _command_.Parameters.Clear();
-                
+                _command_.Parameters.Clear();                
                 foreach (var item in this._commandParameter)
                 {
                     _command_.Parameters.Add(item);
-                }
-                
-                _command_.ExecuteNonQuery();
-                
+                }                
+                _command_.ExecuteNonQuery();                
                 this.closeConnection();
                 logSQL(ref _command_, true);
             }
             catch (Exception ex)
             {                
-                log.Error(ex);
-                /*
-                log.Error("------------------------------------------------------------------------------");
-                log.Error(_command_.CommandText);
-                foreach (System.Data.IDataParameter para in _command_.Parameters) {
-                    log.Error(para.ParameterName + "=>" + para.Value);
-                }
-                log.Error("------------------------------------------------------------------------------");
-                 * */
+                log.Error(ex);               
                 logSQL(ref _command_, false);
                 throw ex;
             }            
         }
-
         public void ExecuteNonQuery(DB db)
         {
             try
@@ -625,7 +532,6 @@ namespace LK.DB
                 _command_.CommandText = this.CommandText;
                 _command_.CommandTimeout = _timeOut;
                 _command_.Parameters.Clear();
-
                 if (__transaction__ != null)
                 {
                     _command_.Transaction = __transaction__;
@@ -644,7 +550,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         private void logSQL(ref IDbCommand cmd ,bool isSuccess) {
             var logSQL = LK.Config.DataBase.Factory.getInfo().GetTag("logSQL").ToLower();
             try
@@ -661,8 +566,7 @@ namespace LK.DB
                 else {
                     log.Error("---Run SQL【 Failed 】----------------------------------------------------------------------");
                     log.Error(cmd.CommandText);
-                }
-                
+                }                
                 foreach (System.Data.IDataParameter para in cmd.Parameters)
                 {
                     if (isSuccess)
@@ -672,19 +576,15 @@ namespace LK.DB
                     else
                     {
                         log.Error(para.ParameterName + "=>" + para.Value);
-                    }
-                   
-                }
-                
+                    }                   
+                }                
             }
             catch (Exception ex)
             {
-
             }
             finally {
                 if (logSQL == "false")
                 {
-
                 }
                 else
                 {
@@ -696,8 +596,7 @@ namespace LK.DB
                     {
                         log.Error("-------------------------------------------------------------------------------------------");
                     }
-                }
-                
+                }                
             }
         }
         private DataTable __FillDataTable(string tableName)
@@ -747,7 +646,6 @@ namespace LK.DB
                 ds.Dispose();
             }
         }
-
         public DataTable FillDataTable(string tableName) {
             try
             {
@@ -759,7 +657,6 @@ namespace LK.DB
                 throw ex;
             }
         } 
-
         private void openConnection() {
             try
             {
@@ -778,7 +675,6 @@ namespace LK.DB
                 throw ex;
             }           
         }
-
         private void closeConnection() {
             try
             {
@@ -797,18 +693,14 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public void setTimeout(int second) {
             _timeOut = second;
         }
-
         public int getTimeout()
         {
             return _timeOut;
         }
-
-        public void ReleaseTransaction() {
-            
+        public void ReleaseTransaction() {            
         }
     }
 }

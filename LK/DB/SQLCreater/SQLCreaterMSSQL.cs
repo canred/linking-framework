@@ -25,9 +25,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
-       
-
         /// <summary>
         /// 產生一個Parameter，並直到放入物件中。
         /// </summary>
@@ -50,15 +47,13 @@ namespace LK.DB.SQLCreater
         {
             return "@";
         }
-        
         /// <summary>
         /// 產生有關限制筆數的SQL語法
         /// </summary>
         /// <param name="SQL"></param>
         /// <returns></returns>
         public override string LimitSQL(string SQL)
-        {
-            
+        {            
             try
             {
                 if (this.getStartCount() == null || this.getFetchCount() == null)
@@ -68,23 +63,18 @@ namespace LK.DB.SQLCreater
                 else
                 {               
                     string orderByString = " ORDER BY ";
-                    var orderLimit =  getSplitOrderLimit();
-                  
+                    var orderLimit =  getSplitOrderLimit();                  
                     if (orderLimit.getOrderColumn().Count == 0) { 
                         throw new Exception("MSSQL 在執行類Lmiti的行為必須要到Order,請設定你的OrderLimit物件，利用AddOrder方法。");
                     }
-
                     for (int i = 0; i < orderLimit.getOrderColumn().Count; i++) {
                         orderByString += " " + orderLimit.getOrderColumn()[i] + " " + orderLimit.getOrderMethod()[i] + ",";
-                    }
-                    
+                    }                    
                     if (orderByString.EndsWith(",")) {
                         orderByString = orderByString.Substring(0, orderByString.Length - 1);
-                    }
-         
+                    }         
                     var insertIndex = SQL.IndexOf(" FROM ");
                     SQL = SQL.Insert(insertIndex, ",ROW_NUMBER() OVER ( " + orderByString + " ) RowNumNo ");
-
                     string newSQL = "SELECT  * FROM (";                    
                     newSQL += SQL;
                     newSQL += ") limitTableA WHERE RowNumNo >= ";
@@ -100,7 +90,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public override IDbDataParameter createDbParameter(System.Data.IDbDataParameter param, ParameterDirection pdirection)
         {
             try
@@ -114,7 +103,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public override string __ExecuteProcedureAndReturnSQL(string procedureName)
         {
             try
@@ -127,7 +115,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         /// <summary>
         /// 【注意】底層程式使用；請不要直接使用
         /// </summary>

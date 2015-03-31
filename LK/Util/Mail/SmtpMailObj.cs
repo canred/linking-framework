@@ -18,11 +18,8 @@ namespace LK.Util.Mail
         private MailPriority _priority = MailPriority.Normal;
         private string _subject = "";
         private string _to = "";
-
         #endregion
-
         #region 屬性
-
         /// <summary>
         /// 寄件人 email address
         /// </summary>
@@ -31,7 +28,6 @@ namespace LK.Util.Mail
             get { return _from; }
             set { _from = value; }
         }
-
         /// <summary>
         /// 收件人 email address
         /// </summary>
@@ -40,7 +36,6 @@ namespace LK.Util.Mail
             get { return _to; }
             set { _to = value; }
         }
-
         /// <summary>
         /// cc email address
         /// </summary>
@@ -49,7 +44,6 @@ namespace LK.Util.Mail
             get { return _cc; }
             set { _cc = value; }
         }
-
         /// <summary>
         /// blind copy 的 email address
         /// </summary>
@@ -58,7 +52,6 @@ namespace LK.Util.Mail
             get { return _bcc; }
             set { _bcc = value; }
         }
-
         /// <summary>
         /// mail 內容格式
         /// </summary>
@@ -67,7 +60,6 @@ namespace LK.Util.Mail
             get { return _isBodyHtml; }
             set { _isBodyHtml = value; }
         }
-
         /// <summary>
         /// mail 優先等級
         /// </summary>
@@ -76,7 +68,6 @@ namespace LK.Util.Mail
             get { return _priority; }
             set { _priority = value; }
         }
-
         /// <summary>
         /// mail 主旨
         /// </summary>
@@ -85,7 +76,6 @@ namespace LK.Util.Mail
             get { return _subject; }
             set { _subject = value; }
         }
-
         /// <summary>
         /// mail 本文
         /// </summary>
@@ -94,12 +84,10 @@ namespace LK.Util.Mail
             get { return _contents; }
             set { _contents = value; }
         }
-
         /// <summary>
         /// 是否要 throw exception
         /// </summary>
         public bool ThrowException { get; set; }
-
         /// <summary>
         /// 附件路徑
         /// </summary>
@@ -108,9 +96,7 @@ namespace LK.Util.Mail
             get { return _attachmentFilePathList; }
             set { _attachmentFilePathList = value; }
         }
-
-        #endregion //end of 屬性
-
+        #endregion 
         public List<string> GetToList()
         {
             try
@@ -125,15 +111,7 @@ namespace LK.Util.Mail
                 }
                 else {
                     toList.Add(_to);
-                }
-                //else if (_cc.Contains(";"))
-                //{
-                //    foreach (string str in _cc.Split(Convert.ToChar(";")))
-                //    {
-                //        ccLLK.Add(str);
-                //    }
-                //}
-
+                } 
                 return toList;
             }
             catch (Exception ex)
@@ -142,7 +120,6 @@ namespace LK.Util.Mail
                 throw ex;
             }
         }
-
         public List<string> GetCCList()
         {
             try
@@ -157,15 +134,7 @@ namespace LK.Util.Mail
                 }
                 else {
                     ccList.Add(_cc);
-                }
-                //else if (_cc.Contains(";"))
-                //{
-                //    foreach (string str in _cc.Split(Convert.ToChar(";")))
-                //    {
-                //        ccLLK.Add(str);
-                //    }
-                //}
-
+                } 
                 return ccList;
             }
             catch (Exception ex)
@@ -174,7 +143,6 @@ namespace LK.Util.Mail
                 throw ex;
             }
         }
-
         public List<string> GetBCCList()
         {
             try
@@ -190,14 +158,6 @@ namespace LK.Util.Mail
                 else {
                     bccList.Add(_bcc);
                 }
-                //else if (_bcc.Contains(";"))
-                //{
-                //    foreach (string str in _bcc.Split(Convert.ToChar(";")))
-                //    {
-                //        bccLLK.Add(str);
-                //    }
-                //}
-
                 return bccList;
             }
             catch (Exception ex)

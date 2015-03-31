@@ -23,7 +23,7 @@ using System.Diagnostics;
 [DirectService("UtilAction")]
 public class UtilAction : BaseAction
 {
-    [DirectMethod("getUid", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("getUid", DirectAction.Load)]
     public JObject getUid(Request request)
     {
         #region Declare
@@ -56,8 +56,4 @@ public class UtilAction : BaseAction
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
-
 }
-
-
-

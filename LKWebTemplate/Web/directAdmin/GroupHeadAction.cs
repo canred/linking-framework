@@ -23,7 +23,7 @@ using System.Diagnostics;
 [DirectService("GroupHeadAction")]
 public class GroupHeadAction : BaseAction
 {
-    [DirectMethod("load", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("load", DirectAction.Store)]
     public JObject load(string company_uuid, string application_head_uuid, string attendant_uuid,
         string keyword, string pageNo, string limitNo, string sort, string dir, Request request)
     {
@@ -66,13 +66,12 @@ public class GroupHeadAction : BaseAction
         }
     }
 
-    [DirectMethod("info", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("info", DirectAction.Load)]
     public JObject info(string pUuid, Request request)
     {
         #region Declare
         BasicModel model = new BasicModel();
         #endregion
-
         try
         {  /*Cloud身份檢查*/
             checkUser(request.HttpRequest);
@@ -85,7 +84,6 @@ public class GroupHeadAction : BaseAction
                 throw new Exception("Permission Denied!");
             };
             var data = model.getGroupHead_By_Uuid(pUuid);
-
             if (data.AllRecord().Count == 1)
             {
                 return ExtDirect.Direct.Helper.Form.OutputJObject(JsonHelper.RecordBaseJObject(data.AllRecord().First()));
@@ -99,10 +97,10 @@ public class GroupHeadAction : BaseAction
         }
     }
 
-    [DirectMethod("submit", DirectAction.FormSubmission, MethodVisibility.Visible)]
+    [DirectMethod("submit", DirectAction.FormSubmission)]
     public JObject submit(string uuid, string create_date, string update_date, string is_active,
         string company_uuid, string name_zh_tw, string name_zh_cn, string name_en_us, string id,
-        string src_uuid, string application_head_uuid, HttpRequest request)
+        string src_uuid, string application_head_uuid, Request request)
     {
         #region Declare
         var action = SubmitAction.None;
@@ -112,7 +110,7 @@ public class GroupHeadAction : BaseAction
 
         try
         {  /*Cloud身份檢查*/
-            checkUser(request);
+            checkUser(request.HttpRequest);
             if (this.getUser() == null)
             {
                 throw new Exception("Identity authentication failed.");
@@ -121,10 +119,6 @@ public class GroupHeadAction : BaseAction
             {
                 throw new Exception("Permission Denied!");
             };
-            /*
-             * 所有Form的動作最終是使用Submit的方式將資料傳出；
-             * 必須有一個特徵來判斷使用者，執行的動作；
-             */
             if (uuid.Trim().Length > 0)
             {
                 action = SubmitAction.Edit;
@@ -146,7 +140,6 @@ public class GroupHeadAction : BaseAction
             record.NAME_ZH_TW = name_zh_tw;
             record.NAME_ZH_CN = name_zh_cn;
             record.NAME_EN_US = name_en_us;
-
             if (action == SubmitAction.Edit)
             {
                 record.gotoTable().Update_Empty2Null(record);
@@ -156,7 +149,6 @@ public class GroupHeadAction : BaseAction
                 record.gotoTable().Insert(record);
                 uuid = record.UUID;
             }
-
             System.Collections.Hashtable otherParam = new System.Collections.Hashtable();
             otherParam.Add("UUID", record.UUID);
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject(otherParam);
@@ -168,7 +160,7 @@ public class GroupHeadAction : BaseAction
         }
     }
 
-    [DirectMethod("deleteGroupHead", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("deleteGroupHead", DirectAction.Store)]
     public JObject deleteGroupHead(string pUuid, Request request)
     {
         #region Declare

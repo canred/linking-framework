@@ -18,12 +18,10 @@ namespace LK
                 CLOUD_ID = value;
             }
         }
-
         private string _directUrl = null;
         private string _application = null;
         private string _comapny = null;
         private string _account = null;
-
         public JToken CallDirect(string directUrl, string methodAction, string[] data, string COLUDID)
         {
             Uri target = new Uri(directUrl);
@@ -40,13 +38,10 @@ namespace LK
                     postData += "\"" + tmp + "\",";
                 }
                 postData = postData.Substring(0, postData.Length - 1);
-            }
-            
+            }            
             postData += "],\"type\":\"rpc\",\"tid\":999}";
-
             byte[] byteArray = Encoding.ASCII.GetBytes(postData);
             request.ContentLength = byteArray.Length;
-
             using (var dataStream = request.GetRequestStream())
             {
                 dataStream.Write(byteArray, 0, byteArray.Length);
@@ -56,7 +51,6 @@ namespace LK
             {
                 System.IO.Stream stream = response.GetResponseStream();
                 string json = "";
-
                 using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))
                 {
                     while (!reader.EndOfStream)
@@ -64,24 +58,20 @@ namespace LK
                         json += reader.ReadLine();
                     }
                 }
-
                 result = JObject.Parse(json);
             }
-
             return result["result"];
         }
 
         public string getCloudId(string directUrl,string application,string company,string account , string password)
         {
-            LK.Util.Security.SecurityClass sc = new LK.Util.Security.SecurityClass(LK.Util.Security.SecurityClass.CryptoEnum.DES);
-            
+            LK.Util.Security.SecurityClass sc = new LK.Util.Security.SecurityClass(LK.Util.Security.SecurityClass.CryptoEnum.DES);            
             var result = CallDirect(directUrl, "UserAction.cloudLogon", new string[] { 
                 application, 
                 company, 
                 account, 
                 password 
-            }, "");
-            
+            }, "");            
             if (result["validation"].Value<String>() == "OK")
             {
                 CLOUD_ID = result["CLOUD_ID"].Value<string>();
@@ -97,10 +87,8 @@ namespace LK
                 return null;
             }
         }
-
         public bool Logout()
         {
-
             var result = CallDirect(_directUrl, "UserAction.cloudLogout", new string[] {_application,_comapny,_account  }, this.Cloud_Id);
             if (result["validation"].Value<String>() == "OK")
             {
@@ -122,7 +110,6 @@ namespace LK
                 throw ex;
             }
         }
-
         public System.Data.DataTable ConvertToDataTable(JToken jsonObj)
         {
             System.Data.DataTable dt = null;
@@ -136,15 +123,11 @@ namespace LK
                 throw ex;
             }
         }
-
-
         #region IDisposable 成員
-
         void IDisposable.Dispose()
         {
             Logout();
         }
-
         #endregion
     }
 }

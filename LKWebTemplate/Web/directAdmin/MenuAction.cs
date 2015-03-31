@@ -10,7 +10,6 @@ using LK.DB.SQLCreater;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-
 using LKWebTemplate.Model.Basic;
 using LKWebTemplate.Model.Basic.Table;
 using LKWebTemplate.Model.Basic.Table.Record;
@@ -22,14 +21,8 @@ using System.Diagnostics;
 #endregion
 [DirectService("MenuAction")]
 public class MenuAction : BaseAction
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="parentUuid"></param>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [DirectMethod("loadMenuTree", DirectAction.TreeStore, MethodVisibility.Visible)]
+{   
+    [DirectMethod("loadMenuTree", DirectAction.TreeStore)]
     public JObject loadMenuTree(string parentUuid, Request request)
     {
         #region Declare
@@ -58,10 +51,8 @@ public class MenuAction : BaseAction
             dataTable.Columns.Add("leaf");            
             dataTable.Columns.Add("name");
             dataTable.Columns.Add("checked", typeof(Boolean));
-
             foreach (DataRow dr in dataTable.Rows)
             {
-
                 var children = model.getAppmenu_By_RootUuid_DataTable(dr[tblAppMenu.UUID].ToString(), orderlimit);
                 if (children.Rows.Count == 0)
                 {
@@ -71,12 +62,9 @@ public class MenuAction : BaseAction
                 {
                     dr["leaf"] = "false";
                 }
-                //dr["id"] = dr[tblAppMenu.UUID].ToString();
                 dr["name"] = dr[tblAppMenu.NAME_ZH_TW].ToString();
                 dr["checked"] = dr["IS_ACTIVE"].ToString().ToLower() == "y" ? true : false;
-
             }
-            //jsonStr.Append(JsonHelper.DataTableSerializer(dataTable));
             var jarray = JsonHelper.DataTableSerializerJArray(dataTable);
             /*使用Store Std out 『Sotre物件標準輸出格式』*/
             return ExtDirect.Direct.Helper.Tree.Output(jarray, 9999);
@@ -89,13 +77,12 @@ public class MenuAction : BaseAction
         }
     }
 
-    [DirectMethod("loadMenuTree2", DirectAction.TreeStore, MethodVisibility.Visible)]
+    [DirectMethod("loadMenuTree2", DirectAction.TreeStore)]
     public JObject loadMenuTree2(string parentUuid, Request request)
     {
         #region Declare
         List<JObject> jobject = new List<JObject>();
-        BasicModel model = new BasicModel();
-        
+        BasicModel model = new BasicModel();        
         #endregion
         try
         {
@@ -112,22 +99,17 @@ public class MenuAction : BaseAction
             OrderLimit orderlimit = new OrderLimit("ORD", OrderLimit.OrderMethod.ASC);
             orderlimit.Start = 1;
             orderlimit.Limit = 99999;
-
             /*取得資料*/
             var genTable = new Appmenu();
             var drsAppmenu = model.getAppmenu_By_Uuid(parentUuid).AllRecord();
             var drAppmenu = drsAppmenu.First();
             drsAppmenu = model.getAppmenu_By_ApplicationHead(drAppmenu.APPLICATION_HEAD_UUID,orderlimit);
-            
-
-            
             var dataTable = model.getAppmenu_By_RootUuid_DataTable(parentUuid,orderlimit);            
             dataTable.Columns.Add("leaf", System.Type.GetType("System.Boolean"));
             dataTable.Columns.Add("name");                        
             dataTable.Columns.Add("expanded", System.Type.GetType("System.Boolean"));            
             foreach (DataRow dr in dataTable.Rows)
             {
-
                 var children = model.getAppmenu_By_RootUuid_DataTable(dr[genTable.UUID].ToString(), orderlimit);
                 if (children.Rows.Count == 0)
                 {
@@ -141,7 +123,6 @@ public class MenuAction : BaseAction
                 dr["expanded"] = true;
             }
             var jarray = JsonHelper.DataTableSerializerJArray(dataTable);
-
             foreach (var item in jarray)
             {
                 var thisUuid = item["UUID"].ToString();
@@ -162,7 +143,7 @@ public class MenuAction : BaseAction
         }
     }
 
-    [DirectMethod("_loadMenuTree2", DirectAction.TreeStore, MethodVisibility.Visible)]
+    [DirectMethod("_loadMenuTree2", DirectAction.TreeStore)]
     public JArray _loadMenuTree2(string parentUuid,  ref IList<Appmenu_Record> drsAppmenu)
     {
         #region Declare
@@ -172,7 +153,6 @@ public class MenuAction : BaseAction
         try
         {
             /*取得資料*/
-
             var dataTable = new System.Data.DataTable();
             Appmenu tbl = new Appmenu();
             dataTable.Columns.Add(tbl.ACTION_MODE);
@@ -256,13 +236,7 @@ public class MenuAction : BaseAction
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="parentUuid"></param>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [DirectMethod("loadTreeRoot", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("loadTreeRoot", DirectAction.Store)]
     public JObject loadTreeRoot(string pApplicationHeadUuid, Request request)
     {
         #region Declare
@@ -298,8 +272,7 @@ public class MenuAction : BaseAction
         }
     }
 
-
-    [DirectMethod("submit", DirectAction.FormSubmission, MethodVisibility.Visible)]
+    [DirectMethod("submit", DirectAction.FormSubmission)]
     public JObject submit(string uuid,
                             string is_active,
                             string create_date,
@@ -320,7 +293,7 @@ public class MenuAction : BaseAction
                             string action_mode,
                             string is_default_page,
                             string is_admin,
-                            HttpRequest request)
+                            Request request)
     {
         #region Declare
         var action = SubmitAction.None;
@@ -330,7 +303,7 @@ public class MenuAction : BaseAction
         #endregion
         try
         {  /*Cloud身份檢查*/
-            checkUser(request);
+            checkUser(request.HttpRequest);
             if (this.getUser() == null)
             {
                 throw new Exception("Identity authentication failed.");
@@ -339,23 +312,9 @@ public class MenuAction : BaseAction
             {
                 throw new Exception("Permission Denied!");
             };
-            /*
-             * 所有Form的動作最終是使用Submit的方式將資料傳出；
-             * 必須有一個特徵來判斷使用者，執行的動作；
-             */
             if (uuid.Trim().Length > 0)
             {
-
-                drAppMenu = modBasic.getAppmenu_By_Uuid(uuid).AllRecord().First();
-                //判斷有沒有子項，有的話不可修改
-                /*
-                var canBeChange = getChildByMenuUuid(uuid, drAppMenu.APPMENU_UUID);
-                if (!canBeChange)
-                {
-                    errorMsg = "尚有子項，無法異動節點";
-                }
-                else
-                 */
+                drAppMenu = modBasic.getAppmenu_By_Uuid(uuid).AllRecord().First();               
                 action = SubmitAction.Edit;
             }
             else
@@ -374,7 +333,6 @@ public class MenuAction : BaseAction
             /*固定要更新的欄位*/
             drAppMenu.UPDATE_DATE = DateTime.Now;
             drAppMenu.UPDATE_USER = getUser().UUID;
-
             /*非固定更新的欄位*/
             drAppMenu.IS_ACTIVE = is_active;
             drAppMenu.NAME_EN_US = name_en_us;
@@ -389,7 +347,6 @@ public class MenuAction : BaseAction
             drAppMenu.IS_DEFAULT_PAGE = is_default_page;
             drAppMenu.IS_ADMIN = is_admin;
             drAppMenu.ORD = System.Convert.ToInt32(ord);
-
             if (action == SubmitAction.Edit)
             {
                 drAppMenu.gotoTable().Update_Empty2Null(drAppMenu);
@@ -431,8 +388,9 @@ public class MenuAction : BaseAction
             drAppMenu.HASCHILD = haschild;
             drAppMenu.gotoTable().Update_Empty2Null(drAppMenu);
         }
-        else
+        else{
             success = false;
+        }
         return success;
     }
     #endregion
@@ -445,23 +403,16 @@ public class MenuAction : BaseAction
         BasicModel modBasic = new BasicModel();
         var child = modBasic.getAppmenu_By_ParentUuid(parent_appmenu_uuid);
         var self = modBasic.getAppmenu_By_Uuid(appmenu_uuid).AllRecord().First();
-        if (child.Count == 0)
+        if (child.Count == 0){
             hasChild = false;
-
-        if (self.APPMENU_UUID != appmenu_uuid && hasChild)
+        }
+        if (self.APPMENU_UUID != appmenu_uuid && hasChild){
             canBeChange = false;
-
+        }
         return canBeChange;
     }
-    #endregion
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="pUuid"></param>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [DirectMethod("info", DirectAction.Store, MethodVisibility.Visible)]
+    #endregion   
+    [DirectMethod("info", DirectAction.Store)]
     public JObject info(string pUuid, Request request)
     {
         #region Declare
@@ -494,13 +445,7 @@ public class MenuAction : BaseAction
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="pUuid"></param>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [DirectMethod("destroyByUuid", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("destroyByUuid", DirectAction.Store)]
     public JObject destroyByUuid(string pUuid, Request request)
     {
         #region Declare
@@ -532,15 +477,8 @@ public class MenuAction : BaseAction
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
-
-    /// <summary>
-    /// 未使用
-    /// </summary>
-    /// <param name="pUuid"></param>
-    /// <param name="is_active"></param>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [DirectMethod("setAppMenuIsActive", DirectAction.Store, MethodVisibility.Visible)]
+   
+    [DirectMethod("setAppMenuIsActive", DirectAction.Store)]
     public JObject setAppMenuIsActive(string pUuid, string is_active, Request request)
     {
         #region Declare
@@ -584,14 +522,8 @@ public class MenuAction : BaseAction
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="pUuid"></param>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [DirectMethod("deleteAppMenu", DirectAction.Store, MethodVisibility.Visible)]
+   
+    [DirectMethod("deleteAppMenu", DirectAction.Store)]
     public JObject deleteAppMenu(string pUuid, Request request)
     {
         #region Declare
@@ -632,7 +564,7 @@ public class MenuAction : BaseAction
         }
     }
 
-    [DirectMethod("load", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("load", DirectAction.Store)]
     public JObject load(string pApplicationHeadUuid, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
@@ -673,18 +605,8 @@ public class MenuAction : BaseAction
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="pApplicationHeadUuid">無用的參數</param>
-    /// <param name="pageNo"></param>
-    /// <param name="limitNo"></param>
-    /// <param name="sort"></param>
-    /// <param name="dir"></param>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [DirectMethod("loadThisApplicationMenu", DirectAction.Store, MethodVisibility.Visible)]
+   
+    [DirectMethod("loadThisApplicationMenu", DirectAction.Store)]
     public JObject loadThisApplicationMenu(string pApplicationHeadUuid, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
@@ -707,11 +629,9 @@ public class MenuAction : BaseAction
             /*是Store操作一下就可能含有分頁資訊。*/
             orderLimit = ExtDirect.Direct.Helper.Order.getOrderLimit(pageNo, limitNo, sort, dir);
             string appName = LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().AppName;
-
             ApplicationHead tb = new ApplicationHead(LK.Config.DataBase.Factory.getInfo());
             var drs = tb.Where(new LK.DB.SQLCondition(tb).Equal(tb.NAME, appName))
-                .FetchAll<ApplicationHead_Record>();
-            
+                .FetchAll<ApplicationHead_Record>();            
             if (drs.Count > 0)
             {
                 pApplicationHeadUuid = drs.First().UUID;
@@ -736,4 +656,3 @@ public class MenuAction : BaseAction
         }
     }
 }
-

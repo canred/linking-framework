@@ -2,36 +2,26 @@
 
 namespace ExtDirect.Direct
 {
-    public enum AppliedTo
-    {        
-        DirectPublic,
-        DirectWithinAssembly
-    }
-    public enum MethodVisibility
-    {
-        Visible,
-        Hidden    
-    }
+    //public enum AppliedTo
+    //{        
+    //    DirectPublic,
+    //    DirectWithinAssembly
+    //}
+    
     public enum DirectAction
-    {
-        
+    {        
         Null,
         Load,
-        //Create,
-        Update,
-        //Delete,
-        //Save,
+        //Update,
         FormSubmission,
         Store,
-        //FreeStyle,
-        TreeStore
-        
+        TreeStore        
     }
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class DirectServiceAttribute : Attribute
     {
         private readonly string _name;
-        private readonly AppliedTo _visibility;
+        //private readonly AppliedTo _visibility;
         public string Name
         {
             get
@@ -39,27 +29,26 @@ namespace ExtDirect.Direct
                 return _name;
             }
         }
-        public AppliedTo Visibility
-        {
-            get {
-                return _visibility;
-            }
-        }
-        public DirectServiceAttribute()
-        {
-            _visibility = AppliedTo.DirectPublic;
-        }
-        public DirectServiceAttribute(string className)
+        //public AppliedTo Visibility
+        //{
+        //    get {
+        //        return _visibility;
+        //    }
+        //}
+        //public DirectServiceAttribute()
+        //{
+        //    _visibility = AppliedTo.DirectPublic;
+        //}
+        //public DirectServiceAttribute(string className)
+        //{
+        //    _name = className;
+        //    _visibility = AppliedTo.DirectPublic;
+
+        //}
+        public DirectServiceAttribute(string className/*, AppliedTo visibility*/)
         {
             _name = className;
-            _visibility = AppliedTo.DirectPublic;
-
-        }
-        public DirectServiceAttribute(string className, AppliedTo visibility)
-        {
-            _name = className;
-            _visibility = visibility;
-
+            //_visibility = visibility;
         }
     }
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
@@ -76,37 +65,23 @@ namespace ExtDirect.Direct
         {
             get { return _action; }
         }
-        private readonly MethodVisibility _visibility;
-        public MethodVisibility Visibility
-        {
-            get { return _visibility; }
-        }
-        public DirectMethodAttribute()
-        {
-            _visibility = MethodVisibility.Visible;
-            _action = DirectAction.Null;
-        }
-        public DirectMethodAttribute(string name)
-        {
-            _name = name;
-            _visibility = MethodVisibility.Visible;
-            _action = DirectAction.Null;
+        
+        //public DirectMethodAttribute()
+        //{        
+        //    _action = DirectAction.Null;
+        //}
+        //public DirectMethodAttribute(string name)
+        //{
+        //    _name = name;         
+        //    _action = DirectAction.Null;
 
-        }
+        //}
         public DirectMethodAttribute(string name, DirectAction action)
         {
             _name = name;
-            _visibility = MethodVisibility.Visible;
             _action = action;
-
         }
-        public DirectMethodAttribute(string name, DirectAction action,MethodVisibility visibility)
-        {
-            _name = name;
-            _visibility = visibility;
-            _action = action;
-
-        }
+        
         public DirectAction getDirectAction() {
             return _action;
         }

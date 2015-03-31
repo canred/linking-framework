@@ -7,15 +7,12 @@ using System.IO;
 using System.Runtime.InteropServices;
 namespace Schedule
 {
-
     class Program
     {
         [DllImport("user32.dll")]
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
         [DllImport("user32.dll")]
         static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
         public static void setConsoleWindowVisibility(bool visible, string title)
         {
             // below is Brandon's code           
@@ -32,7 +29,6 @@ namespace Schedule
                     ShowWindow(hWnd, 1); //1 = SW_SHOWNORMA          
             }
         }
-
         [STAThread()]
         static void Main(string[] args)
         {            

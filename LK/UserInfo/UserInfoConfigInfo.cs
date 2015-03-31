@@ -15,9 +15,6 @@ namespace LK.UserInfo
         private static readonly Timer baseConfigTimer = new Timer(15000);
         private static System.Xml.XmlDocument m_configinfo;
         private static System.Data.DataTable m_dt;
-        /// <summary>
-        /// 靜態構造函數初始化相應實例和定時器
-        /// </summary>
         static UserInfoConfigInfo()
         {
             m_dt = new System.Data.DataTable();
@@ -38,15 +35,12 @@ namespace LK.UserInfo
         /// 重設配置類實例
         /// </summary>
         public static void ResetConfig()
-        {
-            
+        {            
         }
-
         public  System.Xml.XmlDocument GetBaseConfig()
         {
             return m_configinfo;
         }
-
         public  System.Data.DataTable GetBaseConfig_DataTable()
         {
             try
@@ -74,18 +68,16 @@ namespace LK.UserInfo
                 throw ex;
             }
         }
-
         public  string GetTag(string actionTag, bool alwaysReLoad)
         {
             string ret_message = "";
-            m_configinfo = UserInfoConfig.Init();//.changeLanguage(lan);//.LoadConfig(lan);
+            m_configinfo = UserInfoConfig.Init();
             try
             {
                 if (m_dt.Rows.Count == 0 || alwaysReLoad)
                 {
                     GetBaseConfig_DataTable();
                 }
-
                 foreach (System.Data.DataRow dr in m_dt.Rows)
                 {
                     if (dr["key"].ToString().ToLower() == actionTag.ToLower())
@@ -101,7 +93,6 @@ namespace LK.UserInfo
                 return "";
             }
         }
-
         public  string GetTag(string ActionTag)
         {
             try

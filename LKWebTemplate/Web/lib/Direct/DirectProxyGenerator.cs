@@ -7,20 +7,18 @@ namespace ExtDirect.Direct
 {
     public static class DirectProxyGenerator
     {
-        public static string generateDirectApi(string pClassName,bool isTouch)
+        public static string generateDirectApi(string dllName,string pClassName,bool isTouch)
         {
             var resStr = new StringBuilder();
             var myDomain = AppDomain.CurrentDomain;
             var assembliesLoaded = myDomain.GetAssemblies();
             resStr.Append("\"actions\":");
          
-         
-         
             bool flag = false;            
             foreach (var allAssembly in assembliesLoaded)           
             {
                 /*只解析LKWebTemplate.DLL*/
-                if (allAssembly.ManifestModule.Name.ToUpper() != "LKWebTemplate.DLL".ToUpper())
+                if (allAssembly.ManifestModule.Name.ToUpper() != (dllName + ".DLL").ToUpper())
                 {
                     continue;
                 }
@@ -82,14 +80,12 @@ namespace ExtDirect.Direct
                                         {
                                             ParameterInfo[] p = m.GetParameters();
                                             int paramCount = p.Count(item => item.ToString().Split(' ')[0] != "ExtDirect.Direct.Request");
-
-                                            tempMey += "\"len\":" + paramCount + "}";
-                                            //tempMey += "\"len\": 0}";
+                                            tempMey += "\"len\":" + paramCount + "}";                                            
                                         }
-                                        else if (DirectAction.Update == gMethod)
-                                        {
-                                            tempMey += "\"len\": 1}";
-                                        }
+                                        //else if (DirectAction.Update == gMethod)
+                                        //{
+                                        //    tempMey += "\"len\": 1}";
+                                        //}
                                         else
                                         {
                                             ParameterInfo[] p = m.GetParameters();
@@ -97,7 +93,6 @@ namespace ExtDirect.Direct
                                             tempMey += "\"len\":" + paramCount + "}";
                                         }
                                         resStr.Append(tempMey + ",");
-
                                         methodList.Add(tempMey);
                                     }
 

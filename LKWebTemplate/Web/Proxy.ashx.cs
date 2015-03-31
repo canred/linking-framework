@@ -33,7 +33,8 @@ namespace LKWebTemplate
             {
                 INIT = context.Request.QueryString["init"].ToUpper();
             }
-            if (ss.ExistKey("PROXY") && Parameter.Config.ParemterConfigs.GetConfig().IsProductionServer == true)
+            //if (ss.ExistKey("PROXY") && Parameter.Config.ParemterConfigs.GetConfig().IsProductionServer == true)
+            if (ss.ExistKey("PROXY") )
             {
                 context.Response.Write(ss.getObject("PROXY").ToString());
                 return;
@@ -41,6 +42,10 @@ namespace LKWebTemplate
             var isFrist = true;
             foreach (var allAssembly in AssembliesLoaded)
             {
+                if (!allAssembly.GetName().Name.StartsWith(this.GetType().Namespace))
+                {
+                    continue;
+                };
                 foreach (var theType in allAssembly.GetTypes())
                 {
                     object[] allCustomAttribute = theType.GetCustomAttributes(false);
@@ -66,14 +71,13 @@ namespace LKWebTemplate
                             rem += "url: \"" + newUrl + "\",";
                             rem += "type:\"remoting\",";
                             rem += "timeout:" + LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().DirectTimeOut.ToString() + ",";
-                            string json = DirectProxyGenerator.generateDirectApi(className,false);
+                            string json = DirectProxyGenerator.generateDirectApi(allAssembly.GetName().Name, className, false);
                             rem += json;
                             rem += "};";
                             rem = LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().DirectApplicationName + "." + className + " =" + rem;
                             if (isFrist == true)
                             {
-                                rem = " Ext.ns('" + LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().DirectApplicationName + "');" + rem;
-                                //rem ="(function(){" + rem + "})();";
+                                rem = " Ext.ns('" + LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().DirectApplicationName + "');" + rem;                                
                                 isFrist = false;
                             }
                             else
@@ -84,9 +88,7 @@ namespace LKWebTemplate
                         }
                     }
                 }
-            }
-
-
+            };
             LKWebTemplate.Model.Basic.BasicModel mod = new LKWebTemplate.Model.Basic.BasicModel();
             IList<LKWebTemplate.Model.Basic.Table.Record.Proxy_Record> drsProxy = new List<LKWebTemplate.Model.Basic.Table.Record.Proxy_Record>();
             if (INIT.Length == 0)
@@ -114,7 +116,6 @@ namespace LKWebTemplate
                     rem += "url: \"" + newUrl + "\",";
                     rem += "type:\"remoting\",";
                     rem += "timeout:" + LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().DirectTimeOut.ToString() + ",";
-
                     rem += "\"actions\":{";
                     rem += "\"" + LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().DirectApplicationName + "." + proxy.PROXY_ACTION + "\":[";
                     rem += "{";

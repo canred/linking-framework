@@ -120,6 +120,10 @@ namespace LKWebTemplate
 
         public void ProcessRequest(HttpContext context)
         {
+            ExtDirect.Direct.Request directRequest = new Request();
+            directRequest.HttpContext = context;
+            directRequest.HttpRequest = context.Request;
+            
             var rpc = new ExtDirect.Direct.ExtRPC();
             string action, method;
             LKWebTemplate.Model.Basic.BasicModel mod = new LKWebTemplate.Model.Basic.BasicModel();
@@ -200,14 +204,19 @@ namespace LKWebTemplate
                 var service = getServiceClassList();
                 var outputString = "{";
                 outputString += "method:\"ServiceClass\",";
-                //outputString += "tid:\"" + drProxy.PROXY_METHOD + "\",";
                 outputString += "action:\"ClassList\",";
                 outputString += "result:" + service.ToString();
                 outputString += "}";
                 context.Response.Write(outputString);
                 return;
             }
+
+
             var bodyContent = getContentText(context, out action, out method);
+            directRequest.action = action;
+            directRequest.method = method;
+            
+
             IList<LKWebTemplate.Model.Basic.Table.Record.Proxy_Record> drsProxy = new List<LKWebTemplate.Model.Basic.Table.Record.Proxy_Record>();
             if (context.Request.QueryString["init"] != null)
             {
@@ -239,11 +248,9 @@ namespace LKWebTemplate
                 }
 
                 /**參數**/
-                var retCloud = cloud.CallDirect(drProxy.REDIRECT_SRC, drProxy.REDIRECT_PROXY_ACTION + "." + drProxy.REDIRECT_PROXY_METHOD.Split(',')[0], sParam.ToArray(), cloudId);
-                //context.Response.Write(retCloud.ToString());
+                var retCloud = cloud.CallDirect(drProxy.REDIRECT_SRC, drProxy.REDIRECT_PROXY_ACTION + "." + drProxy.REDIRECT_PROXY_METHOD.Split(',')[0], sParam.ToArray(), cloudId);                
                 var outputString = "{";
-                outputString += "method:\"" + drProxy.PROXY_METHOD + "\",";
-                //outputString += "tid:\"" + drProxy.PROXY_METHOD + "\",";
+                outputString += "method:\"" + drProxy.PROXY_METHOD + "\",";                
                 outputString += "action:\"" + drProxy.PROXY_ACTION + "\",";
                 outputString += "result:" + retCloud.ToString();
                 outputString += "}";
@@ -262,13 +269,9 @@ namespace LKWebTemplate
                 }
                 */
 
-            }
-            /*
-            
-            return;
-            */
+            }            
             #endregion
-            var ret = rpc.ExecuteRPCJObject(context.Request, bodyContent, context);
+            var ret = rpc.ExecuteRPCJObject(directRequest, bodyContent, context);
             if (ret["MUTIL_ACTION"] != null)
             {
                 context.Response.Write(ret["MUTIL_ACTION"].ToString());

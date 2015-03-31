@@ -27,7 +27,6 @@ namespace LK.DB
         public ADataBaseConnection(IDataBaseConfigInfo batabaseConfigInfo) {
             _dataBaseConfigInfo = batabaseConfigInfo;
         }
-
         public string getDataBaseName(){
             return _DataBaseName_;
         }
@@ -83,7 +82,6 @@ namespace LK.DB
             }
         }
         #endregion
-
         #region setDataBase
         /// <summary>
         /// 初始化資料庫的連線物件
@@ -98,7 +96,6 @@ namespace LK.DB
                 {
                     throw new Exception("沒有設置正確的DataBaseConfig物件!");
                 }
-
                 if (_dataBaseConfigInfo.GetDBType(dbName).ToUpper().IndexOf("ORACLE") >= 0)
                 {
                     /*是oracle資料庫*/
@@ -126,7 +123,6 @@ namespace LK.DB
                     throw new NotImplementedException("未實作LiteSQL的DataBaseConnection");
                     //ret = getLiteSQLConnection(_dataBaseConfigInfo.GetDB(dbName));
                 }
-
                 string whereType = _dataBaseConfigInfo.GetWhere(dbName);
                 string connectionString = "";
                 /*按whereType的字段來決定如何產生"連線字符串"*/
@@ -179,7 +175,6 @@ namespace LK.DB
                 {
                     throw new Exception("沒有設置正確的DataBaseConfig物件!");
                 }
-
                 if (_dataBaseConfigInfo.GetDBType(dbName).ToUpper().IndexOf("ORACLE") >= 0)
                 {
                     /*是oracle資料庫*/
@@ -207,7 +202,6 @@ namespace LK.DB
                     return DataBaseType.LiteSql;
                     //ret = getLiteSQLConnection(_dataBaseConfigInfo.GetDB(dbName));
                 }
-
                 throw new Exception("getDataBaseType出現未知的錯誤!");
             }
             catch (Exception ex)
@@ -216,7 +210,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public string getConnectionUser(string dbName)
         {
             try
@@ -227,7 +220,6 @@ namespace LK.DB
                 {
                     throw new Exception("沒有設置正確的DataBaseConfig物件!");
                 }
-
                 if (_dataBaseConfigInfo.GetDBType(dbName).ToUpper().IndexOf("ORACLE") >= 0)
                 {
                     /*是oracle資料庫*/
@@ -255,7 +247,6 @@ namespace LK.DB
                     throw new NotImplementedException("未實作LiteSQL的DataBaseConnection");
                     //ret = getLiteSQLConnection(_dataBaseConfigInfo.GetDB(dbName));
                 }
-
                 string whereType = _dataBaseConfigInfo.GetWhere(dbName);
                 string connectionString = "";
                 /*按whereType的字段來決定如何產生"連線字符串"*/
@@ -280,9 +271,7 @@ namespace LK.DB
                 else
                 {
                     connectionString = _dataBaseConfigInfo.GetDB(dbName);
-                }
-
-                
+                }                
                 if (getDataBaseType(dbName) == DataBaseType.MySql) {
                     var arrCon = connectionString.Split(';');
                     for (var i = 0; i < arrCon.Length; i++) {
@@ -290,8 +279,7 @@ namespace LK.DB
                         {
                             return arrCon[i].Split('=')[1];
                         }
-                    }
-                    
+                    }                    
                 }
                 else if (getDataBaseType(dbName) == DataBaseType.Oracle)
                 {
@@ -314,13 +302,8 @@ namespace LK.DB
                             return arrCon[i].Split('=')[1];
                         }
                     }
-                }
-                
-                    throw new Exception("getConnectionUser 未實作");
-                
-                
-                //ret.ConnectionString = connectionString.Trim();
-                //_dbconnection_ = ret;
+                }               
+                throw new Exception("getConnectionUser 未實作");
             }
             catch (Exception ex)
             {
@@ -467,10 +450,8 @@ namespace LK.DB
             return _dbconnection_;            
         }
         public IDbDataParameter getDataParameter(LK.DB.SQLCreater.ISQLCreater pSqlCreater, string pName,object pValue,ParameterDirection pdirection) {
-
             try
-            {
-                
+            {                
                 var param = _factory.CreateParameter();
                 param.ParameterName = pName;
                 param.Value = pValue;
@@ -483,13 +464,11 @@ namespace LK.DB
                 throw ex;
             }
         }
-		
 		public IDbDataParameter getDataParameter(LK.DB.SQLCreater.ISQLCreater pSqlCreater, string pName, object pValue,System.Data.DbType dbtype, ParameterDirection pdirection)
         {
 
             try
             {
-
                 var param = _factory.CreateParameter();
                 param.ParameterName = pName;
                 param.Value = pValue;
@@ -502,8 +481,6 @@ namespace LK.DB
                 log.Error(ex);
                 throw ex;
             }
-        }
-       
-
+        }  
     }
 }

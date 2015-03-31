@@ -13,8 +13,7 @@ namespace LK.DB.SQLCreater
     /// </summary>
     public class SQLCreaterOracle:LK.DB.SQLCreater.ASQLCreater
     {
-        public new static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        
+        public new static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);        
         public override System.Data.IDataParameter justGenParameter(string name, object value, System.Data.ParameterDirection parameterDirect)
         {
             try
@@ -29,7 +28,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public override string __getParameterFlag()
         {
             return ":";
@@ -74,17 +72,14 @@ namespace LK.DB.SQLCreater
                     {
                         throw new Exception("Oracle 在執行類Lmiti的行為必須要到Order,請設定你的OrderLimit物件，利用AddOrder方法。");
                     }
-
                     for (int i = 0; i < orderLimit.getOrderColumn().Count; i++)
                     {
                         orderByString += " " + orderLimit.getOrderColumn()[i] + " " + orderLimit.getOrderMethod()[i] + ",";
                     }
-
                     if (orderByString.EndsWith(","))
                     {
                         orderByString = orderByString.Substring(0, orderByString.Length - 1);
                     }
-
                     string newSQL = "SELECT  * FROM (SELECT limitTableA.*,ROWNUM RowNumNo FROM (";
                     newSQL += SQL ;
                     newSQL += " "+orderByString +" ";
@@ -127,7 +122,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public override string __ExecuteProcedureAndReturnSQL(string procedureName)
         {
             try
@@ -140,7 +134,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         /// <summary>
         /// 【注意】底層程式使用；請不要直接使用
         /// </summary>
@@ -169,7 +162,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public override IDbDataParameter createDbParameter(System.Data.IDbDataParameter param, ParameterDirection pdirection)
         {
             try

@@ -56,14 +56,14 @@ namespace ExtDirect.Direct
             return resNew;
         }
 
-        public JObject ExecuteFormJObject(HttpRequest httpRequest)
+        public JObject ExecuteFormJObject(ExtDirect.Direct.Request httpRequest)
         {
             int i = 0;
             var responseForm = new Request
             {
-                action = httpRequest["extAction"],
-                method = httpRequest["extMethod"],
-                tid = Convert.ToInt32(httpRequest["extTID"])
+                action = httpRequest.HttpRequest["extAction"],
+                method = httpRequest.HttpRequest["extMethod"],
+                tid = Convert.ToInt32(httpRequest.HttpRequest["extTID"])
             };
             if (responseForm.action.IndexOf(".") > 0)
             {
@@ -83,7 +83,7 @@ namespace ExtDirect.Direct
                 }
                 else
                 {
-                    parmList[i] = httpRequest[parm.Name];
+                    parmList[i] = httpRequest.HttpRequest[parm.Name];
                     i++;
                 }
             }

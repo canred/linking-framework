@@ -10,7 +10,6 @@ using LK.DB.SQLCreater;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-
 using LKWebTemplate.Model.Basic;
 using LKWebTemplate.Model.Basic.Table;
 using LKWebTemplate.Model.Basic.Table.Record;
@@ -24,7 +23,7 @@ using System.Diagnostics;
 [DirectService("AttendantAction")]
 public class AttendantAction : BaseAction
 {
-    [DirectMethod("getUserName", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("getUserName", DirectAction.Load)]
     public JObject getUserName(string pUuid, Request request)
     {
         #region Declare
@@ -56,7 +55,7 @@ public class AttendantAction : BaseAction
         }
     }
 
-    [DirectMethod("load", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("load", DirectAction.Store)]
     public JObject load(string company_uuid, string keyword, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
@@ -99,7 +98,7 @@ public class AttendantAction : BaseAction
     }
 
 
-    [DirectMethod("loadAnyWhere", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("loadAnyWhere", DirectAction.Store)]
     public JObject loadAnyWhere(string company_uuid, string keyword, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
@@ -110,7 +109,6 @@ public class AttendantAction : BaseAction
         #endregion
         try
         {
-
             /*是Store操作一下就可能含有分頁資訊。*/
             if (LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().WhereAnyChangeAccount)
             {
@@ -139,13 +137,12 @@ public class AttendantAction : BaseAction
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
-    [DirectMethod("info", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("info", DirectAction.Load)]
     public JObject info(string pUuid, Request request)
     {
         #region Declare
         BasicModel model = new BasicModel();
         #endregion
-
         try
         {  /*Cloud身份檢查*/
             checkUser(request.HttpRequest);
@@ -172,7 +169,7 @@ public class AttendantAction : BaseAction
         }
     }
 
-    [DirectMethod("submit", DirectAction.FormSubmission, MethodVisibility.Visible)]
+    [DirectMethod("submit", DirectAction.FormSubmission)]
     public JObject submit(string uuid,
 string create_date,
 string update_date,
@@ -198,10 +195,8 @@ string is_direct,
 string grade,
 string id,
 string src_uuid,
-string is_default_pass, HttpRequest request)
+string is_default_pass, Request request)
     {
-
-
         #region Declare
         var action = SubmitAction.None;
         BasicModel model = new BasicModel();
@@ -209,7 +204,7 @@ string is_default_pass, HttpRequest request)
         #endregion
         try
         {  /*Cloud身份檢查*/
-            checkUser(request);
+            checkUser(request.HttpRequest);
             if (this.getUser() == null)
             {
                 throw new Exception("Identity authentication failed.");
@@ -217,11 +212,7 @@ string is_default_pass, HttpRequest request)
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
                 throw new Exception("Permission Denied!");
-            };
-            /*
-             * 所有Form的動作最終是使用Submit的方式將資料傳出；
-             * 必須有一個特徵來判斷使用者，執行的動作；
-             */
+            };           
             if (uuid.Trim().Length > 0)
             {
                 action = SubmitAction.Edit;
@@ -237,7 +228,6 @@ string is_default_pass, HttpRequest request)
             record.BIRTHDAY = null;
             record.C_NAME = c_name;
             record.CODE_PAGE = code_page;
-
             record.COMPANY_UUID = getUser().COMPANY_UUID;
             record.DEPARTMENT_UUID = department_uuid;
             record.E_NAME = e_name;
@@ -254,10 +244,8 @@ string is_default_pass, HttpRequest request)
             record.PHONE = phone;
             record.CODE_PAGE = "TW";
             record.SITE_UUID = null;
-
             record.IS_ACTIVE = is_active;
             record.UPDATE_DATE = DateTime.Now;
-
             if (action == SubmitAction.Edit)
             {
                 record.gotoTable().Update_Empty2Null(record);
@@ -267,7 +255,6 @@ string is_default_pass, HttpRequest request)
                 record.gotoTable().Insert(record);
                 uuid = record.UUID;
             }
-
             System.Collections.Hashtable otherParam = new System.Collections.Hashtable();
             otherParam.Add("UUID", record.UUID);
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject(otherParam);

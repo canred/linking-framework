@@ -18,12 +18,8 @@ namespace LK.DB
         private ASQLCreater _sqlCreater_ = null;
         private IDataBaseConfigInfo thisDataBaseConfigInfo = null;
         public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        
-        //private string _where = "";
         List<object> _parameter_ = new List<object>();
-
-        SQLCondition _sqlCondition_ = null;
-       
+        SQLCondition _sqlCondition_ = null;       
         private object ParserVale(object value, Type convertsionType) {
             if (convertsionType.IsGenericType && convertsionType.GetGenericTypeDefinition().Equals(typeof(Nullable<>))) {
                 if (value == null || value.ToString().Length == 0) {
@@ -34,13 +30,11 @@ namespace LK.DB
             }
             return Convert.ChangeType(value, convertsionType);
         }
-
         public void setDataBaseConfigInfo(IDataBaseConfigInfo config){
             try
             {
                 var classType = this.GetType().GetCustomAttributes(typeof(LkDataBase), true);
                 var dataBaseName = ((LK.Attribute.LkDataBase)(classType[0])).getDataBase().ToUpper();
-
                 if (config.GetDBType(dataBaseName).ToUpper() == "ORACLE")
                 {
                     _sqlCreater_ = new LK.DB.SQLCreater.SQLCreaterOracle();
@@ -52,7 +46,6 @@ namespace LK.DB
                 else
                 {
                     _sqlCreater_ = new LK.DB.SQLCreater.SQLCreaterMySQL();
-                    //throw new NotImplementedException("未實作" + config.GetDBType().ToString() + "的SQLCreater");
                 }
                 this.thisDataBaseConfigInfo = config;
             }
@@ -67,8 +60,6 @@ namespace LK.DB
             {
                 var classType = this.GetType().GetCustomAttributes(typeof(LkDataBase), true);
                 var dbType = ((LK.Attribute.LkDataBase)(classType[0])).getDataBase().ToUpper();
-
-                //var dbType = config.GetDBType(db).ToUpper();
                 if (dbType == "ORACLE")
                 {
                     _sqlCreater_ = new LK.DB.SQLCreater.SQLCreaterOracle();
@@ -92,18 +83,15 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public System.Data.IDataParameter justGenParameter(string name, object value, System.Data.ParameterDirection parameterDirect )
         {
             try
             {
                 var classType = this.GetType().GetCustomAttributes(typeof(LkDataBase), true);
                 var dataBaseName = ((LK.Attribute.LkDataBase)(classType[0])).getDataBase().ToUpper();
-
                 if (thisDataBaseConfigInfo == null) {
                     throw new NotImplementedException("未實作DataBaseConfigInfo為空");
                 }
-
                 if (thisDataBaseConfigInfo.GetDBType(dataBaseName).ToUpper() == "ORACLE")
                 {
                     _sqlCreater_ = new LK.DB.SQLCreater.SQLCreaterOracle();
@@ -120,7 +108,6 @@ namespace LK.DB
                 {
                     throw new NotImplementedException("未實作" + thisDataBaseConfigInfo.GetDBType().ToString() + "的SQLCreater");
                 }
-
                 return _sqlCreater_.justGenParameter(name, value,parameterDirect);
             }
             catch (Exception ex)
@@ -129,15 +116,12 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public TableBase(IDataBaseConfigInfo config)
         {
             try
             {
                 var classType = this.GetType().GetCustomAttributes(typeof(LkDataBase), true);
                 var dataBaseName = ((LK.Attribute.LkDataBase)(classType[0])).getDataBase().ToUpper();
-
-
                 if (config.GetDBType(dataBaseName).ToUpper() == "ORACLE")
                 {
                     _sqlCreater_ = new LK.DB.SQLCreater.SQLCreaterOracle();
@@ -161,8 +145,7 @@ namespace LK.DB
                 log.Error(ex);
                 throw ex;
             }
-        }
-        
+        }        
         public void setSQLCreater(ASQLCreater sc) {
             try
             {
@@ -186,7 +169,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         private void setInit(object modelObj) {
             try
             {
@@ -201,8 +183,6 @@ namespace LK.DB
                     obj.setDataBase(dbName);
                     _connection = obj;
                     _sqlCondition_ = new SQLCondition(this);
-
-
                     if (_sqlCreater_ == null)
                     {
                         var config = LK.Config.DataBase.Factory.getInfo();
@@ -221,8 +201,7 @@ namespace LK.DB
                         else
                         {
                             throw new NotImplementedException("未實作" + config.GetDBType().ToString() + "的SQLCreater");
-                        }
-                        
+                        }                        
                     }
                 }
                 else
@@ -236,11 +215,8 @@ namespace LK.DB
                 throw ex;
             }
         }
-
-        public TableBase() { 
-        
+        public TableBase() {         
         }
-
         public System.Data.DataTable RunSpReturnTable(string spName, System.Data.IDataParameter[] pParams)
         {
             try
@@ -255,7 +231,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public System.Data.DataTable[] RunSpReturnTables(string spName, System.Data.IDataParameter[] pParams)
         {
             try
@@ -270,19 +245,16 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public System.Data.IDataParameter getParameter(string pName, object value, System.Data.ParameterDirection pType)
         {
             DB db = new DB(this);
             return db.getParameter(pName, value, pType);
-        }
-		
+        }		
 		public System.Data.IDataParameter getParameter(string pName, object value,System.Data.DbType dbtype, System.Data.ParameterDirection pType)
         {
             DB db = new DB(this);
             return db.getParameter(pName, value,dbtype, pType);
-        }
-		
+        }		
         public TableBase From<T>(iTable a)
         where T : iTable, new()
         {
@@ -297,7 +269,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public TableBase Select(string col)
         {
 
@@ -312,10 +283,8 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public TableBase Count(string col)
         {
-
             try
             {                
                 return this;
@@ -326,7 +295,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public TableBase SelectAll()
         {
             try
@@ -339,7 +307,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public TableBase Where(string whereStr)
         {
             try
@@ -352,7 +319,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public TableBase Where(SQLCondition condition)
         {
             try
@@ -366,7 +332,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public TableBase SetUpdate(SQLUpdate sqlupdate) 
         {
             try
@@ -383,12 +348,10 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public TableBase SetDelete(SQLDelete sqldelete)
         {
             try
             {
-                //_sqlCreater_.Where(condition);
                 _sqlCreater_.SetDelete(sqldelete);
                 return this;
             }
@@ -397,8 +360,7 @@ namespace LK.DB
                 log.Error(ex);
                 throw ex;
             }
-        }
-      
+        }      
         public TableBase On(SQLCondition condition)
         {
             try
@@ -411,7 +373,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public TableBase In(string col, TableBase condition)
         {
             try
@@ -424,7 +385,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public TableBase Order(string strOrder)
         {
             try
@@ -438,16 +398,13 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public TableBase Order(OrderLimit limit)
         {
             try
             {
-
                 if (limit == null) {
                     return this;
                 }
-
                 if (limit.getOrderColumn().Count > 0 && limit.getOrderMethod().Count()>0) {
                     int i = 0;
                     for (i = 0; i < limit.getOrderMethod().Count(); i++) {
@@ -458,12 +415,9 @@ namespace LK.DB
                         else if (LK.DB.SQLCreater.OrderLimit.OrderMethod.DESC == limit.getOrderMethod()[i])
                         {
                             _sqlCreater_.OrderDESC(limit.getOrderColumn()[i]);
-                        }
-
-                        
+                        }                        
                     }                   
-                }
-                
+                }                
                 return this;
             }
             catch (Exception ex)
@@ -511,20 +465,7 @@ namespace LK.DB
                 log.Error(ex);
                 throw ex;
             }
-        }
-        //public TableBase Limit(decimal? startCount, decimal? fetchCount)
-        //{
-        //    try
-        //    {
-        //        _sqlCreater_.Limit(startCount, fetchCount);
-        //        return this;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        log.Error(ex);
-        //        throw ex;
-        //    }
-        //}
+        }       
         public TableBase Limit(OrderLimit limit)
         {
             try
@@ -533,11 +474,8 @@ namespace LK.DB
                 {
                     if (limit.Start != null && limit.Limit != null)
                     {
-
                         _sqlCreater_.Limit(limit);
-
-                    }
-                   
+                    }                   
                 }
                 return this;
             }
@@ -819,8 +757,7 @@ namespace LK.DB
                                     throw ex;
                                 }
                                 #endregion
-                            }
-                         
+                            }                         
                         }
                     }
                     ret.Add(dataItem);
@@ -833,7 +770,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public T FetchOne<T>()
              where T : RecordBase, new() {
                  try
@@ -844,7 +780,6 @@ namespace LK.DB
                      return null;
                  }
         }
-
         public T FetchOne<T>(DB db)
              where T : RecordBase, new()
         {
@@ -857,8 +792,6 @@ namespace LK.DB
                 return null;
             }
         }
-
-
         public IList<T> FetchAll<T>()
             where T: RecordBase , new()
         {
@@ -866,8 +799,7 @@ namespace LK.DB
             {
                 DB db = new DB(this);
                 try
-                {
-                  
+                {                  
                     db.CommandText = _sqlCreater_.FetchAllSQL();
                     db.addParameter(_sqlCreater_.PARAMETER());
                     var data = db.FillDataTable("Data");
@@ -887,16 +819,12 @@ namespace LK.DB
                 log.Error(ex);
                 throw ex;
             }
-        }
-
-        
-
+        }     
         public IList<T> FetchAll<T>(DB db)
             where T : RecordBase, new()
         {
             try
-            {
-                
+            {                
                 try
                 {
                     db.CommandText = _sqlCreater_.FetchAllSQL();
@@ -910,7 +838,7 @@ namespace LK.DB
                 }
                 finally
                 {
-                    
+                    db = null;
                 }
             }
             catch (Exception ex)
@@ -949,7 +877,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public int FetchCount()
         {
             try
@@ -960,8 +887,7 @@ namespace LK.DB
                     db.CommandText = _sqlCreater_.FetchCountSQL();
                     db.addParameter(_sqlCreater_.PARAMETER());
                     var data = db.FillDataTable("Data");
-                    return System.Convert.ToInt32(data.Rows[0][0].ToString());
-                    
+                    return System.Convert.ToInt32(data.Rows[0][0].ToString());                    
                 }
                 catch (Exception ex)
                 {
@@ -978,7 +904,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public int FetchCount(DB db)
         {
             try
@@ -989,7 +914,6 @@ namespace LK.DB
                     db.addParameter(_sqlCreater_.PARAMETER());
                     var data = db.FillDataTable("Data");
                     return System.Convert.ToInt32(data.Rows[0][0].ToString());
-
                 }
                 catch (Exception ex)
                 {
@@ -1002,7 +926,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         private object getPropValue(RecordBase rb,string name) {
             try
             {
@@ -1012,8 +935,7 @@ namespace LK.DB
                 {
                     return null;
                 }
-                ret = info.GetValue(rb, null);
-                
+                ret = info.GetValue(rb, null);                
                 return ret;
             }
             catch (Exception ex)
@@ -1021,7 +943,6 @@ namespace LK.DB
                 log.Error(ex);
                 throw ex;
             }
-
         }
         /// <summary>
         /// 執行UPDATE(完全更新)
@@ -1037,16 +958,13 @@ namespace LK.DB
                 foreach (var pk in pks)
                 {
                     /*在物件抓出PK的值*/
-                    object value = getPropValue(oneData, pk.Name);
-
-                    
+                    object value = getPropValue(oneData, pk.Name);                    
                     condition.Equal(
                                     pk.Name,
                                     ParserVale(value, pk.ColumnType)
                                     ).And();
                 }
                 /*檢查SQL語句*/
-
                 condition.CheckSQL();                
                 if (_sqlCreater_ == null)
                 {
@@ -1067,8 +985,6 @@ namespace LK.DB
                 throw ex;
             }    
         }
-
-
         public void Update(RecordBase oneData,DB db)
         {
             try
@@ -1081,15 +997,12 @@ namespace LK.DB
                 {
                     /*在物件抓出PK的值*/
                     object value = getPropValue(oneData, pk.Name);
-
-
                     condition.Equal(
                                     pk.Name,
                                     ParserVale(value, pk.ColumnType)
                                     ).And();
                 }
                 /*檢查SQL語句*/
-
                 condition.CheckSQL();
                 if (_sqlCreater_ == null)
                 {
@@ -1100,8 +1013,7 @@ namespace LK.DB
                 _sqlCreater_.isComplete = ASQLCreater.SQLComplete.Complete;
                 db.CommandText = _sqlCreater_.Update(oneData).Where(condition).SQL();
                 db.addParameter(_sqlCreater_.PARAMETER());
-                db.ExecuteNonQuery(db);
-                
+                db.ExecuteNonQuery(db);                
             }
             catch (Exception ex)
             {
@@ -1125,15 +1037,12 @@ namespace LK.DB
                 {
                     /*在物件抓出PK的值*/
                     object value = getPropValue(oneData, pk.Name);
-
-
                     condition.Equal(
                                     pk.Name,
                                     ParserVale(value, pk.ColumnType)
                                     ).And();
                 }
                 /*檢查SQL語句*/
-
                 condition.CheckSQL();
                 if (_sqlCreater_ == null)
                 {
@@ -1154,8 +1063,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
-
         public void Update_Empty2Null(RecordBase oneData, LK.DB.DB db)
         {
             try
@@ -1179,13 +1086,11 @@ namespace LK.DB
                 {
                     setInit(this);
                 }
-                //DB db = new DB(this);
                 db.removeAllParameter();
                 _sqlCreater_.removeSelfParameter();
                 db.CommandText = _sqlCreater_.Update_Empty2Null(oneData).Where(condition).SQL();
                 db.addParameter(_sqlCreater_.PARAMETER());
                 db.ExecuteNonQuery(db);
-                //db = null;
             }
             catch (Exception ex)
             {
@@ -1205,15 +1110,12 @@ namespace LK.DB
                 {
                     /*在物件抓出PK的值*/
                     object value = getPropValue(oneData, pk.Name);
-
-
                     condition.Equal(
                                     pk.Name,
                                     ParserVale(value, pk.ColumnType)
                                     ).And();
                 }
                 /*檢查SQL語句*/
-
                 condition.CheckSQL();
                 if (_sqlCreater_ == null)
                 {
@@ -1233,9 +1135,7 @@ namespace LK.DB
                 log.Error(ex);
                 throw ex;
             }
-        }
-
-        
+        }        
         public void UpdateAllRecord<T>(IList<T> pAllRecord)
         where T : RecordBase{
             try
@@ -1268,9 +1168,7 @@ where T : RecordBase
                 throw ex;
             }
         }
-
         public void Insert(RecordBase oneData) {
-
             try
             {
                 if (_sqlCreater_ == null)
@@ -1292,10 +1190,8 @@ where T : RecordBase
                 throw ex;
             }
         }
-
         public void Insert_Empty2Null(RecordBase oneData)
         {
-
             try
             {
                 if (_sqlCreater_ == null)
@@ -1317,40 +1213,35 @@ where T : RecordBase
                 throw ex;
             }
         }
-
         public void Insert_Empty2Null(RecordBase oneData, DB db)
         {
-
             try
             {
                 if (_sqlCreater_ == null)
                 {
                     setInit(this);
-                }
-                
+                }                
                 db.removeAllParameter();
                 _sqlCreater_.removeSelfParameter();
                 _sqlCreater_.isComplete = ASQLCreater.SQLComplete.NULL;
                 db.CommandText = _sqlCreater_.Insert_Empty2Null(oneData).SQL();
                 db.addParameter(_sqlCreater_.PARAMETER());
-                db.ExecuteNonQuery(db);
-                
+                db.ExecuteNonQuery(db);                
             }
             catch (Exception ex)
             {
                 log.Error(ex);
                 throw ex;
             }
-        }        public void Insert(RecordBase oneData,DB db)
+        }        
+        public void Insert(RecordBase oneData,DB db)
         {
-
             try
             {
                 if (_sqlCreater_ == null)
                 {
                     setInit(this);
                 }
-
                 db.removeAllParameter();
                 _sqlCreater_.removeSelfParameter();
                 db.CommandText = _sqlCreater_.Insert(oneData).SQL();
@@ -1361,10 +1252,8 @@ where T : RecordBase
             {
                 log.Error(ex);
                 throw ex;
-            }
-           
+            }           
         }
-
         public void InsertAllRecord<T>(IList<T> pAllRecord)
 where T : RecordBase
         {
@@ -1381,7 +1270,6 @@ where T : RecordBase
                 throw ex;
             }
         }
-
         public void InsertAllRecord<T>(IList<T> pAllRecord,DB db)
 where T : RecordBase
         {
@@ -1398,7 +1286,6 @@ where T : RecordBase
                 throw ex;
             }
         }
-
         public void Delete(RecordBase oneData)
         {
             try
@@ -1438,11 +1325,9 @@ where T : RecordBase
                 throw ex;
             }
         }
-
         public enum TruncateConfirm { 
             OK,Null
         }
-
        /// <summary>
        /// Truncate Table 
        /// </summary>
@@ -1470,9 +1355,7 @@ where T : RecordBase
                 log.Error(ex);
                 throw ex;
             }
-
         }
-
         public string getTableName()
         {
             try
@@ -1490,7 +1373,6 @@ where T : RecordBase
                 throw ex;
             }
         }
-
         public void Delete(RecordBase oneData,DB db)
         {
             try
@@ -1514,22 +1396,18 @@ where T : RecordBase
                 {
                     setInit(this);
                 }
-                //DB db = new DB(this);
                 db.removeAllParameter();
                 _sqlCreater_.removeSelfParameter();
                 db.CommandText = _sqlCreater_.Delete(oneData).Where(condition).SQL();
                 db.addParameter(_sqlCreater_.PARAMETER());
                 db.ExecuteNonQuery(db);
-                //db = null;
             }
             catch (Exception ex)
             {
                 log.Error(ex);
                 throw ex;
             }
-
         }
-
         public void DeleteAllRecord<T>(IList<T> pAllRecord)
 where T : RecordBase
         {
@@ -1563,14 +1441,10 @@ where T : RecordBase
                 throw ex;
             }
         }
-
         protected void InsertByRow<TableSchema>()
             where TableSchema : System.Data.DataTable, new()
-        {
-          
+        {          
         }
-
-
         public string SQL() {
             try
             {
@@ -1605,9 +1479,7 @@ where T : RecordBase
                 log.Error(ex);
                 throw ex;
             }
-        }
-
-        
+        }        
         public void ExecuteUpdate()
         {
             try
@@ -1615,7 +1487,6 @@ where T : RecordBase
                 DB db = new DB(this);
                 try
                 {
-
                     db.CommandText = _sqlCreater_.UpdateSQL();
                     db.addParameter(_sqlCreater_.PARAMETER());
                     db.ExecuteNonQuery();                    
@@ -1635,7 +1506,6 @@ where T : RecordBase
                 throw ex;
             }
         }
-
         public void ExecuteUpdate(DB Db)
         {
             try
@@ -1643,7 +1513,6 @@ where T : RecordBase
                 DB db = new DB(this);
                 try
                 {
-
                     db.CommandText = _sqlCreater_.FetchAllSQL();
                     db.addParameter(_sqlCreater_.PARAMETER());
                     db.ExecuteNonQuery(Db);
@@ -1663,8 +1532,6 @@ where T : RecordBase
                 throw ex;
             }
         }
-
-
         public void ExecuteDelete()
         {
             try
@@ -1672,7 +1539,6 @@ where T : RecordBase
                 DB db = new DB(this);
                 try
                 {
-
                     db.CommandText = _sqlCreater_.DeleteSQL();
                     db.addParameter(_sqlCreater_.PARAMETER());
                     db.ExecuteNonQuery();
@@ -1692,7 +1558,6 @@ where T : RecordBase
                 throw ex;
             }
         }
-
         public void ExecuteDelete(DB Db)
         {
             try
@@ -1700,7 +1565,6 @@ where T : RecordBase
                 DB db = new DB(this);
                 try
                 {
-
                     db.CommandText = _sqlCreater_.FetchAllSQL();
                     db.addParameter(_sqlCreater_.PARAMETER());
                     db.ExecuteNonQuery(Db);
@@ -1720,7 +1584,6 @@ where T : RecordBase
                 throw ex;
             }
         }
-
         public void ExecuteInsert()
         {
             try
@@ -1728,7 +1591,6 @@ where T : RecordBase
                 DB db = new DB(this);
                 try
                 {
-
                     db.CommandText = _sqlCreater_.FetchAllSQL();
                     db.addParameter(_sqlCreater_.PARAMETER());
                     db.ExecuteNonQuery();
@@ -1748,7 +1610,6 @@ where T : RecordBase
                 throw ex;
             }
         }
-
         public void ExecuteInsert(DB Db)
         {
             try
@@ -1756,7 +1617,6 @@ where T : RecordBase
                 DB db = new DB(this);
                 try
                 {
-
                     db.CommandText = _sqlCreater_.FetchAllSQL();
                     db.addParameter(_sqlCreater_.PARAMETER());
                     db.ExecuteNonQuery(Db);
@@ -1777,7 +1637,5 @@ where T : RecordBase
             }
         }
     }
-
-
     #endregion
 }

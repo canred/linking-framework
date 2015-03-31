@@ -7,7 +7,6 @@ using LK.DB;
 using LK.Config.DataBase;
 using LK.DB.SQLCreater;
 using LK.MyException.Table.Record;
-
 namespace LK.MyException.Table
 {
     [LkDataBase("MyException")]
@@ -158,6 +157,5 @@ namespace LK.MyException.Table
 				throw ex;
 			}
 		}
-		/*依照資料表與資料表的關係，產生出來的方法*/
 	}
 }

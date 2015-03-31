@@ -8,18 +8,13 @@ using log4net;
 using System.Reflection;
 namespace LK.Config
 {
-    /// <summary>
-    /// SerializationHelper 的摘要说明。
-    /// </summary>
     public class SerializationHelper
     {
         public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly Dictionary<int, XmlSerializer> SerializerDict = new Dictionary<int, XmlSerializer>();
-
         private SerializationHelper()
         {
         }
-
         public static XmlSerializer GetSerializer(Type t)
         {
             try
@@ -37,14 +32,6 @@ namespace LK.Config
                 throw ex;
             }
         }
-
-
-        /// <summary>
-        /// 反序列化
-        /// </summary>
-        /// <param name="type">对象类型</param>
-        /// <param name="filename">文件路径</param>
-        /// <returns></returns>
         public static object Load(Type type, string filename)
         {
             try
@@ -52,7 +39,6 @@ namespace LK.Config
                 FileStream fs = null;
                 try
                 {
-                    // open the stream...
                     fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                     var serializer = new XmlSerializer(type);
                     return serializer.Deserialize(fs);
@@ -73,20 +59,12 @@ namespace LK.Config
                 throw ex;
             }
         }
-
-
-        /// <summary>
-        /// 序列化
-        /// </summary>
-        /// <param name="obj">对象</param>
-        /// <param name="filename">文件路径</param>
         public static bool Save(object obj, string filename)
         {
             try
             {
                 bool success = false;
                 FileStream fs = null;
-                // serialize it...
                 try
                 {
                     fs = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
@@ -111,12 +89,6 @@ namespace LK.Config
                 throw ex;
             }
         }
-
-        /// <summary>
-        /// xml序列化成字符串
-        /// </summary>
-        /// <param name="obj">对象</param>
-        /// <returns>xml字符串</returns>
         public static string Serialize(object obj)
         {
             try
@@ -155,7 +127,6 @@ namespace LK.Config
                 throw ex;
             }
         }
-
         public static object DeSerialize(Type type, string s)
         {
             try

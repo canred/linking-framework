@@ -10,7 +10,6 @@ using LK.DB.SQLCreater;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-
 using LKWebTemplate.Model.Basic;
 using LKWebTemplate.Model.Basic.Table;
 using LKWebTemplate.Model.Basic.Table.Record;
@@ -20,11 +19,10 @@ using LK.Util;
 using System.Data;
 using System.Diagnostics;
 #endregion
-
 [DirectService("CompanyAction")]
 public class CompanyAction : BaseAction
 {
-    [DirectMethod("getCompany", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("getCompany", DirectAction.Store)]
     public JObject getCompany(string basic_company_uuid, Request request)
     {
         #region Declare
@@ -46,7 +44,6 @@ public class CompanyAction : BaseAction
             var totalCount = 1;
             /*取得資料*/
             var data = model.getCompany_By_Uuid(basic_company_uuid);
-            //var data = model.getGhgProjectCompany(basic_company_uuid, is_active, orderLimit);
             if (data.AllRecord().Count > 0)
             {
                 /*將List<RecordBase>變成JSON字符串*/
@@ -67,7 +64,7 @@ public class CompanyAction : BaseAction
         }
     }
 
-    [DirectMethod("getAllCompany", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("getAllCompany", DirectAction.Store)]
     public JObject getAllCompany(string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
@@ -76,17 +73,12 @@ public class CompanyAction : BaseAction
         #endregion
         try
         {
-
             if (LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().WhereAnyChangeAccount)
             {
-
-
                 /*取得總資料數*/
                 var totalCount = 1;
                 /*取得資料*/
                 var data = model.getCompany();
-
-                //var data = model.getGhgProjectCompany(basic_company_uuid, is_active, orderLimit);
                 if (data.Count > 0)
                 {
                     /*將List<RecordBase>變成JSON字符串*/

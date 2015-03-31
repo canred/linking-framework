@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 namespace LK.DB
 {
     public abstract class iTable
@@ -17,7 +16,6 @@ namespace LK.DB
             New,
             Update
         }
-        //public Status Stats = Status.Defined;
         public CurrentDataStats DataStatus = CurrentDataStats.Defined;
     }
 }

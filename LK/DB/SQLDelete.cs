@@ -58,21 +58,7 @@ namespace LK.DB
                 if (disposing)
                 {
                     try
-                    {
-                        //if (_dbconnection_ != null)
-                        //{
-                        //    try
-                        //    {
-                        //        _dataBaseConfigInfo = null;
-                        //        _dbconnection_.Close();
-                        //        _dbconnection_.Dispose();
-                        //    }
-                        //    catch (Exception ex)
-                        //    {
-                        //        throw ex;
-                        //    }
-                        //}
-                    }
+                    {}
                     catch (Exception e)
                     {
                         throw e;
@@ -103,7 +89,6 @@ namespace LK.DB
                 {
                     isCase_Sensitive = false;
                 }
-
                 var attrs = modelObj.GetType().GetCustomAttributes(typeof(LK.Attribute.LkDataBase), false);
                 string dbName = null;
                 if (attrs.Length == 1)
@@ -114,8 +99,6 @@ namespace LK.DB
                 {
                     throw new Exception("你的物件內並沒有DataBase關閉的Attribute!");
                 }
-
-                //ret.GetDBType(
                 dbType = ret.GetDBType(dbName);
                 var attrs2 = modelObj.GetType().GetCustomAttributes(typeof(TableView), false);
                 if (attrs2.Length == 1)
@@ -137,29 +120,20 @@ namespace LK.DB
         {
             return _TABLE_;
         }
-        
-
-
         public virtual SQLDelete Where(SQLCondition condition)
         {
             try
             {
-
                 if (CSQL.EndsWith(",")) {
                     CSQL = CSQL.Substring(0, CSQL.Length - 1);
                 }
-
                 if (condition.PARAMETER().Count() > 0 && CSQL.Trim().StartsWith("WHERE") == false)
                     {
                         CSQL += " WHERE ";
                     }
                     this.CSQL += condition.SQL();
-
-                    //_parameter.Add(condition.PARAMETER());
                     _parameter.AddRange(condition.PARAMETER());
                     return this;
-                
-                
             }
             catch (Exception ex)
             {

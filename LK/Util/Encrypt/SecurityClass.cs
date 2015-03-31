@@ -8,27 +8,18 @@ namespace LK.Util.Security
 {
     internal class SecurityClass
     {
-        public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        
+        public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);        
         #region CryptoEnum enum
-
         public enum CryptoEnum
         {
             DES = 0, //DES演算法
             RC2 = 1, //RC2 演算法
             Rijndael = 2 //Rijndael 演算法
         }
-
         #endregion
-
         private readonly SymmetricAlgorithm mobjCryptoService;
-
         internal SecurityClass(CryptoEnum CryptoType)
-        {
-            //
-            // TODO: 在此加入建構函式的程式碼
-            //
-            //指定編碼模式為標準演算法
+        {            
             try
             {
                 mobjCryptoService = new DESCryptoServiceProvider();
@@ -53,7 +44,6 @@ namespace LK.Util.Security
                 throw ex;
             }
         }
-
         private byte[] GetLegalKey(string Key)
         {
             try
@@ -81,9 +71,9 @@ namespace LK.Util.Security
                     }
                     sTemp = Key.PadRight(moreSize / 8, ' ');
                 }
-                else
+                else{
                     sTemp = Key;
-
+                }
                 //將key值轉成byte array
                 return Encoding.ASCII.GetBytes(sTemp);
             }
@@ -93,7 +83,6 @@ namespace LK.Util.Security
                 throw ex;
             }
         }
-
         internal string Encrypting(string Source, string Key)
         {
             try
@@ -101,22 +90,16 @@ namespace LK.Util.Security
                 byte[] bytIn = Encoding.ASCII.GetBytes(Source);
                 // 建立 MemoryStream 這樣就不用File去紀錄
                 var ms = new MemoryStream();
-
                 byte[] bytKey = GetLegalKey(Key);
-
                 // 設定Key值
                 mobjCryptoService.Key = bytKey;
                 mobjCryptoService.IV = bytKey;
-
                 // 建立Encryptor Provider
                 ICryptoTransform encrypto = mobjCryptoService.CreateEncryptor();
-
                 var cs = new CryptoStream(ms, encrypto, CryptoStreamMode.Write);
-
                 // 將加密過的內容寫入 MemoryStream
                 cs.Write(bytIn, 0, bytIn.Length);
                 cs.FlushFinalBlock();
-
                 // 將0的byte trim掉
                 byte[] bytOut = ms.GetBuffer();
                 int i = 0;
@@ -129,8 +112,6 @@ namespace LK.Util.Security
                         break;
                     }
                 }
-
-
                 // 轉換為Base64這樣才可使用於xml
                 return Convert.ToBase64String(bytOut, 0, i);
             }
@@ -140,7 +121,6 @@ namespace LK.Util.Security
                 throw ex;
             }
         }
-
         internal string Decrypting(string Source, string Key)
         {
             try
@@ -149,24 +129,17 @@ namespace LK.Util.Security
                 {
                     return Source;
                 }
-
                 // 將 Base64 轉換成 binary
                 byte[] bytIn = Convert.FromBase64String(Source);
-
                 // 建立 MemoryStream
                 var ms = new MemoryStream(bytIn, 0, bytIn.Length);
-
                 byte[] bytKey = GetLegalKey(Key);
-
                 // 設定Key值
                 mobjCryptoService.Key = bytKey;
                 mobjCryptoService.IV = bytKey;
-
                 // 建立Decryptor Provider
                 ICryptoTransform encrypto = mobjCryptoService.CreateDecryptor();
-
                 var cs = new CryptoStream(ms, encrypto, CryptoStreamMode.Read);
-
                 // 將結果自Crypto Stream讀出
                 try
                 {
@@ -184,16 +157,15 @@ namespace LK.Util.Security
                 throw ex;
             }
         }
-
         internal bool IsBase64String(string s)
         {
             try
             {
                 try
                 {
-                    if (string.IsNullOrEmpty(s))
+                    if (string.IsNullOrEmpty(s)){
                         return false;
-
+                    }
                     Convert.FromBase64String(s);
                     return true;
                 }

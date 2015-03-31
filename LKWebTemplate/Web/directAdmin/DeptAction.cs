@@ -10,7 +10,6 @@ using LK.DB.SQLCreater;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-
 using LKWebTemplate.Model.Basic;
 using LKWebTemplate.Model.Basic.Table;
 using LKWebTemplate.Model.Basic.Table.Record;
@@ -19,18 +18,16 @@ using System.Text;
 using LK.Util;
 using System.Data;
 using System.Diagnostics;
-
 #endregion
 [DirectService("DeptAction")]
 public class DeptAction : BaseAction
 {
-    [DirectMethod("loadTree", DirectAction.TreeStore, MethodVisibility.Visible)]
+    [DirectMethod("loadTree", DirectAction.TreeStore)]
     public JObject loadTree(string parentUuid, Request request)
     {
         #region Declare
         JArray jobject = null;
         BasicModel model = new BasicModel();
-
         #endregion
         try
         {  /*Cloud身份檢查*/
@@ -46,7 +43,6 @@ public class DeptAction : BaseAction
             /*是Store操作一下就可能含有分頁資訊。*/
             /*取得資料*/
             var dtDepartment = new Department();
-
             var dataTable = model.getDepartment_By_ParentUuid(parentUuid);
             /*將List<RecordBase>變成JSON字符串*/
             dataTable.Columns.Add("leaf");
@@ -76,7 +72,7 @@ public class DeptAction : BaseAction
         }
     }
 
-    [DirectMethod("loadTreeRoot", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("loadTreeRoot", DirectAction.Store)]
     public JObject loadTreeRoot(string pCompanyUuid, Request request)
     {
         #region Declare
@@ -96,12 +92,10 @@ public class DeptAction : BaseAction
                 throw new Exception("Permission Denied!");
             };
             var data = model.getDepartment_Root_By_CompanyUuid(pCompanyUuid);
-
             if (data.Count == 1)
             {
                 jobject = JsonHelper.RecordBaseListJObject(data);
             }
-
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("Data Not Found!"));
         }
         catch (Exception ex)
@@ -111,7 +105,7 @@ public class DeptAction : BaseAction
         }
     }
 
-    [DirectMethod("info", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("info", DirectAction.Load)]
     public JObject info(string pUuid, Request request)
     {
         #region Declare
@@ -130,7 +124,6 @@ public class DeptAction : BaseAction
                 throw new Exception("Permission Denied!");
             };
             var data = model.getDepartment_By_Uuid(pUuid);
-
             if (data.AllRecord().Count == 1)
             {
                 return ExtDirect.Direct.Helper.Form.OutputJObject(JsonHelper.RecordBaseJObject(data.AllRecord().First()));
@@ -146,7 +139,7 @@ public class DeptAction : BaseAction
     }
 
 
-    [DirectMethod("submit", DirectAction.FormSubmission, MethodVisibility.Visible)]
+    [DirectMethod("submit", DirectAction.FormSubmission)]
     public JObject submit(
         string uuid,
         string is_active,
@@ -161,7 +154,7 @@ public class DeptAction : BaseAction
         string cost_center,
         string src_uuid,
         string manager_uuid,
-        string full_department_name, HttpRequest request)
+        string full_department_name, Request request)
     {
         #region Declare
         var action = SubmitAction.None;
@@ -170,7 +163,7 @@ public class DeptAction : BaseAction
         #endregion
         try
         {  /*Cloud身份檢查*/
-            checkUser(request);
+            checkUser(request.HttpRequest);
             if (this.getUser() == null)
             {
                 throw new Exception("Identity authentication failed.");
@@ -178,11 +171,7 @@ public class DeptAction : BaseAction
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
                 throw new Exception("Permission Denied!");
-            };
-            /*
-             * 所有Form的動作最終是使用Submit的方式將資料傳出；
-             * 必須有一個特徵來判斷使用者，執行的動作；
-             */
+            };            
             if (uuid.Trim().Length > 0)
             {
                 action = SubmitAction.Edit;
@@ -194,10 +183,8 @@ public class DeptAction : BaseAction
                 record.UUID = LK.Util.UID.Instance.GetUniqueID();
                 record.CREATE_DATE = DateTime.Now;
             }
-
             record.IS_ACTIVE = is_active;
             record.UPDATE_DATE = DateTime.Now;
-
             record.ID = id;
             record.C_NAME = c_name;
             record.E_NAME = e_name;
@@ -208,7 +195,6 @@ public class DeptAction : BaseAction
             record.MANAGER_ID = manager_id;
             record.MANAGER_UUID = manager_uuid;
             record.PARENT_DEPARTMENT_UUID = parent_department_uuid;
-
             if (action == SubmitAction.Edit)
             {
                 record.gotoTable().Update(record);
@@ -226,13 +212,13 @@ public class DeptAction : BaseAction
         }
     }
 
-    [DirectMethod("destroy", DirectAction.FormSubmission, MethodVisibility.Visible)]
-    public JObject destroy(string uuid, HttpRequest request)
+    [DirectMethod("destroy", DirectAction.FormSubmission)]
+    public JObject destroy(string uuid, Request request)
     {
         BasicModel modBasic = new BasicModel();
         try
         {  /*Cloud身份檢查*/
-            checkUser(request);
+            checkUser(request.HttpRequest);
             if (this.getUser() == null)
             {
                 throw new Exception("Identity authentication failed.");

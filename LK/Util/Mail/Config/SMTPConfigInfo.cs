@@ -13,10 +13,7 @@ namespace LK.Util.Mail
         public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly Timer baseConfigTimer = new Timer(15000);
         private static System.Xml.XmlDocument m_configinfo;
-        private static System.Data.DataTable m_dt;
-        /// <summary>
-        /// 靜態構造函數初始化相應實例和定時器
-        /// </summary>
+        private static System.Data.DataTable m_dt;    
         static SMTPConfigInfo()
         {
             m_dt = new System.Data.DataTable();
@@ -33,19 +30,13 @@ namespace LK.Util.Mail
                 throw ex;
             }
         }
-        /// <summary>
-        /// 重設配置類實例
-        /// </summary>
         public static void ResetConfig()
         {
-
         }
-
         public System.Xml.XmlDocument GetBaseConfig()
         {
             return m_configinfo;
         }
-
         public System.Data.DataTable GetBaseConfig_DataTable()
         {
             try
@@ -66,7 +57,6 @@ namespace LK.Util.Mail
                     foreach (XmlNode item in m_configinfo.FirstChild.NextSibling.ChildNodes)
                     {
                         var newRow = m_dt.NewRow();
-
                         if (item.Name == "DB")
                         {
                             newRow["key"] = item.Name + "->" + item.Attributes["Name"].Value;
@@ -104,18 +94,16 @@ namespace LK.Util.Mail
                 throw ex;
             }
         }
-
         public string GetTag(string actionTag, bool alwaysReLoad)
         {
             string ret_message = "";
-            m_configinfo = SMTPConfig.Init();//.changeLanguage(lan);//.LoadConfig(lan);
+            m_configinfo = SMTPConfig.Init();
             try
             {
                 if (m_dt.Rows.Count == 0 || alwaysReLoad)
                 {
                     GetBaseConfig_DataTable();
                 }
-
                 foreach (System.Data.DataRow dr in m_dt.Rows)
                 {
                     if (dr["key"].ToString().ToLower() == actionTag.ToLower())
@@ -131,7 +119,6 @@ namespace LK.Util.Mail
                 return "";
             }
         }
-
         public string GetTag(string ActionTag)
         {
             try
@@ -144,20 +131,17 @@ namespace LK.Util.Mail
                 throw ex;
             }
         }
-
         public string FromEmail {
             get {
                 return GetTag("FromEmail");
             }
         }
-
         public string IsSendMail {
             get
             {
                 return GetTag("IsSendMail");
             }
         }
-
         public string IsSendAdminMail
         {
             get
@@ -165,7 +149,6 @@ namespace LK.Util.Mail
                 return GetTag("IsSendAdminMail");
             }
         }
-
         public string AdministratorEmail
         {
             get
@@ -173,7 +156,6 @@ namespace LK.Util.Mail
                 return GetTag("AdministratorEmail");
             }
         }
-
         public string IsSendDebugMail
         {
             get
@@ -181,8 +163,6 @@ namespace LK.Util.Mail
                 return GetTag("IsSendDebugMail");
             }
         }
-
-
         public string DebugEmail
         {
             get
@@ -190,7 +170,6 @@ namespace LK.Util.Mail
                 return GetTag("DebugEmail");
             }
         }
-
         public string SMTPServerHost
         {
             get
@@ -198,8 +177,6 @@ namespace LK.Util.Mail
                 return GetTag("SMTPServerHost");
             }
         }
-
-
         public string SMTPServerPort
         {
             get
@@ -207,8 +184,6 @@ namespace LK.Util.Mail
                 return GetTag("SMTPServerPort");
             }
         }
-
-
         public string IsSend
         {
             get
@@ -216,7 +191,6 @@ namespace LK.Util.Mail
                 return GetTag("IsSend");
             }
         }
-
         public string CredentialsAccount
         {
             get
@@ -224,14 +198,12 @@ namespace LK.Util.Mail
                 return GetTag("CredentialsAccount");
             }
         }
-
         public string CredentialsPassword
         {
             get
             {
                 return GetTag("CredentialsPassword");
             }
-        }
-       
+        }       
     }
 }

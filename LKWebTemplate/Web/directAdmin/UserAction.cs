@@ -10,7 +10,6 @@ using LK.DB.SQLCreater;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-
 using LKWebTemplate.Model.Basic;
 using LKWebTemplate.Model.Basic.Table;
 using LKWebTemplate.Model.Basic.Table.Record;
@@ -26,10 +25,9 @@ using System.Diagnostics;
 public class UserAction : BaseAction
 {
 
-    [DirectMethod("ValidateCode", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("ValidateCode", DirectAction.Load)]
     public JObject ValidateCode(string code, Request request)
     {
-
         System.Collections.Hashtable hash = new System.Collections.Hashtable();
         try
         {
@@ -44,7 +42,6 @@ public class UserAction : BaseAction
                 hash.Add("validation", "ok");
                 return ExtDirect.Direct.Helper.Message.Success.OutputJObject(hash);
             }
-
             string session = ss.getObject("CheckCode").ToString();
             if (session == code)
             {
@@ -61,8 +58,8 @@ public class UserAction : BaseAction
         }
     }
 
-    [DirectMethod("logon", DirectAction.FormSubmission, MethodVisibility.Visible)]
-    public JObject logon(string company, string account, string password, HttpRequest request)
+    [DirectMethod("logon", DirectAction.FormSubmission)]
+    public JObject logon(string company, string account, string password, Request request)
     {
         try
         { /*權限檢查*/
@@ -82,35 +79,28 @@ public class UserAction : BaseAction
             {
                 drAttendantV = mBasic.getAttendantV_By_Company_Account_Password(company, account, password).ToList();
             }
-
             System.Collections.Hashtable hash = new System.Collections.Hashtable();
-
             if (drAttendantV.Count == 0)
             {
                 hash.Add("validation", "CANCEL");
                 return ExtDirect.Direct.Helper.Message.Success.OutputJObject(hash);
             }
-
             var drMenu = mBasic.getAuthorityMenuVByAttendantUuid(drAttendantV.First().UUID, LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().InitAppUuid);
-
             if (drAttendantV.Count == 0)
             {
                 hash.Add("validation", "CANCEL");
                 LK.MyException.MyException.ErrorNoThrowException(this, new Exception("UserAction->logon沒有此人員帳號存在!"));
             }
-
             if (drMenu.Count == 0)
             {
                 hash.Add("validation", "CANCEL");
                 LK.MyException.MyException.ErrorNoThrowException(this, new Exception("UserAction->logon沒有此人員帳號合適的選單存在!"));
             }
-
             if (drAttendantV.Count > 0 && drMenu.Count > 0)
             {
                 hash.Add("validation", "OK");
                 ss.setObject("CLOUD_ID", "");
                 ss.setObject("USER", drAttendantV.First());
-
                 #region 將此人員的郡組紀錄到系統暫存區中
                 var userGroup = mBasic.getGroupAttendantVByAttendantUuid(drAttendantV.First().UUID);
                 List<GroupAttendantV_Record> saveData = new List<GroupAttendantV_Record>();
@@ -159,13 +149,10 @@ public class UserAction : BaseAction
                     hash.Add("validation", "CANCEL");
                 }
             }
-
-
             if (LK.Config.Cloud.CloudConfigs.GetConfig().IsAuthCenter)
             {
                 /*本身是身份認證中心*/
                 LKWebTemplate.Controller.Model.Cloud.CloudModel cMod = new LKWebTemplate.Controller.Model.Cloud.CloudModel();
-                //cMod.getActiveConnection_By_Uuid
                 LKWebTemplate.Model.Basic.Table.Record.ActiveConnection_Record newAc = new LKWebTemplate.Model.Basic.Table.Record.ActiveConnection_Record();
                 newAc.UUID = LK.Util.UID.Instance.GetUniqueID();
                 newAc.ACCOUNT = account;
@@ -173,17 +160,13 @@ public class UserAction : BaseAction
                 newAc.COMPANY_UUID = drAttendantV.First().COMPANY_UUID;
                 newAc.STARTTIME = System.DateTime.Now;
                 newAc.EXPIRESTIME = System.DateTime.Now.AddHours(8);
-                newAc.IP = request.UserHostAddress;
+                newAc.IP = request.HttpRequest.UserHostAddress;
                 newAc.STATUS = "ONLINE";
-
                 newAc.gotoTable().Insert_Empty2Null(newAc);
-
                 ss.setObject("CLOUD_ID", newAc.UUID);
                 ss.setObject("USER", drAttendantV.First());
-
                 hash.Add("CLOUD_ID", newAc.UUID);
             }
-
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject(hash);
         }
         catch (Exception ex)
@@ -192,7 +175,7 @@ public class UserAction : BaseAction
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
-    [DirectMethod("cloudLogon", DirectAction.FormSubmission, MethodVisibility.Visible)]
+    [DirectMethod("cloudLogon", DirectAction.FormSubmission)]
     public JObject cloudLogon(string applicationName, string company, string account, string password, Request request)
     {
         try
@@ -210,21 +193,17 @@ public class UserAction : BaseAction
                 hash.Add("validation", "CANCEL");
                 return ExtDirect.Direct.Helper.Message.Success.OutputJObject(hash);
             }
-
             var drMenu = mBasic.getAuthorityMenuVByAttendantUuid(drAttendantV.First().UUID, LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().InitAppUuid);
-
             if (drAttendantV.Count == 0)
             {
                 hash.Add("validation", "CANCEL");
                 LK.MyException.MyException.ErrorNoThrowException(this, new Exception("UserAction->logon沒有此人員帳號存在!"));
             }
-
             if (drMenu.Count == 0)
             {
                 hash.Add("validation", "CANCEL");
                 LK.MyException.MyException.ErrorNoThrowException(this, new Exception("UserAction->logon沒有此人員帳號合適的選單存在!"));
             }
-
             if (drAttendantV.Count > 0 && drMenu.Count > 0)
             {
                 hash.Add("validation", "OK");
@@ -237,8 +216,6 @@ public class UserAction : BaseAction
                     hash.Add("validation", "CANCEL");
                 }
             }
-
-
             if (LK.Config.Cloud.CloudConfigs.GetConfig().IsAuthCenter)
             {
                 /*本身是身份認證中心*/
@@ -253,10 +230,8 @@ public class UserAction : BaseAction
                 newAc.IP = request.HttpRequest.UserHostAddress;
                 newAc.STATUS = "ONLINE";
                 newAc.gotoTable().Insert_Empty2Null(newAc);
-
                 hash.Add("CLOUD_ID", newAc.UUID);
             }
-
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject(hash);
         }
         catch (Exception ex)
@@ -266,8 +241,7 @@ public class UserAction : BaseAction
         }
     }
 
-
-    [DirectMethod("cloudLogout", DirectAction.FormSubmission, MethodVisibility.Visible)]
+    [DirectMethod("cloudLogout", DirectAction.FormSubmission)]
     public JObject cloudLogout(string pApplication, string pCompany, string pAccount, Request request)
     {
         try
@@ -276,10 +250,8 @@ public class UserAction : BaseAction
             {
                 throw new Exception("Permission Denied!");
             };
-
             LKWebTemplate.Controller.Model.Cloud.CloudModel mod = new LKWebTemplate.Controller.Model.Cloud.CloudModel();
             string cloudId = request.HttpRequest.Headers["CLOUD_ID"];
-
             var drs = mod.getActiveConnection_By_Uuid(cloudId).AllRecord();
             if (drs.Count > 0)
             {
@@ -300,8 +272,8 @@ public class UserAction : BaseAction
         }
     }
 
-    [DirectMethod("forgetPassword", DirectAction.FormSubmission, MethodVisibility.Visible)]
-    public JObject forgetPassword(string company, string account, HttpRequest request)
+    [DirectMethod("forgetPassword", DirectAction.FormSubmission)]
+    public JObject forgetPassword(string company, string account, Request request)
     {
         try
         {
@@ -338,10 +310,9 @@ public class UserAction : BaseAction
         }
     }
 
-    [DirectMethod("keepSession", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("keepSession", DirectAction.Load)]
     public JObject keepSession(Request request)
     {
-
         System.Collections.Hashtable hash = new System.Collections.Hashtable();
         try
         {
@@ -366,11 +337,9 @@ public class UserAction : BaseAction
             log.Error(ex); LK.MyException.MyException.Error(this, ex);
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
-
     }
 
-
-    [DirectMethod("getUserInfo", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("getUserInfo", DirectAction.Load)]
     public JObject getUserInfo(Request request)
     {
         List<JObject> jobject = new List<JObject>();
@@ -388,17 +357,15 @@ public class UserAction : BaseAction
             };
             getUser().PASSWORD = "*************";
             return (JsonHelper.RecordBaseJObject(getUser()));
-
         }
         catch (Exception ex)
         {
             log.Error(ex); LK.MyException.MyException.Error(this, ex);
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
-
     }
 
-    [DirectMethod("changeAccount", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("changeAccount", DirectAction.Load)]
     public JObject changeAccount(string company, string account, Request request)
     {
         try
@@ -409,19 +376,12 @@ public class UserAction : BaseAction
             };
             var drAttendantV = new List<AttendantV_Record>();
             LKWebTemplate.Model.Basic.BasicModel mBasic = new LKWebTemplate.Model.Basic.BasicModel();
-
-            //drAttendantV = mBasic.getAttendantV_By_Company_Account_Password(company, account, password).ToList();
             var drAttendant = mBasic.getAttendant_By_CompanyUuid_Account(company, account);
-
             System.Collections.Hashtable hash = new System.Collections.Hashtable();
-
-
-
             if (drAttendant != null)
             {
                 hash.Add("validation", "OK");
                 ss.setObject("CLOUD_ID", "");
-
                 ss.setObject("USER", mBasic.getAttendantV_By_Uuid(drAttendant.UUID).AllRecord().First());
             }
             else
@@ -431,10 +391,6 @@ public class UserAction : BaseAction
                     hash.Add("validation", "CANCEL");
                 }
             }
-
-
-
-
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject(hash);
         }
         catch (Exception ex)
@@ -444,6 +400,3 @@ public class UserAction : BaseAction
         }
     }
 }
-
-
-

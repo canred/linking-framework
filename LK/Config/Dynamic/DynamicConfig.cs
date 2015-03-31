@@ -4,38 +4,21 @@ using System.Configuration;
 using System.IO;
 using System.Web;
 using LK.Config;
-
 using log4net;
 using System.Reflection;
-
-
 namespace LK.Config.Dynamic
 {
-    /// <summary>
-    /// 基本設置訊息管理類
-    /// </summary>
     public class DynamicConfig 
     {
         public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static string _focusTag = "DynamicConfig";
         private static string focusTag = "DynamicConfig";
-        /// <summary>配置文件所在路徑</summary>
         public static string filename;
-
         #region DynamicConfigFileManager()
-
-        /// <summary>
-        /// 初始化文件修改時間和對像實例
-        /// </summary>
         static DynamicConfig()
         {
         }
-
-
-
-
         #endregion
-
         public static System.Xml.XmlDocument Init()
         {
             try
@@ -47,7 +30,6 @@ namespace LK.Config.Dynamic
                     System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
                     doc.Load(ConfigFilePath());
                     return doc;
-
                 }
             }
             catch (Exception ex)
@@ -56,10 +38,7 @@ namespace LK.Config.Dynamic
                 throw ex;
             }
         }
-
-
         #region ConfigFilePath
-
         private static string ConfigFilePath()
         {
             try
@@ -84,8 +63,7 @@ namespace LK.Config.Dynamic
                 {
                     if (filename.IndexOf("~") > -1)
                     {
-                        filename = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + filename.Replace("~", "");
-                            
+                        filename = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + filename.Replace("~", "");                            
                     }
                     else
                     {
@@ -108,7 +86,6 @@ namespace LK.Config.Dynamic
                 throw ex;
             }
         }
-
         #endregion
     }
 }

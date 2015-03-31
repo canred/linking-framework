@@ -10,7 +10,6 @@ namespace LK.Config.Cloud
         {
             return CloudConfigFileManager.LoadConfig();
         }
-
         /// <summary>
         /// 保存配置類實例
         /// </summary>

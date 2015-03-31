@@ -7,7 +7,6 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using log4net;
-
 namespace LK.DB
 {
     [Serializable]
@@ -42,14 +41,12 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public List<LK.Attribute.ColumnName> getColumnWithOutPK()
         {
             try
             {
                 List<LK.Attribute.ColumnName> list = new List<LK.Attribute.ColumnName>();
                 PropertyInfo[] porps = this.GetType().GetProperties();
-
                 foreach (PropertyInfo prop in porps)
                 {
                     object[] attrs = prop.GetCustomAttributes(typeof(LK.Attribute.ColumnName), false);
@@ -71,7 +68,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         /// <summary>
         /// 由Rcord物件中取出指定欄位的值
         /// 找不到指定欄位時回傳null
@@ -147,7 +143,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public double getFieldDoubleValue(string columnName) 
         {
             double ret = 0.0;
@@ -175,15 +170,12 @@ namespace LK.DB
                 throw ex;
             }
         }
-
-
         public List<LK.Attribute.ColumnName> getAllColumn()
         {
             try
             {
                 List<LK.Attribute.ColumnName> list = new List<LK.Attribute.ColumnName>();
                 PropertyInfo[] porps = this.GetType().GetProperties();
-
                 foreach (PropertyInfo prop in porps)
                 {
                     object[] attrs = prop.GetCustomAttributes(typeof(LK.Attribute.ColumnName), false);
@@ -201,7 +193,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         private static int CompareRecord(LK.Attribute.ColumnName x, LK.Attribute.ColumnName y)
         {
             if (x == null)
@@ -236,7 +227,6 @@ namespace LK.DB
                 }
             }
         }
-
         public string getTableName() {
             try
             {
@@ -253,7 +243,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         public object getPropValue(RecordBase rb, string name)
         {
             try

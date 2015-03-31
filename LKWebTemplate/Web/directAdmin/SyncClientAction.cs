@@ -10,7 +10,6 @@ using LK.DB.SQLCreater;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-
 using LKWebTemplate.Model.Basic;
 using LKWebTemplate.Model.Basic.Table;
 using LKWebTemplate.Model.Basic.Table.Record;
@@ -19,18 +18,11 @@ using System.Text;
 using LK.Util;
 using System.Data;
 using System.Diagnostics;
-
 #endregion
-
 [DirectService("SyncClientAction")]
 public class SyncClientAction : BaseAction
 {
-    /// <summary>
-    /// 由主伺服器同步company的資料到自身資料庫中
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [DirectMethod("SyncCompany", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("SyncCompany", DirectAction.Store)]
     public JObject SyncCompany(Request request)
     {
         #region Declare
@@ -47,7 +39,6 @@ public class SyncClientAction : BaseAction
             {
                 throw new Exception("Identity authentication failed.");
             }
-
             /*權限檢查*/
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
@@ -74,8 +65,6 @@ public class SyncClientAction : BaseAction
             cloud.Cloud_Id = cloudId;
             var resultJson = cloud.CallDirect(masterUrl, "SyncServerAction.loadCompany", null, cloudId);
             var resultDt = cloud.ConvertToDataTable(resultJson["data"]);
-
-
             var selfData = basicModel.getCompany();
             /*先新增資料到本身資料庫中*/
             foreach (DataRow dr in resultDt.Rows)
@@ -111,7 +100,6 @@ public class SyncClientAction : BaseAction
                 }
                 #endregion
             }
-
             /*設定自身的company的is_active*/
             if (resultDt.Rows.Count > 0)
             {
@@ -130,7 +118,6 @@ public class SyncClientAction : BaseAction
                         }
                     }
                     #region 按key值抓出資料，並以主伺服器資料為主更新自身的資料內容
-
                     item.AD_LDAP = tmpDr[0]["AD_LDAP"].ToString();
                     item.AD_LDAP_USER = tmpDr[0]["AD_LDAP_USER"].ToString();
                     item.AD_LDAP_USER_PASSWORD = tmpDr[0]["AD_LDAP_USER_PASSWORD"].ToString();
@@ -156,12 +143,6 @@ public class SyncClientAction : BaseAction
                     #endregion
                 }
             }
-
-
-
-
-
-
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
         }
         catch (Exception ex)
@@ -172,12 +153,7 @@ public class SyncClientAction : BaseAction
         }
     }
 
-    /// <summary>
-    /// 由主伺服器同步attendant的資料到自身資料庫中
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [DirectMethod("SyncAttendant", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("SyncAttendant", DirectAction.Store)]
     public JObject SyncAttendant(Request request)
     {
         #region Declare
@@ -194,7 +170,6 @@ public class SyncClientAction : BaseAction
             {
                 throw new Exception("Identity authentication failed.");
             }
-
             /*權限檢查*/
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
@@ -221,23 +196,16 @@ public class SyncClientAction : BaseAction
             cloud.Cloud_Id = cloudId;
             var resultCompanyJson = cloud.CallDirect(masterUrl, "SyncServerAction.loadCompany", null, cloudId);
             var resultAttendantJson = cloud.CallDirect(masterUrl, "SyncServerAction.loadAttendant", null, cloudId);
-
             var resultCompanyDt = cloud.ConvertToDataTable(resultCompanyJson["data"]);
             var resultAttendantDt = cloud.ConvertToDataTable(resultAttendantJson["data"]);
-
-
             var selfCompanyData = basicModel.getCompany();
-
             foreach (DataRow drCp in resultCompanyDt.Rows)
             {
-
-                if (selfCompanyData.Count(c => c.ID.ToUpper().Equals(drCp["id"].ToString().ToUpper())) == 0)
+                if (selfCompanyData.Count(c => c.ID.ToUpper().Equals(drCp["id"].ToString().ToUpper())) == 0){
                     continue;
-
+                }
                 string comapnyUuid = selfCompanyData.Where(c => c.ID.ToUpper().Equals(drCp["id"].ToString().ToUpper())).First().UUID;
-
                 var selfAttendantData = basicModel.getAttendant_By_CompanyUuid(comapnyUuid);
-
                 /*先新增資料到本身資料庫中*/
                 foreach (DataRow dr in resultAttendantDt.Select("COMPANY_UUID='" + drCp["UUID"].ToString() + "'"))
                 {
@@ -292,7 +260,6 @@ public class SyncClientAction : BaseAction
                     }
                     #endregion
                 }
-
                 /*設定自身的company的is_active*/
                 if (resultAttendantDt.Rows.Count > 0)
                 {
@@ -311,9 +278,6 @@ public class SyncClientAction : BaseAction
                             }
                         }
                         #region 按key值抓出資料，並以主伺服器資料為主更新自身的資料內容
-
-                        //item.AD_LDAP = tmpDr[0]["AD_LDAP"].ToString();
-
                         item.ACCOUNT = tmpDr[0]["ACCOUNT"].ToString();
                         if (tmpDr[0]["BIRTHDAY"].ToString().Length > 0)
                         {
@@ -354,21 +318,11 @@ public class SyncClientAction : BaseAction
                         {
                             item.UPDATE_DATE = Convert.ToDateTime(tmpDr[0]["UPDATE_DATE"].ToString());
                         }
-
                         item.gotoTable().Update_Empty2Null(item);
                         #endregion
                     }
-
-
                 }
-
             }
-
-
-
-
-
-
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
         }
         catch (Exception ex)
@@ -379,12 +333,7 @@ public class SyncClientAction : BaseAction
         }
     }
 
-    /// <summary>
-    /// 由主伺服器同步dept的資料到自身資料庫中
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    [DirectMethod("SyncDept", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("SyncDept", DirectAction.Store)]
     public JObject SyncDept(Request request)
     {
         #region Declare
@@ -401,7 +350,6 @@ public class SyncClientAction : BaseAction
             {
                 throw new Exception("Identity authentication failed.");
             }
-
             /*權限檢查*/
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
@@ -428,23 +376,17 @@ public class SyncClientAction : BaseAction
             cloud.Cloud_Id = cloudId;
             var resultCompanyJson = cloud.CallDirect(masterUrl, "SyncServerAction.loadCompany", null, cloudId);
             var resultAttendantJson = cloud.CallDirect(masterUrl, "SyncServerAction.loadDept", null, cloudId);
-
             var resultCompanyDt = cloud.ConvertToDataTable(resultCompanyJson["data"]);
             var resultAttendantDt = cloud.ConvertToDataTable(resultAttendantJson["data"]);
-
-
             var selfCompanyData = basicModel.getCompany();
-
             foreach (DataRow drCp in resultCompanyDt.Rows)
             {
 
-                if (selfCompanyData.Count(c => c.ID.ToUpper().Equals(drCp["id"].ToString().ToUpper())) == 0)
+                if (selfCompanyData.Count(c => c.ID.ToUpper().Equals(drCp["id"].ToString().ToUpper())) == 0){
                     continue;
-
+                }
                 string comapnyUuid = selfCompanyData.Where(c => c.ID.ToUpper().Equals(drCp["id"].ToString().ToUpper())).First().UUID;
-
                 var selfDepartmentData = basicModel.getDepartment_By_CompanyUuid(comapnyUuid);
-
                 /*先新增資料到本身資料庫中*/
                 foreach (DataRow dr in resultAttendantDt.Select("COMPANY_UUID='" + drCp["UUID"].ToString() + "'"))
                 {
@@ -454,7 +396,6 @@ public class SyncClientAction : BaseAction
                     {
                         Department_Record newRd = new Department_Record();
                         newRd.UUID = LK.Util.UID.Instance.GetUniqueID();
-
                         newRd.C_NAME = dr["C_NAME"].ToString();
                         newRd.COMPANY_UUID = comapnyUuid;
                         newRd.COST_CENTER = dr["COST_CENTER"].ToString();
@@ -481,7 +422,6 @@ public class SyncClientAction : BaseAction
                     }
                     #endregion
                 }
-
                 /*設定自身的company的is_active*/
                 if (resultAttendantDt.Rows.Count > 0)
                 {
@@ -500,10 +440,6 @@ public class SyncClientAction : BaseAction
                             }
                         }
                         #region 按key值抓出資料，並以主伺服器資料為主更新自身的資料內容
-
-                        //item.AD_LDAP = tmpDr[0]["AD_LDAP"].ToString();
-
-
                         item.C_NAME = tmpDr[0]["C_NAME"].ToString();
                         item.COMPANY_UUID = comapnyUuid;
                         item.COST_CENTER = tmpDr[0]["COST_CENTER"].ToString();
@@ -526,21 +462,11 @@ public class SyncClientAction : BaseAction
                         {
                             item.UPDATE_DATE = Convert.ToDateTime(tmpDr[0]["UPDATE_DATE"].ToString());
                         }
-
                         item.gotoTable().Update_Empty2Null(item);
                         #endregion
                     }
-
-
                 }
-
             }
-
-
-
-
-
-
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
         }
         catch (Exception ex)
@@ -551,6 +477,3 @@ public class SyncClientAction : BaseAction
         }
     }
 }
-
-
-

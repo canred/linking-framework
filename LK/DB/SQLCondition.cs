@@ -58,21 +58,7 @@ namespace LK.DB
                 if (disposing)
                 {
                     try
-                    {
-                        //if (_dbconnection_ != null)
-                        //{
-                        //    try
-                        //    {
-                        //        _dataBaseConfigInfo = null;
-                        //        _dbconnection_.Close();
-                        //        _dbconnection_.Dispose();
-                        //    }
-                        //    catch (Exception ex)
-                        //    {
-                        //        throw ex;
-                        //    }
-                        //}
-                    }
+                    {}
                     catch (Exception e)
                     {
                         throw e;
@@ -103,7 +89,6 @@ namespace LK.DB
                 {
                     isCase_Sensitive = false;
                 }
-
                 var attrs = modelObj.GetType().GetCustomAttributes(typeof(LK.Attribute.LkDataBase), false);
                 string dbName = null;
                 if (attrs.Length == 1)
@@ -114,8 +99,6 @@ namespace LK.DB
                 {
                     throw new Exception("你的物件內並沒有DataBase關閉的Attribute!");
                 }
-
-                //ret.GetDBType(
                 dbType = ret.GetDBType(dbName);
                 var attrs2 = modelObj.GetType().GetCustomAttributes(typeof(TableView), false);
                 if (attrs2.Length == 1)
@@ -165,8 +148,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
-
         /// <summary>
         /// 取定Where語句中的等於
         /// </summary>
@@ -204,9 +185,7 @@ namespace LK.DB
         {
             try
             {
-
                 CSQL += " upper(" + columnName + ")=upper(" + parameterFlag + ") ";
-
                 _parameter.Add(value);
                 return this;
             }
@@ -216,7 +195,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         /// <summary>
         /// 取定Where語句中的 AND 
         /// </summary>
@@ -234,8 +212,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
-
         /// <summary>
         /// 取定Where語句中的不等於
         /// </summary>
@@ -433,9 +409,7 @@ namespace LK.DB
         {
             try
             {
-
                 CSQL += " upper(" + columnName + ")>=upper(" + parameterFlag + ") ";
-
                 _parameter.Add(value);
                 return this;
             }
@@ -482,9 +456,7 @@ namespace LK.DB
         {
             try
             {
-
                 CSQL += " upper(" + columnName + ")>upper(" + parameterFlag + ") ";
-
                 _parameter.Add(value);
                 return this;
             }
@@ -533,7 +505,6 @@ namespace LK.DB
             {
 
                 CSQL += " upper(" + columnName + ")<=upper(" + parameterFlag + ") ";
-
                 _parameter.Add(value);
                 return this;
             }
@@ -580,9 +551,7 @@ namespace LK.DB
         {
             try
             {
-
                 CSQL += " upper(" + columnName + ")<upper(" + parameterFlag + ") ";
-
                 _parameter.Add(value);
                 return this;
             }
@@ -616,7 +585,6 @@ namespace LK.DB
                     {
                         CSQL += " " + columnName + " LIKE  " + parameterFlag + "  ";
                     }
-
                 }
                 else
                 {
@@ -659,7 +627,6 @@ namespace LK.DB
         {
             try
             {
-
                 if (dbType.ToUpper() == "ORACLE")
                 {
                     CSQL += " upper(" + columnName + ") LIKE upper('%' || " + parameterFlag + " || '%' ) ";
@@ -689,7 +656,6 @@ namespace LK.DB
                 throw ex;
             }
         }
-
         /// <summary>
         /// 取定Where語句中的start like
         /// </summary>
@@ -756,7 +722,6 @@ namespace LK.DB
         {
             try
             {
-
                 if (dbType.ToUpper() == "ORACLE")
                 {
                     CSQL += " upper(" + columnName + ") LIKE upper('%' || " + parameterFlag + ") ";
@@ -852,7 +817,6 @@ namespace LK.DB
         {
             try
             {
-
                 if (dbType.ToUpper() == "ORACLE")
                 {
                     CSQL += " upper(" + columnName + ") LIKE upper(" + parameterFlag + " || '%') ";
@@ -973,12 +937,9 @@ namespace LK.DB
             try
             {
                 CSQL += " ";
-
                 CSQL += " upper( " + columnName + " ) IN (";
-
                 foreach (string tmp in values)
                 {
-
                     CSQL += " :######, ";
                     _parameter.Add(tmp.ToUpper());
                 }
@@ -995,20 +956,14 @@ namespace LK.DB
                 throw ex;
             }
         }
-
-
-
         public virtual SQLCondition NotIn(string columnName, List<object> values)
         {
             try
             {
                 CSQL += " ";
-
                 CSQL += " " + columnName + "  NOT IN (";
-
                 foreach (string tmp in values)
                 {
-
                     CSQL += " :######, ";
                     _parameter.Add(tmp.ToUpper());
                 }

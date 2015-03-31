@@ -10,7 +10,6 @@ using LK.DB.SQLCreater;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-
 using LKWebTemplate.Model.Basic;
 using LKWebTemplate.Model.Basic.Table;
 using LKWebTemplate.Model.Basic.Table.Record;
@@ -20,14 +19,11 @@ using LK.Util;
 using System.Data;
 using System.Diagnostics;
 using System.Management;
-
-
 #endregion
-
 [DirectService("ServerAction")]
 public class ServerAction : BaseAction
 {
-    [DirectMethod("loadCpuInfo", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("loadCpuInfo", DirectAction.Load)]
     public JObject loadCpuInfo(Request request)
     {
         #region Declare
@@ -37,19 +33,16 @@ public class ServerAction : BaseAction
         #endregion
         try
         {   /*Cloud身份檢查**/
-
             checkUser(request.HttpRequest);
             if (this.getUser() == null)
             {
                 throw new Exception("Identity authentication failed.");
             }
-
             /*權限檢查**/
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
                 throw new Exception("Permission Denied!");
             };
-
             /*是Store操作一下就可能含有分頁資訊。*/
             System.Data.DataTable dt = new DataTable();
             dt.Columns.Add("SystemName");
@@ -64,8 +57,6 @@ public class ServerAction : BaseAction
             newRow["Caption"] = cpuInfo.Caption;
             dt.Rows.Add(newRow);
             return ExtDirect.Direct.Helper.Store.OutputJObject(dt, 0, dt.Rows.Count);
-
-
         }
         catch (Exception ex)
         {
@@ -76,7 +67,7 @@ public class ServerAction : BaseAction
         }
     }
 
-    [DirectMethod("loadOSInfo", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("loadOSInfo", DirectAction.Load)]
     public JObject loadOSInfo(Request request)
     {
         #region Declare
@@ -86,19 +77,16 @@ public class ServerAction : BaseAction
         #endregion
         try
         {   /*Cloud身份檢查**/
-
             checkUser(request.HttpRequest);
             if (this.getUser() == null)
             {
                 throw new Exception("Identity authentication failed.");
             }
-
             /*權限檢查* */
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
                 throw new Exception("Permission Denied!");
             };
-
             /*是Store操作一下就可能含有分頁資訊。*/
             System.Data.DataTable dt = new DataTable();
             dt.Columns.Add("Name");
@@ -106,14 +94,11 @@ public class ServerAction : BaseAction
             dt.Columns.Add("Caption");
             var ofInfo = getOsInfo();
             var newRow = dt.NewRow();
-
             newRow["Name"] = ofInfo.Name;
             newRow["OSArchitecture"] = ofInfo.OSArchitecture;
             newRow["Caption"] = ofInfo.Caption;
             dt.Rows.Add(newRow);
             return ExtDirect.Direct.Helper.Store.OutputJObject(dt, 0, dt.Rows.Count);
-
-
         }
         catch (Exception ex)
         {
@@ -124,7 +109,7 @@ public class ServerAction : BaseAction
         }
     }
 
-    [DirectMethod("loadMemoryInfo", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("loadMemoryInfo", DirectAction.Load)]
     public JObject loadMemoryInfo(Request request)
     {
         #region Declare
@@ -134,25 +119,21 @@ public class ServerAction : BaseAction
         #endregion
         try
         {   /*Cloud身份檢查**/
-
             checkUser(request.HttpRequest);
             if (this.getUser() == null)
             {
                 throw new Exception("Identity authentication failed.");
             }
-
             /*權限檢查* */
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
                 throw new Exception("Permission Denied!");
             };
-
             /*是Store操作一下就可能含有分頁資訊。*/
             System.Data.DataTable dt = new DataTable();
             dt.Columns.Add("SystemName");
             dt.Columns.Add("OSArchitecture");
             dt.Columns.Add("Name");
-
             var osInfo = getOsInfo();
             var newRow = dt.NewRow();
             newRow["Name"] = osInfo.Name;
@@ -171,34 +152,29 @@ public class ServerAction : BaseAction
         }
     }
 
-    [DirectMethod("loadRuntimeCpuMem", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("loadRuntimeCpuMem", DirectAction.Load)]
     public JObject loadRuntimeCpuMem(Request request)
     {
         #region Declare
         List<JObject> jobject = new List<JObject>();
         BasicModel modBasic = new BasicModel();
         ApplicationHead tblApplication = new ApplicationHead();
-        //OrderLimit orderLimit = null;
         float cpu, men;
         cpu = 0;
         men = 0;
-
         #endregion
         try
         {   /*Cloud身份檢查**/
-
             checkUser(request.HttpRequest);
             if (this.getUser() == null)
             {
                 throw new Exception("Identity authentication failed.");
             }
-
             /*權限檢查 * */
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
                 throw new Exception("Permission Denied!");
             };
-
             /*是Store操作一下就可能含有分頁資訊。*/
             System.Data.DataTable dt = new DataTable();
             string columnName = System.DateTime.Now.ToString("mm:ss");
@@ -228,27 +204,18 @@ public class ServerAction : BaseAction
                 getRunTimeCUP(ref cpu, ref men);
                 drNew[dt.Columns.Count - 1] = cpu;
                 dt.Rows.Add(drNew);
-
                 var drNew2 = dt.NewRow();
                 drNew2["TYPE"] = "MEN";
                 drNew2[dt.Columns.Count - 1] = men;
                 dt.Rows.Add(drNew2);
-
                 HttpContext.Current.Application["RunTimeCPU"] = dt;
             }
-
             while (dt.Columns.Count > 50)
             {
                 dt.Columns.RemoveAt(1);
             }
             dt.AcceptChanges();
-            //getMemoryTotal();
-            return ExtDirect.Direct.Helper.Store.OutputJObject(dt, 0, dt.Rows.Count);
-            //var  data  = JsonHelper.DataTable2JObject(dt, 0, dt.Rows.Count);
-
-            //
-            //return data;
-            //return ExtDirect.Direct.Helper.Store.OutputJObject(data, dt.Rows.Count);            
+            return ExtDirect.Direct.Helper.Store.OutputJObject(dt, 0, dt.Rows.Count);           
         }
         catch (Exception ex)
         {
@@ -259,53 +226,40 @@ public class ServerAction : BaseAction
         }
     }
 
-    [DirectMethod("loadDisk", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("loadDisk", DirectAction.Load)]
     public JObject loadDisk(Request request)
     {
         #region Declare
         List<JObject> jobject = new List<JObject>();
         BasicModel modBasic = new BasicModel();
         ApplicationHead tblApplication = new ApplicationHead();
-        //OrderLimit orderLimit = null;
-        //float cpu, men;
-        //cpu = 0;
-        // men = 0;
-
         #endregion
         try
         {   /*Cloud身份檢查**/
-
             checkUser(request.HttpRequest);
             if (this.getUser() == null)
             {
                 throw new Exception("Identity authentication failed.");
             }
-
             /*權限檢查* */
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
                 throw new Exception("Permission Denied!");
             };
-
             /*是Store操作一下就可能含有分頁資訊。*/
             System.Data.DataTable dt = new DataTable();
-
             string output = runWMI("logicaldisk get DeviceId,DriveType,FreeSpace,Size");
-
-
             dt.Columns.Add("DeviceID");
             dt.Columns.Add("DriveType");
             dt.Columns.Add("FreeSpace");
             dt.Columns.Add("Size");
             dt.AcceptChanges();
-
             for (var i = 0; i < output.Split('\n').Length; i++)
             {
-                if (i == 0)
+                if (i == 0){
                     continue;
-
+                }
                 var tmpRow = output.Split('\n')[i];
-
                 while (tmpRow.IndexOf("  ") > 0)
                 {
                     tmpRow = tmpRow.Replace("  ", " ");
@@ -379,7 +333,6 @@ public class ServerAction : BaseAction
         string output = p.StandardOutput.ReadToEnd();
         var total = System.Convert.ToInt64(output.Split(' ')[4].Trim()) / 1024 / 1024;
         p.WaitForExit();
-
         return total;
     }
 
@@ -396,7 +349,6 @@ public class ServerAction : BaseAction
             cpu.Name = cpu.Name.Trim();
             cpu.NumberOfLogicalPRocessors = cpu.NumberOfLogicalPRocessors.Trim();
             cpu.SystemName = cpu.SystemName.Trim();
-
             HttpContext.Current.Application["CPU"] = cpu;
 
         }
@@ -431,7 +383,6 @@ public class ServerAction : BaseAction
         string output = p.StandardOutput.ReadToEnd();
         p.WaitForExit();
         return output;
-
     }
 
     private class CPU
@@ -448,11 +399,4 @@ public class ServerAction : BaseAction
         public string Name;
         public string OSArchitecture;
     }
-
-
-
-
 }
-
-
-

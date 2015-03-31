@@ -6,21 +6,12 @@ using log4net;
 using System.Reflection;
 namespace LK.Config.Dynamic
 {
-    /// <summary>
-    /// 基本設置類
-    /// </summary>
     public class DynamicConfigInfo
     {
         private static readonly Timer baseConfigTimer = new Timer(ConfigBase.RefreshTime);
         public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-       
         private static System.Xml.XmlDocument m_configinfo;
-
         private static System.Data.DataTable m_dt;
-
-        /// <summary>
-        /// 靜態構造函數初始化相應實例和定時器
-        /// </summary>
         static DynamicConfigInfo()
         {
             try
@@ -33,8 +24,6 @@ namespace LK.Config.Dynamic
                 throw ex;
             }
         }
-
-
         private static void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             try
@@ -47,15 +36,9 @@ namespace LK.Config.Dynamic
                 throw ex;
             }
         }
-
-        /// <summary>
-        /// 重設配置類實例
-        /// </summary>
         public static void ResetConfig()
-        {
-            // m_configinfo = DBMessageHandlerFileManager.LoadRealConfig();
+        {           
         }
-
         public static System.Xml.XmlDocument GetBaseConfig()
         {
             try
@@ -68,11 +51,8 @@ namespace LK.Config.Dynamic
                 throw ex;
             }
         }
-
         public static System.Data.DataTable GetBaseConfig_DataTable()
         {
-
-
             try
             {
                 if (m_configinfo.FirstChild.NextSibling != null)
@@ -102,12 +82,9 @@ namespace LK.Config.Dynamic
                 throw ex;
             }
         }
-
         public static string GetMessage(string actionTag, bool alwaysReLoad)
         {
-
             string ret_message = "";
-
             m_configinfo = DynamicConfig.Init();
             try
             {                
@@ -115,7 +92,6 @@ namespace LK.Config.Dynamic
                 {
                     GetBaseConfig_DataTable();
                 }
-
                 foreach (System.Data.DataRow dr in m_dt.Rows)
                 {
                     if (dr["key"].ToString().ToLower() == actionTag.ToLower())
@@ -124,7 +100,6 @@ namespace LK.Config.Dynamic
                         break;
                     }
                 }
-
                 return ret_message;
             }
             catch
@@ -132,7 +107,6 @@ namespace LK.Config.Dynamic
                 return "";
             }
         }
-
         public static string GetMessage(string ActionTag)
         {
             try

@@ -10,7 +10,6 @@ using LK.DB.SQLCreater;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-
 using LKWebTemplate.Model.Basic;
 using LKWebTemplate.Model.Basic.Table;
 using LKWebTemplate.Model.Basic.Table.Record;
@@ -24,7 +23,7 @@ using System.Diagnostics;
 [DirectService("AuthorityAction")]
 public class AuthorityAction : BaseAction
 {
-    [DirectMethod("loadAppmenuTree", DirectAction.TreeStore, MethodVisibility.Visible)]
+    [DirectMethod("loadAppmenuTree", DirectAction.TreeStore)]
     public JObject loadAppmenuTree(string parentUuid, string pGroupHeadUuid, Request request)
     {
         #region Declare
@@ -32,7 +31,6 @@ public class AuthorityAction : BaseAction
         BasicModel model = new BasicModel();
         AppmenuApppageV tblAppmenu = new AppmenuApppageV();
         #endregion
-
         try
         {  /*Cloud身份檢查*/
             checkUser(request.HttpRequest);
@@ -48,10 +46,7 @@ public class AuthorityAction : BaseAction
             orderlimit.Start = 1;
             orderlimit.Limit = 99999;
             /*取得資料*/
-
             var genTable = new LKWebTemplate.Model.Basic.Table.AppmenuApppageV();
-
-
             var dataTable = model.getAppmenuApppageV_By_ParentUuid_DataTable(parentUuid, orderlimit);
             dataTable.Columns.Add("leaf");            
             dataTable.Columns.Add("checked", typeof(Boolean));            
@@ -72,7 +67,6 @@ public class AuthorityAction : BaseAction
                 //dr["IS_DEFAULT_PAGE"]
                 //是否"有"被設為預設頁面
                 string defaultPageChecked = "N";
-
                 IList<GroupAppmenu_Record> gm_ut = model.getGroupAppmenuV_By_GroupHeadUuid(pGroupHeadUuid);
                 var groupMenu = gm_ut.Where(col => col.APPMENU_UUID.Equals(dr[tblAppmenu.UUID]));
                 if (groupMenu.Count() > 0)
@@ -100,7 +94,7 @@ public class AuthorityAction : BaseAction
         }
     }
 
-    [DirectMethod("loadAppmenuTree2", DirectAction.TreeStore, MethodVisibility.Visible)]
+    [DirectMethod("loadAppmenuTree2", DirectAction.TreeStore)]
     public JObject loadAppmenuTree2(string parentUuid, string pGroupHeadUuid, Request request)
     {
         #region Declare
@@ -120,29 +114,23 @@ public class AuthorityAction : BaseAction
             {
                 throw new Exception("Permission Denied!");
             };
-
             OrderLimit orderlimit = new OrderLimit("ORD", OrderLimit.OrderMethod.ASC);
             orderlimit.Start = 1;
             orderlimit.Limit = 99999;
-
             /*取得資料*/
             var genTable = new AppmenuApppageV();
             var drsAppmenuApppageV = model.getAppmenuApppageV_By_ParentUuid(parentUuid);
             var drAppmenuApppageV = drsAppmenuApppageV.First();
             drsAppmenuApppageV = model.getAppmenuApppageV_By_ApplicationHeadUuid(drAppmenuApppageV.APPLICATION_HEAD_UUID,orderlimit);
             var dataTable = model.getAppmenuApppageV_By_ParentUuid_DataTable(parentUuid, orderlimit);
-
             IList<GroupAppmenu_Record> gm_ut = model.getGroupAppmenuV_By_GroupHeadUuid(pGroupHeadUuid);
-
             dataTable.Columns.Add("leaf", System.Type.GetType("System.Boolean"));            
             dataTable.Columns.Add("name");            
             dataTable.Columns.Add("checked", typeof(Boolean));            
             dataTable.Columns.Add("DEFAULT_PAGE_CHECKED");
             dataTable.Columns.Add("expanded", System.Type.GetType("System.Boolean"));
-            //dataTable.Columns.Add("checked", typeof(Boolean));
             foreach (DataRow dr in dataTable.Rows)
             {
-
                 var children = model.getAppmenuApppageV_By_ParentUuid_DataTable(dr[tblAppmenuApppageV.UUID].ToString(), orderlimit);
                 if (children.Rows.Count == 0)
                 {
@@ -154,23 +142,21 @@ public class AuthorityAction : BaseAction
                 }
                 dr["name"] = dr[tblAppmenuApppageV.NAME_ZH_TW].ToString();
                 dr["expanded"] = true;
-
                 string defaultPageChecked = "N";
-                //IList<GroupAppmenu_Record> gm_ut = model.getGroupAppmenuV_By_GroupHeadUuid(pGroupHeadUuid);
                 var groupMenu = gm_ut.Where(col => col.APPMENU_UUID.Equals(dr[tblAppmenuApppageV.UUID]));
                 if (groupMenu.Count() > 0)
                 {
                     dr["checked"] = true;
-                    if (groupMenu.First().IS_DEFAULT_PAGE == "Y")
+                    if (groupMenu.First().IS_DEFAULT_PAGE == "Y"){
                         defaultPageChecked = "Y";
+                    }
                 }
-                else
+                else{
                     dr["checked"] = false;
-
+                }
                 dr["DEFAULT_PAGE_CHECKED"] = defaultPageChecked;
             }
             var jarray = JsonHelper.DataTableSerializerJArray(dataTable);
-
             foreach (var item in jarray)
             {
                 var thisUuid = item["UUID"].ToString();
@@ -200,7 +186,6 @@ public class AuthorityAction : BaseAction
         try
         {
             /*取得資料*/
-
             var dataTable = new System.Data.DataTable();
             AppmenuApppageV tbl = new AppmenuApppageV();
             dataTable.Columns.Add(tbl.ACTION_MODE);
@@ -228,7 +213,6 @@ public class AuthorityAction : BaseAction
             dataTable.Columns.Add(tbl.UPDATE_USER);
             dataTable.Columns.Add(tbl.URL);
             dataTable.Columns.Add(tbl.UUID);
-            //var dataTable = model.getAppmenuApppageV_By_ParentUuid_DataTable(parentUuid);
             dataTable.Columns.Add("leaf", System.Type.GetType("System.Boolean"));
             dataTable.Columns.Add("name");
             dataTable.Columns.Add("checked", typeof(Boolean));
@@ -275,7 +259,6 @@ public class AuthorityAction : BaseAction
                 }
                 dr["name"] = dr[tbl.NAME_ZH_TW].ToString();
                 string defaultPageChecked = "N";
-                //IList<GroupAppmenu_Record> gm_ut = model.getGroupAppmenuV_By_GroupHeadUuid(pGroupHeadUuid);
                 var groupMenu = gm_ut.Where(col => col.APPMENU_UUID.Equals(dr[tbl.UUID]));
                 if (groupMenu.Count() > 0)
                 {
@@ -287,7 +270,6 @@ public class AuthorityAction : BaseAction
                 {
                     dr["checked"] = false;
                 }
-
                 dr["DEFAULT_PAGE_CHECKED"] = defaultPageChecked;
                 dataTable.Rows.Add(dr);
                 dataTable.AcceptChanges();
@@ -312,7 +294,7 @@ public class AuthorityAction : BaseAction
         }
     }
 
-    [DirectMethod("loadTreeRoot", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("loadTreeRoot", DirectAction.Store)]
     public JObject loadTreeRoot(string parentUuid, Request request)
     {
         #region Declare
@@ -336,7 +318,6 @@ public class AuthorityAction : BaseAction
             {
                 return JsonHelper.RecordBaseJObject(data.First());
             }
-
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("Data Not Found!"));
         }
         catch (Exception ex)
@@ -346,7 +327,7 @@ public class AuthorityAction : BaseAction
         }
     }
 
-    [DirectMethod("setGroupAppmenuIsDefaultPage", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("setGroupAppmenuIsDefaultPage", DirectAction.Store)]
     public JObject setGroupAppmenuIsDefaultPage(string pAppmenuUuid, string pGroupHeadUuid, string pIsDefaultPage, Request request)
     {
         #region Declare
@@ -364,14 +345,14 @@ public class AuthorityAction : BaseAction
                 throw new Exception("Permission Denied!");
             };
             System.Collections.Hashtable otherParam = new System.Collections.Hashtable();
-
             var list = modBasic.getGroupAppmenuV_By_Param(pAppmenuUuid, pGroupHeadUuid);
             string _pIsDefaultPage = "Y";
-            if (pIsDefaultPage == "1" || pIsDefaultPage.ToUpper() == "TRUE" || pIsDefaultPage.ToUpper() == "Y")
+            if (pIsDefaultPage == "1" || pIsDefaultPage.ToUpper() == "TRUE" || pIsDefaultPage.ToUpper() == "Y"){
                 _pIsDefaultPage = "Y";
-            else
+            }
+            else{
                 _pIsDefaultPage = "N";
-
+            }
             if (list.Count > 0)
             {
                 /*將List<RecordBase>變成JSON字符串*/
@@ -379,7 +360,6 @@ public class AuthorityAction : BaseAction
                 dr.IS_DEFAULT_PAGE = _pIsDefaultPage;
                 dr.UPDATE_DATE = DateTime.Now;
                 dr.UPDATE_USER = getUser().UUID;
-
                 dr.gotoTable().Update(dr);
                 otherParam.Add("UUID", dr.UUID);
                 otherParam.Add("APPMENU_UUID", dr.APPMENU_UUID);
@@ -414,7 +394,7 @@ public class AuthorityAction : BaseAction
         }
     }
 
-    [DirectMethod("setGroupAppmenu", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("setGroupAppmenu", DirectAction.Store)]
     public JObject setGroupAppmenu(string pAppmenuUuid, string pGroupHeadUuid, string is_checked, Request request)
     {
         #region Declare
@@ -459,7 +439,6 @@ public class AuthorityAction : BaseAction
                     }
                 }
             }
-
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject(otherParam);
         }
         catch (Exception ex)
@@ -476,7 +455,6 @@ public class AuthorityAction : BaseAction
             #region Declare
             BasicModel modBasic = new BasicModel();
             #endregion
-
             if (dt_GroupMenu.Count == 0)
             {
                 BasicModel model = new BasicModel();
@@ -490,10 +468,8 @@ public class AuthorityAction : BaseAction
                 record.APPMENU_UUID = pAppmenuUuid;
                 record.GROUP_HEAD_UUID = pGroupHeadUuid;
                 record.IS_DEFAULT_PAGE = "N";
-
                 record.gotoTable().Insert(record);
             }
-
             var dt = modBasic.getAppmenu_By_Uuid(pAppmenuUuid);
             if (dt.AllRecord().Count > 0)
             {

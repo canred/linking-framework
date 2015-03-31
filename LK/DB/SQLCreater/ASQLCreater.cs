@@ -18,13 +18,11 @@ namespace LK.DB.SQLCreater
         string TableName = "";
         string Select_Column = "";
         string Update_Column = "";
-
         decimal? startCount = null;
         decimal? fetchCount = null;
         OrderLimit splitOrderLimit = null;
         string strOrder = null;
         string strGroupBy = null;
-
         public void setTableName(string tableName) {
             this.TableName = tableName;
         }
@@ -38,7 +36,6 @@ namespace LK.DB.SQLCreater
         public void setSelectColumn(string selectColumn) {
             this.Select_Column = selectColumn ;
         }
-
         public void setUpdateColumn(string updateColumn)
         {
             this.Select_Column = updateColumn;
@@ -48,17 +45,13 @@ namespace LK.DB.SQLCreater
         public List<object> _SelfPARAMETER_ = new List<object>();
         /*_PARAMETER_是一個給使用者餵入，一般情況下是使用者自已操作DataCommand物件*/
         List<System.Data.IDataParameter> _PARAMETER_ = new List<System.Data.IDataParameter>();
-
-
         public OrderLimit getSplitOrderLimit() {
             return splitOrderLimit;
         }
-
         public void setSplitOrderLimit(OrderLimit limit)
         {
             splitOrderLimit = limit;
         }
-
         /// <summary>
         /// 使用限制筆數功能時，取出"從第幾筆開始"
         /// </summary>
@@ -74,10 +67,8 @@ namespace LK.DB.SQLCreater
             
             return fetchCount;
         }
-        public ASQLCreater() { 
-        
+        public ASQLCreater() {         
         }
-
         /*取得要執行的SQL語句*/
         /// <summary>
         /// 取得要執行的SQL語句
@@ -103,15 +94,13 @@ namespace LK.DB.SQLCreater
         public virtual string FetchAllSQL() {
             try
             {
-
                 if (Select_Column.Length == 0)
                 {
                     _SQL_ = " SELECT * FROM " + TableName + "   " + _SQL_;
                 }
                 else {
                     _SQL_ = " SELECT "+Select_Column+" FROM " + TableName + "   " + _SQL_;
-                }
-               
+                }               
                 _SQL_ = this.GroupBySQL(_SQL_);  
                 _SQL_ = this.OrderSQL(_SQL_);
                 _SQL_ = this.LimitSQL(_SQL_);
@@ -123,7 +112,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public virtual string FetchCountSQL()
         {
             try
@@ -142,10 +130,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
-
-        
-
         /*在RecordBase的物件上，取得它的值*/
         /// <summary>
         /// 在RecordBase的物件上，取得它的值
@@ -172,8 +156,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
-
         /*
          取得要執行的Update 的 的部份SQL語句，產出的語句不含WHERE的語句，
          使用的時侯要搭配where方法使用，由where餵入SQLCondition.
@@ -224,7 +206,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public ASQLCreater Update_Empty2Null(LK.DB.RecordBase rc)
         {
             try
@@ -306,7 +287,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public virtual ASQLCreater TruncateTable()
         {
             try
@@ -320,7 +300,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         /// <summary>
         /// 取得要執行的Delete 的 的部份SQL語句，產出的語句不含WHERE的語句，
         /// 使用的時侯要搭配where方法使用，由where餵入SQLCondition. 
@@ -369,8 +348,7 @@ namespace LK.DB.SQLCreater
                 this._SQL_ += " ) ";
                 this._SQL_ += " VALUES (";
                 foreach (LK.Attribute.ColumnName col in rc.getAllColumn())
-                {
-                    
+                {                    
                     try
                     {
                         object value = rc.getPropValue(rc, col.Name);
@@ -399,7 +377,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public virtual ASQLCreater Insert_Empty2Null(LK.DB.RecordBase rc)
         {
             try
@@ -463,7 +440,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         /// <summary>
         /// 調整要輸出的SQL語句，若有一個parameter，將有一個:######的標記
         /// 符號，此功能在調整:######變成一個正常的Parameter Name.
@@ -482,14 +458,14 @@ namespace LK.DB.SQLCreater
                 }
                 sql = "";
                 Int16 no = 1;
-
-                if (arrSql == null)
+                if (arrSql == null){
                     return _sql;
-
+                }
                 foreach (string tmp in arrSql)
                 {
-                    if (tmp.Trim().Length == 0)
+                    if (tmp.Trim().Length == 0){
                         break;
+                    }
                     if (no <= _SelfPARAMETER_.Count)
                     {
 
@@ -502,8 +478,7 @@ namespace LK.DB.SQLCreater
                         {
                             sql += tmp + this.__getParameterFlag()/*:*/ + "P" + no.ToString();
                             genParameter("P" + no.ToString(), _SelfPARAMETER_[no - 1]);
-                        }
-                        
+                        }                        
                     }
                     else
                     {
@@ -519,7 +494,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         /*取得不同類型的IDataParameter物件*/
         /// <summary>
         /// 取得不同類型的IDataParameter
@@ -537,7 +511,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public virtual System.Data.IDataParameter justGenParameter(string name, object value,System.Data.ParameterDirection pParameterDirection)
         {
             try
@@ -549,9 +522,7 @@ namespace LK.DB.SQLCreater
                 log.Error(ex);
                 throw ex;
             }
-        }
-        
-
+        }   
         public virtual IDbDataParameter createDbParameter(System.Data.IDbDataParameter param,ParameterDirection pdirection)
         {
             try
@@ -580,7 +551,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public List<System.Data.IDataParameter> getAllParameter()
         {
             try
@@ -636,15 +606,12 @@ namespace LK.DB.SQLCreater
             try
             {
                 if (isComplete == SQLComplete.UNComplete)
-                {
-
-                }
+                {}
                 else
                 {
                     _SQL_ = "";
                 }
-                TableName = condition.TABLE();
-                
+                TableName = condition.TABLE();                
                 if (condition.PARAMETER().Count() > 0 && _SQL_.Trim().StartsWith("WHERE") == false)
                 {
                     _SQL_ += " WHERE ";
@@ -657,7 +624,6 @@ namespace LK.DB.SQLCreater
                 if (isComplete != SQLComplete.UNComplete && this._SelfPARAMETER_.Count > 0) {
                     this._SelfPARAMETER_.Clear();
                 }
-
                 this._SelfPARAMETER_.AddRange(condition.PARAMETER());
                 return this;
             }
@@ -683,7 +649,6 @@ namespace LK.DB.SQLCreater
             this.strOrder = pStrOrder;
             return this;
         }
-
         public ASQLCreater GroupBy(string pStrGroupby)
         {
             this.strGroupBy = pStrGroupby;
@@ -776,7 +741,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         /// <summary>
         /// Free Style的方式來取得Order的SQL語句
         /// 此方法會自動產出 ORDER BY 字眼。ex ColumnA ASC,ColumnB DESC
@@ -806,7 +770,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public virtual string GroupBySQL(string SQL)
         {
             try
@@ -815,12 +778,10 @@ namespace LK.DB.SQLCreater
                 {
                     return _SQL_;
                 }
-
                 if (strGroupBy.Trim().EndsWith(","))
                 {
                     strGroupBy = strGroupBy.Trim().Substring(0, strGroupBy.Trim().Length - 1);
                 }
-
                 _SQL_ += " GROUP BY " + this.strGroupBy;
                 return _SQL_;
             }
@@ -866,7 +827,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public virtual string __getParameterFlag() {
             try
             {
@@ -906,19 +866,7 @@ namespace LK.DB.SQLCreater
         {
             try
             {
-
-                //if (Select_Column.Length == 0)
-                //{
-                //    _SQL_ = " UPDATE FROM " + TableName + "   " + _SQL_;
-                //}
-                //else
-                //{
-                    _SQL_ = " UPDATE " + TableName + _UPDATESQL_ ;
-                //}
-
-                //_SQL_ = this.GroupBySQL(_SQL_);
-                //_SQL_ = this.OrderSQL(_SQL_);
-                //_SQL_ = this.LimitSQL(_SQL_);
+                _SQL_ = " UPDATE " + TableName + _UPDATESQL_ ;
                 return adjuestSql(_SQL_);
             }
             catch (Exception ex)
@@ -927,24 +875,11 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
         public virtual string DeleteSQL()
         {
             try
             {
-
-                //if (Select_Column.Length == 0)
-                //{
                 _SQL_ = " DELETE " + TableName + " " + _DELETESQL_;
-                //}
-                //else
-                //{
-                //    _SQL_ = " DELETE " + Select_Column + " FROM " + TableName + "   " + _SQL_;
-                //}
-
-                //_SQL_ = this.GroupBySQL(_SQL_);
-                //_SQL_ = this.OrderSQL(_SQL_);
-                //_SQL_ = this.LimitSQL(_SQL_);
                 return adjuestSql(_SQL_);
             }
             catch (Exception ex)
@@ -952,18 +887,11 @@ namespace LK.DB.SQLCreater
                 log.Error(ex);
                 throw ex;
             }
-        }
-       
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        }  
         public virtual string InsertSQL()
         {
             try
             {
-
                 if (Select_Column.Length == 0)
                 {
                     _SQL_ = " SELECT * FROM " + TableName + "   " + _SQL_;
@@ -972,7 +900,6 @@ namespace LK.DB.SQLCreater
                 {
                     _SQL_ = " SELECT " + Select_Column + " FROM " + TableName + "   " + _SQL_;
                 }
-
                 _SQL_ = this.GroupBySQL(_SQL_);
                 _SQL_ = this.OrderSQL(_SQL_);
                 _SQL_ = this.LimitSQL(_SQL_);
@@ -984,16 +911,12 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
-
         public ASQLCreater SetUpdate(SQLUpdate sqlupdate)
         {
             try
             {
                 if (isComplete == SQLComplete.UNComplete)
-                {
-
-                }
+                {}
                 else
                 {
                     _UPDATESQL_ = "";
@@ -1010,7 +933,6 @@ namespace LK.DB.SQLCreater
                 {
                     this._SelfPARAMETER_.Clear();
                 }
-
                 this._SelfPARAMETER_.AddRange(sqlupdate.PARAMETER());
                 return this;
             }
@@ -1025,26 +947,17 @@ namespace LK.DB.SQLCreater
             try
             {
                 if (isComplete == SQLComplete.UNComplete)
-                {
-
-                }
+                {}
                 else
                 {
                     _DELETESQL_ = "";
                 }
                 TableName = sqldelete.TABLE();
-
-                //if (sqldelete.PARAMETER().Count() > 0 && _UPDATESQL_.Trim().StartsWith("SET") == false)
-                //{
-                //    _UPDATESQL_ += " SET ";
-                //}
                 this._DELETESQL_ += sqldelete.SQL();
-
                 if (isComplete != SQLComplete.UNComplete && this._SelfPARAMETER_.Count > 0)
                 {
                     this._SelfPARAMETER_.Clear();
                 }
-
                 this._SelfPARAMETER_.AddRange(sqldelete.PARAMETER());
                 return this;
             }
@@ -1054,8 +967,6 @@ namespace LK.DB.SQLCreater
                 throw ex;
             }
         }
-
-
         #region Dispose
         void IDisposable.Dispose()
         {
@@ -1077,22 +988,7 @@ namespace LK.DB.SQLCreater
                 if (disposing)
                 {
                     try
-                    {
-                        /*
-                        if (_dbconnection_ != null)
-                        {
-                            try
-                            {
-                                _dataBaseConfigInfo = null;
-                                _dbconnection_.Close();
-                                _dbconnection_.Dispose();
-                            }
-                            catch (Exception ex)
-                            {
-                                throw ex;
-                            }
-                        }*/
-                    }
+                    {}
                     catch (Exception e)
                     {
                         throw e;

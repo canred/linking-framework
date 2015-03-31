@@ -14,7 +14,6 @@ namespace LK.Util.Mail
     public class SMTPConfig
     {
         public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
         private static string _focusTag = "SMTPConfig";
         private static string focusTag = "SMTPConfig";
         /// <summary>配置文件所在路徑</summary>
@@ -27,7 +26,6 @@ namespace LK.Util.Mail
         {
         }
         #endregion
-
         public static System.Xml.XmlDocument Init()
         {
             try
@@ -39,7 +37,6 @@ namespace LK.Util.Mail
                     System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
                     doc.Load(ConfigFilePath());
                     return doc;
-
                 }
             }
             catch (Exception ex)
@@ -48,9 +45,7 @@ namespace LK.Util.Mail
                 throw ex;
             }
         }
-
         #region ConfigFilePath
-
         private static string ConfigFilePath()
         {
             try
@@ -86,8 +81,6 @@ namespace LK.Util.Mail
                 {
                     filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename.Replace("~/", ""));
                 }
-
-
                 if (!File.Exists(filename))
                 {
                     throw new Exception("發生錯誤: 沒有正確的" + focusTag + "文件");

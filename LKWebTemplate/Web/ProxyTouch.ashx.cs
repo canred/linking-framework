@@ -33,7 +33,8 @@ namespace LKWebTemplate
             {
                 INIT = context.Request.QueryString["init"].ToUpper();
             }
-            if (ss.ExistKey("PROXY") && Parameter.Config.ParemterConfigs.GetConfig().IsProductionServer == true)
+            //if (ss.ExistKey("PROXY") && Parameter.Config.ParemterConfigs.GetConfig().IsProductionServer == true)
+            if (ss.ExistKey("PROXY"))
             {
                 context.Response.Write(ss.getObject("PROXY").ToString());
                 return;
@@ -41,6 +42,10 @@ namespace LKWebTemplate
             var isFrist = true;
             foreach (var allAssembly in AssembliesLoaded)
             {
+                if (!allAssembly.GetName().Name.StartsWith(this.GetType().Namespace))
+                {
+                    continue;
+                };
                 foreach (var theType in allAssembly.GetTypes())
                 {
                     object[] allCustomAttribute = theType.GetCustomAttributes(false);
@@ -66,7 +71,7 @@ namespace LKWebTemplate
                             rem += "url: \"" + newUrl + "\",";
                             rem += "type:\"remoting\",";
                             rem += "timeout:" + LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().DirectTimeOut.ToString() + ",";
-                            string json = DirectProxyGenerator.generateDirectApi(className,true);
+                            string json = DirectProxyGenerator.generateDirectApi(allAssembly.GetName().Name,className, true);
                             rem += json;
                             rem += "};";
                             rem =  className + " =" + rem;

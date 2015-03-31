@@ -12,29 +12,23 @@ namespace LK.Attribute
         private bool databasePK = false;
         private Type columnType = null;
         private int? columnLength = null; 
-
         public ColumnName(string name, bool isPK, Type type, int length) {
             this.columnName = name;
             this.databasePK = isPK;
             this.columnType = type;
             this.columnLength = length;
         }
-
         public ColumnName(string name, bool isPK, Type type)
-        {
-  
+        {  
                 this.columnName = name;
                 this.databasePK = isPK;
-                this.columnType = type;
-          
+                this.columnType = type;          
         }
-
         public bool IsPK {
             get {
                 return this.databasePK;
             }
         }
-
         public string Name {
             get
             {

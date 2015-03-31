@@ -24,7 +24,7 @@ using System.Diagnostics;
 [DirectService("EncryptAction")]
 public class EncryptAction : BaseAction
 {
-    [DirectMethod("Encode", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("Encode", DirectAction.Load)]
     public JObject Encode(string yourstring, Request request)
     {
         #region Declare
@@ -43,7 +43,6 @@ public class EncryptAction : BaseAction
             //    throw new Exception("Permission Denied!");
             //};
             var encodeString = LK.Util.Encrypt.pwdEncode(yourstring);
-
             System.Data.DataTable dt = new DataTable();
             dt.Columns.Add("yourstring");
             dt.Columns.Add("encrypt");

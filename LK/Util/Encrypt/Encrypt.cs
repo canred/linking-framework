@@ -6,8 +6,7 @@ namespace LK.Util
     public static class Encrypt
     {
         static string keyStr = "IT/SOA/ATTR_LIB";
-        public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        
+        public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);        
         /// <summary>
         /// 加密
         /// </summary>
@@ -28,7 +27,6 @@ namespace LK.Util
                 throw ex;
             }
         }
-
         /// <summary>
         /// 解密
         /// </summary>

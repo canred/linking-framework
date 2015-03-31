@@ -10,7 +10,6 @@ using LK.DB.SQLCreater;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-
 using LKWebTemplate.Model.Basic;
 using LKWebTemplate.Model.Basic.Table;
 using LKWebTemplate.Model.Basic.Table.Record;
@@ -21,21 +20,20 @@ using System.Data;
 using System.Diagnostics;
 using System.DirectoryServices;
 #endregion
-
 [DirectService("ADAction")]
 public class ADAction : BaseAction
 {
-    [DirectMethod("loadUser", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("loadUser", DirectAction.Load)]
     public JObject loadUser(Request request)
     {
         #region Declare
         List<JObject> jobject = new List<JObject>();
         BasicModel modBasic = new BasicModel();
         ApplicationHead tblApplication = new ApplicationHead();
-        // OrderLimit orderLimit = null;
         #endregion
         try
-        {   /*Cloud身份檢查
+        {   
+            /*Cloud身份檢查
             checkUser(request.HttpRequest);
             if (this.getUser() == null)
             {
@@ -56,7 +54,6 @@ public class ADAction : BaseAction
             }
             var allUser = syncUser(drCompany.AD_LDAP, drCompany.AD_LDAP_USER, drCompany.AD_LDAP_USER_PASSWORD);
             var drsUser = modBasic.getAttendant_By_CompanyUuid(this.getUser().COMPANY_UUID);
-
             /*先設定所有人員的有啟用為 「否」，但除了admin外*/
             foreach (var user in drsUser)
             {
@@ -66,7 +63,6 @@ public class ADAction : BaseAction
                     user.gotoTable().Update_Empty2Null(user);
                 }
             }
-
             foreach (System.Collections.DictionaryEntry user in allUser)
             {
                 var isExistCount = drsUser.Where(c => c.ACCOUNT.ToUpper().Equals(user.Key.ToString().ToUpper())).Count();
@@ -107,8 +103,6 @@ public class ADAction : BaseAction
                     drUser.gotoTable().Update_Empty2Null(drUser);
                 }
             }
-
-
             /*使用Store Std out 『Sotre物件標準輸出格式』*/
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
         }
@@ -121,24 +115,19 @@ public class ADAction : BaseAction
         }
     }
 
-    [DirectMethod("testLDAP", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("testLDAP", DirectAction.Load)]
     public JObject testLDAP(string ADString, string account, string password, Request request)
     {
         #region Declare
         List<JObject> jobject = new List<JObject>();
         BasicModel modBasic = new BasicModel();
         ApplicationHead tblApplication = new ApplicationHead();
-        // OrderLimit orderLimit = null;
         #endregion
         try
         {
-
             var ht = syncUser(ADString, account, password);
-
             if (ht.Count > 0)
             {
-
-
                 /*使用Store Std out 『Sotre物件標準輸出格式』*/
                 return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
             }

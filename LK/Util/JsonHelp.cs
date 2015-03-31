@@ -14,17 +14,13 @@ using System.IO;
 using System.Text;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-
 namespace LK.Util
 {
-
     public class JsonHelper
     {
-
         /// <summary>
         /// JSON序列化
         /// </summary>
-
         public static string JsonSerializer<T>(T t)
         {
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
@@ -34,11 +30,9 @@ namespace LK.Util
             ms.Close();
             return jsonString;
         }
-
         public static string RecordBaseSerializer<T>(T t)
             where T : LK.DB.RecordBase
         {
-            //RecordBaseJson(t);
             string jsonString = "{";
             foreach (var col in t.getAllColumn())
             {
@@ -53,9 +47,6 @@ namespace LK.Util
                     }
                     else
                     {
-                        //value = value.ToString().Replace("\r", "\\\\r");
-                        //value = value.ToString().Replace("\n", "\\\\n");
-
                         jsonString += Enquote(value.ToString());
                     }
                 }
@@ -63,7 +54,6 @@ namespace LK.Util
                 {
                     jsonString += "\"\"";
                 }
-
                 jsonString += ",";
             }
             if (jsonString.EndsWith(","))
@@ -87,7 +77,6 @@ namespace LK.Util
                 throw ex;
             }
         }
-
         public static JObject RecordBaseJObject<T>(T t)
            where T : LK.DB.RecordBase
         {
@@ -107,9 +96,6 @@ namespace LK.Util
                         }
                         else
                         {
-                            //value = value.ToString().Replace("\r", "\\\\r");
-                            //value = value.ToString().Replace("\n", "\\\\n");
-
                             jsonString += Enquote(value.ToString());
                         }
                     }
@@ -117,7 +103,6 @@ namespace LK.Util
                     {
                         jsonString += "\"\"";
                     }
-
                     jsonString += ",";
                 }
                 if (jsonString.EndsWith(","))
@@ -133,7 +118,6 @@ namespace LK.Util
                 throw ex;
             }
         }
-
         public static string Enquote(string s)
         {
             if (s == null || s.Length == 0)
@@ -145,7 +129,6 @@ namespace LK.Util
             int len = s.Length;
             StringBuilder sb = new StringBuilder(len + 4);
             string t;
-
             sb.Append('"');
             for (i = 0; i < len; i += 1)
             {
@@ -155,7 +138,6 @@ namespace LK.Util
                     sb.Append('\\');
                     sb.Append(c);
                 }
-
                 else if (c == '\b')
                     sb.Append("\b");
                 else if (c == '\t')
@@ -170,7 +152,6 @@ namespace LK.Util
                 {
                     if (c < ' ')
                     {
-                        //t = "000" + Integer.toHexString(c); 
                         t = new string(c, 1);
                         t = "000" + int.Parse(t, System.Globalization.NumberStyles.HexNumber);
                         sb.Append("\\u" + t.Substring(t.Length - 4));
@@ -184,11 +165,9 @@ namespace LK.Util
             sb.Append('"');
             return sb.ToString();
         }
-
         public static string RecordBaseListSerializer<T>(IList<T> t)
             where T : LK.DB.RecordBase
         {
-
             string jdata = "";
             foreach (var item in t)
             {
@@ -202,7 +181,6 @@ namespace LK.Util
             RecordBaseListJObject(t);
             return jdata;
         }
-
         public static List<JObject> RecordBaseListJObject<T>(IList<T> t)
             where T : LK.DB.RecordBase
         {
@@ -215,24 +193,19 @@ namespace LK.Util
             }
             return obj;
         }
-
         public static string DataTableSerializer(System.Data.DataTable t)
         {
-
             string jdata = "";
             foreach (System.Data.DataRow item in t.Rows)
             {
                 jdata += LK.Util.JsonHelper.DataRowSerializer(item) + ",";
             }
-
             if (jdata.EndsWith(","))
             {
                 jdata = jdata.Substring(0, jdata.Length - 1);
             }
-
             return jdata;
         }
-
         public static JArray DataTableSerializerJArray(System.Data.DataTable t)
         {
             JArray jarray = new JArray();
@@ -242,11 +215,8 @@ namespace LK.Util
             }
             return jarray;
         }
-
-
         public static string DataRowSerializer(System.Data.DataRow t)
         {
-
             string jsonString = "{";
             foreach (System.Data.DataColumn col in t.Table.Columns)
             {
@@ -264,7 +234,6 @@ namespace LK.Util
                     {
                         jsonString += "\"\"";
                     }
-
                     jsonString += ",";
                     #endregion
                 }
@@ -285,7 +254,6 @@ namespace LK.Util
                     jsonString += ",";
                     #endregion
                 }
-
             }
             if (jsonString.EndsWith(","))
             {
@@ -302,7 +270,6 @@ namespace LK.Util
         /// <summary>
         /// JSON反序列化
         /// </summary>
-
         public static T JsonDeserialize<T>(string jsonString)
         {
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
@@ -323,14 +290,12 @@ namespace LK.Util
                 if (i >= start && i < start + limit)
                 {
                     ret += "{";
-
                     #region 在欄位中找Mappint
                     foreach (System.Data.DataColumn dc in item.Table.Columns)
                     {
                         if (item[dc.ColumnName].ToString().Trim().Length == 0)
                         {
                             ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'',";
-
                         }
                         else
                         {
@@ -341,7 +306,6 @@ namespace LK.Util
                                     ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()).Replace("\r\n", "\\r\\n") + "',";
                                     break;
                                 case "DateTime":
-
                                     var _dataTime = DateTime.MinValue;
                                     var isDateTime = DateTime.TryParse(item[dc.ColumnName].ToString(), out _dataTime);
                                     if (isDateTime)
@@ -353,36 +317,28 @@ namespace LK.Util
                                     {
                                         ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
                                     }
-
                                     break;
                                 case "Decimal":
                                     ret += "'" + dc.ColumnName.ToUpper() + "'" + ":" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + ",";
                                     break;
-
                                 default:
                                     ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
-
                                     break;
                             }
                             if (result[0].Table.Constraints.Count > 0)
                             {
                                 #region 加入PK資訊
-
                                 foreach (var ct in ((System.Data.UniqueConstraint)(result[0].Table.Constraints[0])).Columns)
                                 {
-
                                     if (ct.ToString().ToLower() == dc.ColumnName.ToUpper())
                                     {
                                         switch (colType)
                                         {
                                             case "String":
                                                 ret += "'PK_" + dc.ColumnName.ToUpper() + "':'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
-
                                                 break;
                                             case "DateTime":
-
                                                 var _dataTime = DateTime.MinValue;
-
                                                 var isDateTime = DateTime.TryParse(item[dc.ColumnName].ToString(), out _dataTime);
                                                 if (isDateTime)
                                                 {
@@ -392,17 +348,13 @@ namespace LK.Util
                                                 else
                                                 {
                                                     ret += "'PK_" + dc.ColumnName.ToUpper() + "':'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
-
                                                 }
-
                                                 break;
                                             case "Decimal":
                                                 ret += "'PK_" + dc.ColumnName.ToUpper() + "':" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + ",";
                                                 break;
-
                                             default:
                                                 ret += "'PK_" + dc.ColumnName.ToUpper() + "':'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
-
                                                 break;
                                         }
                                         break;
@@ -413,7 +365,6 @@ namespace LK.Util
                         }
                     }
                     #endregion  在欄位中找Mappint
-
                     if (ret.EndsWith(","))
                         ret = ret.Remove(ret.Length - 1, 1);
                     ret += "},";
@@ -423,18 +374,14 @@ namespace LK.Util
             if (ret.EndsWith(","))
                 ret = ret.Remove(ret.Length - 1, 1);
             ret += "]}";
-
             ret = ret.Replace("\n", "\\n");
             ret = ret.Replace("\t", "\\t");
             ret = ret.Replace("\r", "\\r");
             ret = ret.Replace("\r\n", "\\r\\n");
             ret = ret.Replace(Environment.NewLine.ToString(), "");
-
             ret = cleanString(ret);
             return ret;
         }
-
-
         public static string DataTable2Json(DataTable result, int start, int limit)
         {
             string ret = "";
@@ -450,11 +397,9 @@ namespace LK.Util
                     #region 在欄位中找Mappint
                     foreach (System.Data.DataColumn dc in result.Columns)
                     {
-
                         if (item[dc.ColumnName].ToString().Trim().Length == 0)
                         {
                             ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'',";
-
                         }
                         else
                         {
@@ -465,7 +410,6 @@ namespace LK.Util
                                     ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()).Replace("\r\n", "\\r\\n") + "',";
                                     break;
                                 case "DateTime":
-
                                     var _dataTime = DateTime.MinValue;
                                     var isDateTime = DateTime.TryParse(item[dc.ColumnName].ToString(), out _dataTime);
                                     if (isDateTime)
@@ -476,26 +420,20 @@ namespace LK.Util
                                     else
                                     {
                                         ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
-
                                     }
-
                                     break;
                                 case "Decimal":
                                     ret += "'" + dc.ColumnName.ToUpper() + "'" + ":" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + ",";
                                     break;
-
                                 default:
                                     ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
-
                                     break;
                             }
                             if (result.Constraints.Count > 0)
                             {
                                 #region 加入PK資訊
-
                                 foreach (var ct in ((System.Data.UniqueConstraint)(result.Constraints[0])).Columns)
                                 {
-
                                     if (ct.ToString().ToLower() == dc.ColumnName.ToUpper())
                                     {
                                         switch (colType)
@@ -505,9 +443,7 @@ namespace LK.Util
 
                                                 break;
                                             case "DateTime":
-
                                                 var _dataTime = DateTime.MinValue;
-
                                                 var isDateTime = DateTime.TryParse(item[dc.ColumnName].ToString(), out _dataTime);
                                                 if (isDateTime)
                                                 {
@@ -519,15 +455,12 @@ namespace LK.Util
                                                     ret += "'PK_" + dc.ColumnName.ToUpper() + "':'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
 
                                                 }
-
                                                 break;
                                             case "Decimal":
                                                 ret += "'PK_" + dc.ColumnName.ToUpper() + "':" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + ",";
                                                 break;
-
                                             default:
                                                 ret += "'PK_" + dc.ColumnName.ToUpper() + "':'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
-
                                                 break;
                                         }
                                         break;
@@ -547,13 +480,11 @@ namespace LK.Util
             if (ret.EndsWith(","))
                 ret = ret.Remove(ret.Length - 1, 1);
             ret += "]}";
-
             ret = ret.Replace("\n", "\\n");
             ret = ret.Replace("\t", "\\t");
             ret = ret.Replace("\r", "\\r");
             ret = ret.Replace("\r\n", "\\r\\n");
             ret = ret.Replace(Environment.NewLine.ToString(), "");
-
             ret = cleanString(ret);
             return ret;
         }
@@ -567,16 +498,13 @@ namespace LK.Util
             ret += "'TotalPages':1,'Item':[";
             var item = result;
             int i = 0;
-
             ret += "{";
-
             #region 在欄位中找Mappint
             foreach (System.Data.DataColumn dc in item.Table.Columns)
             {
                 if (item[dc.ColumnName].ToString().Trim().Length == 0)
                 {
                     ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'',";
-
                 }
                 else
                 {
@@ -587,7 +515,6 @@ namespace LK.Util
                             ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()).Replace("\r\n", "\\r\\n") + "',";
                             break;
                         case "DateTime":
-
                             var _dataTime = DateTime.MinValue;
                             var isDateTime = DateTime.TryParse(item[dc.ColumnName].ToString(), out _dataTime);
                             if (isDateTime)
@@ -598,38 +525,29 @@ namespace LK.Util
                             else
                             {
                                 ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
-
                             }
-
                             break;
                         case "Decimal":
                             ret += "'" + dc.ColumnName.ToUpper() + "'" + ":" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + ",";
                             break;
-
                         default:
                             ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
-
                             break;
                     }
                     if (result.Table.Constraints.Count > 0)
                     {
                         #region 加入PK資訊
-
                         foreach (var ct in ((System.Data.UniqueConstraint)(result.Table.Constraints[0])).Columns)
                         {
-
                             if (ct.ToString().ToLower() == dc.ColumnName.ToUpper())
                             {
                                 switch (colType)
                                 {
                                     case "String":
                                         ret += "'PK_" + dc.ColumnName.ToUpper() + "':'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
-
                                         break;
                                     case "DateTime":
-
                                         var _dataTime = DateTime.MinValue;
-
                                         var isDateTime = DateTime.TryParse(item[dc.ColumnName].ToString(), out _dataTime);
                                         if (isDateTime)
                                         {
@@ -639,17 +557,13 @@ namespace LK.Util
                                         else
                                         {
                                             ret += "'PK_" + dc.ColumnName.ToUpper() + "':'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
-
                                         }
-
                                         break;
                                     case "Decimal":
                                         ret += "'PK_" + dc.ColumnName.ToUpper() + "':" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + ",";
                                         break;
-
                                     default:
                                         ret += "'PK_" + dc.ColumnName.ToUpper() + "':'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
-
                                         break;
                                 }
                                 break;
@@ -660,23 +574,20 @@ namespace LK.Util
                 }
             }
             #endregion  在欄位中找Mappint
-
-            if (ret.EndsWith(","))
+            if (ret.EndsWith(",")){
                 ret = ret.Remove(ret.Length - 1, 1);
+            }
             ret += "},";
-
             i++;
-
-            if (ret.EndsWith(","))
+            if (ret.EndsWith(",")){
                 ret = ret.Remove(ret.Length - 1, 1);
+            }
             ret += "]}";
-
             ret = ret.Replace("\n", "\\n");
             ret = ret.Replace("\t", "\\t");
             ret = ret.Replace("\r", "\\r");
             ret = ret.Replace("\r\n", "\\r\\n");
             ret = ret.Replace(Environment.NewLine.ToString(), "");
-
             ret = cleanString(ret);
             return ret;
         }
@@ -691,16 +602,13 @@ namespace LK.Util
             int i = 0;
             foreach (var item in result)
             {
-
                 ret += "{";
-
                 #region 在欄位中找Mappint
                 foreach (System.Data.DataColumn dc in item.Table.Columns)
                 {
                     if (item[dc.ColumnName].ToString().Trim().Length == 0)
                     {
                         ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'',";
-
                     }
                     else
                     {
@@ -711,7 +619,6 @@ namespace LK.Util
                                 ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()).Replace("\r\n", "\\r\\n") + "',";
                                 break;
                             case "DateTime":
-
                                 var _dataTime = DateTime.MinValue;
                                 var isDateTime = DateTime.TryParse(item[dc.ColumnName].ToString(), out _dataTime);
                                 if (isDateTime)
@@ -722,17 +629,13 @@ namespace LK.Util
                                 else
                                 {
                                     ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
-
                                 }
-
                                 break;
                             case "Decimal":
                                 ret += "'" + dc.ColumnName.ToUpper() + "'" + ":" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + ",";
                                 break;
-
                             default:
                                 ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
-
                                 break;
                         }
                         if (result[0].Table.Constraints.Count > 0)
@@ -746,12 +649,9 @@ namespace LK.Util
                                     {
                                         case "String":
                                             ret += "'PK_" + dc.ColumnName.ToUpper() + "':'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
-
                                             break;
                                         case "DateTime":
-
                                             var _dataTime = DateTime.MinValue;
-
                                             var isDateTime = DateTime.TryParse(item[dc.ColumnName].ToString(), out _dataTime);
                                             if (isDateTime)
                                             {
@@ -761,17 +661,13 @@ namespace LK.Util
                                             else
                                             {
                                                 ret += "'PK_" + dc.ColumnName.ToUpper() + "':'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
-
                                             }
-
                                             break;
                                         case "Decimal":
                                             ret += "'PK_" + dc.ColumnName.ToUpper() + "':" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + ",";
                                             break;
-
                                         default:
                                             ret += "'PK_" + dc.ColumnName.ToUpper() + "':'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
-
                                             break;
                                     }
                                     break;
@@ -782,33 +678,29 @@ namespace LK.Util
                     }
                 }
                 #endregion  在欄位中找Mappint
-
-                if (ret.EndsWith(","))
+                if (ret.EndsWith(",")){
                     ret = ret.Remove(ret.Length - 1, 1);
+                }
                 ret += "},";
-
                 i++;
             }
-            if (ret.EndsWith(","))
+            if (ret.EndsWith(",")){
                 ret = ret.Remove(ret.Length - 1, 1);
+            }
             ret += "]}";
-
             ret = ret.Replace("\n", "\\n");
             ret = ret.Replace("\t", "\\t");
             ret = ret.Replace("\r", "\\r");
             ret = ret.Replace("\r\n", "\\r\\n");
             ret = ret.Replace(Environment.NewLine.ToString(), "");
-
             ret = cleanString(ret);
             return ret;
         }
-
         private static string cleanString(string newStr)
         {
             string tempStr = newStr.Replace((char)13, (char)0);
             return tempStr.Replace((char)10, (char)0);
         }
-
         public static string ReportSpecialFlag(string ret)
         {
             ret = ret.Replace("\n", "\\n");
@@ -819,5 +711,4 @@ namespace LK.Util
             return ret;
         }
     }
-
 }

@@ -7,28 +7,17 @@ using log4net;
 using System.Reflection;
 namespace LK.UserInfo
 {
-    /// <summary>
-    /// 基本設置訊息管理類
-    /// </summary>
     public class UserInfoConfig 
     {
-        public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        
+        public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);        
         private static string _focusTag = "UserInfoConfig";
         private static string focusTag = "UserInfoConfig";
-        /// <summary>配置文件所在路徑</summary>
         public static string filename;
-
         #region DataBaseConfigFileManager()
-
-        /// <summary>
-        /// 初始化文件修改時間和對像實例
-        /// </summary>
         static UserInfoConfig()
         {
         }
         #endregion
-
         public static System.Xml.XmlDocument Init()
         {
             try
@@ -40,7 +29,6 @@ namespace LK.UserInfo
                     System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
                     doc.Load(ConfigFilePath());
                     return doc;
-
                 }
             }
             catch (Exception ex)
@@ -49,9 +37,7 @@ namespace LK.UserInfo
                 throw ex;
             }
         }
-
         #region ConfigFilePath
-
         private static string ConfigFilePath()
         {
             try
@@ -87,8 +73,6 @@ namespace LK.UserInfo
                 {
                     filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename.Replace("~/", ""));
                 }
-
-
                 if (!File.Exists(filename))
                 {
                     throw new Exception("發生錯誤: 沒有正確的" + focusTag + "文件");

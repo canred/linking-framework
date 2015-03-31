@@ -6,7 +6,6 @@ using LK.Attribute;
 using LK.DB;
 using LK.DB.SQLCreater;
 using LK.ActionLog.Table;
-
 namespace LK.ActionLog.Table.Record
 {
     [LkRecord]
@@ -27,7 +26,6 @@ namespace LK.ActionLog.Table.Record
 		string _FUNCTION_NAME=null;
 		string _PARAMETER=null;
 		/*欄位資訊 End*/
-
 		[ColumnName("UUID",false,typeof(string))]
 		public string UUID
 		{
@@ -40,7 +38,6 @@ namespace LK.ActionLog.Table.Record
 				return _UUID;
 			}
 		}
-
 		[ColumnName("CREATE_USER",false,typeof(string))]
 		public string CREATE_USER
 		{
@@ -53,7 +50,6 @@ namespace LK.ActionLog.Table.Record
 				return _CREATE_USER;
 			}
 		}
-
 		[ColumnName("CREATE_DATE",false,typeof(DateTime?))]
 		public DateTime? CREATE_DATE
 		{
@@ -66,7 +62,6 @@ namespace LK.ActionLog.Table.Record
 				return _CREATE_DATE;
 			}
 		}
-
 		[ColumnName("UPDATE_USER",false,typeof(string))]
 		public string UPDATE_USER
 		{
@@ -79,7 +74,6 @@ namespace LK.ActionLog.Table.Record
 				return _UPDATE_USER;
 			}
 		}
-
 		[ColumnName("UPDATE_DATE",false,typeof(DateTime?))]
 		public DateTime? UPDATE_DATE
 		{
@@ -92,7 +86,6 @@ namespace LK.ActionLog.Table.Record
 				return _UPDATE_DATE;
 			}
 		}
-
 		[ColumnName("IS_ACTIVE",false,typeof(string))]
 		public string IS_ACTIVE
 		{
@@ -105,7 +98,6 @@ namespace LK.ActionLog.Table.Record
 				return _IS_ACTIVE;
 			}
 		}
-
 		[ColumnName("ATTENDANT_UUID",false,typeof(string))]
 		public string ATTENDANT_UUID
 		{
@@ -118,7 +110,6 @@ namespace LK.ActionLog.Table.Record
 				return _ATTENDANT_UUID;
 			}
 		}
-
 		[ColumnName("CLASS_NAME",false,typeof(string))]
 		public string CLASS_NAME
 		{
@@ -131,7 +122,6 @@ namespace LK.ActionLog.Table.Record
 				return _CLASS_NAME;
 			}
 		}
-
 		[ColumnName("FUNCTION_NAME",false,typeof(string))]
 		public string FUNCTION_NAME
 		{
@@ -144,7 +134,6 @@ namespace LK.ActionLog.Table.Record
 				return _FUNCTION_NAME;
 			}
 		}
-
 		[ColumnName("PARAMETER",false,typeof(string))]
 		public string PARAMETER
 		{

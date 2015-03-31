@@ -24,7 +24,7 @@ using System.Diagnostics;
 [DirectService("AdminCompanyAction")]
 public class AdminCompanyAction : BaseAction
 {
-    [DirectMethod("loadCompany", DirectAction.Store, MethodVisibility.Visible)]
+    [DirectMethod("loadCompany", DirectAction.Store)]
     public JObject loadCompany(string pKeyword, string pIsActive, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
@@ -41,18 +41,15 @@ public class AdminCompanyAction : BaseAction
             {
                 throw new Exception("Identity authentication failed.");
             }
-
             /*權限檢查*/
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
                 throw new Exception("Permission Denied!");
             };
-
             /*是Store操作一下就可能含有分頁資訊。*/
             orderLimit = ExtDirect.Direct.Helper.Order.getOrderLimit(pageNo, limitNo, sort, dir);
             /*取得總資料數*/
             var totalCount = basicModel.getCompany_By_KeyWord_IsActive_Count(pKeyword, pIsActive);
-
             /*取得資料*/
             var data = basicModel.getCompany_By_KeyWord_IsActive(pKeyword, pIsActive, orderLimit);
             if (data.Count > 0)
@@ -70,8 +67,7 @@ public class AdminCompanyAction : BaseAction
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
-
-    [DirectMethod("info", DirectAction.Load, MethodVisibility.Visible)]
+    [DirectMethod("info", DirectAction.Load)]
     public JObject info(string pUuid, Request request)
     {
         #region Declare
@@ -90,7 +86,6 @@ public class AdminCompanyAction : BaseAction
             {
                 throw new Exception("Permission Denied!");
             };
-
             var data = model.getCompany_By_Uuid(pUuid);
 
             if (data.AllRecord().Count == 1)
@@ -106,13 +101,13 @@ public class AdminCompanyAction : BaseAction
         }
     }
 
-    [DirectMethod("submit", DirectAction.FormSubmission, MethodVisibility.Visible)]
+    [DirectMethod("submit", DirectAction.FormSubmission)]
     public JObject submit(string uuid, string c_name, string e_name, string id, string is_active, string week_shift, string name_zh_cn,
         string is_sync_ad_user,
         string ad_ldap,
         string ad_ldap_user,
         string ad_ldap_user_password,
-        HttpRequest request)
+        Request request)
     {
         #region Declare
         var action = SubmitAction.None;
@@ -122,7 +117,7 @@ public class AdminCompanyAction : BaseAction
         try
         {
             /*Cloud身份檢查*/
-            checkUser(request);
+            checkUser(request.HttpRequest);
             if (this.getUser() == null)
             {
                 throw new Exception("Identity authentication failed.");
@@ -132,12 +127,7 @@ public class AdminCompanyAction : BaseAction
             {
                 throw new Exception("Permission Denied!");
             };
-
-            bool isSuccess = true;
-            /*
-             * 所有Form的動作最終是使用Submit的方式將資料傳出；
-             * 必須有一個特徵來判斷使用者，執行的動作；
-             */
+            bool isSuccess = true;           
             if (uuid.Trim().Length > 0)
             {
                 action = SubmitAction.Edit;
