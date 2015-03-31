@@ -44,18 +44,21 @@ public class AuthorityAction : BaseAction
             {
                 throw new Exception("Permission Denied!");
             };
+            OrderLimit orderlimit = new OrderLimit("ORD", OrderLimit.OrderMethod.ASC);
+            orderlimit.Start = 1;
+            orderlimit.Limit = 99999;
             /*取得資料*/
 
             var genTable = new LKWebTemplate.Model.Basic.Table.AppmenuApppageV();
-           
 
-            var dataTable = model.getAppmenuApppageV_By_ParentUuid_DataTable(parentUuid);
+
+            var dataTable = model.getAppmenuApppageV_By_ParentUuid_DataTable(parentUuid, orderlimit);
             dataTable.Columns.Add("leaf");            
             dataTable.Columns.Add("checked", typeof(Boolean));            
             dataTable.Columns.Add("DEFAULT_PAGE_CHECKED");
             foreach (DataRow dr in dataTable.Rows)
             {
-                var children = model.getAppmenuApppageV_By_ParentUuid_DataTable(dr[tblAppmenu.UUID].ToString());
+                var children = model.getAppmenuApppageV_By_ParentUuid_DataTable(dr[tblAppmenu.UUID].ToString(), orderlimit);
                 if (children.Rows.Count == 0)
                 {
                     dr["leaf"] = "true";
@@ -117,12 +120,17 @@ public class AuthorityAction : BaseAction
             {
                 throw new Exception("Permission Denied!");
             };
+
+            OrderLimit orderlimit = new OrderLimit("ORD", OrderLimit.OrderMethod.ASC);
+            orderlimit.Start = 1;
+            orderlimit.Limit = 99999;
+
             /*取得資料*/
             var genTable = new AppmenuApppageV();
             var drsAppmenuApppageV = model.getAppmenuApppageV_By_ParentUuid(parentUuid);
             var drAppmenuApppageV = drsAppmenuApppageV.First();
-            drsAppmenuApppageV = model.getAppmenuApppageV_By_ApplicationHeadUuid(drAppmenuApppageV.APPLICATION_HEAD_UUID);
-            var dataTable = model.getAppmenuApppageV_By_ParentUuid_DataTable(parentUuid);
+            drsAppmenuApppageV = model.getAppmenuApppageV_By_ApplicationHeadUuid(drAppmenuApppageV.APPLICATION_HEAD_UUID,orderlimit);
+            var dataTable = model.getAppmenuApppageV_By_ParentUuid_DataTable(parentUuid, orderlimit);
 
             IList<GroupAppmenu_Record> gm_ut = model.getGroupAppmenuV_By_GroupHeadUuid(pGroupHeadUuid);
 
@@ -135,7 +143,7 @@ public class AuthorityAction : BaseAction
             foreach (DataRow dr in dataTable.Rows)
             {
 
-                var children = model.getAppmenuApppageV_By_ParentUuid_DataTable(dr[tblAppmenuApppageV.UUID].ToString());
+                var children = model.getAppmenuApppageV_By_ParentUuid_DataTable(dr[tblAppmenuApppageV.UUID].ToString(), orderlimit);
                 if (children.Rows.Count == 0)
                 {
                     dr["leaf"] = true;

@@ -85,6 +85,10 @@
         .pure-button-error  {
             background: rgb(202, 60, 60); /* this is an orange */
         }       
+
+        legend {  
+          margin-bottom: 0px;
+        }
     </style>    
     <asp:ContentPlaceHolder ID="head" runat="server">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

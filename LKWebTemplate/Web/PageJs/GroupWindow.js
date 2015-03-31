@@ -644,7 +644,11 @@ Ext.define('WS.GroupWindow', {
                                     params: {
                                         UUID: data.UUID,
                                         GROUPHEADUUID: this.param.uuid
-                                    }
+                                    },
+                                    callback: function() {
+                                        this.down('#appMenuTree').expandAll();
+                                    },
+                                    scope: this
                                 });
                             }, this);
                     },

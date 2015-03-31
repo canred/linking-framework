@@ -80,7 +80,11 @@ Ext.define('WS.MenuQueryPanel', {
                 this.myStore.tree.load({
                     params: {
                         'UUID': data.UUID
-                    }
+                    },
+                    callback: function() {
+                        this.down('#AppMenuTree').expandAll();
+                    },
+                    scope: this
                 });
             };
         }, obj);
@@ -225,7 +229,7 @@ Ext.define('WS.MenuQueryPanel', {
                 rootVisible: false,
                 columns: {
                     defaults: {
-                        align:'left'
+                        align: 'left'
                     },
                     items: [{
                         xtype: 'treecolumn',
@@ -235,7 +239,7 @@ Ext.define('WS.MenuQueryPanel', {
                         dataIndex: 'NAME_ZH_TW'
                     }, {
                         text: '啟用',
-                        width:60,
+                        width: 60,
                         dataIndex: 'IS_ACTIVE',
                         align: 'center',
                         sortable: false,
@@ -243,7 +247,7 @@ Ext.define('WS.MenuQueryPanel', {
                         renderer: this.fnActiveRender
                     }, {
                         text: '順序',
-                        width:60,
+                        width: 60,
                         dataIndex: 'ORD',
                         align: 'center',
                         sortable: false
@@ -253,7 +257,7 @@ Ext.define('WS.MenuQueryPanel', {
                         dataIndex: 'UUID',
                         align: 'center',
                         sortable: false,
-                        width:100,
+                        width: 100,
                         items: [{
                             tooltip: '*編輯',
                             icon: SYSTEM_URL_ROOT + '/css/images/edit16x16.png',

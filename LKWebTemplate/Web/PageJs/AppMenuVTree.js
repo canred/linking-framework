@@ -29,7 +29,7 @@
  Ext.define('WS.AppMenuVTree', {
      extend: 'Ext.data.TreeStore',
      root: {
-         expanded: true
+         expanded: false
      },
      autoLoad: false,
      autoSync: false,

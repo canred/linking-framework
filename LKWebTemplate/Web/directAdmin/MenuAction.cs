@@ -51,7 +51,10 @@ public class MenuAction : BaseAction
             };
             /*取得資料*/
             var genTable = new LKWebTemplate.Model.Basic.Table.Appmenu();
-            var dataTable = model.getAppmenu_By_RootUuid_DataTable(parentUuid);
+            OrderLimit orderlimit = new OrderLimit("ORD", OrderLimit.OrderMethod.ASC);
+            orderlimit.Start = 1;
+            orderlimit.Limit = 99999;
+            var dataTable = model.getAppmenu_By_RootUuid_DataTable(parentUuid, orderlimit);
             dataTable.Columns.Add("leaf");            
             dataTable.Columns.Add("name");
             dataTable.Columns.Add("checked", typeof(Boolean));
@@ -59,7 +62,7 @@ public class MenuAction : BaseAction
             foreach (DataRow dr in dataTable.Rows)
             {
 
-                var children = model.getAppmenu_By_RootUuid_DataTable(dr[tblAppMenu.UUID].ToString());
+                var children = model.getAppmenu_By_RootUuid_DataTable(dr[tblAppMenu.UUID].ToString(), orderlimit);
                 if (children.Rows.Count == 0)
                 {
                     dr["leaf"] = "true";
@@ -106,19 +109,26 @@ public class MenuAction : BaseAction
             {
                 throw new Exception("Permission Denied!");
             };
+            OrderLimit orderlimit = new OrderLimit("ORD", OrderLimit.OrderMethod.ASC);
+            orderlimit.Start = 1;
+            orderlimit.Limit = 99999;
+
             /*取得資料*/
             var genTable = new Appmenu();
             var drsAppmenu = model.getAppmenu_By_Uuid(parentUuid).AllRecord();
             var drAppmenu = drsAppmenu.First();
-            drsAppmenu = model.getAppmenu_By_ApplicationHead(drAppmenu.APPLICATION_HEAD_UUID);
-            var dataTable = model.getAppmenu_By_RootUuid_DataTable(parentUuid);            
+            drsAppmenu = model.getAppmenu_By_ApplicationHead(drAppmenu.APPLICATION_HEAD_UUID,orderlimit);
+            
+
+            
+            var dataTable = model.getAppmenu_By_RootUuid_DataTable(parentUuid,orderlimit);            
             dataTable.Columns.Add("leaf", System.Type.GetType("System.Boolean"));
             dataTable.Columns.Add("name");                        
             dataTable.Columns.Add("expanded", System.Type.GetType("System.Boolean"));            
             foreach (DataRow dr in dataTable.Rows)
             {
 
-                var children = model.getAppmenu_By_RootUuid_DataTable(dr[genTable.UUID].ToString());
+                var children = model.getAppmenu_By_RootUuid_DataTable(dr[genTable.UUID].ToString(), orderlimit);
                 if (children.Rows.Count == 0)
                 {
                     dr["leaf"] = true;
@@ -701,7 +711,7 @@ public class MenuAction : BaseAction
             ApplicationHead tb = new ApplicationHead(LK.Config.DataBase.Factory.getInfo());
             var drs = tb.Where(new LK.DB.SQLCondition(tb).Equal(tb.NAME, appName))
                 .FetchAll<ApplicationHead_Record>();
-            pApplicationHeadUuid = "";
+            
             if (drs.Count > 0)
             {
                 pApplicationHeadUuid = drs.First().UUID;

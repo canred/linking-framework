@@ -59,7 +59,7 @@ Ext.define('WS.MenuWindow', {
             },
             remoteSort: true,
             sorters: [{
-                property: 'UUID',
+                property: 'NAME',
                 direction: 'ASC'
             }]
         }),
@@ -549,45 +549,51 @@ Ext.define('WS.MenuWindow', {
                 removeMask: true
             });
             this.myMask.show();
-            this.myStore.sitemap.getProxy().setExtraParam('pApplicationHeadUuid', 'AUTO');
+            //alert(this.param.applicationHeadUuid);
+            this.myStore.sitemap.getProxy().setExtraParam('pApplicationHeadUuid', this.param.applicationHeadUuid);
             this.myStore.sitemap.load({
                 callback: function() {
-                    this.myStore.menu.getProxy().setExtraParam('pApplicationHeadUuid', "ATUO");
-                    this.myStore.menu.load();
+                    this.myStore.menu.getProxy().setExtraParam('pApplicationHeadUuid', this.param.applicationHeadUuid);
+                    this.myStore.menu.load({
+                        callback: function() {                            
+                            if (this.param.uuid != undefined) {
+                                this.down('#btnDelete').setDisabled(true);
+                                this.down('#AppMenuForm').getForm().load({
+                                    params: {
+                                        'pUuid': this.param.uuid
+                                    },
+                                    success: function(response, a, b) {
+                                        var _gridProxy = this.down("#gridProxy");
+                                        _gridProxy.getStore().getProxy().setExtraParam('pApplicationHeadUuid', this.down('#APPLICATION_HEAD_UUID').getValue());
+                                        _gridProxy.getStore().getProxy().setExtraParam('pAppmenuUuid', this.down('#UUID').getValue());
+                                        _gridProxy.getStore().load({
+                                            callback: function() {
+                                                this.myMask.hide();
+                                            },
+                                            scope: this
+                                        });
+                                    },
+                                    failure: function(response, a, b) {
+                                        r = Ext.decode(response.responseText);
+                                        alert('err:' + r);
+                                    },
+                                    scope: this
+                                });
+                            } else {
+                                this.down('#btnDelete').setDisabled(true);
+                                this.down('#AppMenuForm').getForm().reset();
+                                this.down('#APPMENU_UUID').setValue(this.param.parentUuid);
+                                this.down('#APPLICATION_HEAD_UUID').setValue(this.param.applicationHeadUuid);
+                                this.down('#UUID').setValue('');
+                                this.myMask.hide();
+                            };
+                        },
+                        scope: this
+                    });
                 },
                 scope: this
             });
-            if (this.param.uuid != undefined) {
-                this.down('#btnDelete').setDisabled(true);
-                this.down('#AppMenuForm').getForm().load({
-                    params: {
-                        'pUuid': this.param.uuid
-                    },
-                    success: function(response, a, b) {
-                        var _gridProxy = this.down("#gridProxy");
-                        _gridProxy.getStore().getProxy().setExtraParam('pApplicationHeadUuid', this.down('#APPLICATION_HEAD_UUID').getValue());
-                        _gridProxy.getStore().getProxy().setExtraParam('pAppmenuUuid', this.down('#UUID').getValue());
-                        _gridProxy.getStore().load({
-                            callback: function() {
-                                this.myMask.hide();
-                            },
-                            scope: this
-                        });
-                    },
-                    failure: function(response, a, b) {
-                        r = Ext.decode(response.responseText);
-                        alert('err:' + r);
-                    },
-                    scope: this
-                });
-            } else {
-                this.down('#btnDelete').setDisabled(true);
-                this.down('#AppMenuForm').getForm().reset();
-                this.down('#APPMENU_UUID').setValue(this.param.parentUuid);
-                this.down('#APPLICATION_HEAD_UUID').setValue(this.param.applicationHeadUuid);
-                this.down('#UUID').setValue('');
-                this.myMask.hide();
-            };
+
         },
         'close': function() {
             Ext.getBody().unmask();

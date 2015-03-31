@@ -1014,7 +1014,7 @@ namespace LKWebTemplate.Model.Basic
         #region Appmenu
 
         #region getAppmenuV_By_ParentUuid_DataTable
-        public System.Data.DataTable getAppmenuApppageV_By_ParentUuid_DataTable(string pParentUuid)
+        public System.Data.DataTable getAppmenuApppageV_By_ParentUuid_DataTable(string pParentUuid,OrderLimit orderlimit)
         {
             try
             {
@@ -1023,9 +1023,9 @@ namespace LKWebTemplate.Model.Basic
                     new AppmenuApppageV(dbc);
                 SQLCondition con = new SQLCondition(appmenuv)
                     .Equal(appmenuv.APPMENU_UUID, pParentUuid);
-                OrderLimit order = new OrderLimit(appmenuv.NAME_ZH_TW, OrderLimit.OrderMethod.ASC);
+                
                 var result = appmenuv.Where(con)
-                     .Limit(order)
+                     .Limit(orderlimit)
                      .FetchAll();
                 return result;
             }
@@ -1059,7 +1059,7 @@ namespace LKWebTemplate.Model.Basic
             }
         }
 
-        public IList<AppmenuApppageV_Record> getAppmenuApppageV_By_ApplicationHeadUuid(string pApplicationHeadUuid)
+        public IList<AppmenuApppageV_Record> getAppmenuApppageV_By_ApplicationHeadUuid(string pApplicationHeadUuid,OrderLimit orderlimit)
         {
             try
             {
@@ -1068,9 +1068,9 @@ namespace LKWebTemplate.Model.Basic
                     new AppmenuApppageV(dbc);
                 SQLCondition con = new SQLCondition(appmenuv)
                     .Equal(appmenuv.APPLICATION_HEAD_UUID, pApplicationHeadUuid);
-                OrderLimit order = new OrderLimit(appmenuv.NAME_ZH_TW, OrderLimit.OrderMethod.ASC);
+                //OrderLimit order = new OrderLimit(appmenuv.NAME_ZH_TW, OrderLimit.OrderMethod.ASC);
                 var result = appmenuv.Where(con)
-                     .Limit(order)
+                     .Limit(orderlimit)
                      .FetchAll<AppmenuApppageV_Record>();
                 return result;
             }
@@ -1199,7 +1199,7 @@ namespace LKWebTemplate.Model.Basic
             }
         }
 
-        public IList<Appmenu_Record> getAppmenu_By_ApplicationHead(string pApplicationHeadUuid)
+        public IList<Appmenu_Record> getAppmenu_By_ApplicationHead(string pApplicationHeadUuid,OrderLimit orderlimit)
         {
             try
             {
@@ -1207,7 +1207,7 @@ namespace LKWebTemplate.Model.Basic
                 LKWebTemplate.Model.Basic.Table.AppmenuApppageV appmenuv = new LKWebTemplate.Model.Basic.Table.AppmenuApppageV(dbc);
                 var result = appmenuv.Where(new SQLCondition(appmenuv)
                     .Equal(appmenuv.APPLICATION_HEAD_UUID, pApplicationHeadUuid)                    
-                ).FetchAll<Appmenu_Record>();
+                ).Limit(orderlimit).FetchAll<Appmenu_Record>();
 
                 return result;
             }
@@ -1221,7 +1221,7 @@ namespace LKWebTemplate.Model.Basic
         #endregion
 
         #region getAppmenu_By_RootUuid_DataTable
-        public System.Data.DataTable getAppmenu_By_RootUuid_DataTable(string pRootUuid)
+        public System.Data.DataTable getAppmenu_By_RootUuid_DataTable(string pRootUuid,OrderLimit orderlimit)
         {
             try
             {
@@ -1229,7 +1229,7 @@ namespace LKWebTemplate.Model.Basic
                 LKWebTemplate.Model.Basic.Table.Appmenu appmenu = new LKWebTemplate.Model.Basic.Table.Appmenu(dbc);
                 var result = appmenu.Where(new SQLCondition(appmenu)
                     .Equal(appmenu.APPMENU_UUID, pRootUuid)
-                ).FetchAll();
+                ).Limit(orderlimit).FetchAll();
                 return result;
             }
             catch (Exception ex)

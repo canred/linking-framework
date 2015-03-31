@@ -214,7 +214,7 @@ public class SiteMapAction : BaseAction
             ApplicationHead tb = new ApplicationHead(LK.Config.DataBase.Factory.getInfo());
             var drs = tb.Where(new LK.DB.SQLCondition(tb).Equal(tb.NAME, appName))
                 .FetchAll<ApplicationHead_Record>();
-            pApplicationHeadUuid = "";
+            
             if (drs.Count > 0)
             {
                 pApplicationHeadUuid = drs.First().UUID;

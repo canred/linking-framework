@@ -54,7 +54,7 @@ namespace LKWebTemplate
             {
                 if (ss.getObject("USER") == null)
                 {
-                    string defaultPage = Parameter.Config.ParemterConfigs.GetConfig().DefaultPage;
+                    string defaultPage = Parameter.Config.ParemterConfigs.GetConfig().LogonPage;
                     Response.Redirect(Page.ResolveUrl(defaultPage));
                 }
             }

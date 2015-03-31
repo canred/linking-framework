@@ -16,7 +16,7 @@ Ext.define('Model.AppMenu', {
 Ext.define('WS.MenuTreeStore', {
     extend: 'Ext.data.TreeStore',
     root: {
-        expanded: true
+        expanded: false
     },
     autoLoad: false,
     successProperty: 'success',
@@ -28,6 +28,16 @@ Ext.define('WS.MenuTreeStore', {
         directFn: WS.MenuAction.loadMenuTree2,
         extraParams: {
             "UUID": ''
+        }
+    },
+    listeners:{
+        beforeload: function(store, operation, eOpts) {
+            // var p = store.getProxy().getExtraParams();
+            // if(p.UUID==''){
+            //     alert('empty');
+            //     return false;
+            // };
+            // return true;
         }
     }
 });
