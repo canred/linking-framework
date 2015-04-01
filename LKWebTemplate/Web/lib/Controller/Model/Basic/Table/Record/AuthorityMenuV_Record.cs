@@ -10,7 +10,7 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 {
 	[LkRecord]
 	[TableView("AUTHORITY_MENU_V", false)]
-    [LkDataBase("BASIC")]
+	[LkDataBase("BASIC")]
 	[Serializable]
 	public class AuthorityMenuV_Record : RecordBase{
 		public AuthorityMenuV_Record(){}

@@ -55,6 +55,7 @@ namespace LKWebTemplate.Model.Basic.Table
 		public string ID {get{return "ID" ; }}
 		public string SRC_UUID {get{return "SRC_UUID" ; }}
 		public string IS_DEFAULT_PASS {get{return "IS_DEFAULT_PASS" ; }}
+		public string PICTURE_URL {get{return "PICTURE_URL" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public Attendant_Record CurrentRecord(){
@@ -297,67 +298,21 @@ namespace LKWebTemplate.Model.Basic.Table
 		}
 		/*依照資料表與資料表的關係，產生出來的方法*/
 		/*201303180320*/
-		public List<Department_Record> Link_Department_By_ManagerUuid()
+		public List<ErrorLog_Record> Link_ErrorLog_By_AttendantUuid()
 		{
 			try{
-				List<Department_Record> ret= new List<Department_Record>();
+				List<ErrorLog_Record> ret= new List<ErrorLog_Record>();
 				var dbc = LK.Config.DataBase.Factory.getInfo();
-				Department ___table = new Department(dbc);
-				SQLCondition condition = new SQLCondition(___table) ;
-				foreach(var item in AllRecord()){
-						condition
-						.L().Equal(___table.MANAGER_UUID,item.UUID).R().Or()  ; 
- 				}
-				condition.CheckSQL();
-				ret=(List<Department_Record>)
-						___table.Where(condition)
-						.FetchAll<Department_Record>() ; 
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
-		/*201303180320*/
-		public List<GroupAttendant_Record> Link_GroupAttendant_By_AttendantUuid()
-		{
-			try{
-				List<GroupAttendant_Record> ret= new List<GroupAttendant_Record>();
-				var dbc = LK.Config.DataBase.Factory.getInfo();
-				GroupAttendant ___table = new GroupAttendant(dbc);
+				ErrorLog ___table = new ErrorLog(dbc);
 				SQLCondition condition = new SQLCondition(___table) ;
 				foreach(var item in AllRecord()){
 						condition
 						.L().Equal(___table.ATTENDANT_UUID,item.UUID).R().Or()  ; 
  				}
 				condition.CheckSQL();
-				ret=(List<GroupAttendant_Record>)
+				ret=(List<ErrorLog_Record>)
 						___table.Where(condition)
-						.FetchAll<GroupAttendant_Record>() ; 
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
-		/*201303180320*/
-		public List<GroupAttendantV_Record> Link_GroupAttendantV_By_AttendantUuid()
-		{
-			try{
-				List<GroupAttendantV_Record> ret= new List<GroupAttendantV_Record>();
-				var dbc = LK.Config.DataBase.Factory.getInfo();
-				GroupAttendantV ___table = new GroupAttendantV(dbc);
-				SQLCondition condition = new SQLCondition(___table) ;
-				foreach(var item in AllRecord()){
-						condition
-						.L().Equal(___table.ATTENDANT_UUID,item.UUID).R().Or()  ; 
- 				}
-				condition.CheckSQL();
-				ret=(List<GroupAttendantV_Record>)
-						___table.Where(condition)
-						.FetchAll<GroupAttendantV_Record>() ; 
+						.FetchAll<ErrorLog_Record>() ; 
 				return ret;
 			}
 			catch (Exception ex){
@@ -389,21 +344,67 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180320*/
-		public List<ErrorLog_Record> Link_ErrorLog_By_AttendantUuid()
+		public List<GroupAttendant_Record> Link_GroupAttendant_By_AttendantUuid()
 		{
 			try{
-				List<ErrorLog_Record> ret= new List<ErrorLog_Record>();
+				List<GroupAttendant_Record> ret= new List<GroupAttendant_Record>();
 				var dbc = LK.Config.DataBase.Factory.getInfo();
-				ErrorLog ___table = new ErrorLog(dbc);
+				GroupAttendant ___table = new GroupAttendant(dbc);
 				SQLCondition condition = new SQLCondition(___table) ;
 				foreach(var item in AllRecord()){
 						condition
 						.L().Equal(___table.ATTENDANT_UUID,item.UUID).R().Or()  ; 
  				}
 				condition.CheckSQL();
-				ret=(List<ErrorLog_Record>)
+				ret=(List<GroupAttendant_Record>)
 						___table.Where(condition)
-						.FetchAll<ErrorLog_Record>() ; 
+						.FetchAll<GroupAttendant_Record>() ; 
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		/*201303180320*/
+		public List<Department_Record> Link_Department_By_ManagerUuid()
+		{
+			try{
+				List<Department_Record> ret= new List<Department_Record>();
+				var dbc = LK.Config.DataBase.Factory.getInfo();
+				Department ___table = new Department(dbc);
+				SQLCondition condition = new SQLCondition(___table) ;
+				foreach(var item in AllRecord()){
+						condition
+						.L().Equal(___table.MANAGER_UUID,item.UUID).R().Or()  ; 
+ 				}
+				condition.CheckSQL();
+				ret=(List<Department_Record>)
+						___table.Where(condition)
+						.FetchAll<Department_Record>() ; 
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		/*201303180320*/
+		public List<GroupAttendantV_Record> Link_GroupAttendantV_By_AttendantUuid()
+		{
+			try{
+				List<GroupAttendantV_Record> ret= new List<GroupAttendantV_Record>();
+				var dbc = LK.Config.DataBase.Factory.getInfo();
+				GroupAttendantV ___table = new GroupAttendantV(dbc);
+				SQLCondition condition = new SQLCondition(___table) ;
+				foreach(var item in AllRecord()){
+						condition
+						.L().Equal(___table.ATTENDANT_UUID,item.UUID).R().Or()  ; 
+ 				}
+				condition.CheckSQL();
+				ret=(List<GroupAttendantV_Record>)
+						___table.Where(condition)
+						.FetchAll<GroupAttendantV_Record>() ; 
 				return ret;
 			}
 			catch (Exception ex){
@@ -435,73 +436,23 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180321*/
-		public List<Department_Record> Link_Department_By_ManagerUuid(OrderLimit limit)
+		public List<ErrorLog_Record> Link_ErrorLog_By_AttendantUuid(OrderLimit limit)
 		{
 			try{
-				List<Department_Record> ret= new List<Department_Record>();
+				List<ErrorLog_Record> ret= new List<ErrorLog_Record>();
 				var dbc = LK.Config.DataBase.Factory.getInfo();
-				Department ___table = new Department(dbc);
-				SQLCondition condition = new SQLCondition(___table) ;
-				foreach(var item in AllRecord()){
-						condition
-						.L().Equal(___table.MANAGER_UUID,item.UUID).R().Or()  ; 
- 				}
-				condition.CheckSQL();
-				ret=(List<Department_Record>)
-						___table.Where(condition)
-						.Order(limit)
-						.Limit(limit)
-						.FetchAll<Department_Record>() ; 
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
-		/*201303180321*/
-		public List<GroupAttendant_Record> Link_GroupAttendant_By_AttendantUuid(OrderLimit limit)
-		{
-			try{
-				List<GroupAttendant_Record> ret= new List<GroupAttendant_Record>();
-				var dbc = LK.Config.DataBase.Factory.getInfo();
-				GroupAttendant ___table = new GroupAttendant(dbc);
+				ErrorLog ___table = new ErrorLog(dbc);
 				SQLCondition condition = new SQLCondition(___table) ;
 				foreach(var item in AllRecord()){
 						condition
 						.L().Equal(___table.ATTENDANT_UUID,item.UUID).R().Or()  ; 
  				}
 				condition.CheckSQL();
-				ret=(List<GroupAttendant_Record>)
+				ret=(List<ErrorLog_Record>)
 						___table.Where(condition)
 						.Order(limit)
 						.Limit(limit)
-						.FetchAll<GroupAttendant_Record>() ; 
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
-		/*201303180321*/
-		public List<GroupAttendantV_Record> Link_GroupAttendantV_By_AttendantUuid(OrderLimit limit)
-		{
-			try{
-				List<GroupAttendantV_Record> ret= new List<GroupAttendantV_Record>();
-				var dbc = LK.Config.DataBase.Factory.getInfo();
-				GroupAttendantV ___table = new GroupAttendantV(dbc);
-				SQLCondition condition = new SQLCondition(___table) ;
-				foreach(var item in AllRecord()){
-						condition
-						.L().Equal(___table.ATTENDANT_UUID,item.UUID).R().Or()  ; 
- 				}
-				condition.CheckSQL();
-				ret=(List<GroupAttendantV_Record>)
-						___table.Where(condition)
-						.Order(limit)
-						.Limit(limit)
-						.FetchAll<GroupAttendantV_Record>() ; 
+						.FetchAll<ErrorLog_Record>() ; 
 				return ret;
 			}
 			catch (Exception ex){
@@ -535,23 +486,73 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180321*/
-		public List<ErrorLog_Record> Link_ErrorLog_By_AttendantUuid(OrderLimit limit)
+		public List<GroupAttendant_Record> Link_GroupAttendant_By_AttendantUuid(OrderLimit limit)
 		{
 			try{
-				List<ErrorLog_Record> ret= new List<ErrorLog_Record>();
+				List<GroupAttendant_Record> ret= new List<GroupAttendant_Record>();
 				var dbc = LK.Config.DataBase.Factory.getInfo();
-				ErrorLog ___table = new ErrorLog(dbc);
+				GroupAttendant ___table = new GroupAttendant(dbc);
 				SQLCondition condition = new SQLCondition(___table) ;
 				foreach(var item in AllRecord()){
 						condition
 						.L().Equal(___table.ATTENDANT_UUID,item.UUID).R().Or()  ; 
  				}
 				condition.CheckSQL();
-				ret=(List<ErrorLog_Record>)
+				ret=(List<GroupAttendant_Record>)
 						___table.Where(condition)
 						.Order(limit)
 						.Limit(limit)
-						.FetchAll<ErrorLog_Record>() ; 
+						.FetchAll<GroupAttendant_Record>() ; 
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		/*201303180321*/
+		public List<Department_Record> Link_Department_By_ManagerUuid(OrderLimit limit)
+		{
+			try{
+				List<Department_Record> ret= new List<Department_Record>();
+				var dbc = LK.Config.DataBase.Factory.getInfo();
+				Department ___table = new Department(dbc);
+				SQLCondition condition = new SQLCondition(___table) ;
+				foreach(var item in AllRecord()){
+						condition
+						.L().Equal(___table.MANAGER_UUID,item.UUID).R().Or()  ; 
+ 				}
+				condition.CheckSQL();
+				ret=(List<Department_Record>)
+						___table.Where(condition)
+						.Order(limit)
+						.Limit(limit)
+						.FetchAll<Department_Record>() ; 
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		/*201303180321*/
+		public List<GroupAttendantV_Record> Link_GroupAttendantV_By_AttendantUuid(OrderLimit limit)
+		{
+			try{
+				List<GroupAttendantV_Record> ret= new List<GroupAttendantV_Record>();
+				var dbc = LK.Config.DataBase.Factory.getInfo();
+				GroupAttendantV ___table = new GroupAttendantV(dbc);
+				SQLCondition condition = new SQLCondition(___table) ;
+				foreach(var item in AllRecord()){
+						condition
+						.L().Equal(___table.ATTENDANT_UUID,item.UUID).R().Or()  ; 
+ 				}
+				condition.CheckSQL();
+				ret=(List<GroupAttendantV_Record>)
+						___table.Where(condition)
+						.Order(limit)
+						.Limit(limit)
+						.FetchAll<GroupAttendantV_Record>() ; 
 				return ret;
 			}
 			catch (Exception ex){
@@ -726,37 +727,11 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180324*/
-		public Department LinkFill_Department_By_ManagerUuid()
+		public ErrorLog LinkFill_ErrorLog_By_AttendantUuid()
 		{
 			try{
-				var data = Link_Department_By_ManagerUuid();
-				Department ret=new Department(data);
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
-		/*201303180324*/
-		public GroupAttendant LinkFill_GroupAttendant_By_AttendantUuid()
-		{
-			try{
-				var data = Link_GroupAttendant_By_AttendantUuid();
-				GroupAttendant ret=new GroupAttendant(data);
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
-		/*201303180324*/
-		public GroupAttendantV LinkFill_GroupAttendantV_By_AttendantUuid()
-		{
-			try{
-				var data = Link_GroupAttendantV_By_AttendantUuid();
-				GroupAttendantV ret=new GroupAttendantV(data);
+				var data = Link_ErrorLog_By_AttendantUuid();
+				ErrorLog ret=new ErrorLog(data);
 				return ret;
 			}
 			catch (Exception ex){
@@ -778,11 +753,37 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180324*/
-		public ErrorLog LinkFill_ErrorLog_By_AttendantUuid()
+		public GroupAttendant LinkFill_GroupAttendant_By_AttendantUuid()
 		{
 			try{
-				var data = Link_ErrorLog_By_AttendantUuid();
-				ErrorLog ret=new ErrorLog(data);
+				var data = Link_GroupAttendant_By_AttendantUuid();
+				GroupAttendant ret=new GroupAttendant(data);
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		/*201303180324*/
+		public Department LinkFill_Department_By_ManagerUuid()
+		{
+			try{
+				var data = Link_Department_By_ManagerUuid();
+				Department ret=new Department(data);
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		/*201303180324*/
+		public GroupAttendantV LinkFill_GroupAttendantV_By_AttendantUuid()
+		{
+			try{
+				var data = Link_GroupAttendantV_By_AttendantUuid();
+				GroupAttendantV ret=new GroupAttendantV(data);
 				return ret;
 			}
 			catch (Exception ex){
@@ -804,37 +805,11 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180325*/
-		public Department LinkFill_Department_By_ManagerUuid(OrderLimit limit)
+		public ErrorLog LinkFill_ErrorLog_By_AttendantUuid(OrderLimit limit)
 		{
 			try{
-				var data = Link_Department_By_ManagerUuid(limit);
-				Department ret=new Department(data);
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
-		/*201303180325*/
-		public GroupAttendant LinkFill_GroupAttendant_By_AttendantUuid(OrderLimit limit)
-		{
-			try{
-				var data = Link_GroupAttendant_By_AttendantUuid(limit);
-				GroupAttendant ret=new GroupAttendant(data);
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
-		/*201303180325*/
-		public GroupAttendantV LinkFill_GroupAttendantV_By_AttendantUuid(OrderLimit limit)
-		{
-			try{
-				var data = Link_GroupAttendantV_By_AttendantUuid(limit);
-				GroupAttendantV ret=new GroupAttendantV(data);
+				var data = Link_ErrorLog_By_AttendantUuid(limit);
+				ErrorLog ret=new ErrorLog(data);
 				return ret;
 			}
 			catch (Exception ex){
@@ -856,11 +831,37 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180325*/
-		public ErrorLog LinkFill_ErrorLog_By_AttendantUuid(OrderLimit limit)
+		public GroupAttendant LinkFill_GroupAttendant_By_AttendantUuid(OrderLimit limit)
 		{
 			try{
-				var data = Link_ErrorLog_By_AttendantUuid(limit);
-				ErrorLog ret=new ErrorLog(data);
+				var data = Link_GroupAttendant_By_AttendantUuid(limit);
+				GroupAttendant ret=new GroupAttendant(data);
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		/*201303180325*/
+		public Department LinkFill_Department_By_ManagerUuid(OrderLimit limit)
+		{
+			try{
+				var data = Link_Department_By_ManagerUuid(limit);
+				Department ret=new Department(data);
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		/*201303180325*/
+		public GroupAttendantV LinkFill_GroupAttendantV_By_AttendantUuid(OrderLimit limit)
+		{
+			try{
+				var data = Link_GroupAttendantV_By_AttendantUuid(limit);
+				GroupAttendantV ret=new GroupAttendantV(data);
 				return ret;
 			}
 			catch (Exception ex){

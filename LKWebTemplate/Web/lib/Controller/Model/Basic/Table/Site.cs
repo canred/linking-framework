@@ -280,29 +280,6 @@ namespace LKWebTemplate.Model.Basic.Table
 		}
 		/*依照資料表與資料表的關係，產生出來的方法*/
 		/*201303180320*/
-		public List<Attendant_Record> Link_Attendant_By_SiteUuid()
-		{
-			try{
-				List<Attendant_Record> ret= new List<Attendant_Record>();
-				var dbc = LK.Config.DataBase.Factory.getInfo();
-				Attendant ___table = new Attendant(dbc);
-				SQLCondition condition = new SQLCondition(___table) ;
-				foreach(var item in AllRecord()){
-						condition
-						.L().Equal(___table.SITE_UUID,item.UUID).R().Or()  ; 
- 				}
-				condition.CheckSQL();
-				ret=(List<Attendant_Record>)
-						___table.Where(condition)
-						.FetchAll<Attendant_Record>() ; 
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
-		/*201303180320*/
 		public List<Site_Record> Link_Site_By_ParentSiteUuid()
 		{
 			try{
@@ -325,8 +302,8 @@ namespace LKWebTemplate.Model.Basic.Table
 				throw ex;
 			}
 		}
-		/*201303180321*/
-		public List<Attendant_Record> Link_Attendant_By_SiteUuid(OrderLimit limit)
+		/*201303180320*/
+		public List<Attendant_Record> Link_Attendant_By_SiteUuid()
 		{
 			try{
 				List<Attendant_Record> ret= new List<Attendant_Record>();
@@ -340,8 +317,6 @@ namespace LKWebTemplate.Model.Basic.Table
 				condition.CheckSQL();
 				ret=(List<Attendant_Record>)
 						___table.Where(condition)
-						.Order(limit)
-						.Limit(limit)
 						.FetchAll<Attendant_Record>() ; 
 				return ret;
 			}
@@ -368,6 +343,31 @@ namespace LKWebTemplate.Model.Basic.Table
 						.Order(limit)
 						.Limit(limit)
 						.FetchAll<Site_Record>() ; 
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		/*201303180321*/
+		public List<Attendant_Record> Link_Attendant_By_SiteUuid(OrderLimit limit)
+		{
+			try{
+				List<Attendant_Record> ret= new List<Attendant_Record>();
+				var dbc = LK.Config.DataBase.Factory.getInfo();
+				Attendant ___table = new Attendant(dbc);
+				SQLCondition condition = new SQLCondition(___table) ;
+				foreach(var item in AllRecord()){
+						condition
+						.L().Equal(___table.SITE_UUID,item.UUID).R().Or()  ; 
+ 				}
+				condition.CheckSQL();
+				ret=(List<Attendant_Record>)
+						___table.Where(condition)
+						.Order(limit)
+						.Limit(limit)
+						.FetchAll<Attendant_Record>() ; 
 				return ret;
 			}
 			catch (Exception ex){
@@ -470,19 +470,6 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180324*/
-		public Attendant LinkFill_Attendant_By_SiteUuid()
-		{
-			try{
-				var data = Link_Attendant_By_SiteUuid();
-				Attendant ret=new Attendant(data);
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
-		/*201303180324*/
 		public Site LinkFill_Site_By_ParentSiteUuid()
 		{
 			try{
@@ -495,11 +482,11 @@ namespace LKWebTemplate.Model.Basic.Table
 				throw ex;
 			}
 		}
-		/*201303180325*/
-		public Attendant LinkFill_Attendant_By_SiteUuid(OrderLimit limit)
+		/*201303180324*/
+		public Attendant LinkFill_Attendant_By_SiteUuid()
 		{
 			try{
-				var data = Link_Attendant_By_SiteUuid(limit);
+				var data = Link_Attendant_By_SiteUuid();
 				Attendant ret=new Attendant(data);
 				return ret;
 			}
@@ -514,6 +501,19 @@ namespace LKWebTemplate.Model.Basic.Table
 			try{
 				var data = Link_Site_By_ParentSiteUuid(limit);
 				Site ret=new Site(data);
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		/*201303180325*/
+		public Attendant LinkFill_Attendant_By_SiteUuid(OrderLimit limit)
+		{
+			try{
+				var data = Link_Attendant_By_SiteUuid(limit);
+				Attendant ret=new Attendant(data);
 				return ret;
 			}
 			catch (Exception ex){

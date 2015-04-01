@@ -9,7 +9,7 @@ using LK.DB.SQLCreater;
 using LKWebTemplate.Model.Basic.Table.Record  ;  
 namespace LKWebTemplate.Model.Basic.Table
 {
-    [LkDataBase("BASIC")]
+	[LkDataBase("BASIC")]
 	[TableView("AUTHORITY_MENU_V", false)]
 	public partial class AuthorityMenuV : TableBase{
 	/*固定物件*/

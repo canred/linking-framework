@@ -148,23 +148,6 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 				throw ex;
 			}
 		}
-		public List<Attendant_Record> Link_Attendant_By_Uuid()
-		{
-			try{
-				List<Attendant_Record> ret= new List<Attendant_Record>();
-				var dbc = LK.Config.DataBase.Factory.getInfo();
-				Attendant ___table = new Attendant(dbc);
-				ret=(List<Attendant_Record>)
-										___table.Where(new SQLCondition(___table)
-										.Equal(___table.UUID,this.ATTENDANT_UUID))
-					.FetchAll<Attendant_Record>() ; 
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
 		public List<GroupHead_Record> Link_GroupHead_By_Uuid()
 		{
 			try{
@@ -182,8 +165,7 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 				throw ex;
 			}
 		}
-		/*201303180404*/
-		public List<Attendant_Record> Link_Attendant_By_Uuid(OrderLimit limit)
+		public List<Attendant_Record> Link_Attendant_By_Uuid()
 		{
 			try{
 				List<Attendant_Record> ret= new List<Attendant_Record>();
@@ -192,8 +174,6 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 				ret=(List<Attendant_Record>)
 										___table.Where(new SQLCondition(___table)
 										.Equal(___table.UUID,this.ATTENDANT_UUID))
-					.Order(limit)
-					.Limit(limit)
 					.FetchAll<Attendant_Record>() ; 
 				return ret;
 			}
@@ -222,12 +202,19 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 				throw ex;
 			}
 		}
-		/*2013031800428*/
-		public Attendant LinkFill_Attendant_By_Uuid()
+		/*201303180404*/
+		public List<Attendant_Record> Link_Attendant_By_Uuid(OrderLimit limit)
 		{
 			try{
-				var data = Link_Attendant_By_Uuid();
-				Attendant ret=new Attendant(data);
+				List<Attendant_Record> ret= new List<Attendant_Record>();
+				var dbc = LK.Config.DataBase.Factory.getInfo();
+				Attendant ___table = new Attendant(dbc);
+				ret=(List<Attendant_Record>)
+										___table.Where(new SQLCondition(___table)
+										.Equal(___table.UUID,this.ATTENDANT_UUID))
+					.Order(limit)
+					.Limit(limit)
+					.FetchAll<Attendant_Record>() ; 
 				return ret;
 			}
 			catch (Exception ex){
@@ -248,11 +235,11 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 				throw ex;
 			}
 		}
-		/*201303180429*/
-		public Attendant LinkFill_Attendant_By_Uuid(OrderLimit limit)
+		/*2013031800428*/
+		public Attendant LinkFill_Attendant_By_Uuid()
 		{
 			try{
-				var data = Link_Attendant_By_Uuid(limit);
+				var data = Link_Attendant_By_Uuid();
 				Attendant ret=new Attendant(data);
 				return ret;
 			}
@@ -267,6 +254,19 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 			try{
 				var data = Link_GroupHead_By_Uuid(limit);
 				GroupHead ret=new GroupHead(data);
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		/*201303180429*/
+		public Attendant LinkFill_Attendant_By_Uuid(OrderLimit limit)
+		{
+			try{
+				var data = Link_Attendant_By_Uuid(limit);
+				Attendant ret=new Attendant(data);
 				return ret;
 			}
 			catch (Exception ex){

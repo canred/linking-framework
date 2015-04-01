@@ -22,12 +22,15 @@ using System.Diagnostics;
 [DirectService("DeptAction")]
 public class DeptAction : BaseAction
 {
-    [DirectMethod("loadTree", DirectAction.TreeStore)]
-    public JObject loadTree(string parentUuid, Request request)
+
+    [DirectMethod("loadDepartment", DirectAction.Store)]
+    public JObject loadDepartment(string pCompanyUuid, string pageNo, string limitNo, string sort, string dir, Request request)
     {
         #region Declare
-        JArray jobject = null;
-        BasicModel model = new BasicModel();
+        List<JObject> jobject = new List<JObject>();
+        BasicModel modBasic = new BasicModel();
+        OrderLimit orderLimit = null;
+        Department department = new Department();
         #endregion
         try
         {  /*Cloud身份檢查*/
@@ -41,28 +44,19 @@ public class DeptAction : BaseAction
                 throw new Exception("Permission Denied!");
             };
             /*是Store操作一下就可能含有分頁資訊。*/
+            orderLimit = ExtDirect.Direct.Helper.Order.getOrderLimit(pageNo, limitNo, sort, dir);
+            /*取得總資料數*/
+            //var totalCount = modBasic.getDepartment_By_CompanyUuid(pCompanyUuid, orderLimit);
             /*取得資料*/
-            var dtDepartment = new Department();
-            var dataTable = model.getDepartment_By_ParentUuid(parentUuid);
-            /*將List<RecordBase>變成JSON字符串*/
-            dataTable.Columns.Add("leaf");
-            //dataTable.Columns.Add("id");
-            foreach (DataRow dr in dataTable.Rows)
+            var data = modBasic.getDepartment_By_CompanyUuid(pCompanyUuid, orderLimit);
+            var totalCount = data.Count;
+            if (data.Count > 0)
             {
-                var children = model.getDepartment_By_ParentUuid("UUID");
-                if (children.Rows.Count == 0)
-                {
-                    dr["leaf"] = "true";
-                }
-                else
-                {
-                    dr["leaf"] = "false";
-                }
-                dr["id"] = dr["UUID"].ToString();
+                /*將List<RecordBase>變成JSON字符串*/
+                jobject = JsonHelper.RecordBaseListJObject(data);
             }
-            jobject = JsonHelper.DataTableSerializerJArray(dataTable);
             /*使用Store Std out 『Sotre物件標準輸出格式』*/
-            return ExtDirect.Direct.Helper.Tree.Output(jobject, 9999);
+            return ExtDirect.Direct.Helper.Store.OutputJObject(jobject, totalCount);
         }
         catch (Exception ex)
         {
@@ -71,6 +65,163 @@ public class DeptAction : BaseAction
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
+
+
+
+    [DirectMethod("loadTree", DirectAction.TreeStore)]
+    public JObject loadTree(string parentUuid, Request request)
+    {
+        #region Declare
+        List<JObject> jobject = new List<JObject>();
+        BasicModel model = new BasicModel();
+        #endregion
+        try
+        {
+            /*Cloud身份檢查*/
+            checkUser(request.HttpRequest);
+            if (this.getUser() == null)
+            {
+                throw new Exception("Identity authentication failed.");
+            }/*權限檢查*/
+            if (!checkProxy(new StackTrace().GetFrame(0)))
+            {
+                throw new Exception("Permission Denied!");
+            };
+            OrderLimit orderlimit = new OrderLimit("C_NAME", OrderLimit.OrderMethod.ASC);
+            orderlimit.Start = 1;
+            orderlimit.Limit = 99999;
+            /*取得資料*/
+            var genTable = new Department();
+            var drsDept = model.getDepartment_By_Uuid(parentUuid).AllRecord();
+            var drDept = drsDept.First();            
+            drsDept = model.getDepartment_By_CompanyUuid(drDept.COMPANY_UUID, orderlimit);
+            var dataTable = model.getDepartment_By_RootUuid_DataTable(parentUuid, orderlimit);
+            dataTable.Columns.Add("leaf", System.Type.GetType("System.Boolean"));
+            dataTable.Columns.Add("name");
+            dataTable.Columns.Add("expanded", System.Type.GetType("System.Boolean"));
+            foreach (DataRow dr in dataTable.Rows)
+            {
+                var children = model.getDepartment_By_RootUuid_DataTable(dr[genTable.UUID].ToString(), orderlimit);
+                if (children.Rows.Count == 0)
+                {
+                    dr["leaf"] = true;
+                }
+                else
+                {
+                    dr["leaf"] = false;
+                }
+                dr["name"] = dr[genTable.C_NAME].ToString();
+                dr["expanded"] = true;
+            }
+            var jarray = JsonHelper.DataTableSerializerJArray(dataTable);
+            foreach (var item in jarray)
+            {
+                var thisUuid = item["UUID"].ToString();
+                var thisLeaf = item["leaf"].ToString();
+                if (thisLeaf.ToLower() == "false")
+                {
+                    item["children"] = _loadTree(thisUuid, ref drsDept);
+                }
+            }
+            /*使用Store Std out 『Sotre物件標準輸出格式』*/
+            return ExtDirect.Direct.Helper.Tree.Output(jarray, 9999);
+        }
+        catch (Exception ex)
+        {
+            log.Error(ex); LK.MyException.MyException.Error(this, ex);
+            /*將Exception轉成EXT Exception JSON格式*/
+            return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
+        }
+    }
+
+    [DirectMethod("_loadTree", DirectAction.TreeStore)]
+    public JArray _loadTree(string parentUuid, ref IList<Department_Record> drsDept)
+    {
+        #region Declare
+        List<JObject> jobject = new List<JObject>();
+        BasicModel model = new BasicModel();
+        #endregion
+        try
+        {
+            /*取得資料*/
+            var dataTable = new System.Data.DataTable();
+            Department tbl = new Department();
+            dataTable.Columns.Add(tbl.COMPANY_UUID);
+            dataTable.Columns.Add(tbl.C_NAME);
+            dataTable.Columns.Add(tbl.COST_CENTER);
+            dataTable.Columns.Add(tbl.CREATE_DATE);
+            dataTable.Columns.Add(tbl.E_NAME);
+            dataTable.Columns.Add(tbl.FULL_DEPARTMENT_NAME);
+            dataTable.Columns.Add(tbl.ID);
+            dataTable.Columns.Add(tbl.IS_ACTIVE);
+            dataTable.Columns.Add(tbl.MANAGER_ID);
+            dataTable.Columns.Add(tbl.MANAGER_UUID);
+            dataTable.Columns.Add(tbl.PARENT_DEPARTMENT_ID);
+            dataTable.Columns.Add(tbl.PARENT_DEPARTMENT_UUID);
+            dataTable.Columns.Add(tbl.PARENT_DEPARTMENT_UUID_LIST);
+            dataTable.Columns.Add(tbl.S_NAME);
+            dataTable.Columns.Add(tbl.SRC_UUID);
+            dataTable.Columns.Add(tbl.UPDATE_DATE);
+            dataTable.Columns.Add(tbl.UUID);            
+            dataTable.Columns.Add("leaf", System.Type.GetType("System.Boolean"));
+            dataTable.Columns.Add("name");
+            dataTable.Columns.Add("expanded", System.Type.GetType("System.Boolean"));
+            var _drsDept = drsDept.Where(c => c.PARENT_DEPARTMENT_UUID.Equals(parentUuid));
+            foreach (var item in _drsDept)
+            {
+                var dr = dataTable.NewRow();
+                dr[tbl.C_NAME] = item.C_NAME;
+                dr[tbl.COMPANY_UUID] = item.COMPANY_UUID;
+                dr[tbl.COST_CENTER] = item.COST_CENTER;
+                dr[tbl.CREATE_DATE] = item.CREATE_DATE;
+                dr[tbl.E_NAME] = item.E_NAME;
+                dr[tbl.FULL_DEPARTMENT_NAME] = item.FULL_DEPARTMENT_NAME;
+                dr[tbl.ID] = item.ID;
+                dr[tbl.IS_ACTIVE] = item.IS_ACTIVE;
+                dr[tbl.MANAGER_ID] = item.MANAGER_ID;
+                dr[tbl.MANAGER_UUID] = item.MANAGER_UUID;
+                dr[tbl.PARENT_DEPARTMENT_ID] = item.PARENT_DEPARTMENT_ID;
+                dr[tbl.PARENT_DEPARTMENT_UUID] = item.PARENT_DEPARTMENT_UUID;
+                dr[tbl.PARENT_DEPARTMENT_UUID_LIST] = item.PARENT_DEPARTMENT_UUID_LIST;
+                dr[tbl.S_NAME] = item.S_NAME;
+                dr[tbl.SRC_UUID] = item.SRC_UUID;
+                dr[tbl.UPDATE_DATE] = item.UPDATE_DATE;
+                dr[tbl.UUID] = item.UUID;                
+                dr["expanded"] = true;
+                var childrenCount = drsDept.Where(c => c.PARENT_DEPARTMENT_UUID.Equals(dr[tbl.UUID].ToString())).Count();
+                if (childrenCount == 0)
+                {
+                    dr["leaf"] = true;
+                }
+                else
+                {
+                    dr["leaf"] = false;
+                }
+                dr["name"] = dr[tbl.C_NAME].ToString();
+                dataTable.Rows.Add(dr);
+                dataTable.AcceptChanges();
+            }
+            var jarray = JsonHelper.DataTableSerializerJArray(dataTable);
+            foreach (var item in jarray)
+            {
+                var thisUuid = item["UUID"].ToString();
+                var thisLeaf = item["leaf"].ToString();
+                if (thisLeaf.ToLower() == "false")
+                {
+                    item["children"] = _loadTree(thisUuid, ref drsDept);
+                }
+            }
+            return jarray;
+        }
+        catch (Exception ex)
+        {
+            log.Error(ex);
+            LK.MyException.MyException.Error(this, ex);
+            throw ex;
+        }
+    }
+
+
 
     [DirectMethod("loadTreeRoot", DirectAction.Store)]
     public JObject loadTreeRoot(string pCompanyUuid, Request request)
@@ -92,10 +243,30 @@ public class DeptAction : BaseAction
                 throw new Exception("Permission Denied!");
             };
             var data = model.getDepartment_Root_By_CompanyUuid(pCompanyUuid);
+            if (data.Count == 0) {
+                var drsCompany = model.getCompany_By_Uuid(pCompanyUuid).AllRecord();
+                if(drsCompany.Count!=1){                   
+                    return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("Company cannot find."));
+                }
+                var drCompany = drsCompany.First();
+                Department_Record newDr = new Department_Record();
+                newDr.UUID = LK.Util.UID.Instance.GetUniqueID();
+                newDr.COMPANY_UUID = pCompanyUuid;
+                newDr.CREATE_DATE = DateTime.Now;
+                newDr.E_NAME = drCompany.E_NAME;
+                newDr.FULL_DEPARTMENT_NAME = drCompany.C_NAME;
+                newDr.ID = drCompany.ID;
+                newDr.IS_ACTIVE = "Y";
+                newDr.S_NAME = drCompany.C_NAME;
+                newDr.C_NAME = drCompany.C_NAME;
+                newDr.gotoTable().Insert_Empty2Null(newDr);
+                data = model.getDepartment_Root_By_CompanyUuid(pCompanyUuid);
+            }
             if (data.Count == 1)
             {
                 jobject = JsonHelper.RecordBaseListJObject(data);
-            }
+                return ExtDirect.Direct.Helper.Store.OutputJObject(jobject,1);
+            }            
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(new Exception("Data Not Found!"));
         }
         catch (Exception ex)
@@ -203,7 +374,9 @@ public class DeptAction : BaseAction
             {
                 record.gotoTable().Insert(record);
             }
-            return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
+            System.Collections.Hashtable ht = new System.Collections.Hashtable();
+            ht.Add("UUID", record.UUID);
+            return ExtDirect.Direct.Helper.Message.Success.OutputJObject(ht);
         }
         catch (Exception ex)
         {

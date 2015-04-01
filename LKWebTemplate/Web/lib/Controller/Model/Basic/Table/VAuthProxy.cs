@@ -134,28 +134,6 @@ namespace LKWebTemplate.Model.Basic.Table
 				throw ex;
 			}
 		}
-		public List<Attendant_Record> Link_Attendant_By_Uuid()
-		{
-			try{
-				List<Attendant_Record> ret= new List<Attendant_Record>();
-				var dbc = LK.Config.DataBase.Factory.getInfo();
-				Attendant ___table = new Attendant(dbc);
-				SQLCondition condition = new SQLCondition(___table) ;
-				foreach(var item in AllRecord()){
-						condition
-						.L().Equal(___table.UUID,item.ATTENDANT_UUID).R().Or()  ; 
- 				}
-				condition.CheckSQL();
-				ret=(List<Attendant_Record>)
-						___table.Where(condition)
-						.FetchAll<Attendant_Record>() ; 
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
 		public List<Proxy_Record> Link_Proxy_By_Uuid()
 		{
 			try{
@@ -171,6 +149,28 @@ namespace LKWebTemplate.Model.Basic.Table
 				ret=(List<Proxy_Record>)
 						___table.Where(condition)
 						.FetchAll<Proxy_Record>() ; 
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		public List<Attendant_Record> Link_Attendant_By_Uuid()
+		{
+			try{
+				List<Attendant_Record> ret= new List<Attendant_Record>();
+				var dbc = LK.Config.DataBase.Factory.getInfo();
+				Attendant ___table = new Attendant(dbc);
+				SQLCondition condition = new SQLCondition(___table) ;
+				foreach(var item in AllRecord()){
+						condition
+						.L().Equal(___table.UUID,item.ATTENDANT_UUID).R().Or()  ; 
+ 				}
+				condition.CheckSQL();
+				ret=(List<Attendant_Record>)
+						___table.Where(condition)
+						.FetchAll<Attendant_Record>() ; 
 				return ret;
 			}
 			catch (Exception ex){
@@ -204,31 +204,6 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180340*/
-		public List<Attendant_Record> Link_Attendant_By_Uuid(OrderLimit limit)
-		{
-			try{
-				List<Attendant_Record> ret= new List<Attendant_Record>();
-				var dbc = LK.Config.DataBase.Factory.getInfo();
-				Attendant ___table = new Attendant(dbc);
-				SQLCondition condition = new SQLCondition(___table) ;
-				foreach(var item in AllRecord()){
-						condition
-						.L().Equal(___table.UUID,item.ATTENDANT_UUID).R().Or()  ; 
- 				}
-				condition.CheckSQL();
-				ret=(List<Attendant_Record>)
-						___table.Where(condition)
-						.Order(limit)
-						.Limit(limit)
-						.FetchAll<Attendant_Record>() ; 
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
-		/*201303180340*/
 		public List<Proxy_Record> Link_Proxy_By_Uuid(OrderLimit limit)
 		{
 			try{
@@ -253,6 +228,31 @@ namespace LKWebTemplate.Model.Basic.Table
 				throw ex;
 			}
 		}
+		/*201303180340*/
+		public List<Attendant_Record> Link_Attendant_By_Uuid(OrderLimit limit)
+		{
+			try{
+				List<Attendant_Record> ret= new List<Attendant_Record>();
+				var dbc = LK.Config.DataBase.Factory.getInfo();
+				Attendant ___table = new Attendant(dbc);
+				SQLCondition condition = new SQLCondition(___table) ;
+				foreach(var item in AllRecord()){
+						condition
+						.L().Equal(___table.UUID,item.ATTENDANT_UUID).R().Or()  ; 
+ 				}
+				condition.CheckSQL();
+				ret=(List<Attendant_Record>)
+						___table.Where(condition)
+						.Order(limit)
+						.Limit(limit)
+						.FetchAll<Attendant_Record>() ; 
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
 		/*201303180336*/
 		public ApplicationHead LinkFill_ApplicationHead_By_Uuid()
 		{
@@ -267,11 +267,11 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180336*/
-		public Attendant LinkFill_Attendant_By_Uuid()
+		public Proxy LinkFill_Proxy_By_Uuid()
 		{
 			try{
-				var data = Link_Attendant_By_Uuid();
-				Attendant ret=new Attendant(data);
+				var data = Link_Proxy_By_Uuid();
+				Proxy ret=new Proxy(data);
 				return ret;
 			}
 			catch (Exception ex){
@@ -280,11 +280,11 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180336*/
-		public Proxy LinkFill_Proxy_By_Uuid()
+		public Attendant LinkFill_Attendant_By_Uuid()
 		{
 			try{
-				var data = Link_Proxy_By_Uuid();
-				Proxy ret=new Proxy(data);
+				var data = Link_Attendant_By_Uuid();
+				Attendant ret=new Attendant(data);
 				return ret;
 			}
 			catch (Exception ex){
@@ -306,11 +306,11 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180337*/
-		public Attendant LinkFill_Attendant_By_Uuid(OrderLimit limit)
+		public Proxy LinkFill_Proxy_By_Uuid(OrderLimit limit)
 		{
 			try{
-				var data = Link_Attendant_By_Uuid(limit);
-				Attendant ret=new Attendant(data);
+				var data = Link_Proxy_By_Uuid(limit);
+				Proxy ret=new Proxy(data);
 				return ret;
 			}
 			catch (Exception ex){
@@ -319,11 +319,11 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180337*/
-		public Proxy LinkFill_Proxy_By_Uuid(OrderLimit limit)
+		public Attendant LinkFill_Attendant_By_Uuid(OrderLimit limit)
 		{
 			try{
-				var data = Link_Proxy_By_Uuid(limit);
-				Proxy ret=new Proxy(data);
+				var data = Link_Attendant_By_Uuid(limit);
+				Attendant ret=new Attendant(data);
 				return ret;
 			}
 			catch (Exception ex){

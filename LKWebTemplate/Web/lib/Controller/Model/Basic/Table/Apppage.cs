@@ -9,7 +9,7 @@ using LK.DB.SQLCreater;
 using LKWebTemplate.Model.Basic.Table.Record  ;  
 namespace LKWebTemplate.Model.Basic.Table
 {
-    [LkDataBase("BASIC")]
+	[LkDataBase("BASIC")]
 	[TableView("APPPAGE", true)]
 	public partial class Apppage : TableBase{
 	/*固定物件*/

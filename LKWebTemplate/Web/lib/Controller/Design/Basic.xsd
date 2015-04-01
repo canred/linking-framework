@@ -2,7 +2,7 @@
 <xs:schema id="Basic" targetNamespace="http://tempuri.org/Basic.xsd" xmlns:mstns="http://tempuri.org/Basic.xsd" xmlns="http://tempuri.org/Basic.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="2" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="-1" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="basicConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="basicConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.basicConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ConnectionString (Web.config)" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ConnectionString.ConnectionString" Provider="System.Data.Odbc" />
@@ -389,210 +389,6 @@ SELECT uuid, is_active, create_date, create_user, update_date, update_user, name
               <Mapping SourceColumn="parameter_class" DataSetColumn="parameter_class" />
               <Mapping SourceColumn="application_head_uuid" DataSetColumn="application_head_uuid" />
               <Mapping SourceColumn="p_mode" DataSetColumn="p_mode" />
-            </Mappings>
-            <Sources />
-          </TableAdapter>
-          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ATTENDANTTableAdapter" GeneratorDataComponentClassName="ATTENDANTTableAdapter" Name="ATTENDANT" UserDataComponentName="ATTENDANTTableAdapter">
-            <MainSource>
-              <DbSource ConnectionRef="BasicConnectionString (Settings)" DbObjectName="basic.dbo.ATTENDANT" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
-                <DeleteCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>DELETE FROM [dbo].[ATTENDANT] WHERE (([uuid] = @Original_uuid) AND ((@IsNull_create_date = 1 AND [create_date] IS NULL) OR ([create_date] = @Original_create_date)) AND ((@IsNull_update_date = 1 AND [update_date] IS NULL) OR ([update_date] = @Original_update_date)) AND ([is_active] = @Original_is_active) AND ([company_uuid] = @Original_company_uuid) AND ([account] = @Original_account) AND ((@IsNull_c_name = 1 AND [c_name] IS NULL) OR ([c_name] = @Original_c_name)) AND ((@IsNull_e_name = 1 AND [e_name] IS NULL) OR ([e_name] = @Original_e_name)) AND ([email] = @Original_email) AND ((@IsNull_password = 1 AND [password] IS NULL) OR ([password] = @Original_password)) AND ([is_supper] = @Original_is_supper) AND ([is_admin] = @Original_is_admin) AND ([code_page] = @Original_code_page) AND ((@IsNull_department_uuid = 1 AND [department_uuid] IS NULL) OR ([department_uuid] = @Original_department_uuid)) AND ((@IsNull_phone = 1 AND [phone] IS NULL) OR ([phone] = @Original_phone)) AND ((@IsNull_site_uuid = 1 AND [site_uuid] IS NULL) OR ([site_uuid] = @Original_site_uuid)) AND ((@IsNull_gender = 1 AND [gender] IS NULL) OR ([gender] = @Original_gender)) AND ((@IsNull_birthday = 1 AND [birthday] IS NULL) OR ([birthday] = @Original_birthday)) AND ((@IsNull_hire_date = 1 AND [hire_date] IS NULL) OR ([hire_date] = @Original_hire_date)) AND ((@IsNull_quit_date = 1 AND [quit_date] IS NULL) OR ([quit_date] = @Original_quit_date)) AND ((@IsNull_is_manager = 1 AND [is_manager] IS NULL) OR ([is_manager] = @Original_is_manager)) AND ((@IsNull_is_direct = 1 AND [is_direct] IS NULL) OR ([is_direct] = @Original_is_direct)) AND ((@IsNull_grade = 1 AND [grade] IS NULL) OR ([grade] = @Original_grade)) AND ((@IsNull_id = 1 AND [id] IS NULL) OR ([id] = @Original_id)) AND ((@IsNull_src_uuid = 1 AND [src_uuid] IS NULL) OR ([src_uuid] = @Original_src_uuid)) AND ((@IsNull_is_default_pass = 1 AND [is_default_pass] IS NULL) OR ([is_default_pass] = @Original_is_default_pass)))</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="uuid" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_create_date" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="create_date" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_create_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="create_date" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_update_date" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="update_date" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_update_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="update_date" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_is_active" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_active" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_company_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="company_uuid" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_account" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="account" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_c_name" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="c_name" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_c_name" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="c_name" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_e_name" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="e_name" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_e_name" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="e_name" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_email" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="email" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_password" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="password" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_password" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="password" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_is_supper" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_supper" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_is_admin" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_admin" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_code_page" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="code_page" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_department_uuid" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="department_uuid" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_department_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="department_uuid" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_phone" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="phone" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_phone" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="phone" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_site_uuid" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="site_uuid" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_site_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="site_uuid" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_gender" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="gender" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_gender" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="gender" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_birthday" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="birthday" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_birthday" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="birthday" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_hire_date" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="hire_date" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_hire_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="hire_date" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_quit_date" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="quit_date" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_quit_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="quit_date" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_is_manager" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="is_manager" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_is_manager" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_manager" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_is_direct" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="is_direct" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_is_direct" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_direct" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_grade" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="grade" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_grade" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="grade" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="id" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_src_uuid" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="src_uuid" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_src_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="src_uuid" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_is_default_pass" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="is_default_pass" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_is_default_pass" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_default_pass" SourceColumnNullMapping="false" SourceVersion="Original" />
-                    </Parameters>
-                  </DbCommand>
-                </DeleteCommand>
-                <InsertCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>INSERT INTO [dbo].[ATTENDANT] ([uuid], [create_date], [update_date], [is_active], [company_uuid], [account], [c_name], [e_name], [email], [password], [is_supper], [is_admin], [code_page], [department_uuid], [phone], [site_uuid], [gender], [birthday], [hire_date], [quit_date], [is_manager], [is_direct], [grade], [id], [src_uuid], [is_default_pass]) VALUES (@uuid, @create_date, @update_date, @is_active, @company_uuid, @account, @c_name, @e_name, @email, @password, @is_supper, @is_admin, @code_page, @department_uuid, @phone, @site_uuid, @gender, @birthday, @hire_date, @quit_date, @is_manager, @is_direct, @grade, @id, @src_uuid, @is_default_pass);
-SELECT uuid, create_date, update_date, is_active, company_uuid, account, c_name, e_name, email, password, is_supper, is_admin, code_page, department_uuid, phone, site_uuid, gender, birthday, hire_date, quit_date, is_manager, is_direct, grade, id, src_uuid, is_default_pass FROM ATTENDANT WHERE (uuid = @uuid)</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@create_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="create_date" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@update_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="update_date" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_active" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_active" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@company_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="company_uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@account" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="account" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@c_name" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="c_name" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@e_name" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="e_name" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@email" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="email" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@password" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="password" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_supper" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_supper" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_admin" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_admin" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@code_page" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="code_page" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@department_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="department_uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@phone" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="phone" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@site_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="site_uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@gender" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="gender" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@birthday" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="birthday" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@hire_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="hire_date" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@quit_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="quit_date" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_manager" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_manager" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_direct" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_direct" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@grade" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="grade" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@src_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="src_uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_default_pass" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_default_pass" SourceColumnNullMapping="false" SourceVersion="Current" />
-                    </Parameters>
-                  </DbCommand>
-                </InsertCommand>
-                <SelectCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>SELECT uuid, create_date, update_date, is_active, company_uuid, account, c_name, e_name, email, password, is_supper, is_admin, code_page, department_uuid, phone, site_uuid, gender, birthday, hire_date, quit_date, is_manager, is_direct, grade, id, src_uuid, is_default_pass FROM dbo.ATTENDANT</CommandText>
-                    <Parameters />
-                  </DbCommand>
-                </SelectCommand>
-                <UpdateCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>UPDATE [dbo].[ATTENDANT] SET [uuid] = @uuid, [create_date] = @create_date, [update_date] = @update_date, [is_active] = @is_active, [company_uuid] = @company_uuid, [account] = @account, [c_name] = @c_name, [e_name] = @e_name, [email] = @email, [password] = @password, [is_supper] = @is_supper, [is_admin] = @is_admin, [code_page] = @code_page, [department_uuid] = @department_uuid, [phone] = @phone, [site_uuid] = @site_uuid, [gender] = @gender, [birthday] = @birthday, [hire_date] = @hire_date, [quit_date] = @quit_date, [is_manager] = @is_manager, [is_direct] = @is_direct, [grade] = @grade, [id] = @id, [src_uuid] = @src_uuid, [is_default_pass] = @is_default_pass WHERE (([uuid] = @Original_uuid) AND ((@IsNull_create_date = 1 AND [create_date] IS NULL) OR ([create_date] = @Original_create_date)) AND ((@IsNull_update_date = 1 AND [update_date] IS NULL) OR ([update_date] = @Original_update_date)) AND ([is_active] = @Original_is_active) AND ([company_uuid] = @Original_company_uuid) AND ([account] = @Original_account) AND ((@IsNull_c_name = 1 AND [c_name] IS NULL) OR ([c_name] = @Original_c_name)) AND ((@IsNull_e_name = 1 AND [e_name] IS NULL) OR ([e_name] = @Original_e_name)) AND ([email] = @Original_email) AND ((@IsNull_password = 1 AND [password] IS NULL) OR ([password] = @Original_password)) AND ([is_supper] = @Original_is_supper) AND ([is_admin] = @Original_is_admin) AND ([code_page] = @Original_code_page) AND ((@IsNull_department_uuid = 1 AND [department_uuid] IS NULL) OR ([department_uuid] = @Original_department_uuid)) AND ((@IsNull_phone = 1 AND [phone] IS NULL) OR ([phone] = @Original_phone)) AND ((@IsNull_site_uuid = 1 AND [site_uuid] IS NULL) OR ([site_uuid] = @Original_site_uuid)) AND ((@IsNull_gender = 1 AND [gender] IS NULL) OR ([gender] = @Original_gender)) AND ((@IsNull_birthday = 1 AND [birthday] IS NULL) OR ([birthday] = @Original_birthday)) AND ((@IsNull_hire_date = 1 AND [hire_date] IS NULL) OR ([hire_date] = @Original_hire_date)) AND ((@IsNull_quit_date = 1 AND [quit_date] IS NULL) OR ([quit_date] = @Original_quit_date)) AND ((@IsNull_is_manager = 1 AND [is_manager] IS NULL) OR ([is_manager] = @Original_is_manager)) AND ((@IsNull_is_direct = 1 AND [is_direct] IS NULL) OR ([is_direct] = @Original_is_direct)) AND ((@IsNull_grade = 1 AND [grade] IS NULL) OR ([grade] = @Original_grade)) AND ((@IsNull_id = 1 AND [id] IS NULL) OR ([id] = @Original_id)) AND ((@IsNull_src_uuid = 1 AND [src_uuid] IS NULL) OR ([src_uuid] = @Original_src_uuid)) AND ((@IsNull_is_default_pass = 1 AND [is_default_pass] IS NULL) OR ([is_default_pass] = @Original_is_default_pass)));
-SELECT uuid, create_date, update_date, is_active, company_uuid, account, c_name, e_name, email, password, is_supper, is_admin, code_page, department_uuid, phone, site_uuid, gender, birthday, hire_date, quit_date, is_manager, is_direct, grade, id, src_uuid, is_default_pass FROM ATTENDANT WHERE (uuid = @uuid)</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@create_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="create_date" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@update_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="update_date" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_active" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_active" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@company_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="company_uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@account" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="account" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@c_name" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="c_name" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@e_name" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="e_name" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@email" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="email" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@password" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="password" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_supper" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_supper" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_admin" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_admin" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@code_page" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="code_page" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@department_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="department_uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@phone" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="phone" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@site_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="site_uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@gender" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="gender" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@birthday" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="birthday" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@hire_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="hire_date" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@quit_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="quit_date" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_manager" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_manager" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_direct" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_direct" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@grade" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="grade" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@src_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="src_uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_default_pass" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_default_pass" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="uuid" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_create_date" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="create_date" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_create_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="create_date" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_update_date" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="update_date" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_update_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="update_date" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_is_active" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_active" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_company_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="company_uuid" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_account" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="account" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_c_name" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="c_name" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_c_name" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="c_name" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_e_name" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="e_name" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_e_name" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="e_name" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_email" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="email" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_password" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="password" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_password" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="password" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_is_supper" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_supper" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_is_admin" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_admin" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_code_page" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="code_page" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_department_uuid" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="department_uuid" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_department_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="department_uuid" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_phone" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="phone" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_phone" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="phone" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_site_uuid" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="site_uuid" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_site_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="site_uuid" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_gender" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="gender" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_gender" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="gender" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_birthday" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="birthday" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_birthday" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="birthday" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_hire_date" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="hire_date" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_hire_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="hire_date" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_quit_date" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="quit_date" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_quit_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="quit_date" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_is_manager" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="is_manager" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_is_manager" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_manager" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_is_direct" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="is_direct" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_is_direct" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_direct" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_grade" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="grade" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_grade" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="grade" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="id" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_id" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_src_uuid" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="src_uuid" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_src_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="src_uuid" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_is_default_pass" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="is_default_pass" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_is_default_pass" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_default_pass" SourceColumnNullMapping="false" SourceVersion="Original" />
-                    </Parameters>
-                  </DbCommand>
-                </UpdateCommand>
-              </DbSource>
-            </MainSource>
-            <Mappings>
-              <Mapping SourceColumn="uuid" DataSetColumn="uuid" />
-              <Mapping SourceColumn="create_date" DataSetColumn="create_date" />
-              <Mapping SourceColumn="update_date" DataSetColumn="update_date" />
-              <Mapping SourceColumn="is_active" DataSetColumn="is_active" />
-              <Mapping SourceColumn="company_uuid" DataSetColumn="company_uuid" />
-              <Mapping SourceColumn="account" DataSetColumn="account" />
-              <Mapping SourceColumn="c_name" DataSetColumn="c_name" />
-              <Mapping SourceColumn="e_name" DataSetColumn="e_name" />
-              <Mapping SourceColumn="email" DataSetColumn="email" />
-              <Mapping SourceColumn="password" DataSetColumn="password" />
-              <Mapping SourceColumn="is_supper" DataSetColumn="is_supper" />
-              <Mapping SourceColumn="is_admin" DataSetColumn="is_admin" />
-              <Mapping SourceColumn="code_page" DataSetColumn="code_page" />
-              <Mapping SourceColumn="department_uuid" DataSetColumn="department_uuid" />
-              <Mapping SourceColumn="phone" DataSetColumn="phone" />
-              <Mapping SourceColumn="site_uuid" DataSetColumn="site_uuid" />
-              <Mapping SourceColumn="gender" DataSetColumn="gender" />
-              <Mapping SourceColumn="birthday" DataSetColumn="birthday" />
-              <Mapping SourceColumn="hire_date" DataSetColumn="hire_date" />
-              <Mapping SourceColumn="quit_date" DataSetColumn="quit_date" />
-              <Mapping SourceColumn="is_manager" DataSetColumn="is_manager" />
-              <Mapping SourceColumn="is_direct" DataSetColumn="is_direct" />
-              <Mapping SourceColumn="grade" DataSetColumn="grade" />
-              <Mapping SourceColumn="id" DataSetColumn="id" />
-              <Mapping SourceColumn="src_uuid" DataSetColumn="src_uuid" />
-              <Mapping SourceColumn="is_default_pass" DataSetColumn="is_default_pass" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -2092,6 +1888,122 @@ SELECT uuid, create_date, update_date, is_active, error_code, error_time, error_
             </Mappings>
             <Sources />
           </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ATTENDANTTableAdapter" GeneratorDataComponentClassName="ATTENDANTTableAdapter" Name="ATTENDANT" UserDataComponentName="ATTENDANTTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="CloudConnectionString (Web.config)" DbObjectName="Cloud.dbo.ATTENDANT" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[ATTENDANT] WHERE (([uuid] = @Original_uuid))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="uuid" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[ATTENDANT] ([uuid], [create_date], [update_date], [is_active], [company_uuid], [account], [c_name], [e_name], [email], [password], [is_supper], [is_admin], [code_page], [department_uuid], [phone], [site_uuid], [gender], [birthday], [hire_date], [quit_date], [is_manager], [is_direct], [grade], [id], [src_uuid], [is_default_pass]) VALUES (@uuid, @create_date, @update_date, @is_active, @company_uuid, @account, @c_name, @e_name, @email, @password, @is_supper, @is_admin, @code_page, @department_uuid, @phone, @site_uuid, @gender, @birthday, @hire_date, @quit_date, @is_manager, @is_direct, @grade, @id, @src_uuid, @is_default_pass)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@create_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="create_date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@update_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="update_date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_active" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_active" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@company_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="company_uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@account" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="account" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@c_name" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="c_name" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@e_name" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="e_name" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@email" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="email" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@password" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="password" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_supper" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_supper" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_admin" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_admin" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@code_page" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="code_page" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@department_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="department_uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@phone" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="phone" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@site_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="site_uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@gender" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="gender" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@birthday" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="birthday" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@hire_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="hire_date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@quit_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="quit_date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_manager" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_manager" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_direct" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_direct" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@grade" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="grade" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@src_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="src_uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_default_pass" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_default_pass" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT uuid, create_date, update_date, is_active, company_uuid, account, c_name, e_name, email, password, is_supper, is_admin, code_page, department_uuid, phone, site_uuid, gender, birthday, hire_date, quit_date, is_manager, is_direct, grade, id, src_uuid, is_default_pass FROM dbo.ATTENDANT</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[ATTENDANT] SET [uuid] = @uuid, [create_date] = @create_date, [update_date] = @update_date, [is_active] = @is_active, [company_uuid] = @company_uuid, [account] = @account, [c_name] = @c_name, [e_name] = @e_name, [email] = @email, [password] = @password, [is_supper] = @is_supper, [is_admin] = @is_admin, [code_page] = @code_page, [department_uuid] = @department_uuid, [phone] = @phone, [site_uuid] = @site_uuid, [gender] = @gender, [birthday] = @birthday, [hire_date] = @hire_date, [quit_date] = @quit_date, [is_manager] = @is_manager, [is_direct] = @is_direct, [grade] = @grade, [id] = @id, [src_uuid] = @src_uuid, [is_default_pass] = @is_default_pass WHERE (([uuid] = @Original_uuid))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@create_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="create_date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@update_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="update_date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_active" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_active" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@company_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="company_uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@account" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="account" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@c_name" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="c_name" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@e_name" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="e_name" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@email" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="email" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@password" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="password" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_supper" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_supper" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_admin" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_admin" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@code_page" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="code_page" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@department_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="department_uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@phone" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="phone" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@site_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="site_uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@gender" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="gender" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@birthday" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="birthday" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@hire_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="hire_date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@quit_date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="quit_date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_manager" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_manager" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_direct" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_direct" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@grade" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="grade" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@id" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="id" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@src_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="src_uuid" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@is_default_pass" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="is_default_pass" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@Original_uuid" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="uuid" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="uuid" DataSetColumn="uuid" />
+              <Mapping SourceColumn="create_date" DataSetColumn="create_date" />
+              <Mapping SourceColumn="update_date" DataSetColumn="update_date" />
+              <Mapping SourceColumn="is_active" DataSetColumn="is_active" />
+              <Mapping SourceColumn="company_uuid" DataSetColumn="company_uuid" />
+              <Mapping SourceColumn="account" DataSetColumn="account" />
+              <Mapping SourceColumn="c_name" DataSetColumn="c_name" />
+              <Mapping SourceColumn="e_name" DataSetColumn="e_name" />
+              <Mapping SourceColumn="email" DataSetColumn="email" />
+              <Mapping SourceColumn="password" DataSetColumn="password" />
+              <Mapping SourceColumn="is_supper" DataSetColumn="is_supper" />
+              <Mapping SourceColumn="is_admin" DataSetColumn="is_admin" />
+              <Mapping SourceColumn="code_page" DataSetColumn="code_page" />
+              <Mapping SourceColumn="department_uuid" DataSetColumn="department_uuid" />
+              <Mapping SourceColumn="phone" DataSetColumn="phone" />
+              <Mapping SourceColumn="site_uuid" DataSetColumn="site_uuid" />
+              <Mapping SourceColumn="gender" DataSetColumn="gender" />
+              <Mapping SourceColumn="birthday" DataSetColumn="birthday" />
+              <Mapping SourceColumn="hire_date" DataSetColumn="hire_date" />
+              <Mapping SourceColumn="quit_date" DataSetColumn="quit_date" />
+              <Mapping SourceColumn="is_manager" DataSetColumn="is_manager" />
+              <Mapping SourceColumn="is_direct" DataSetColumn="is_direct" />
+              <Mapping SourceColumn="grade" DataSetColumn="grade" />
+              <Mapping SourceColumn="id" DataSetColumn="id" />
+              <Mapping SourceColumn="src_uuid" DataSetColumn="src_uuid" />
+              <Mapping SourceColumn="is_default_pass" DataSetColumn="is_default_pass" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
         </Tables>
         <Sources />
       </DataSource>
@@ -2446,164 +2358,6 @@ SELECT uuid, create_date, update_date, is_active, error_code, error_time, error_
                 </xs:simpleType>
               </xs:element>
               <xs:element name="runJsFunction" msprop:Generator_ColumnVarNameInTable="columnrunJsFunction" msprop:Generator_ColumnPropNameInRow="runJsFunction" msprop:Generator_ColumnPropNameInTable="runJsFunctionColumn" msprop:Generator_UserColumnName="runJsFunction" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="ATTENDANT" msprop:Generator_UserTableName="ATTENDANT" msprop:Generator_RowEvArgName="ATTENDANTRowChangeEvent" msprop:Generator_TableVarName="tableATTENDANT" msprop:Generator_TablePropName="ATTENDANT" msprop:Generator_RowDeletingName="ATTENDANTRowDeleting" msprop:Generator_RowChangingName="ATTENDANTRowChanging" msprop:Generator_RowDeletedName="ATTENDANTRowDeleted" msprop:Generator_RowEvHandlerName="ATTENDANTRowChangeEventHandler" msprop:Generator_TableClassName="ATTENDANTDataTable" msprop:Generator_RowChangedName="ATTENDANTRowChanged" msprop:Generator_RowClassName="ATTENDANTRow">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="uuid" msprop:Generator_ColumnVarNameInTable="columnuuid" msprop:Generator_ColumnPropNameInRow="uuid" msprop:Generator_ColumnPropNameInTable="uuidColumn" msprop:Generator_UserColumnName="uuid">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="36" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="create_date" msprop:Generator_ColumnVarNameInTable="columncreate_date" msprop:Generator_ColumnPropNameInRow="create_date" msprop:Generator_ColumnPropNameInTable="create_dateColumn" msprop:Generator_UserColumnName="create_date" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="update_date" msprop:Generator_ColumnVarNameInTable="columnupdate_date" msprop:Generator_ColumnPropNameInRow="update_date" msprop:Generator_ColumnPropNameInTable="update_dateColumn" msprop:Generator_UserColumnName="update_date" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="is_active" msprop:Generator_ColumnVarNameInTable="columnis_active" msprop:Generator_ColumnPropNameInRow="is_active" msprop:Generator_ColumnPropNameInTable="is_activeColumn" msprop:Generator_UserColumnName="is_active">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="1" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="company_uuid" msprop:Generator_ColumnVarNameInTable="columncompany_uuid" msprop:Generator_ColumnPropNameInRow="company_uuid" msprop:Generator_ColumnPropNameInTable="company_uuidColumn" msprop:Generator_UserColumnName="company_uuid">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="36" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="account" msprop:Generator_ColumnVarNameInTable="columnaccount" msprop:Generator_ColumnPropNameInRow="account" msprop:Generator_ColumnPropNameInTable="accountColumn" msprop:Generator_UserColumnName="account">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="c_name" msprop:Generator_ColumnVarNameInTable="columnc_name" msprop:Generator_ColumnPropNameInRow="c_name" msprop:Generator_ColumnPropNameInTable="c_nameColumn" msprop:Generator_UserColumnName="c_name" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="100" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="e_name" msprop:Generator_ColumnVarNameInTable="columne_name" msprop:Generator_ColumnPropNameInRow="e_name" msprop:Generator_ColumnPropNameInTable="e_nameColumn" msprop:Generator_UserColumnName="e_name" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="100" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="email" msprop:Generator_ColumnVarNameInTable="columnemail" msprop:Generator_ColumnPropNameInRow="email" msprop:Generator_ColumnPropNameInTable="emailColumn" msprop:Generator_UserColumnName="email">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="300" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="password" msprop:Generator_ColumnVarNameInTable="columnpassword" msprop:Generator_ColumnPropNameInRow="password" msprop:Generator_ColumnPropNameInTable="passwordColumn" msprop:Generator_UserColumnName="password" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="is_supper" msprop:Generator_ColumnVarNameInTable="columnis_supper" msprop:Generator_ColumnPropNameInRow="is_supper" msprop:Generator_ColumnPropNameInTable="is_supperColumn" msprop:Generator_UserColumnName="is_supper">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="1" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="is_admin" msprop:Generator_ColumnVarNameInTable="columnis_admin" msprop:Generator_ColumnPropNameInRow="is_admin" msprop:Generator_ColumnPropNameInTable="is_adminColumn" msprop:Generator_UserColumnName="is_admin">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="1" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="code_page" msprop:Generator_ColumnVarNameInTable="columncode_page" msprop:Generator_ColumnPropNameInRow="code_page" msprop:Generator_ColumnPropNameInTable="code_pageColumn" msprop:Generator_UserColumnName="code_page">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="10" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="department_uuid" msprop:Generator_ColumnVarNameInTable="columndepartment_uuid" msprop:Generator_ColumnPropNameInRow="department_uuid" msprop:Generator_ColumnPropNameInTable="department_uuidColumn" msprop:Generator_UserColumnName="department_uuid" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="36" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="phone" msprop:Generator_ColumnVarNameInTable="columnphone" msprop:Generator_ColumnPropNameInRow="phone" msprop:Generator_ColumnPropNameInTable="phoneColumn" msprop:Generator_UserColumnName="phone" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="site_uuid" msprop:Generator_ColumnVarNameInTable="columnsite_uuid" msprop:Generator_ColumnPropNameInRow="site_uuid" msprop:Generator_ColumnPropNameInTable="site_uuidColumn" msprop:Generator_UserColumnName="site_uuid" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="36" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="gender" msprop:Generator_ColumnVarNameInTable="columngender" msprop:Generator_ColumnPropNameInRow="gender" msprop:Generator_ColumnPropNameInTable="genderColumn" msprop:Generator_UserColumnName="gender" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="1" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="birthday" msprop:Generator_ColumnVarNameInTable="columnbirthday" msprop:Generator_ColumnPropNameInRow="birthday" msprop:Generator_ColumnPropNameInTable="birthdayColumn" msprop:Generator_UserColumnName="birthday" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="hire_date" msprop:Generator_ColumnVarNameInTable="columnhire_date" msprop:Generator_ColumnPropNameInRow="hire_date" msprop:Generator_ColumnPropNameInTable="hire_dateColumn" msprop:Generator_UserColumnName="hire_date" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="quit_date" msprop:Generator_ColumnVarNameInTable="columnquit_date" msprop:Generator_ColumnPropNameInRow="quit_date" msprop:Generator_ColumnPropNameInTable="quit_dateColumn" msprop:Generator_UserColumnName="quit_date" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="is_manager" msprop:Generator_ColumnVarNameInTable="columnis_manager" msprop:Generator_ColumnPropNameInRow="is_manager" msprop:Generator_ColumnPropNameInTable="is_managerColumn" msprop:Generator_UserColumnName="is_manager" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="1" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="is_direct" msprop:Generator_ColumnVarNameInTable="columnis_direct" msprop:Generator_ColumnPropNameInRow="is_direct" msprop:Generator_ColumnPropNameInTable="is_directColumn" msprop:Generator_UserColumnName="is_direct" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="1" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="grade" msprop:Generator_ColumnVarNameInTable="columngrade" msprop:Generator_ColumnPropNameInRow="grade" msprop:Generator_ColumnPropNameInTable="gradeColumn" msprop:Generator_UserColumnName="grade" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="10" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="100" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="src_uuid" msprop:Generator_ColumnVarNameInTable="columnsrc_uuid" msprop:Generator_ColumnPropNameInRow="src_uuid" msprop:Generator_ColumnPropNameInTable="src_uuidColumn" msprop:Generator_UserColumnName="src_uuid" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="36" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="is_default_pass" msprop:Generator_ColumnVarNameInTable="columnis_default_pass" msprop:Generator_ColumnPropNameInRow="is_default_pass" msprop:Generator_ColumnPropNameInTable="is_default_passColumn" msprop:Generator_UserColumnName="is_default_pass" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="1" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -4791,7 +4545,7 @@ SELECT uuid, create_date, update_date, is_active, error_code, error_time, error_
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="authority_menu_v" msprop:Generator_TableClassName="authority_menu_vDataTable" msprop:Generator_TableVarName="tableauthority_menu_v" msprop:Generator_TablePropName="authority_menu_v" msprop:Generator_RowDeletingName="authority_menu_vRowDeleting" msprop:Generator_RowChangingName="authority_menu_vRowChanging" msprop:Generator_RowEvHandlerName="authority_menu_vRowChangeEventHandler" msprop:Generator_RowDeletedName="authority_menu_vRowDeleted" msprop:Generator_UserTableName="authority_menu_v" msprop:Generator_RowChangedName="authority_menu_vRowChanged" msprop:Generator_RowEvArgName="authority_menu_vRowChangeEvent" msprop:Generator_RowClassName="authority_menu_vRow">
+        <xs:element name="authority_menu_v" msprop:Generator_TableClassName="authority_menu_vDataTable" msprop:Generator_TableVarName="tableauthority_menu_v" msprop:Generator_RowChangedName="authority_menu_vRowChanged" msprop:Generator_TablePropName="authority_menu_v" msprop:Generator_RowDeletingName="authority_menu_vRowDeleting" msprop:Generator_RowChangingName="authority_menu_vRowChanging" msprop:Generator_RowEvHandlerName="authority_menu_vRowChangeEventHandler" msprop:Generator_RowDeletedName="authority_menu_vRowDeleted" msprop:Generator_RowClassName="authority_menu_vRow" msprop:Generator_UserTableName="authority_menu_v" msprop:Generator_RowEvArgName="authority_menu_vRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="is_user_default_page" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnis_user_default_page" msprop:Generator_ColumnPropNameInRow="is_user_default_page" msprop:Generator_ColumnPropNameInTable="is_user_default_pageColumn" msprop:Generator_UserColumnName="is_user_default_page" minOccurs="0">
@@ -4962,6 +4716,165 @@ SELECT uuid, create_date, update_date, is_active, error_code, error_time, error_
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="ATTENDANT" msprop:Generator_TableClassName="ATTENDANTDataTable" msprop:Generator_TableVarName="tableATTENDANT" msprop:Generator_TablePropName="ATTENDANT" msprop:Generator_RowDeletingName="ATTENDANTRowDeleting" msprop:Generator_RowChangingName="ATTENDANTRowChanging" msprop:Generator_RowEvHandlerName="ATTENDANTRowChangeEventHandler" msprop:Generator_RowDeletedName="ATTENDANTRowDeleted" msprop:Generator_UserTableName="ATTENDANT" msprop:Generator_RowChangedName="ATTENDANTRowChanged" msprop:Generator_RowEvArgName="ATTENDANTRowChangeEvent" msprop:Generator_RowClassName="ATTENDANTRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="uuid" msprop:Generator_ColumnVarNameInTable="columnuuid" msprop:Generator_ColumnPropNameInRow="uuid" msprop:Generator_ColumnPropNameInTable="uuidColumn" msprop:Generator_UserColumnName="uuid">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="36" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="create_date" msprop:Generator_ColumnVarNameInTable="columncreate_date" msprop:Generator_ColumnPropNameInRow="create_date" msprop:Generator_ColumnPropNameInTable="create_dateColumn" msprop:Generator_UserColumnName="create_date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="update_date" msprop:Generator_ColumnVarNameInTable="columnupdate_date" msprop:Generator_ColumnPropNameInRow="update_date" msprop:Generator_ColumnPropNameInTable="update_dateColumn" msprop:Generator_UserColumnName="update_date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="is_active" msprop:Generator_ColumnVarNameInTable="columnis_active" msprop:Generator_ColumnPropNameInRow="is_active" msprop:Generator_ColumnPropNameInTable="is_activeColumn" msprop:Generator_UserColumnName="is_active">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="company_uuid" msprop:Generator_ColumnVarNameInTable="columncompany_uuid" msprop:Generator_ColumnPropNameInRow="company_uuid" msprop:Generator_ColumnPropNameInTable="company_uuidColumn" msprop:Generator_UserColumnName="company_uuid">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="36" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="account" msprop:Generator_ColumnVarNameInTable="columnaccount" msprop:Generator_ColumnPropNameInRow="account" msprop:Generator_ColumnPropNameInTable="accountColumn" msprop:Generator_UserColumnName="account">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="c_name" msprop:Generator_ColumnVarNameInTable="columnc_name" msprop:Generator_ColumnPropNameInRow="c_name" msprop:Generator_ColumnPropNameInTable="c_nameColumn" msprop:Generator_UserColumnName="c_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="e_name" msprop:Generator_ColumnVarNameInTable="columne_name" msprop:Generator_ColumnPropNameInRow="e_name" msprop:Generator_ColumnPropNameInTable="e_nameColumn" msprop:Generator_UserColumnName="e_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="email" msprop:Generator_ColumnVarNameInTable="columnemail" msprop:Generator_ColumnPropNameInRow="email" msprop:Generator_ColumnPropNameInTable="emailColumn" msprop:Generator_UserColumnName="email">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="300" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="password" msprop:Generator_ColumnVarNameInTable="columnpassword" msprop:Generator_ColumnPropNameInRow="password" msprop:Generator_ColumnPropNameInTable="passwordColumn" msprop:Generator_UserColumnName="password" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="is_supper" msprop:Generator_ColumnVarNameInTable="columnis_supper" msprop:Generator_ColumnPropNameInRow="is_supper" msprop:Generator_ColumnPropNameInTable="is_supperColumn" msprop:Generator_UserColumnName="is_supper">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="is_admin" msprop:Generator_ColumnVarNameInTable="columnis_admin" msprop:Generator_ColumnPropNameInRow="is_admin" msprop:Generator_ColumnPropNameInTable="is_adminColumn" msprop:Generator_UserColumnName="is_admin">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="code_page" msprop:Generator_ColumnVarNameInTable="columncode_page" msprop:Generator_ColumnPropNameInRow="code_page" msprop:Generator_ColumnPropNameInTable="code_pageColumn" msprop:Generator_UserColumnName="code_page">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="department_uuid" msprop:Generator_ColumnVarNameInTable="columndepartment_uuid" msprop:Generator_ColumnPropNameInRow="department_uuid" msprop:Generator_ColumnPropNameInTable="department_uuidColumn" msprop:Generator_UserColumnName="department_uuid" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="36" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="phone" msprop:Generator_ColumnVarNameInTable="columnphone" msprop:Generator_ColumnPropNameInRow="phone" msprop:Generator_ColumnPropNameInTable="phoneColumn" msprop:Generator_UserColumnName="phone" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="site_uuid" msprop:Generator_ColumnVarNameInTable="columnsite_uuid" msprop:Generator_ColumnPropNameInRow="site_uuid" msprop:Generator_ColumnPropNameInTable="site_uuidColumn" msprop:Generator_UserColumnName="site_uuid" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="36" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="gender" msprop:Generator_ColumnVarNameInTable="columngender" msprop:Generator_ColumnPropNameInRow="gender" msprop:Generator_ColumnPropNameInTable="genderColumn" msprop:Generator_UserColumnName="gender" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="birthday" msprop:Generator_ColumnVarNameInTable="columnbirthday" msprop:Generator_ColumnPropNameInRow="birthday" msprop:Generator_ColumnPropNameInTable="birthdayColumn" msprop:Generator_UserColumnName="birthday" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="hire_date" msprop:Generator_ColumnVarNameInTable="columnhire_date" msprop:Generator_ColumnPropNameInRow="hire_date" msprop:Generator_ColumnPropNameInTable="hire_dateColumn" msprop:Generator_UserColumnName="hire_date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="quit_date" msprop:Generator_ColumnVarNameInTable="columnquit_date" msprop:Generator_ColumnPropNameInRow="quit_date" msprop:Generator_ColumnPropNameInTable="quit_dateColumn" msprop:Generator_UserColumnName="quit_date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="is_manager" msprop:Generator_ColumnVarNameInTable="columnis_manager" msprop:Generator_ColumnPropNameInRow="is_manager" msprop:Generator_ColumnPropNameInTable="is_managerColumn" msprop:Generator_UserColumnName="is_manager" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="is_direct" msprop:Generator_ColumnVarNameInTable="columnis_direct" msprop:Generator_ColumnPropNameInRow="is_direct" msprop:Generator_ColumnPropNameInTable="is_directColumn" msprop:Generator_UserColumnName="is_direct" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="grade" msprop:Generator_ColumnVarNameInTable="columngrade" msprop:Generator_ColumnPropNameInRow="grade" msprop:Generator_ColumnPropNameInTable="gradeColumn" msprop:Generator_UserColumnName="grade" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="src_uuid" msprop:Generator_ColumnVarNameInTable="columnsrc_uuid" msprop:Generator_ColumnPropNameInRow="src_uuid" msprop:Generator_ColumnPropNameInTable="src_uuidColumn" msprop:Generator_UserColumnName="src_uuid" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="36" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="is_default_pass" msprop:Generator_ColumnVarNameInTable="columnis_default_pass" msprop:Generator_ColumnPropNameInRow="is_default_pass" msprop:Generator_ColumnPropNameInTable="is_default_passColumn" msprop:Generator_UserColumnName="is_default_pass" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="picture_url" msprop:Generator_ColumnVarNameInTable="columnpicture_url" msprop:Generator_ColumnPropNameInRow="picture_url" msprop:Generator_ColumnPropNameInTable="picture_urlColumn" msprop:Generator_UserColumnName="picture_url" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -4978,10 +4891,6 @@ SELECT uuid, create_date, update_date, is_active, error_code, error_time, error_
     </xs:unique>
     <xs:unique name="APPPAGE_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:APPPAGE" />
-      <xs:field xpath="mstns:uuid" />
-    </xs:unique>
-    <xs:unique name="ATTENDANT_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:ATTENDANT" />
       <xs:field xpath="mstns:uuid" />
     </xs:unique>
     <xs:unique name="COMPANY_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
@@ -5075,55 +4984,59 @@ SELECT uuid, create_date, update_date, is_active, error_code, error_time, error_
       <xs:selector xpath=".//mstns:authority_menu_v" />
       <xs:field xpath="mstns:UUID" />
     </xs:unique>
+    <xs:unique name="ATTENDANT_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ATTENDANT" />
+      <xs:field xpath="mstns:uuid" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="SITEMAP_APPLICATION_HEAD_FK1" msdata:parent="APPLICATION_HEAD" msdata:child="SITEMAP" msdata:parentkey="uuid" msdata:childkey="application_head_uuid" msprop:Generator_UserChildTable="SITEMAP" msprop:Generator_ChildPropName="GetSITEMAPRows" msprop:Generator_UserRelationName="SITEMAP_APPLICATION_HEAD_FK1" msprop:Generator_RelationVarName="relationSITEMAP_APPLICATION_HEAD_FK1" msprop:Generator_UserParentTable="APPLICATION_HEAD" msprop:Generator_ParentPropName="APPLICATION_HEADRow" />
-      <msdata:Relationship name="SITEMAP_APPPAGE_FK1" msdata:parent="APPPAGE" msdata:child="SITEMAP" msdata:parentkey="uuid" msdata:childkey="apppage_uuid" msprop:Generator_UserChildTable="SITEMAP" msprop:Generator_ChildPropName="GetSITEMAPRows" msprop:Generator_UserRelationName="SITEMAP_APPPAGE_FK1" msprop:Generator_RelationVarName="relationSITEMAP_APPPAGE_FK1" msprop:Generator_UserParentTable="APPPAGE" msprop:Generator_ParentPropName="APPPAGERow" />
-      <msdata:Relationship name="SITEMAP_SITEMAP_FK1" msdata:parent="SITEMAP" msdata:child="SITEMAP" msdata:parentkey="uuid" msdata:childkey="sitemap_uuid" msprop:Generator_UserChildTable="SITEMAP" msprop:Generator_ChildPropName="GetSITEMAPRowsBySITEMAP_SITEMAP_FK1" msprop:Generator_UserRelationName="SITEMAP_SITEMAP_FK1" msprop:Generator_RelationVarName="relationSITEMAP_SITEMAP_FK1" msprop:Generator_UserParentTable="SITEMAP" msprop:Generator_ParentPropName="SITEMAPRowParentBySITEMAP_SITEMAP_FK1" />
-      <msdata:Relationship name="SITEMAP_SITEMAP_FK2" msdata:parent="SITEMAP" msdata:child="SITEMAP" msdata:parentkey="uuid" msdata:childkey="root_uuid" msprop:Generator_UserChildTable="SITEMAP" msprop:Generator_ChildPropName="GetSITEMAPRowsBySITEMAP_SITEMAP_FK2" msprop:Generator_UserRelationName="SITEMAP_SITEMAP_FK2" msprop:Generator_RelationVarName="relationSITEMAP_SITEMAP_FK2" msprop:Generator_UserParentTable="SITEMAP" msprop:Generator_ParentPropName="SITEMAPRowParentBySITEMAP_SITEMAP_FK2" />
-      <msdata:Relationship name="APPMENU_APPLICATION_HEAD_FK1" msdata:parent="APPLICATION_HEAD" msdata:child="APPMENU" msdata:parentkey="uuid" msdata:childkey="application_head_uuid" msprop:Generator_UserChildTable="APPMENU" msprop:Generator_ChildPropName="GetAPPMENURows" msprop:Generator_UserRelationName="APPMENU_APPLICATION_HEAD_FK1" msprop:Generator_RelationVarName="relationAPPMENU_APPLICATION_HEAD_FK1" msprop:Generator_UserParentTable="APPLICATION_HEAD" msprop:Generator_ParentPropName="APPLICATION_HEADRow" />
-      <msdata:Relationship name="APPMENU_APPMENU_FK1" msdata:parent="APPMENU" msdata:child="APPMENU" msdata:parentkey="uuid" msdata:childkey="appmenu_uuid" msprop:Generator_UserChildTable="APPMENU" msprop:Generator_ChildPropName="GetAPPMENURows" msprop:Generator_UserRelationName="APPMENU_APPMENU_FK1" msprop:Generator_RelationVarName="relationAPPMENU_APPMENU_FK1" msprop:Generator_UserParentTable="APPMENU" msprop:Generator_ParentPropName="APPMENURowParent" />
-      <msdata:Relationship name="APPMENU_SITEMAP_FK1" msdata:parent="SITEMAP" msdata:child="APPMENU" msdata:parentkey="uuid" msdata:childkey="sitemap_uuid" msprop:Generator_UserChildTable="APPMENU" msprop:Generator_ChildPropName="GetAPPMENURows" msprop:Generator_UserRelationName="APPMENU_SITEMAP_FK1" msprop:Generator_RelationVarName="relationAPPMENU_SITEMAP_FK1" msprop:Generator_UserParentTable="SITEMAP" msprop:Generator_ParentPropName="SITEMAPRow" />
-      <msdata:Relationship name="APPPAGE_APPLICATION_HEAD_FK1" msdata:parent="APPLICATION_HEAD" msdata:child="APPPAGE" msdata:parentkey="uuid" msdata:childkey="application_head_uuid" msprop:Generator_UserChildTable="APPPAGE" msprop:Generator_ChildPropName="GetAPPPAGERows" msprop:Generator_UserRelationName="APPPAGE_APPLICATION_HEAD_FK1" msprop:Generator_RelationVarName="relationAPPPAGE_APPLICATION_HEAD_FK1" msprop:Generator_UserParentTable="APPLICATION_HEAD" msprop:Generator_ParentPropName="APPLICATION_HEADRow" />
-      <msdata:Relationship name="ATTENDANT_FK1" msdata:parent="COMPANY" msdata:child="ATTENDANT" msdata:parentkey="uuid" msdata:childkey="company_uuid" msprop:Generator_UserChildTable="ATTENDANT" msprop:Generator_ChildPropName="GetATTENDANTRows" msprop:Generator_UserRelationName="ATTENDANT_FK1" msprop:Generator_RelationVarName="relationATTENDANT_FK1" msprop:Generator_UserParentTable="COMPANY" msprop:Generator_ParentPropName="COMPANYRow" />
-      <msdata:Relationship name="ATTENDANT_FK2" msdata:parent="DEPARTMENT" msdata:child="ATTENDANT" msdata:parentkey="uuid" msdata:childkey="department_uuid" msprop:Generator_UserChildTable="ATTENDANT" msprop:Generator_ChildPropName="GetATTENDANTRows" msprop:Generator_UserRelationName="ATTENDANT_FK2" msprop:Generator_RelationVarName="relationATTENDANT_FK2" msprop:Generator_UserParentTable="DEPARTMENT" msprop:Generator_ParentPropName="DEPARTMENTRow" />
-      <msdata:Relationship name="ATTENDANT_FK3" msdata:parent="SITE" msdata:child="ATTENDANT" msdata:parentkey="uuid" msdata:childkey="site_uuid" msprop:Generator_UserChildTable="ATTENDANT" msprop:Generator_ChildPropName="GetATTENDANTRows" msprop:Generator_UserRelationName="ATTENDANT_FK3" msprop:Generator_RelationVarName="relationATTENDANT_FK3" msprop:Generator_UserParentTable="SITE" msprop:Generator_ParentPropName="SITERow" />
-      <msdata:Relationship name="DEPARTMENT_FK1" msdata:parent="COMPANY" msdata:child="DEPARTMENT" msdata:parentkey="uuid" msdata:childkey="company_uuid" msprop:Generator_UserChildTable="DEPARTMENT" msprop:Generator_ChildPropName="GetDEPARTMENTRows" msprop:Generator_UserRelationName="DEPARTMENT_FK1" msprop:Generator_RelationVarName="relationDEPARTMENT_FK1" msprop:Generator_UserParentTable="COMPANY" msprop:Generator_ParentPropName="COMPANYRow" />
-      <msdata:Relationship name="DEPARTMENT_FK2" msdata:parent="DEPARTMENT" msdata:child="DEPARTMENT" msdata:parentkey="uuid" msdata:childkey="parent_department_uuid" msprop:Generator_UserChildTable="DEPARTMENT" msprop:Generator_ChildPropName="GetDEPARTMENTRows" msprop:Generator_UserRelationName="DEPARTMENT_FK2" msprop:Generator_RelationVarName="relationDEPARTMENT_FK2" msprop:Generator_UserParentTable="DEPARTMENT" msprop:Generator_ParentPropName="DEPARTMENTRowParent" />
-      <msdata:Relationship name="DEPARTMENT_FK3" msdata:parent="ATTENDANT" msdata:child="DEPARTMENT" msdata:parentkey="uuid" msdata:childkey="manager_uuid" msprop:Generator_UserChildTable="DEPARTMENT" msprop:Generator_ChildPropName="GetDEPARTMENTRows" msprop:Generator_UserRelationName="DEPARTMENT_FK3" msprop:Generator_RelationVarName="relationDEPARTMENT_FK3" msprop:Generator_UserParentTable="ATTENDANT" msprop:Generator_ParentPropName="ATTENDANTRow" />
-      <msdata:Relationship name="GROUP_APPMENU_APPMENU_FK1" msdata:parent="APPMENU" msdata:child="GROUP_APPMENU" msdata:parentkey="uuid" msdata:childkey="appmenu_uuid" msprop:Generator_UserChildTable="GROUP_APPMENU" msprop:Generator_ChildPropName="GetGROUP_APPMENURows" msprop:Generator_UserRelationName="GROUP_APPMENU_APPMENU_FK1" msprop:Generator_RelationVarName="relationGROUP_APPMENU_APPMENU_FK1" msprop:Generator_UserParentTable="APPMENU" msprop:Generator_ParentPropName="APPMENURow" />
-      <msdata:Relationship name="GROUP_APPMENU_GROUP_HEAD_FK1" msdata:parent="GROUP_HEAD" msdata:child="GROUP_APPMENU" msdata:parentkey="uuid" msdata:childkey="group_head_uuid" msprop:Generator_UserChildTable="GROUP_APPMENU" msprop:Generator_ChildPropName="GetGROUP_APPMENURows" msprop:Generator_UserRelationName="GROUP_APPMENU_GROUP_HEAD_FK1" msprop:Generator_RelationVarName="relationGROUP_APPMENU_GROUP_HEAD_FK1" msprop:Generator_UserParentTable="GROUP_HEAD" msprop:Generator_ParentPropName="GROUP_HEADRow" />
-      <msdata:Relationship name="GROUP_ATTENDANT_ATTENDANT_FK1" msdata:parent="ATTENDANT" msdata:child="GROUP_ATTENDANT" msdata:parentkey="uuid" msdata:childkey="attendant_uuid" msprop:Generator_UserChildTable="GROUP_ATTENDANT" msprop:Generator_ChildPropName="GetGROUP_ATTENDANTRows" msprop:Generator_UserRelationName="GROUP_ATTENDANT_ATTENDANT_FK1" msprop:Generator_RelationVarName="relationGROUP_ATTENDANT_ATTENDANT_FK1" msprop:Generator_UserParentTable="ATTENDANT" msprop:Generator_ParentPropName="ATTENDANTRow" />
-      <msdata:Relationship name="GROUP_ATTENDANT_GROUP_HEA_FK1" msdata:parent="GROUP_HEAD" msdata:child="GROUP_ATTENDANT" msdata:parentkey="uuid" msdata:childkey="group_head_uuid" msprop:Generator_UserChildTable="GROUP_ATTENDANT" msprop:Generator_ChildPropName="GetGROUP_ATTENDANTRows" msprop:Generator_UserRelationName="GROUP_ATTENDANT_GROUP_HEA_FK1" msprop:Generator_RelationVarName="relationGROUP_ATTENDANT_GROUP_HEA_FK1" msprop:Generator_UserParentTable="GROUP_HEAD" msprop:Generator_ParentPropName="GROUP_HEADRow" />
-      <msdata:Relationship name="GROUP_HEAD_APPLICATION_HE_FK1" msdata:parent="APPLICATION_HEAD" msdata:child="GROUP_HEAD" msdata:parentkey="uuid" msdata:childkey="application_head_uuid" msprop:Generator_UserChildTable="GROUP_HEAD" msprop:Generator_ChildPropName="GetGROUP_HEADRows" msprop:Generator_UserRelationName="GROUP_HEAD_APPLICATION_HE_FK1" msprop:Generator_RelationVarName="relationGROUP_HEAD_APPLICATION_HE_FK1" msprop:Generator_UserParentTable="APPLICATION_HEAD" msprop:Generator_ParentPropName="APPLICATION_HEADRow" />
-      <msdata:Relationship name="GROUP_HEAD_COMPANY_FK1" msdata:parent="COMPANY" msdata:child="GROUP_HEAD" msdata:parentkey="uuid" msdata:childkey="company_uuid" msprop:Generator_UserChildTable="GROUP_HEAD" msprop:Generator_ChildPropName="GetGROUP_HEADRows" msprop:Generator_UserRelationName="GROUP_HEAD_COMPANY_FK1" msprop:Generator_RelationVarName="relationGROUP_HEAD_COMPANY_FK1" msprop:Generator_UserParentTable="COMPANY" msprop:Generator_ParentPropName="COMPANYRow" />
-      <msdata:Relationship name="SITE_FK1" msdata:parent="COMPANY" msdata:child="SITE" msdata:parentkey="uuid" msdata:childkey="company_uuid" msprop:Generator_UserChildTable="SITE" msprop:Generator_ChildPropName="GetSITERows" msprop:Generator_UserRelationName="SITE_FK1" msprop:Generator_RelationVarName="relationSITE_FK1" msprop:Generator_UserParentTable="COMPANY" msprop:Generator_ParentPropName="COMPANYRow" />
-      <msdata:Relationship name="SITE_FK2" msdata:parent="SITE" msdata:child="SITE" msdata:parentkey="uuid" msdata:childkey="parent_site_uuid" msprop:Generator_UserChildTable="SITE" msprop:Generator_ChildPropName="GetSITERows" msprop:Generator_UserRelationName="SITE_FK2" msprop:Generator_RelationVarName="relationSITE_FK2" msprop:Generator_UserParentTable="SITE" msprop:Generator_ParentPropName="SITERowParent" />
-      <msdata:Relationship name="COMPANY_group_attendant_v" msdata:parent="COMPANY" msdata:child="group_attendant_v" msdata:parentkey="uuid" msdata:childkey="company_uuid" msprop:Generator_UserChildTable="group_attendant_v" msprop:Generator_ChildPropName="Getgroup_attendant_vRows" msprop:Generator_UserRelationName="COMPANY_group_attendant_v" msprop:Generator_RelationVarName="relationCOMPANY_group_attendant_v" msprop:Generator_UserParentTable="COMPANY" msprop:Generator_ParentPropName="COMPANYRow" />
-      <msdata:Relationship name="ATTENDANT_group_attendant_v" msdata:parent="ATTENDANT" msdata:child="group_attendant_v" msdata:parentkey="uuid" msdata:childkey="attendant_uuid" msprop:Generator_UserChildTable="group_attendant_v" msprop:Generator_ChildPropName="Getgroup_attendant_vRows" msprop:Generator_UserRelationName="ATTENDANT_group_attendant_v" msprop:Generator_RelationVarName="relationATTENDANT_group_attendant_v" msprop:Generator_UserParentTable="ATTENDANT" msprop:Generator_ParentPropName="ATTENDANTRow" />
-      <msdata:Relationship name="GROUP_HEAD_group_attendant_v" msdata:parent="GROUP_HEAD" msdata:child="group_attendant_v" msdata:parentkey="uuid" msdata:childkey="group_head_uuid" msprop:Generator_UserChildTable="group_attendant_v" msprop:Generator_ChildPropName="Getgroup_attendant_vRows" msprop:Generator_UserRelationName="GROUP_HEAD_group_attendant_v" msprop:Generator_RelationVarName="relationGROUP_HEAD_group_attendant_v" msprop:Generator_UserParentTable="GROUP_HEAD" msprop:Generator_ParentPropName="GROUP_HEADRow" />
-      <msdata:Relationship name="APPLICATION_HEAD_group_head_v" msdata:parent="APPLICATION_HEAD" msdata:child="group_head_v" msdata:parentkey="uuid" msdata:childkey="application_head_uuid" msprop:Generator_UserChildTable="group_head_v" msprop:Generator_ChildPropName="Getgroup_head_vRows" msprop:Generator_UserRelationName="APPLICATION_HEAD_group_head_v" msprop:Generator_RelationVarName="relationAPPLICATION_HEAD_group_head_v" msprop:Generator_UserParentTable="APPLICATION_HEAD" msprop:Generator_ParentPropName="APPLICATION_HEADRow" />
-      <msdata:Relationship name="COMPANY_group_head_v" msdata:parent="COMPANY" msdata:child="group_head_v" msdata:parentkey="uuid" msdata:childkey="company_uuid" msprop:Generator_UserChildTable="group_head_v" msprop:Generator_ChildPropName="Getgroup_head_vRows" msprop:Generator_UserRelationName="COMPANY_group_head_v" msprop:Generator_RelationVarName="relationCOMPANY_group_head_v" msprop:Generator_UserParentTable="COMPANY" msprop:Generator_ParentPropName="COMPANYRow" />
-      <msdata:Relationship name="APPMENU_appmenu_apppage_v" msdata:parent="APPMENU" msdata:child="appmenu_apppage_v" msdata:parentkey="uuid" msdata:childkey="APPMENU_UUID" msprop:Generator_UserChildTable="appmenu_apppage_v" msprop:Generator_ChildPropName="Getappmenu_apppage_vRows" msprop:Generator_UserRelationName="APPMENU_appmenu_apppage_v" msprop:Generator_RelationVarName="relationAPPMENU_appmenu_apppage_v" msprop:Generator_UserParentTable="APPMENU" msprop:Generator_ParentPropName="APPMENURow" />
-      <msdata:Relationship name="APPLICATION_HEAD_appmenu_apppage_v" msdata:parent="APPLICATION_HEAD" msdata:child="appmenu_apppage_v" msdata:parentkey="uuid" msdata:childkey="APPLICATION_HEAD_UUID" msprop:Generator_UserChildTable="appmenu_apppage_v" msprop:Generator_ChildPropName="Getappmenu_apppage_vRows" msprop:Generator_UserRelationName="APPLICATION_HEAD_appmenu_apppage_v" msprop:Generator_RelationVarName="relationAPPLICATION_HEAD_appmenu_apppage_v" msprop:Generator_UserParentTable="APPLICATION_HEAD" msprop:Generator_ParentPropName="APPLICATION_HEADRow" />
-      <msdata:Relationship name="SITEMAP_appmenu_apppage_v" msdata:parent="SITEMAP" msdata:child="appmenu_apppage_v" msdata:parentkey="uuid" msdata:childkey="SITEMAP_UUID" msprop:Generator_UserChildTable="appmenu_apppage_v" msprop:Generator_ChildPropName="Getappmenu_apppage_vRows" msprop:Generator_UserRelationName="SITEMAP_appmenu_apppage_v" msprop:Generator_RelationVarName="relationSITEMAP_appmenu_apppage_v" msprop:Generator_UserParentTable="SITEMAP" msprop:Generator_ParentPropName="SITEMAPRow" />
-      <msdata:Relationship name="APPMENU_group_appmenu_v" msdata:parent="APPMENU" msdata:child="group_appmenu_v" msdata:parentkey="uuid" msdata:childkey="APPMENU_UUID" msprop:Generator_UserChildTable="group_appmenu_v" msprop:Generator_ChildPropName="Getgroup_appmenu_vRows" msprop:Generator_UserRelationName="APPMENU_group_appmenu_v" msprop:Generator_RelationVarName="relationAPPMENU_group_appmenu_v" msprop:Generator_UserParentTable="APPMENU" msprop:Generator_ParentPropName="APPMENURow" />
-      <msdata:Relationship name="GROUP_HEAD_group_appmenu_v" msdata:parent="GROUP_HEAD" msdata:child="group_appmenu_v" msdata:parentkey="uuid" msdata:childkey="GROUP_HEAD_UUID" msprop:Generator_UserChildTable="group_appmenu_v" msprop:Generator_ChildPropName="Getgroup_appmenu_vRows" msprop:Generator_UserRelationName="GROUP_HEAD_group_appmenu_v" msprop:Generator_RelationVarName="relationGROUP_HEAD_group_appmenu_v" msprop:Generator_UserParentTable="GROUP_HEAD" msprop:Generator_ParentPropName="GROUP_HEADRow" />
-      <msdata:Relationship name="ATTENDANT_error_log_v" msdata:parent="ATTENDANT" msdata:child="error_log_v" msdata:parentkey="uuid" msdata:childkey="attendant_uuid" msprop:Generator_UserChildTable="error_log_v" msprop:Generator_ChildPropName="Geterror_log_vRows" msprop:Generator_UserRelationName="ATTENDANT_error_log_v" msprop:Generator_RelationVarName="relationATTENDANT_error_log_v" msprop:Generator_UserParentTable="ATTENDANT" msprop:Generator_ParentPropName="ATTENDANTRow" />
+      <msdata:Relationship name="SITEMAP_APPLICATION_HEAD_FK1" msdata:parent="APPLICATION_HEAD" msdata:child="SITEMAP" msdata:parentkey="uuid" msdata:childkey="application_head_uuid" msprop:Generator_UserChildTable="SITEMAP" msprop:Generator_ChildPropName="GetSITEMAPRows" msprop:Generator_UserRelationName="SITEMAP_APPLICATION_HEAD_FK1" msprop:Generator_ParentPropName="APPLICATION_HEADRow" msprop:Generator_RelationVarName="relationSITEMAP_APPLICATION_HEAD_FK1" msprop:Generator_UserParentTable="APPLICATION_HEAD" />
+      <msdata:Relationship name="SITEMAP_APPPAGE_FK1" msdata:parent="APPPAGE" msdata:child="SITEMAP" msdata:parentkey="uuid" msdata:childkey="apppage_uuid" msprop:Generator_UserChildTable="SITEMAP" msprop:Generator_ChildPropName="GetSITEMAPRows" msprop:Generator_UserRelationName="SITEMAP_APPPAGE_FK1" msprop:Generator_ParentPropName="APPPAGERow" msprop:Generator_RelationVarName="relationSITEMAP_APPPAGE_FK1" msprop:Generator_UserParentTable="APPPAGE" />
+      <msdata:Relationship name="SITEMAP_SITEMAP_FK1" msdata:parent="SITEMAP" msdata:child="SITEMAP" msdata:parentkey="uuid" msdata:childkey="sitemap_uuid" msprop:Generator_UserChildTable="SITEMAP" msprop:Generator_ChildPropName="GetSITEMAPRowsBySITEMAP_SITEMAP_FK1" msprop:Generator_UserRelationName="SITEMAP_SITEMAP_FK1" msprop:Generator_ParentPropName="SITEMAPRowParentBySITEMAP_SITEMAP_FK1" msprop:Generator_RelationVarName="relationSITEMAP_SITEMAP_FK1" msprop:Generator_UserParentTable="SITEMAP" />
+      <msdata:Relationship name="SITEMAP_SITEMAP_FK2" msdata:parent="SITEMAP" msdata:child="SITEMAP" msdata:parentkey="uuid" msdata:childkey="root_uuid" msprop:Generator_UserChildTable="SITEMAP" msprop:Generator_ChildPropName="GetSITEMAPRowsBySITEMAP_SITEMAP_FK2" msprop:Generator_UserRelationName="SITEMAP_SITEMAP_FK2" msprop:Generator_ParentPropName="SITEMAPRowParentBySITEMAP_SITEMAP_FK2" msprop:Generator_RelationVarName="relationSITEMAP_SITEMAP_FK2" msprop:Generator_UserParentTable="SITEMAP" />
+      <msdata:Relationship name="APPMENU_APPLICATION_HEAD_FK1" msdata:parent="APPLICATION_HEAD" msdata:child="APPMENU" msdata:parentkey="uuid" msdata:childkey="application_head_uuid" msprop:Generator_UserChildTable="APPMENU" msprop:Generator_ChildPropName="GetAPPMENURows" msprop:Generator_UserRelationName="APPMENU_APPLICATION_HEAD_FK1" msprop:Generator_ParentPropName="APPLICATION_HEADRow" msprop:Generator_RelationVarName="relationAPPMENU_APPLICATION_HEAD_FK1" msprop:Generator_UserParentTable="APPLICATION_HEAD" />
+      <msdata:Relationship name="APPMENU_APPMENU_FK1" msdata:parent="APPMENU" msdata:child="APPMENU" msdata:parentkey="uuid" msdata:childkey="appmenu_uuid" msprop:Generator_UserChildTable="APPMENU" msprop:Generator_ChildPropName="GetAPPMENURows" msprop:Generator_UserRelationName="APPMENU_APPMENU_FK1" msprop:Generator_ParentPropName="APPMENURowParent" msprop:Generator_RelationVarName="relationAPPMENU_APPMENU_FK1" msprop:Generator_UserParentTable="APPMENU" />
+      <msdata:Relationship name="APPMENU_SITEMAP_FK1" msdata:parent="SITEMAP" msdata:child="APPMENU" msdata:parentkey="uuid" msdata:childkey="sitemap_uuid" msprop:Generator_UserChildTable="APPMENU" msprop:Generator_ChildPropName="GetAPPMENURows" msprop:Generator_UserRelationName="APPMENU_SITEMAP_FK1" msprop:Generator_ParentPropName="SITEMAPRow" msprop:Generator_RelationVarName="relationAPPMENU_SITEMAP_FK1" msprop:Generator_UserParentTable="SITEMAP" />
+      <msdata:Relationship name="APPPAGE_APPLICATION_HEAD_FK1" msdata:parent="APPLICATION_HEAD" msdata:child="APPPAGE" msdata:parentkey="uuid" msdata:childkey="application_head_uuid" msprop:Generator_UserChildTable="APPPAGE" msprop:Generator_ChildPropName="GetAPPPAGERows" msprop:Generator_UserRelationName="APPPAGE_APPLICATION_HEAD_FK1" msprop:Generator_ParentPropName="APPLICATION_HEADRow" msprop:Generator_RelationVarName="relationAPPPAGE_APPLICATION_HEAD_FK1" msprop:Generator_UserParentTable="APPLICATION_HEAD" />
+      <msdata:Relationship name="DEPARTMENT_FK1" msdata:parent="COMPANY" msdata:child="DEPARTMENT" msdata:parentkey="uuid" msdata:childkey="company_uuid" msprop:Generator_UserChildTable="DEPARTMENT" msprop:Generator_ChildPropName="GetDEPARTMENTRows" msprop:Generator_UserRelationName="DEPARTMENT_FK1" msprop:Generator_ParentPropName="COMPANYRow" msprop:Generator_RelationVarName="relationDEPARTMENT_FK1" msprop:Generator_UserParentTable="COMPANY" />
+      <msdata:Relationship name="DEPARTMENT_FK2" msdata:parent="DEPARTMENT" msdata:child="DEPARTMENT" msdata:parentkey="uuid" msdata:childkey="parent_department_uuid" msprop:Generator_UserChildTable="DEPARTMENT" msprop:Generator_ChildPropName="GetDEPARTMENTRows" msprop:Generator_UserRelationName="DEPARTMENT_FK2" msprop:Generator_ParentPropName="DEPARTMENTRowParent" msprop:Generator_RelationVarName="relationDEPARTMENT_FK2" msprop:Generator_UserParentTable="DEPARTMENT" />
+      <msdata:Relationship name="GROUP_APPMENU_APPMENU_FK1" msdata:parent="APPMENU" msdata:child="GROUP_APPMENU" msdata:parentkey="uuid" msdata:childkey="appmenu_uuid" msprop:Generator_UserChildTable="GROUP_APPMENU" msprop:Generator_ChildPropName="GetGROUP_APPMENURows" msprop:Generator_UserRelationName="GROUP_APPMENU_APPMENU_FK1" msprop:Generator_ParentPropName="APPMENURow" msprop:Generator_RelationVarName="relationGROUP_APPMENU_APPMENU_FK1" msprop:Generator_UserParentTable="APPMENU" />
+      <msdata:Relationship name="GROUP_APPMENU_GROUP_HEAD_FK1" msdata:parent="GROUP_HEAD" msdata:child="GROUP_APPMENU" msdata:parentkey="uuid" msdata:childkey="group_head_uuid" msprop:Generator_UserChildTable="GROUP_APPMENU" msprop:Generator_ChildPropName="GetGROUP_APPMENURows" msprop:Generator_UserRelationName="GROUP_APPMENU_GROUP_HEAD_FK1" msprop:Generator_ParentPropName="GROUP_HEADRow" msprop:Generator_RelationVarName="relationGROUP_APPMENU_GROUP_HEAD_FK1" msprop:Generator_UserParentTable="GROUP_HEAD" />
+      <msdata:Relationship name="GROUP_ATTENDANT_GROUP_HEA_FK1" msdata:parent="GROUP_HEAD" msdata:child="GROUP_ATTENDANT" msdata:parentkey="uuid" msdata:childkey="group_head_uuid" msprop:Generator_UserChildTable="GROUP_ATTENDANT" msprop:Generator_ChildPropName="GetGROUP_ATTENDANTRows" msprop:Generator_UserRelationName="GROUP_ATTENDANT_GROUP_HEA_FK1" msprop:Generator_ParentPropName="GROUP_HEADRow" msprop:Generator_RelationVarName="relationGROUP_ATTENDANT_GROUP_HEA_FK1" msprop:Generator_UserParentTable="GROUP_HEAD" />
+      <msdata:Relationship name="GROUP_HEAD_APPLICATION_HE_FK1" msdata:parent="APPLICATION_HEAD" msdata:child="GROUP_HEAD" msdata:parentkey="uuid" msdata:childkey="application_head_uuid" msprop:Generator_UserChildTable="GROUP_HEAD" msprop:Generator_ChildPropName="GetGROUP_HEADRows" msprop:Generator_UserRelationName="GROUP_HEAD_APPLICATION_HE_FK1" msprop:Generator_ParentPropName="APPLICATION_HEADRow" msprop:Generator_RelationVarName="relationGROUP_HEAD_APPLICATION_HE_FK1" msprop:Generator_UserParentTable="APPLICATION_HEAD" />
+      <msdata:Relationship name="GROUP_HEAD_COMPANY_FK1" msdata:parent="COMPANY" msdata:child="GROUP_HEAD" msdata:parentkey="uuid" msdata:childkey="company_uuid" msprop:Generator_UserChildTable="GROUP_HEAD" msprop:Generator_ChildPropName="GetGROUP_HEADRows" msprop:Generator_UserRelationName="GROUP_HEAD_COMPANY_FK1" msprop:Generator_ParentPropName="COMPANYRow" msprop:Generator_RelationVarName="relationGROUP_HEAD_COMPANY_FK1" msprop:Generator_UserParentTable="COMPANY" />
+      <msdata:Relationship name="SITE_FK1" msdata:parent="COMPANY" msdata:child="SITE" msdata:parentkey="uuid" msdata:childkey="company_uuid" msprop:Generator_UserChildTable="SITE" msprop:Generator_ChildPropName="GetSITERows" msprop:Generator_UserRelationName="SITE_FK1" msprop:Generator_ParentPropName="COMPANYRow" msprop:Generator_RelationVarName="relationSITE_FK1" msprop:Generator_UserParentTable="COMPANY" />
+      <msdata:Relationship name="SITE_FK2" msdata:parent="SITE" msdata:child="SITE" msdata:parentkey="uuid" msdata:childkey="parent_site_uuid" msprop:Generator_UserChildTable="SITE" msprop:Generator_ChildPropName="GetSITERows" msprop:Generator_UserRelationName="SITE_FK2" msprop:Generator_ParentPropName="SITERowParent" msprop:Generator_RelationVarName="relationSITE_FK2" msprop:Generator_UserParentTable="SITE" />
+      <msdata:Relationship name="COMPANY_group_attendant_v" msdata:parent="COMPANY" msdata:child="group_attendant_v" msdata:parentkey="uuid" msdata:childkey="company_uuid" msprop:Generator_UserChildTable="group_attendant_v" msprop:Generator_ChildPropName="Getgroup_attendant_vRows" msprop:Generator_UserRelationName="COMPANY_group_attendant_v" msprop:Generator_ParentPropName="COMPANYRow" msprop:Generator_RelationVarName="relationCOMPANY_group_attendant_v" msprop:Generator_UserParentTable="COMPANY" />
+      <msdata:Relationship name="GROUP_HEAD_group_attendant_v" msdata:parent="GROUP_HEAD" msdata:child="group_attendant_v" msdata:parentkey="uuid" msdata:childkey="group_head_uuid" msprop:Generator_UserChildTable="group_attendant_v" msprop:Generator_ChildPropName="Getgroup_attendant_vRows" msprop:Generator_UserRelationName="GROUP_HEAD_group_attendant_v" msprop:Generator_ParentPropName="GROUP_HEADRow" msprop:Generator_RelationVarName="relationGROUP_HEAD_group_attendant_v" msprop:Generator_UserParentTable="GROUP_HEAD" />
+      <msdata:Relationship name="APPLICATION_HEAD_group_head_v" msdata:parent="APPLICATION_HEAD" msdata:child="group_head_v" msdata:parentkey="uuid" msdata:childkey="application_head_uuid" msprop:Generator_UserChildTable="group_head_v" msprop:Generator_ChildPropName="Getgroup_head_vRows" msprop:Generator_UserRelationName="APPLICATION_HEAD_group_head_v" msprop:Generator_ParentPropName="APPLICATION_HEADRow" msprop:Generator_RelationVarName="relationAPPLICATION_HEAD_group_head_v" msprop:Generator_UserParentTable="APPLICATION_HEAD" />
+      <msdata:Relationship name="COMPANY_group_head_v" msdata:parent="COMPANY" msdata:child="group_head_v" msdata:parentkey="uuid" msdata:childkey="company_uuid" msprop:Generator_UserChildTable="group_head_v" msprop:Generator_ChildPropName="Getgroup_head_vRows" msprop:Generator_UserRelationName="COMPANY_group_head_v" msprop:Generator_ParentPropName="COMPANYRow" msprop:Generator_RelationVarName="relationCOMPANY_group_head_v" msprop:Generator_UserParentTable="COMPANY" />
+      <msdata:Relationship name="APPMENU_appmenu_apppage_v" msdata:parent="APPMENU" msdata:child="appmenu_apppage_v" msdata:parentkey="uuid" msdata:childkey="APPMENU_UUID" msprop:Generator_UserChildTable="appmenu_apppage_v" msprop:Generator_ChildPropName="Getappmenu_apppage_vRows" msprop:Generator_UserRelationName="APPMENU_appmenu_apppage_v" msprop:Generator_ParentPropName="APPMENURow" msprop:Generator_RelationVarName="relationAPPMENU_appmenu_apppage_v" msprop:Generator_UserParentTable="APPMENU" />
+      <msdata:Relationship name="APPLICATION_HEAD_appmenu_apppage_v" msdata:parent="APPLICATION_HEAD" msdata:child="appmenu_apppage_v" msdata:parentkey="uuid" msdata:childkey="APPLICATION_HEAD_UUID" msprop:Generator_UserChildTable="appmenu_apppage_v" msprop:Generator_ChildPropName="Getappmenu_apppage_vRows" msprop:Generator_UserRelationName="APPLICATION_HEAD_appmenu_apppage_v" msprop:Generator_ParentPropName="APPLICATION_HEADRow" msprop:Generator_RelationVarName="relationAPPLICATION_HEAD_appmenu_apppage_v" msprop:Generator_UserParentTable="APPLICATION_HEAD" />
+      <msdata:Relationship name="SITEMAP_appmenu_apppage_v" msdata:parent="SITEMAP" msdata:child="appmenu_apppage_v" msdata:parentkey="uuid" msdata:childkey="SITEMAP_UUID" msprop:Generator_UserChildTable="appmenu_apppage_v" msprop:Generator_ChildPropName="Getappmenu_apppage_vRows" msprop:Generator_UserRelationName="SITEMAP_appmenu_apppage_v" msprop:Generator_ParentPropName="SITEMAPRow" msprop:Generator_RelationVarName="relationSITEMAP_appmenu_apppage_v" msprop:Generator_UserParentTable="SITEMAP" />
+      <msdata:Relationship name="APPMENU_group_appmenu_v" msdata:parent="APPMENU" msdata:child="group_appmenu_v" msdata:parentkey="uuid" msdata:childkey="APPMENU_UUID" msprop:Generator_UserChildTable="group_appmenu_v" msprop:Generator_ChildPropName="Getgroup_appmenu_vRows" msprop:Generator_UserRelationName="APPMENU_group_appmenu_v" msprop:Generator_ParentPropName="APPMENURow" msprop:Generator_RelationVarName="relationAPPMENU_group_appmenu_v" msprop:Generator_UserParentTable="APPMENU" />
+      <msdata:Relationship name="GROUP_HEAD_group_appmenu_v" msdata:parent="GROUP_HEAD" msdata:child="group_appmenu_v" msdata:parentkey="uuid" msdata:childkey="GROUP_HEAD_UUID" msprop:Generator_UserChildTable="group_appmenu_v" msprop:Generator_ChildPropName="Getgroup_appmenu_vRows" msprop:Generator_UserRelationName="GROUP_HEAD_group_appmenu_v" msprop:Generator_ParentPropName="GROUP_HEADRow" msprop:Generator_RelationVarName="relationGROUP_HEAD_group_appmenu_v" msprop:Generator_UserParentTable="GROUP_HEAD" />
+      <msdata:Relationship name="APPLICATION_HEAD_Proxy" msdata:parent="APPLICATION_HEAD" msdata:child="Proxy" msdata:parentkey="uuid" msdata:childkey="application_head_uuid" msprop:Generator_UserChildTable="Proxy" msprop:Generator_ChildPropName="GetProxyRows" msprop:Generator_UserRelationName="APPLICATION_HEAD_Proxy" msprop:Generator_ParentPropName="APPLICATION_HEADRow" msprop:Generator_RelationVarName="relationAPPLICATION_HEAD_Proxy" msprop:Generator_UserParentTable="APPLICATION_HEAD" />
+      <msdata:Relationship name="Proxy_v_appmenu_proxy_map" msdata:parent="Proxy" msdata:child="v_appmenu_proxy_map" msdata:parentkey="UUID" msdata:childkey="proxy_uuid" msprop:Generator_UserChildTable="v_appmenu_proxy_map" msprop:Generator_ChildPropName="Getv_appmenu_proxy_mapRows" msprop:Generator_UserRelationName="Proxy_v_appmenu_proxy_map" msprop:Generator_ParentPropName="ProxyRow" msprop:Generator_RelationVarName="relationProxy_v_appmenu_proxy_map" msprop:Generator_UserParentTable="Proxy" />
+      <msdata:Relationship name="FK_APPPAGE_PROXY_MAP_Proxy" msdata:parent="Proxy" msdata:child="APPMENU_PROXY_MAP" msdata:parentkey="UUID" msdata:childkey="proxy_uuid" msprop:Generator_UserChildTable="APPMENU_PROXY_MAP" msprop:Generator_ChildPropName="GetAPPMENU_PROXY_MAPRows" msprop:Generator_UserRelationName="FK_APPPAGE_PROXY_MAP_Proxy" msprop:Generator_ParentPropName="ProxyRow" msprop:Generator_RelationVarName="relationFK_APPPAGE_PROXY_MAP_Proxy" msprop:Generator_UserParentTable="Proxy" />
+      <msdata:Relationship name="APPMENU_PROXY_MAP_v_appmenu_proxy_map" msdata:parent="APPMENU_PROXY_MAP" msdata:child="v_appmenu_proxy_map" msdata:parentkey="uuid" msdata:childkey="appmenu_proxy_uuid" msprop:Generator_UserChildTable="v_appmenu_proxy_map" msprop:Generator_ChildPropName="Getv_appmenu_proxy_mapRows" msprop:Generator_UserRelationName="APPMENU_PROXY_MAP_v_appmenu_proxy_map" msprop:Generator_ParentPropName="APPMENU_PROXY_MAPRow" msprop:Generator_RelationVarName="relationAPPMENU_PROXY_MAP_v_appmenu_proxy_map" msprop:Generator_UserParentTable="APPMENU_PROXY_MAP" />
+      <msdata:Relationship name="APPLICATION_HEAD_v_appmenu_proxy_map" msdata:parent="APPLICATION_HEAD" msdata:child="v_appmenu_proxy_map" msdata:parentkey="uuid" msdata:childkey="application_head_uuid" msprop:Generator_UserChildTable="v_appmenu_proxy_map" msprop:Generator_ChildPropName="Getv_appmenu_proxy_mapRows" msprop:Generator_UserRelationName="APPLICATION_HEAD_v_appmenu_proxy_map" msprop:Generator_ParentPropName="APPLICATION_HEADRow" msprop:Generator_RelationVarName="relationAPPLICATION_HEAD_v_appmenu_proxy_map" msprop:Generator_UserParentTable="APPLICATION_HEAD" />
+      <msdata:Relationship name="APPMENU_v_appmenu_proxy_map" msdata:parent="APPMENU" msdata:child="v_appmenu_proxy_map" msdata:parentkey="uuid" msdata:childkey="appmenu_uuid" msprop:Generator_UserChildTable="v_appmenu_proxy_map" msprop:Generator_ChildPropName="Getv_appmenu_proxy_mapRows" msprop:Generator_UserRelationName="APPMENU_v_appmenu_proxy_map" msprop:Generator_ParentPropName="APPMENURow" msprop:Generator_RelationVarName="relationAPPMENU_v_appmenu_proxy_map" msprop:Generator_UserParentTable="APPMENU" />
+      <msdata:Relationship name="Proxy_v_auth_proxy" msdata:parent="Proxy" msdata:child="v_auth_proxy" msdata:parentkey="UUID" msdata:childkey="proxy_uuid" msprop:Generator_UserChildTable="v_auth_proxy" msprop:Generator_ChildPropName="Getv_auth_proxyRows" msprop:Generator_UserRelationName="Proxy_v_auth_proxy" msprop:Generator_ParentPropName="ProxyRow" msprop:Generator_RelationVarName="relationProxy_v_auth_proxy" msprop:Generator_UserParentTable="Proxy" />
+      <msdata:Relationship name="APPLICATION_HEAD_v_auth_proxy" msdata:parent="APPLICATION_HEAD" msdata:child="v_auth_proxy" msdata:parentkey="uuid" msdata:childkey="APPLICATION_HEAD_UUID" msprop:Generator_UserChildTable="v_auth_proxy" msprop:Generator_ChildPropName="Getv_auth_proxyRows" msprop:Generator_UserRelationName="APPLICATION_HEAD_v_auth_proxy" msprop:Generator_ParentPropName="APPLICATION_HEADRow" msprop:Generator_RelationVarName="relationAPPLICATION_HEAD_v_auth_proxy" msprop:Generator_UserParentTable="APPLICATION_HEAD" />
+      <msdata:Relationship name="SCHEDULE_TIME_v_schedule_time" msdata:parent="SCHEDULE_TIME" msdata:child="v_schedule_time" msdata:parentkey="UUID" msdata:childkey="schedule_time_uuid" msprop:Generator_UserChildTable="v_schedule_time" msprop:Generator_ChildPropName="Getv_schedule_timeRows" msprop:Generator_UserRelationName="SCHEDULE_TIME_v_schedule_time" msprop:Generator_ParentPropName="SCHEDULE_TIMERow" msprop:Generator_RelationVarName="relationSCHEDULE_TIME_v_schedule_time" msprop:Generator_UserParentTable="SCHEDULE_TIME" />
+      <msdata:Relationship name="SCHEDULE_v_schedule_time" msdata:parent="SCHEDULE" msdata:child="v_schedule_time" msdata:parentkey="UUID" msdata:childkey="SCHEDULE_UUID" msprop:Generator_UserChildTable="v_schedule_time" msprop:Generator_ChildPropName="Getv_schedule_timeRows" msprop:Generator_UserRelationName="SCHEDULE_v_schedule_time" msprop:Generator_ParentPropName="SCHEDULERow" msprop:Generator_RelationVarName="relationSCHEDULE_v_schedule_time" msprop:Generator_UserParentTable="SCHEDULE" />
+      <msdata:Relationship name="SCHEDULE_SCHEDULE_TIME" msdata:parent="SCHEDULE" msdata:child="SCHEDULE_TIME" msdata:parentkey="UUID" msdata:childkey="SCHEDULE_UUID" msprop:Generator_UserChildTable="SCHEDULE_TIME" msprop:Generator_ChildPropName="GetSCHEDULE_TIMERows" msprop:Generator_UserRelationName="SCHEDULE_SCHEDULE_TIME" msprop:Generator_ParentPropName="SCHEDULERow" msprop:Generator_RelationVarName="relationSCHEDULE_SCHEDULE_TIME" msprop:Generator_UserParentTable="SCHEDULE" />
       <msdata:Relationship name="ATTENDANT_ERROR_LOG" msdata:parent="ATTENDANT" msdata:child="ERROR_LOG" msdata:parentkey="uuid" msdata:childkey="attendant_uuid" msprop:Generator_UserChildTable="ERROR_LOG" msprop:Generator_ChildPropName="GetERROR_LOGRows" msprop:Generator_UserRelationName="ATTENDANT_ERROR_LOG" msprop:Generator_RelationVarName="relationATTENDANT_ERROR_LOG" msprop:Generator_UserParentTable="ATTENDANT" msprop:Generator_ParentPropName="ATTENDANTRow" />
-      <msdata:Relationship name="APPLICATION_HEAD_Proxy" msdata:parent="APPLICATION_HEAD" msdata:child="Proxy" msdata:parentkey="uuid" msdata:childkey="application_head_uuid" msprop:Generator_UserChildTable="Proxy" msprop:Generator_ChildPropName="GetProxyRows" msprop:Generator_UserRelationName="APPLICATION_HEAD_Proxy" msprop:Generator_RelationVarName="relationAPPLICATION_HEAD_Proxy" msprop:Generator_UserParentTable="APPLICATION_HEAD" msprop:Generator_ParentPropName="APPLICATION_HEADRow" />
-      <msdata:Relationship name="Proxy_v_appmenu_proxy_map" msdata:parent="Proxy" msdata:child="v_appmenu_proxy_map" msdata:parentkey="UUID" msdata:childkey="proxy_uuid" msprop:Generator_UserChildTable="v_appmenu_proxy_map" msprop:Generator_ChildPropName="Getv_appmenu_proxy_mapRows" msprop:Generator_UserRelationName="Proxy_v_appmenu_proxy_map" msprop:Generator_RelationVarName="relationProxy_v_appmenu_proxy_map" msprop:Generator_UserParentTable="Proxy" msprop:Generator_ParentPropName="ProxyRow" />
-      <msdata:Relationship name="FK_APPPAGE_PROXY_MAP_Proxy" msdata:parent="Proxy" msdata:child="APPMENU_PROXY_MAP" msdata:parentkey="UUID" msdata:childkey="proxy_uuid" msprop:Generator_UserChildTable="APPMENU_PROXY_MAP" msprop:Generator_ChildPropName="GetAPPMENU_PROXY_MAPRows" msprop:Generator_UserRelationName="FK_APPPAGE_PROXY_MAP_Proxy" msprop:Generator_RelationVarName="relationFK_APPPAGE_PROXY_MAP_Proxy" msprop:Generator_UserParentTable="Proxy" msprop:Generator_ParentPropName="ProxyRow" />
-      <msdata:Relationship name="APPMENU_PROXY_MAP_v_appmenu_proxy_map" msdata:parent="APPMENU_PROXY_MAP" msdata:child="v_appmenu_proxy_map" msdata:parentkey="uuid" msdata:childkey="appmenu_proxy_uuid" msprop:Generator_UserChildTable="v_appmenu_proxy_map" msprop:Generator_ChildPropName="Getv_appmenu_proxy_mapRows" msprop:Generator_UserRelationName="APPMENU_PROXY_MAP_v_appmenu_proxy_map" msprop:Generator_RelationVarName="relationAPPMENU_PROXY_MAP_v_appmenu_proxy_map" msprop:Generator_UserParentTable="APPMENU_PROXY_MAP" msprop:Generator_ParentPropName="APPMENU_PROXY_MAPRow" />
-      <msdata:Relationship name="APPLICATION_HEAD_v_appmenu_proxy_map" msdata:parent="APPLICATION_HEAD" msdata:child="v_appmenu_proxy_map" msdata:parentkey="uuid" msdata:childkey="application_head_uuid" msprop:Generator_UserChildTable="v_appmenu_proxy_map" msprop:Generator_ChildPropName="Getv_appmenu_proxy_mapRows" msprop:Generator_UserRelationName="APPLICATION_HEAD_v_appmenu_proxy_map" msprop:Generator_RelationVarName="relationAPPLICATION_HEAD_v_appmenu_proxy_map" msprop:Generator_UserParentTable="APPLICATION_HEAD" msprop:Generator_ParentPropName="APPLICATION_HEADRow" />
-      <msdata:Relationship name="APPMENU_v_appmenu_proxy_map" msdata:parent="APPMENU" msdata:child="v_appmenu_proxy_map" msdata:parentkey="uuid" msdata:childkey="appmenu_uuid" msprop:Generator_UserChildTable="v_appmenu_proxy_map" msprop:Generator_ChildPropName="Getv_appmenu_proxy_mapRows" msprop:Generator_UserRelationName="APPMENU_v_appmenu_proxy_map" msprop:Generator_RelationVarName="relationAPPMENU_v_appmenu_proxy_map" msprop:Generator_UserParentTable="APPMENU" msprop:Generator_ParentPropName="APPMENURow" />
+      <msdata:Relationship name="ATTENDANT_error_log_v" msdata:parent="ATTENDANT" msdata:child="error_log_v" msdata:parentkey="uuid" msdata:childkey="attendant_uuid" msprop:Generator_UserChildTable="error_log_v" msprop:Generator_ChildPropName="Geterror_log_vRows" msprop:Generator_UserRelationName="ATTENDANT_error_log_v" msprop:Generator_RelationVarName="relationATTENDANT_error_log_v" msprop:Generator_UserParentTable="ATTENDANT" msprop:Generator_ParentPropName="ATTENDANTRow" />
+      <msdata:Relationship name="GROUP_ATTENDANT_ATTENDANT_FK1" msdata:parent="ATTENDANT" msdata:child="GROUP_ATTENDANT" msdata:parentkey="uuid" msdata:childkey="attendant_uuid" msprop:Generator_UserChildTable="GROUP_ATTENDANT" msprop:Generator_ChildPropName="GetGROUP_ATTENDANTRows" msprop:Generator_UserRelationName="GROUP_ATTENDANT_ATTENDANT_FK1" msprop:Generator_RelationVarName="relationGROUP_ATTENDANT_ATTENDANT_FK1" msprop:Generator_UserParentTable="ATTENDANT" msprop:Generator_ParentPropName="ATTENDANTRow" />
+      <msdata:Relationship name="ATTENDANT_FK3" msdata:parent="SITE" msdata:child="ATTENDANT" msdata:parentkey="uuid" msdata:childkey="site_uuid" msprop:Generator_UserChildTable="ATTENDANT" msprop:Generator_ChildPropName="GetATTENDANTRows" msprop:Generator_UserRelationName="ATTENDANT_FK3" msprop:Generator_ParentPropName="SITERow" msprop:Generator_RelationVarName="relationATTENDANT_FK3" msprop:Generator_UserParentTable="SITE" />
+      <msdata:Relationship name="DEPARTMENT_FK3" msdata:parent="ATTENDANT" msdata:child="DEPARTMENT" msdata:parentkey="uuid" msdata:childkey="manager_uuid" msprop:Generator_UserChildTable="DEPARTMENT" msprop:Generator_ChildPropName="GetDEPARTMENTRows" msprop:Generator_UserRelationName="DEPARTMENT_FK3" msprop:Generator_RelationVarName="relationDEPARTMENT_FK3" msprop:Generator_UserParentTable="ATTENDANT" msprop:Generator_ParentPropName="ATTENDANTRow" />
+      <msdata:Relationship name="ATTENDANT_FK2" msdata:parent="DEPARTMENT" msdata:child="ATTENDANT" msdata:parentkey="uuid" msdata:childkey="department_uuid" msprop:Generator_UserChildTable="ATTENDANT" msprop:Generator_ChildPropName="GetATTENDANTRows" msprop:Generator_UserRelationName="ATTENDANT_FK2" msprop:Generator_ParentPropName="DEPARTMENTRow" msprop:Generator_RelationVarName="relationATTENDANT_FK2" msprop:Generator_UserParentTable="DEPARTMENT" />
+      <msdata:Relationship name="ATTENDANT_group_attendant_v" msdata:parent="ATTENDANT" msdata:child="group_attendant_v" msdata:parentkey="uuid" msdata:childkey="attendant_uuid" msprop:Generator_UserChildTable="group_attendant_v" msprop:Generator_ChildPropName="Getgroup_attendant_vRows" msprop:Generator_UserRelationName="ATTENDANT_group_attendant_v" msprop:Generator_RelationVarName="relationATTENDANT_group_attendant_v" msprop:Generator_UserParentTable="ATTENDANT" msprop:Generator_ParentPropName="ATTENDANTRow" />
       <msdata:Relationship name="ATTENDANT_v_auth_proxy" msdata:parent="ATTENDANT" msdata:child="v_auth_proxy" msdata:parentkey="uuid" msdata:childkey="ATTENDANT_UUID" msprop:Generator_UserChildTable="v_auth_proxy" msprop:Generator_ChildPropName="Getv_auth_proxyRows" msprop:Generator_UserRelationName="ATTENDANT_v_auth_proxy" msprop:Generator_RelationVarName="relationATTENDANT_v_auth_proxy" msprop:Generator_UserParentTable="ATTENDANT" msprop:Generator_ParentPropName="ATTENDANTRow" />
-      <msdata:Relationship name="Proxy_v_auth_proxy" msdata:parent="Proxy" msdata:child="v_auth_proxy" msdata:parentkey="UUID" msdata:childkey="proxy_uuid" msprop:Generator_UserChildTable="v_auth_proxy" msprop:Generator_ChildPropName="Getv_auth_proxyRows" msprop:Generator_UserRelationName="Proxy_v_auth_proxy" msprop:Generator_RelationVarName="relationProxy_v_auth_proxy" msprop:Generator_UserParentTable="Proxy" msprop:Generator_ParentPropName="ProxyRow" />
-      <msdata:Relationship name="APPLICATION_HEAD_v_auth_proxy" msdata:parent="APPLICATION_HEAD" msdata:child="v_auth_proxy" msdata:parentkey="uuid" msdata:childkey="APPLICATION_HEAD_UUID" msprop:Generator_UserChildTable="v_auth_proxy" msprop:Generator_ChildPropName="Getv_auth_proxyRows" msprop:Generator_UserRelationName="APPLICATION_HEAD_v_auth_proxy" msprop:Generator_RelationVarName="relationAPPLICATION_HEAD_v_auth_proxy" msprop:Generator_UserParentTable="APPLICATION_HEAD" msprop:Generator_ParentPropName="APPLICATION_HEADRow" />
-      <msdata:Relationship name="SCHEDULE_TIME_v_schedule_time" msdata:parent="SCHEDULE_TIME" msdata:child="v_schedule_time" msdata:parentkey="UUID" msdata:childkey="schedule_time_uuid" msprop:Generator_UserChildTable="v_schedule_time" msprop:Generator_ChildPropName="Getv_schedule_timeRows" msprop:Generator_UserRelationName="SCHEDULE_TIME_v_schedule_time" msprop:Generator_RelationVarName="relationSCHEDULE_TIME_v_schedule_time" msprop:Generator_UserParentTable="SCHEDULE_TIME" msprop:Generator_ParentPropName="SCHEDULE_TIMERow" />
-      <msdata:Relationship name="SCHEDULE_v_schedule_time" msdata:parent="SCHEDULE" msdata:child="v_schedule_time" msdata:parentkey="UUID" msdata:childkey="SCHEDULE_UUID" msprop:Generator_UserChildTable="v_schedule_time" msprop:Generator_ChildPropName="Getv_schedule_timeRows" msprop:Generator_UserRelationName="SCHEDULE_v_schedule_time" msprop:Generator_RelationVarName="relationSCHEDULE_v_schedule_time" msprop:Generator_UserParentTable="SCHEDULE" msprop:Generator_ParentPropName="SCHEDULERow" />
-      <msdata:Relationship name="SCHEDULE_SCHEDULE_TIME" msdata:parent="SCHEDULE" msdata:child="SCHEDULE_TIME" msdata:parentkey="UUID" msdata:childkey="SCHEDULE_UUID" msprop:Generator_UserChildTable="SCHEDULE_TIME" msprop:Generator_ChildPropName="GetSCHEDULE_TIMERows" msprop:Generator_UserRelationName="SCHEDULE_SCHEDULE_TIME" msprop:Generator_RelationVarName="relationSCHEDULE_SCHEDULE_TIME" msprop:Generator_UserParentTable="SCHEDULE" msprop:Generator_ParentPropName="SCHEDULERow" />
+      <msdata:Relationship name="ATTENDANT_FK1" msdata:parent="COMPANY" msdata:child="ATTENDANT" msdata:parentkey="uuid" msdata:childkey="company_uuid" msprop:Generator_UserChildTable="ATTENDANT" msprop:Generator_ChildPropName="GetATTENDANTRows" msprop:Generator_UserRelationName="ATTENDANT_FK1" msprop:Generator_ParentPropName="COMPANYRow" msprop:Generator_RelationVarName="relationATTENDANT_FK1" msprop:Generator_UserParentTable="COMPANY" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

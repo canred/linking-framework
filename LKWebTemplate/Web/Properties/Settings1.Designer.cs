@@ -26,7 +26,8 @@ namespace LKWebTemplate.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ISTGPD-SQL\\ISTGPD;Initial Catalog=Cloud;User ID=sa;Password=5782266")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=10.11.80.166\\ISTGPD;Initial Catalog=Cloud;User ID=sa;Password=5782266" +
+            "")]
         public string BasicConnectionString {
             get {
                 return ((string)(this["BasicConnectionString"]));

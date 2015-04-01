@@ -13,6 +13,45 @@ namespace LKWebTemplate.Model.Basic
 {
     public partial class BasicModel
     {
+      
+
+        public IList<Department_Record> getDepartment_By_CompanyUuid(string pCompanyUuid,OrderLimit orderlimit)
+        {
+            try
+            {
+                dbc = LK.Config.DataBase.Factory.getInfo();
+                Department department = new Department(dbc);
+                var ret = department.Where(new SQLCondition(department).Equal(department.COMPANY_UUID, pCompanyUuid))
+                    .Limit(orderlimit)
+                    .FetchAll<Department_Record>();
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex); LK.MyException.MyException.Error(this, ex);
+                throw ex;
+            }
+        }
+
+        public System.Data.DataTable getDepartment_By_RootUuid_DataTable(string pRootUuid, OrderLimit orderlimit)
+        {
+            try
+            {
+                dbc = LK.Config.DataBase.Factory.getInfo();
+                LKWebTemplate.Model.Basic.Table.Department appmenu = new LKWebTemplate.Model.Basic.Table.Department(dbc);
+                var result = appmenu.Where(new SQLCondition(appmenu)
+                    .Equal(appmenu.PARENT_DEPARTMENT_UUID, pRootUuid)
+                ).Limit(orderlimit).FetchAll();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                LK.MyException.MyException.Error(this, ex);
+                throw ex;
+            }
+        }
+
         public IList<Department_Record> getDepartment_By_CompanyUuid(string pCompanyUuid)
         {
             try

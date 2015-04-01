@@ -59,6 +59,7 @@
             Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".AuthorityAction"));
             Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".AdminCompanyAction"));
             Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".CompanyAction"));
+            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".DeptAction"));
             Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".ErrorLogAction"));
             Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".GroupHeadAction"));
             Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".GroupAttendantAction"));

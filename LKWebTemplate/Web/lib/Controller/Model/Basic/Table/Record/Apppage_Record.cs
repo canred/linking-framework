@@ -10,7 +10,7 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 {
 	[LkRecord]
 	[TableView("APPPAGE", true)]
-    [LkDataBase("BASIC")]
+	[LkDataBase("BASIC")]
 	[Serializable]
 	public class Apppage_Record : RecordBase{
 		public Apppage_Record(){}

@@ -96,6 +96,18 @@ Ext.define('ATTEDNANTVV', {
     ]
 });
 
+
+Ext.define('DEPARTMENT', {
+    extend: 'Ext.data.Model',
+    fields: [
+        'UUID', 'CREATE_DATE', 'UPDATE_DATE', 'IS_ACTIVE',
+        'COMPANY_UUID', 'ID', 'C_NAME',
+        'E_NAME', 'PARENT_DEPARTMENT_UUID',
+        'MANAGER_UUID', 'PARENT_DEPARTMENT_ID', 'MANAGER_ID', 'PARENT_DEPARTMENT_UUID_LIST',
+        'S_NAME', 'COST_CENTER', 'SRC_UUID', 'FULL_DEPARTMENT_NAME'
+    ]
+});
+
 Ext.define('ERROR_LOG', {
     extend: 'Ext.data.Model',
     fields: ['UUID', 'ERROR_CODE', 'ERROR_TIME',

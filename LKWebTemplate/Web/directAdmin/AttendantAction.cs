@@ -246,6 +246,54 @@ string is_default_pass, Request request)
             record.SITE_UUID = null;
             record.IS_ACTIVE = is_active;
             record.UPDATE_DATE = DateTime.Now;
+
+            #region 附件處理
+            if (request.HttpRequest.Files.Count > 0)
+            {
+                if (request.HttpRequest.Files[0].FileName != "")
+                {
+                    HttpServerUtility server = System.Web.HttpContext.Current.Server;
+                    var uploadFolder = server.MapPath(LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().UploadFolder);
+                    System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(uploadFolder);
+                    if (di.Exists == false)
+                    {
+                        di.Create();
+                    }
+                    //公司用的目錄
+                    uploadFolder = uploadFolder + getUser().COMPANY_ID + "//";
+                    di = new System.IO.DirectoryInfo(uploadFolder);
+                    if (di.Exists == false)
+                    {
+                        di.Create();
+                    }
+                    //頭像的folder
+                    uploadFolder = uploadFolder + "user//";
+                    di = new System.IO.DirectoryInfo(uploadFolder);
+                    if (di.Exists == false)
+                    {
+                        di.Create();
+                    }
+                    string extName = "";
+                    if (request.HttpRequest.Files[0].FileName.Split('.').Length > 1)
+                    {
+                        extName = request.HttpRequest.Files[0].FileName.Split('.').Last();
+                    }
+                    var fileUuid = LK.Util.UID.Instance.GetUniqueID();
+                    string saveFilePath = "";
+                    if (extName.Trim().Length > 0)
+                    {
+                        saveFilePath = uploadFolder + fileUuid + "." + extName;
+                    }
+                    else
+                    {
+                        saveFilePath = uploadFolder + fileUuid;
+                    }
+                    request.HttpRequest.Files[0].SaveAs(saveFilePath);
+                    record.PICTURE_URL = LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().UploadFolder + this.getUser().COMPANY_ID + "//user//" + fileUuid + "." + extName;
+                }
+            }
+            #endregion
+
             if (action == SubmitAction.Edit)
             {
                 record.gotoTable().Update_Empty2Null(record);
