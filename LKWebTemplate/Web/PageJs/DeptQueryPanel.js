@@ -1,15 +1,5 @@
 /*全局變量*/
 var WS_DEPTQUERYPANEL;
-/*WS.CompanyQueryPanel物件類別*/
-/*TODO*/
-/*
-1.Model 要集中                                 [YES]
-2.panel 的title要換成icon , title的方式        [YES]
-3.add 的icon要換成icon , title的方式           [YES]
-4.不可以有 getCmp                              [YES]
-5.有一段程式碼不確定 line 69
-*/
-/*columns 使用default*/
 Ext.define('WS.DeptQueryPanel', {
     extend: 'Ext.panel.Panel',
     closeAction: 'destroy',
@@ -116,30 +106,52 @@ Ext.define('WS.DeptQueryPanel', {
             msg: '新增成功'
         });
     },
-    fnOpenOrgn: function(uuid, parendUuid) {
+    fnAddChildDept: function(uuid, parendUuid) {
         /*要把scope變成SitemapQueryPanel主體*/
         if (!this.fnCheckSubComponent()) {
             return false;
         };
         this.param.PARENTUUID = parendUuid;
-        var subWin = Ext.create(this.subWinDept, {});
+        var subWin = Ext.create(this.subWinDept, {
+            param: {
+                uuid: undefined,
+                companyUuid: this.down('#cmbCompany').getValue(),
+                parentDepartmentUuid: parendUuid,
+                parentObj: this
+            }
+        });
         /*註冊事件*/
         subWin.on('closeEvent', this.fnCallBackCloseEvent, this);
-        /*設定參數*/
-        subWin.param.uuid = uuid;
-        subWin.param.companyUuid = this.down('#cmbCompany').getValue();
         subWin.show();
     },
-    fnDelSitemap: function(uuid) {
+    fnOpenDept: function(uuid, parendUuid) {
+        /*要把scope變成SitemapQueryPanel主體*/
+        if (!this.fnCheckSubComponent()) {
+            return false;
+        };
+        this.param.PARENTUUID = parendUuid;
+        var subWin = Ext.create(this.subWinDept, {
+            param: {
+                uuid: uuid,
+                companyUuid: this.down('#cmbCompany').getValue(),
+                parentDepartmentUuid: parendUuid,
+                parentObj: this
+            }
+        });
+        /*註冊事件*/
+        subWin.on('closeEvent', this.fnCallBackCloseEvent, this);
+        subWin.show();
+    },
+    fnDelDept: function(uuid) {
         /*要把scope變成SitemapQueryPanel主體*/
         Ext.Msg.show({
-            title: '刪除節點操作',
+            title: '刪除部門操作',
             msg: '確定執行刪除動作?',
             buttons: Ext.Msg.YESNO,
             fn: function(btn) {
                 if (btn == "yes") {
                     var appliction_uuid = this.down('#cmbCompany').getValue();
-                    WS.DeptAction.deleteSiteMap(uuid, appliction_uuid, function(json) {
+                    WS.DeptAction.destroy(uuid, function(json) {
                         if (json.success == false) {
                             Ext.Msg.show({
                                 title: '系統通知',
@@ -163,7 +175,7 @@ Ext.define('WS.DeptQueryPanel', {
         this.items = [{
             xtype: 'panel',
             title: '部門維護',
-            icon: SYSTEM_URL_ROOT + '/css/images/map16x16.png',
+            icon: SYSTEM_URL_ROOT + '/css/images/organisation16x16.png',
             frame: true,
             minHeight: $(document).height() - 150,
             autoHeight: true,
@@ -211,17 +223,16 @@ Ext.define('WS.DeptQueryPanel', {
                     };
                     WS.DeptAction.loadTreeRoot(company, function(data) {
                         this.param.PARENTUUID = data.data[0].UUID;
-
                         var company = this.down('#cmbCompany').getValue();
                         var subWin = Ext.create(this.subWinDept, {
                             param: {
                                 companyUuid: this.down('#cmbCompany').getValue(),
                                 parentDepartmentUuid: this.param.PARENTUUID,
-                                uuid: undefined
+                                uuid: undefined,
+                                parentObj: mainPanel
                             }
                         });
                         /*註冊事件*/
-
                         subWin.on('closeEvent', this.fnCallBackCloseEvent, this);
                         /*設定參數*/
                         subWin.param.uuid = undefined;
@@ -236,85 +247,79 @@ Ext.define('WS.DeptQueryPanel', {
                 itemId: 'treeDept',
                 border: false,
                 store: this.myStore.tree,
-                rootVisible: true,
-                useArrows: false,
+                rootVisible: false,
+                border: true,
                 columns: {
                     defaults: {
                         align: 'left',
                     },
                     items: [{
                         xtype: 'treecolumn',
-                        text: '地圖功能',
+                        text: '部門組織',
                         flex: 2,
-                        sortable: true,
+                        sortable: false,
                         dataIndex: 'C_NAME'
                     }, {
-                        text: "維護",
+                        text: '有效',
+                        width: 80,
+                        dataIndex: 'IS_ACTIVE',
+                        align: 'center',
+                        sortable: false,
+                        hidden: false,
+                        renderer: this.fnActiveRender
+                    }, {
+                        text: "編輯",
                         xtype: 'actioncolumn',
                         dataIndex: 'UUID',
                         align: 'center',
-                        width:80,
+                        width: 80,
                         items: [{
-                            tooltip: '*新增子部門',
+                            tooltip: '*編輯部門',
+                            icon: SYSTEM_URL_ROOT + '/css/images/edit16x16.png',
+                            handler: function(grid, rowIndex, colIndex) {
+                                var mainPanel = grid.up('panel').up('panel').up('panel'),
+                                    uuid = grid.getStore().getAt(rowIndex).data.UUID;
+                                mainPanel.fnOpenDept(uuid, uuid);
+                            }
+                        }],
+                        sortable: false,
+                        hideable: false
+                    }, {
+                        text: "加入子部門",
+                        xtype: 'actioncolumn',
+                        dataIndex: 'UUID',
+                        align: 'center',
+                        width: 80,
+                        items: [{
+                            tooltip: '*加入子部門',
                             icon: SYSTEM_URL_ROOT + '/css/images/add16x16.png',
                             handler: function(grid, rowIndex, colIndex) {
                                 var mainPanel = grid.up('panel').up('panel').up('panel'),
                                     uuid = grid.getStore().getAt(rowIndex).data.UUID;
-                                mainPanel.fnOpenOrgn(undefined, uuid);
+                                mainPanel.fnAddChildDept(undefined, uuid);
                             }
-                        }, {
+                        }],
+                        sortable: false,
+                        hideable: false
+                    }, {
+                        text: "刪除",
+                        xtype: 'actioncolumn',
+                        dataIndex: 'UUID',
+                        align: 'center',
+                        width: 80,
+                        items: [{
                             tooltip: '*刪除此部門',
                             icon: SYSTEM_URL_ROOT + '/css/images/delete16x16.png',
                             margin: '0 0 0 40',
                             handler: function(grid, rowIndex, colIndex) {
                                 var mainPanel = grid.up('panel').up('panel').up('panel'),
                                     uuid = grid.getStore().getAt(rowIndex).data.UUID;;
-                                mainPanel.fnDelSitemap(uuid);
+                                mainPanel.fnDelDept(uuid);
                             }
                         }],
                         sortable: false,
                         hideable: false
                     }]
-                },
-                listeners: {
-                    beforeload: function(tree, node, eOpts) {
-                        // var mainPanel = this.up('panel').up('panel'),
-                        //     treeStore = mainPanel.myStore.tree;
-                        // if (node.isComplete() == false) {
-                        //     if (node.getParams()["UUID"] != undefined) {
-                        //         treeStore.getProxy().setExtraParam('UUID', node.getParams()["UUID"]);
-                        //     } else {
-                        //         treeStore.getProxy().setExtraParam('UUID', node.config.node.data["UUID"]);
-                        //     };
-                        // };
-                    },
-                    checkchange: function(obj, rowIndex, checked, eOpts) {
-                        // var oUuid = obj.data.UUID;
-                        // if (obj.data.checked == true) {
-                        //     /*表加入*/
-                        //     WS.DeptAction.setSiteMapIsActive(oUuid, "1", function(ret) {
-                        //         if (ret.success == false) {
-                        //             Ext.MessageBox.show({
-                        //                 title: '系統提示',
-                        //                 msg: "發生異常錯誤。",
-                        //                 icon: Ext.MessageBox.WARNING,
-                        //                 buttons: Ext.Msg.OK
-                        //             });
-                        //         };
-                        //     });
-                        // } else {
-                        //     WS.DeptAction.setSiteMapIsActive(oUuid, "0", function(ret) {
-                        //         if (ret.success == false) {
-                        //             Ext.MessageBox.show({
-                        //                 title: 'WARNING',
-                        //                 msg: "發生異常錯誤。",
-                        //                 icon: Ext.MessageBox.WARNING,
-                        //                 buttons: Ext.Msg.OK
-                        //             });
-                        //         };
-                        //     });
-                        // };
-                    }
                 }
             }]
         }];

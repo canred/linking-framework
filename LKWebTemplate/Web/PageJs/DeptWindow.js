@@ -1,7 +1,7 @@
 /*columns 使用default*/
 Ext.define('WS.DeptWindow', {
     extend: 'Ext.window.Window',
-    icon: SYSTEM_URL_ROOT + '/css/images/manb16x16.png',
+    icon: SYSTEM_URL_ROOT + '/css/images/organisation16x16.png',
     title: '部門維護',
     closable: false,
     closeAction: 'destroy',
@@ -15,7 +15,7 @@ Ext.define('WS.DeptWindow', {
             extend: 'Ext.data.Store',
             autoLoad: false,
             model: 'DEPARTMENT',
-            pageSize: 10,
+            pageSize: 99999,
             remoteSort: true,
             proxy: {
                 type: 'direct',
@@ -76,13 +76,13 @@ Ext.define('WS.DeptWindow', {
                 },
                 items: [{
                     fieldLabel: '公司',
-                    itemId:'txtCompany',
+                    itemId: 'txtCompany',
                     maxLength: 84,
-                    readOnly:true
-                },{
-                    fieldLabel: '公司',
-                    itemId:'COMPANY_UUID',
-                    name:'COMPANY_UUID',
+                    readOnly: true
+                }, {
+                    xtype: 'hiddenfield',
+                    itemId: 'COMPANY_UUID',
+                    name: 'COMPANY_UUID',
                     maxLength: 84
                 }, {
                     fieldLabel: '部門代碼',
@@ -93,17 +93,38 @@ Ext.define('WS.DeptWindow', {
                     fieldLabel: '名稱-繁中',
                     name: 'C_NAME',
                     maxLength: 84,
-                    allowBlank: false
+                    allowBlank: false,
+                    validator: function(value) {
+                        if (value.indexOf(':') != -1) {
+                            return "不可以包含「:」字元";
+                        } else {
+                            return true;
+                        }
+                    }
                 }, {
                     fieldLabel: '名稱-英文',
                     name: 'E_NAME',
                     maxLength: 340,
-                    allowBlank: false
+                    allowBlank: false,
+                    validator: function(value) {
+                        if (value.indexOf(':') != -1) {
+                            return "不可以包含「:」字元";
+                        } else {
+                            return true;
+                        }
+                    }
                 }, {
                     fieldLabel: '部門簡稱',
                     name: 'S_NAME',
                     maxLength: 84,
-                    allowBlank: false
+                    allowBlank: false,
+                    validator: function(value) {
+                        if (value.indexOf(':') != -1) {
+                            return "不可以包含「:」字元";
+                        } else {
+                            return true;
+                        }
+                    }
                 }]
             }, {
                 xtype: 'container',
@@ -129,6 +150,42 @@ Ext.define('WS.DeptWindow', {
                 layout: 'hbox',
                 width: 500,
                 items: [{
+                    xtype: 'textfield',
+                    fieldLabel: '部門主管',
+                    labelAlign: 'right',
+                    width: 475,
+                    itemId: 'txtManagerName',
+                    readOnly: true
+                }, {
+                    xtype: 'button',
+                    icon: SYSTEM_URL_ROOT + '/css/images/manc16x16.png',
+                    handler: function(handler, scope) {
+                        var mainWin = this.up('window'),
+                            subWin = Ext.create('WS.AttendantPickerWindow', {
+                                param: {
+                                    companyUuid: mainWin.param.companyUuid,
+                                    parentObj: mainWin
+                                }
+                            });
+                        subWin.on('selectedEvent', function(obj, returnData) {
+                            obj.param.parentObj.down('#txtManagerName').setValue(returnData.C_NAME);
+                            obj.param.parentObj.down('#MANAGER_UUID').setValue(returnData.UUID);
+                            obj.close();
+                        });
+                        subWin.on('closeEvent', function(obj) {});
+                        subWin.show();
+                    }
+                }, {
+                    xtype: 'hiddenfield',
+                    name: 'MANAGER_UUID',
+                    itemId: 'MANAGER_UUID'
+                }]
+            }, {
+                xtype: 'container',
+                layout: 'hbox',
+                width: 500,
+                margin: '5 0 0 0',
+                items: [{
                     xtype: 'combo',
                     fieldLabel: '隸屬部門',
                     labelAlign: 'right',
@@ -139,17 +196,23 @@ Ext.define('WS.DeptWindow', {
                     editable: false,
                     hidden: false,
                     width: 475,
-                    store: this.myStore.department,
-                    listeners: {
-                        'select': function(combo, records, eOpts) {
-
-                        }
-                    }
+                    store: this.myStore.department
                 }, {
                     xtype: 'button',
-                    text: '',
+                    icon: SYSTEM_URL_ROOT + '/css/images/organisation16x16.png',
                     handler: function(handler, scope) {
-                        //your code
+                        var mainWin = this.up('window'),
+                            subWin = Ext.create('WS.DepartmentPicker', {
+                                param: {
+                                    companyUuid: mainWin.param.companyUuid,
+                                    parentObj: mainWin
+                                }
+                            });
+                        subWin.on('selected', function(obj, returnData) {
+                            obj.param.parentObj.down('#PARENT_DEPARTMENT_UUID').setValue(returnData.UUID);
+                            obj.close();
+                        });                        
+                        subWin.show();
                     }
                 }]
             }, {
@@ -174,7 +237,6 @@ Ext.define('WS.DeptWindow', {
                         success: function(form, action) {
                             this.param.uuid = action.result.UUID;
                             this.down("#UUID").setValue(action.result.UUID);
-                            
                             this.down("#DeptForm").getForm().load({
                                 params: {
                                     'pUuid': this.param.uuid
@@ -191,7 +253,6 @@ Ext.define('WS.DeptWindow', {
                                     };
                                 }
                             });
-
                             Ext.MessageBox.show({
                                 title: '維護部門',
                                 msg: '操作完成',
@@ -214,7 +275,7 @@ Ext.define('WS.DeptWindow', {
                 icon: SYSTEM_URL_ROOT + '/css/custimages/exit16x16.png',
                 text: '關閉',
                 handler: function() {
-                    this.up('window').hide();
+                    this.up('window').close();
                 }
             }]
         })];
@@ -225,40 +286,34 @@ Ext.define('WS.DeptWindow', {
     },
     listeners: {
         'show': function() {
-            if(!this.param.companyUuid){
+            if (!this.param.companyUuid) {
                 Ext.MessageBox.show({
-                    title:'部門物件',
-                    icon : Ext.MessageBox.WARNING,
-                    buttons : Ext.Msg.OK,
-                    msg : '初始化錯誤【1504011343】' 
+                    title: '部門物件',
+                    icon: Ext.MessageBox.WARNING,
+                    buttons: Ext.Msg.OK,
+                    msg: '初始化錯誤【1504011343】'
                 });
                 return false;
-            }
-
-            Ext.getBody().mask();
+            };
+            this.param.parentObj.mask();
             var proxy = this.myStore.department.getProxy();
-
-
             proxy.setExtraParam('pCompanyUuid', this.param.companyUuid);
             this.myStore.department.load();
-
-            WS.CompanyAction.getCompany(this.param.companyUuid,function(jsonObj){
-                if(jsonObj.data.length==1){
-                    this.down('#txtCompany').setValue(jsonObj.data[0].C_NAME);    
-                };                
-            },this);
+            WS.CompanyAction.getCompany(this.param.companyUuid, function(jsonObj) {
+                if (jsonObj.data.length == 1) {
+                    this.down('#txtCompany').setValue(jsonObj.data[0].C_NAME);
+                };
+            }, this);
             if (this.param.uuid != undefined) {
                 this.down("#DeptForm").getForm().load({
                     params: {
                         'pUuid': this.param.uuid
                     },
                     success: function(response, jsonObj) {
-                        var imgSrc = "";
-                        if (jsonObj.result.data.PICTURE_URL.length > 0) {
-                            imgSrc = jsonObj.result.data.PICTURE_URL.replace('~', SYSTEM_URL_ROOT);
-                        }
-                        if (!Ext.isEmpty(imgSrc)) {
-                            response.owner.down("#imgUser").setSrc(imgSrc);
+                        if (jsonObj.result.data.MANAGER_UUID != "") {
+                            WS.AttendantAction.getUserName(jsonObj.result.data.MANAGER_UUID, function(jsonObj) {
+                                this.down("#txtManagerName").setValue(jsonObj);
+                            }, this);
                         };
                     },
                     failure: function(response, jsonObj) {
@@ -270,7 +325,8 @@ Ext.define('WS.DeptWindow', {
                                 msg: jsonObj.result.message
                             });
                         };
-                    }
+                    },
+                    scope: this
                 });
             } else {
                 this.down('#DeptForm').getForm().reset();
@@ -278,9 +334,9 @@ Ext.define('WS.DeptWindow', {
                 this.down("#COMPANY_UUID").setValue(this.param.companyUuid);
             };
         },
-        'hide': function() {
-            Ext.getBody().unmask();
+        'close': function() {
             this.closeEvent();
+            this.param.parentObj.unmask();
         }
     }
 });

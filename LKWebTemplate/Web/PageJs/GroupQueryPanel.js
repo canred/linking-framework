@@ -186,7 +186,7 @@ Ext.define('WS.GroupQueryPanel', {
                                 companyUuid: companyUuid
                             }
                         });
-                        subWin.on('selectedEvent', function(record) {
+                        subWin.on('selectedEvent', function(obj,record) {
                             mainPanel.down('#display_attendant_uuid').setValue(record["C_NAME"]);
                             mainPanel.val.attendantUuid = record["UUID"];
                             mainPanel.down('#btnQuery').handler();

@@ -356,8 +356,23 @@ public class DeptAction : BaseAction
             }
             record.IS_ACTIVE = is_active;
             record.UPDATE_DATE = DateTime.Now;
+            bool isChangeCnameParentdepartmentuuid = false;
+            if (action == SubmitAction.Edit)
+            {                
+                if (record.C_NAME != c_name) {
+                    isChangeCnameParentdepartmentuuid = true;
+                }
+
+                if (record.PARENT_DEPARTMENT_UUID != parent_department_uuid) {
+                    isChangeCnameParentdepartmentuuid = true;
+                }
+                record.C_NAME = c_name;
+            }
+            else
+            {                
+                record.C_NAME = c_name;
+            }
             record.ID = id;
-            record.C_NAME = c_name;
             record.E_NAME = e_name;
             record.S_NAME = s_name;
             record.COST_CENTER = cost_center;
@@ -366,14 +381,31 @@ public class DeptAction : BaseAction
             record.MANAGER_ID = manager_id;
             record.MANAGER_UUID = manager_uuid;
             record.PARENT_DEPARTMENT_UUID = parent_department_uuid;
+
             if (action == SubmitAction.Edit)
             {
-                record.gotoTable().Update(record);
+                record.gotoTable().Update_Empty2Null(record);
             }
             else if (action == SubmitAction.Create)
             {
-                record.gotoTable().Insert(record);
+                record.gotoTable().Insert_Empty2Null(record);
             }
+
+            if (parent_department_uuid.Trim().Length > 0)
+            {
+                var drDepartment = model.getDepartment_By_Uuid(parent_department_uuid).AllRecord().First();
+                record.PARENT_DEPARTMENT_ID = drDepartment.ID;
+                record.PARENT_DEPARTMENT_UUID_LIST = getParentDepartmentUuidList(record.UUID);
+                record.FULL_DEPARTMENT_NAME = getParentDepartmentNameList(record.UUID);
+            }
+
+            if (isChangeCnameParentdepartmentuuid)
+            {
+                changeDeptIdCNameParentDepartmentUuid(record.UUID);
+            }
+
+            record.gotoTable().Update_Empty2Null(record);
+
             System.Collections.Hashtable ht = new System.Collections.Hashtable();
             ht.Add("UUID", record.UUID);
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject(ht);
@@ -385,7 +417,52 @@ public class DeptAction : BaseAction
         }
     }
 
-    [DirectMethod("destroy", DirectAction.FormSubmission)]
+    private void changeDeptIdCNameParentDepartmentUuid(string pDepartmentUuid) {
+        try
+        {
+            BasicModel mod = new BasicModel();
+            var drsDepart = mod.getDepartment_By_Like_ParentDepartmentUuidList(pDepartmentUuid, new OrderLimit());
+            foreach (var item in drsDepart)
+            {
+                item.FULL_DEPARTMENT_NAME = getParentDepartmentNameList(item.UUID);
+                item.PARENT_DEPARTMENT_UUID_LIST = getParentDepartmentUuidList(item.UUID);
+                item.gotoTable().Update_Empty2Null(item);
+            }
+            mod = null;
+        }
+        catch (Exception ex) {
+            throw ex;
+        }        
+    }
+
+    private string getParentDepartmentUuidList(string pDepartmentUuid) {
+        string ret = pDepartmentUuid;
+        BasicModel mod = new BasicModel();
+        var drDepartment = mod.getDepartment_By_Uuid(pDepartmentUuid).AllRecord().First();
+        if (drDepartment.PARENT_DEPARTMENT_UUID.Trim().Length > 0)
+        {
+            ret =  getParentDepartmentUuidList(drDepartment.PARENT_DEPARTMENT_UUID)+":"+ret;
+        }
+        else {
+            ret = pDepartmentUuid;
+        }        
+        return ret;
+    }
+
+    private string getParentDepartmentNameList(string pDepartmentUuid)
+    {
+        string ret = "";
+        BasicModel mod = new BasicModel();
+        var drDepartment = mod.getDepartment_By_Uuid(pDepartmentUuid).AllRecord().First();
+        ret = drDepartment.C_NAME;
+        if (drDepartment.PARENT_DEPARTMENT_UUID.Trim().Length > 0)
+        {
+            ret = getParentDepartmentNameList(drDepartment.PARENT_DEPARTMENT_UUID) + ":" + ret;
+        }        
+        return ret;
+    }
+
+    [DirectMethod("destroy", DirectAction.Load)]
     public JObject destroy(string uuid, Request request)
     {
         BasicModel modBasic = new BasicModel();
@@ -402,11 +479,9 @@ public class DeptAction : BaseAction
             };
             if (uuid.Trim().Length > 0)
             {
-                var table = modBasic.getDepartment_By_Uuid(uuid);
-                if (table.AllRecord().Count == 1)
-                {
-                    var data = table.AllRecord().First();
-                    data.gotoTable().Delete(data);
+                var drsDepartment = modBasic.getDepartment_By_Like_ParentDepartmentUuidList(uuid, new OrderLimit());
+                foreach (var item in drsDepartment) {
+                    item.gotoTable().Delete(item);
                 }
             }
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject();

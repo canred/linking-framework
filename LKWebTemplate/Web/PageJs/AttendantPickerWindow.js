@@ -36,7 +36,7 @@ Ext.define('WS.AttendantPickerWindow', {
                         });
                     }
                 }
-            },            
+            },
             remoteSort: true,
             sorters: [{
                 property: 'C_NAME',
@@ -46,7 +46,8 @@ Ext.define('WS.AttendantPickerWindow', {
     },
     param: {
         uuid: undefined,
-        companyUuid: undefined
+        companyUuid: undefined,
+        parentObj: undefined
     },
     iconSelectUrl: SYSTEM_URL_ROOT + '/css/custImages/mouse_select_left.gif',
     width: 750,
@@ -71,8 +72,9 @@ Ext.define('WS.AttendantPickerWindow', {
                     margin: '0 0 0 5',
                     enableKeyEvents: true,
                     listeners: {
-                        keyup: function(e, t, eOpts) {                            
-                            var keyCode = t.keyCode,mainPanel=this.up('panel');
+                        keyup: function(e, t, eOpts) {
+                            var keyCode = t.keyCode,
+                                mainPanel = this.up('panel');
                             if (keyCode == Ext.event.Event.ENTER) {
                                 mainPanel.down("#btnQuery").handler();
                             };
@@ -108,7 +110,7 @@ Ext.define('WS.AttendantPickerWindow', {
                         icon: SYSTEM_URL_ROOT + '/css/images/add16x16.png',
                         handler: function(grid, rowIndex, colIndex) {
                             var mainWin = grid.up('window');
-                            mainWin.selectedEvent(grid.getStore().getAt(rowIndex).data);
+                            mainWin.selectedEvent(mainWin, grid.getStore().getAt(rowIndex).data);
                         }
                     }],
                     sortable: false,
@@ -141,7 +143,7 @@ Ext.define('WS.AttendantPickerWindow', {
                     displayInfo: true,
                     displayMsg: '第{0}~{1}資料/共{2}筆',
                     emptyMsg: "無資料顯示"
-                }),                
+                }),
                 tbarCfg: {
                     buttonAlign: 'right'
                 }
@@ -160,12 +162,16 @@ Ext.define('WS.AttendantPickerWindow', {
     closeEvent: function() {
         this.fireEvent('closeEvent', this);
     },
-    selectedEvent: function(result) {
-        this.fireEvent('selectedEvent', result);
+    selectedEvent: function(obj, result ) {
+        this.fireEvent('selectedEvent', obj, result);
     },
     listeners: {
         'beforeshow': function() {
-            Ext.getBody().mask();
+            if (this.param.parentObj) {
+                this.param.parentObj.mask();
+            } else {
+                Ext.getBody().mask();
+            }
             var store = this.myStore.attendant,
                 proxy = store.getProxy();
             proxy.setExtraParam('company_uuid', this.param.companyUuid);
@@ -173,7 +179,11 @@ Ext.define('WS.AttendantPickerWindow', {
             store.load();
         },
         'close': function() {
-            Ext.getBody().unmask();
+            if (this.param.parentObj) {
+                this.param.parentObj.unmask();
+            } else {
+                Ext.getBody().unmask();
+            }
             this.down('#txtKeyword').setValue('');
             this.closeEvent();
         }

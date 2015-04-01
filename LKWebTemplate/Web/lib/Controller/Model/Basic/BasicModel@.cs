@@ -13,7 +13,24 @@ namespace LKWebTemplate.Model.Basic
 {
     public partial class BasicModel
     {
-      
+
+        public IList<Department_Record> getDepartment_By_Like_ParentDepartmentUuidList(string pDepartmentUuid, OrderLimit orderlimit)
+        {
+            try
+            {
+                dbc = LK.Config.DataBase.Factory.getInfo();
+                Department department = new Department(dbc);
+                var ret = department.Where(new SQLCondition(department).BLike(department.PARENT_DEPARTMENT_UUID_LIST, pDepartmentUuid))
+                    .Limit(orderlimit)
+                    .FetchAll<Department_Record>();
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex); LK.MyException.MyException.Error(this, ex);
+                throw ex;
+            }
+        }
 
         public IList<Department_Record> getDepartment_By_CompanyUuid(string pCompanyUuid,OrderLimit orderlimit)
         {
