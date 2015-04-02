@@ -9,6 +9,7 @@ Ext.define('WS.MenuWindow', {
     icon: SYSTEM_URL_ROOT + '/css/images/menu16x16.png',
     closeAction: 'destroy',
     border: true,
+    modal: true,
     param: {
         uuid: undefined,
         applicationHeadUuid: undefined,
@@ -541,15 +542,13 @@ Ext.define('WS.MenuWindow', {
         this.fireEvent('closeEvent', this);
     },
     listeners: {
-        'show': function() {
-            Ext.getBody().mask();
+        'show': function() {            
             this.myMask = new Ext.LoadMask(this.down('#AppMenuForm'), {
                 msg: "資料載入中，請稍等...",
                 store: this.myStore.menu,
                 removeMask: true
             });
             this.myMask.show();
-            //alert(this.param.applicationHeadUuid);
             this.myStore.sitemap.getProxy().setExtraParam('pApplicationHeadUuid', this.param.applicationHeadUuid);
             this.myStore.sitemap.load({
                 callback: function() {
@@ -596,7 +595,6 @@ Ext.define('WS.MenuWindow', {
 
         },
         'close': function() {
-            Ext.getBody().unmask();
             this.closeEvent();
         }
     }

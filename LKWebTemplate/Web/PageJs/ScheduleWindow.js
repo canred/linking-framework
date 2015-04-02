@@ -9,6 +9,7 @@
      width: 800,
      height: 600,
      layout: 'fit',
+	 modal: true,
      resizable: false,
      draggable: false,
      weekChangeInWeek: function(obj) {
@@ -1779,7 +1780,6 @@
      },
      listeners: {
          'show': function() {
-             Ext.getBody().mask();
              if (this.param.uuid != undefined) {
                  this.down('#frmSchedule').getForm().load({
                      params: {
@@ -1948,7 +1948,6 @@
              }
          },
          'close': function() {
-             Ext.getBody().unmask();
              this.closeEvent();
          }
      }

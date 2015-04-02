@@ -8,6 +8,7 @@ Ext.define('WS.AppPageWindow', {
     param: {
         uuid: undefined
     },
+	modal: true,
     width: 550,
     height: 350,
     layout: 'fit',
@@ -217,8 +218,7 @@ Ext.define('WS.AppPageWindow', {
         this.fireEvent('closeEvent', this);
     },
     listeners: {
-        'show': function() {
-            Ext.getBody().mask();
+        'show': function() {            
             this.down('#Ext_AppPageForm_Form_application_head_uuid').getStore().load({
                 callback: function() {
                     if (this.param.uuid != undefined) {
@@ -247,8 +247,7 @@ Ext.define('WS.AppPageWindow', {
             });
 
         },
-        'hide': function() {
-            Ext.getBody().unmask();
+        'hide': function() {            
             this.closeEvent();
         }
     }

@@ -4,6 +4,7 @@ Ext.define('WS.AttendantWindow', {
     icon: SYSTEM_URL_ROOT + '/css/images/manb16x16.png',
     title: '人員維護',
     closable: false,
+	modal: true,
     closeAction: 'destroy',
     param: {
         uuid: undefined
@@ -276,7 +277,6 @@ Ext.define('WS.AttendantWindow', {
     },
     listeners: {
         'show': function() {
-            Ext.getBody().mask();
             if (this.param.uuid != undefined) {
                 this.down("#AttendantForm").getForm().load({
                     params: {
@@ -307,7 +307,6 @@ Ext.define('WS.AttendantWindow', {
             };
         },
         'hide': function() {
-            Ext.getBody().unmask();
             this.closeEvent();
         }
     }

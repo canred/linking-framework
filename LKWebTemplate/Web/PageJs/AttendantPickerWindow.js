@@ -5,6 +5,7 @@ Ext.define('WS.AttendantPickerWindow', {
     title: '挑選人員',
     icon: SYSTEM_URL_ROOT + '/css/images/manb16x16.png',
     closeAction: 'destroy',
+	modal: true,
     myStore: {
         attendant: Ext.create('Ext.data.Store', {
             successProperty: 'success',
@@ -166,12 +167,7 @@ Ext.define('WS.AttendantPickerWindow', {
         this.fireEvent('selectedEvent', obj, result);
     },
     listeners: {
-        'beforeshow': function() {
-            if (this.param.parentObj) {
-                this.param.parentObj.mask();
-            } else {
-                Ext.getBody().mask();
-            }
+        'beforeshow': function() {            
             var store = this.myStore.attendant,
                 proxy = store.getProxy();
             proxy.setExtraParam('company_uuid', this.param.companyUuid);
@@ -179,11 +175,6 @@ Ext.define('WS.AttendantPickerWindow', {
             store.load();
         },
         'close': function() {
-            if (this.param.parentObj) {
-                this.param.parentObj.unmask();
-            } else {
-                Ext.getBody().unmask();
-            }
             this.down('#txtKeyword').setValue('');
             this.closeEvent();
         }

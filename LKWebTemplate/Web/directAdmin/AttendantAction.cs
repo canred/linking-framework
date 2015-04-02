@@ -74,20 +74,40 @@ public class AttendantAction : BaseAction
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
                 throw new Exception("Permission Denied!");
-            };
+            };            
             /*是Store操作一下就可能含有分頁資訊。*/
+            var t1 = DateTime.Now;
             orderLimit = ExtDirect.Direct.Helper.Order.getOrderLimit(pageNo, limitNo, sort, dir);
+            var t2 = DateTime.Now;
+            TimeSpan t = t2 - t1;
             /*取得總資料數*/
+            var p1 = DateTime.Now;
             var totalCount = model.getAttendantV_By_CompanyUuid_KeyWord_Count(company_uuid, keyword);
+            var p2 = DateTime.Now;
+            TimeSpan p = p2 - p1;
             /*取得資料*/
+            var q1 = DateTime.Now;
             var data = model.getAttendantV_By_CompanyUuid_KeyWord(company_uuid, keyword, orderLimit);
+            var q2 = DateTime.Now;
+            TimeSpan q = q2 - q1;
+
+            TimeSpan d = new TimeSpan();
+
             if (data.Count > 0)
             {
                 /*將List<RecordBase>變成JSON字符串*/
+                var d1 = DateTime.Now;
                 jobject = JsonHelper.RecordBaseListJObject(data);
+                var d2 = DateTime.Now;
+                d = d2 - d1;                
             }
             /*使用Store Std out 『Sotre物件標準輸出格式』*/
-            return ExtDirect.Direct.Helper.Store.OutputJObject(jobject, totalCount);
+            var z1 = DateTime.Now;
+            var ret = ExtDirect.Direct.Helper.Store.OutputJObject(jobject, totalCount);
+            var z2 = DateTime.Now;
+            TimeSpan z = z2 - z1;
+
+            return ret;
         }
         catch (Exception ex)
         {

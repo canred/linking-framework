@@ -8,6 +8,7 @@ Ext.define('WS.CompanyWindow', {
     param: {
         uuid: undefined
     },
+    modal: true,
     width: 500,
     height: 400,
     resizable: false,
@@ -41,6 +42,7 @@ Ext.define('WS.CompanyWindow', {
                     }, {
                         fieldLabel: '名稱-繁中',
                         labelWidth: 100,
+                        itemId:'C_NAME',
                         name: 'C_NAME',
                         anchor: '100%',
                         maxLength: 84,
@@ -183,10 +185,11 @@ Ext.define('WS.CompanyWindow', {
                     itemId: 'UUID'
                 }
             ],
-            buttons: [{
-                type: 'button',
+            buttons: [{                
                 icon: SYSTEM_URL_ROOT + '/css/custimages/save16x16.png',
                 text: '儲存',
+                enableKeyEvents:true,    
+                itemId:'btnSave',            
                 handler: function() {
                     var form = this.up('window').down("#CompanyForm").getForm();
                     if (form.isValid() == false) {
@@ -218,9 +221,9 @@ Ext.define('WS.CompanyWindow', {
                     });
                 }
             }, {
-                type: 'button',
                 icon: SYSTEM_URL_ROOT + '/css/custimages/exit16x16.png',
                 text: '關閉',
+                itemId:'btnClose',
                 handler: function() {
                     this.up('window').close();
                 }
@@ -233,7 +236,6 @@ Ext.define('WS.CompanyWindow', {
     },
     listeners: {
         'show': function() {
-            Ext.getBody().mask();
             if (this.param.uuid != undefined) {
                 this.down('#ID').setDisabled(true);
                 this.down("#CompanyForm").getForm().load({
@@ -258,7 +260,6 @@ Ext.define('WS.CompanyWindow', {
             };
         },
         'close': function() {
-            Ext.getBody().unmask();
             this.closeEvent();
         }
     }

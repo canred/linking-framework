@@ -12,6 +12,7 @@ Ext.define('WS.ChangeAttendantWindow', {
     title: '【管理員工具】身份切換',
     icon: SYSTEM_URL_ROOT+'/css/images/people16x16.png',
     closeAction: 'destroy',
+	modal: true,
     width: 800,
     height: 600,
     resizable: false,
@@ -233,10 +234,5 @@ Ext.define('WS.ChangeAttendantWindow', {
             }]
         }];
         this.callParent(arguments);
-    },    
-    listeners: {      
-        'afterrender': function() {            
-            Ext.getBody().mask();
-        }
     }
 });

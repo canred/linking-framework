@@ -5,6 +5,7 @@ Ext.define('WS.DepartmentPicker', {
     icon: SYSTEM_URL_ROOT + '/css/images/organisation16x16.png',
     width: 600,
     height: 400,
+	modal: true,
     autoScroll: true,
     /*語言擴展*/
     lan: {},
@@ -101,15 +102,7 @@ Ext.define('WS.DepartmentPicker', {
     },
     listeners: {
         'show': function(obj, eOpts) {
-            if (this.param.parentObj) {
-                this.param.parentObj.mask();
-            };
             this.fnQuery(obj);
-        },
-        'close': function(obj, eOpts) {
-            if (this.param.parentObj) {
-                this.param.parentObj.unmask();
-            };
         }
     }
 });

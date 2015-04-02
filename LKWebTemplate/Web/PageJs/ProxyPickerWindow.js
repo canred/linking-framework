@@ -5,6 +5,7 @@ Ext.define('WS.ProxyPickerWindow', {
     icon: SYSTEM_URL_ROOT + '/css/images/connector16x16.png',
     closeAction: 'destroy',
     closable: true,
+    modal: true,
     param: {
         applicationHeadUuid: undefined,
         menuUuid: undefined,
@@ -15,7 +16,7 @@ Ext.define('WS.ProxyPickerWindow', {
     y: 10,
     layout: 'fit',
     resizable: false,
-    draggable: false,
+    draggable: true,
     myStore: {
         proxy: Ext.create('Ext.data.Store', {
             successProperty: 'success',
@@ -154,15 +155,9 @@ Ext.define('WS.ProxyPickerWindow', {
     },
     listeners: {
         'show': function() {
-            if (this.param.parentObject) {
-                this.param.parentObject.mask();
-            };
             this.down("#btnQuery").handler();
         },
         'close': function() {
-            if (this.param.parentObject) {
-                this.param.parentObject.unmask();
-            };
             this.closeEvent();
         }
     }

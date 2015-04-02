@@ -1591,7 +1591,7 @@ where T : RecordBase
                 DB db = new DB(this);
                 try
                 {
-                    db.CommandText = _sqlCreater_.FetchAllSQL();
+                    db.CommandText = _sqlCreater_.FetchAllSQL();                    
                     db.addParameter(_sqlCreater_.PARAMETER());
                     db.ExecuteNonQuery();
                 }

@@ -10,6 +10,7 @@ Ext.define('WS.ProxyWindow', {
     width: 550,
     height: 350,
     layout: 'fit',
+	modal: true,
     resizable: false,
     draggable: true,
     myStore: {},
@@ -229,10 +230,7 @@ Ext.define('WS.ProxyWindow', {
         this.fireEvent('closeEvent', this);
     },
     listeners: {
-        'show': function() {
-            if (this.param.parentObj) {
-                this.param.parentObj.mask();
-            };
+        'show': function() {            
             var form = this.down('#frmProxy');
             this.myStore.application.load({
                 callback: function() {
@@ -261,10 +259,7 @@ Ext.define('WS.ProxyWindow', {
             });
         },
         'close': function() {
-            this.closeEvent();
-            if (this.param.parentObj) {
-                this.param.parentObj.unmask();
-            };
+            this.closeEvent();            
         }
     }
 });

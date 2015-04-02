@@ -82,6 +82,7 @@ namespace LK.Util
         {
             try
             {
+                //here 2 
                 string jsonString = "{";
                 foreach (var col in t.getAllColumn())
                 {
@@ -118,6 +119,52 @@ namespace LK.Util
                 throw ex;
             }
         }
+
+        public static JObject RecordBaseJObject<T>(T t, System.Collections.Hashtable htColumn)
+           where T : LK.DB.RecordBase
+        {
+            try
+            {
+                StringBuilder jsonString = new StringBuilder();
+                jsonString.Append("{");
+                var lastIsFlag = false;
+                foreach (System.Collections.DictionaryEntry col in htColumn)
+                {
+                    jsonString.Append(String.Format("\"{0}\":", col.Key.ToString()));
+                    object value = t.getPropValue(t, col.Key.ToString());
+                    if (value != null)
+                    {
+                        if (col.Value.ToString() == "DateTime")
+                        {
+                            DateTime dateValue = System.Convert.ToDateTime(value);
+                            jsonString.Append("\"" + dateValue.ToString("yyyy/MM/dd HH:mm:ss") + "\"");
+                        }
+                        else
+                        {
+                            jsonString.Append(Enquote(value.ToString()));
+                        }
+                    }
+                    else
+                    {
+                        jsonString.Append("\"\"");
+                    }
+                    jsonString.Append(",");
+                    lastIsFlag = true;
+                }  
+                if (lastIsFlag)
+                {
+                    jsonString.Remove(jsonString.Length - 1, 1);
+                }
+                jsonString.Append("}");
+                JObject obj = JObject.Parse(jsonString.ToString());
+                return obj;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public static string Enquote(string s)
         {
             if (s == null || s.Length == 0)
@@ -184,15 +231,38 @@ namespace LK.Util
         public static List<JObject> RecordBaseListJObject<T>(IList<T> t)
             where T : LK.DB.RecordBase
         {
+            //here 1 
             List<JObject> obj = new List<JObject>();
-
+            System.Collections.Hashtable htCol = new System.Collections.Hashtable();
+            htCol = getTableColumnToHt<T>(t);
             foreach (var item in t)
-            {
-                var jobject = LK.Util.JsonHelper.RecordBaseJObject(item);
+            {   
+                var jobject = LK.Util.JsonHelper.RecordBaseJObject(item,htCol);
                 obj.Add(jobject);
             }
             return obj;
         }
+
+        private static System.Collections.Hashtable getTableColumnToHt( LK.DB.RecordBase c) {
+            System.Collections.Hashtable ht = new System.Collections.Hashtable();
+            foreach (var col in c.getAllColumn()) {
+                ht.Add(col.Name,col.GetType().Name);
+            }
+            return ht;
+        }
+
+        private static System.Collections.Hashtable getTableColumnToHt<T>(IList<T> t) 
+            where T : LK.DB.RecordBase
+        {
+            System.Collections.Hashtable ht = new System.Collections.Hashtable();
+            foreach (var col in t.First().getAllColumn())
+            {
+                ht.Add(col.Name, col.GetType().Name);
+            }
+            return ht;
+        }
+
+
         public static string DataTableSerializer(System.Data.DataTable t)
         {
             string jdata = "";

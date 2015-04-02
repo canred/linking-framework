@@ -165,6 +165,7 @@
     <Compile Include="Util\Mail\Config\SMTPConfigInfo.cs" />
     <Compile Include="Util\Mail\SmtpMailer.cs" />
     <Compile Include="Util\Mail\SmtpMailObj.cs" />
+    <Compile Include="Util\Math.cs" />
     <Compile Include="Util\UID.cs" />
   </ItemGroup>
   <ItemGroup>

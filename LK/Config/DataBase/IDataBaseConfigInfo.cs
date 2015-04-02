@@ -16,6 +16,6 @@ namespace LK.Config.DataBase
         string GetDBType(string dbName);
         string GetWhere(string dbName);
         string GetSchema(string dbName);
-        string GetCaseSensitive(string dbName);
+        string GetCaseSensitive(string dbName);        
     }
 }

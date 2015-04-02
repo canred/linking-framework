@@ -208,10 +208,13 @@ namespace LK.DB
                 _command_.CommandType = CommandType.StoredProcedure;
                 _command_.Parameters.Add(new object());
                 _command_.Parameters.Add(new object());
+                var s = DateTime.Now;
                 _command_.ExecuteNonQuery();
+                var e = DateTime.Now;
 
                 this.closeConnection();
                 logSQL(ref _command_, true);
+                monitorSql(ref _command_, s,e);
             }
             catch (Exception ex)
             {
@@ -228,9 +231,12 @@ namespace LK.DB
                 _command_ = _connection.getConnection().CreateCommand();
                 _command_.CommandText = _SQLCreater_.__ExecuteProcedureAndReturnSQL(procedureName);
                 _command_.CommandType = CommandType.StoredProcedure;
+                var s = DateTime.Now;
                 _command_.ExecuteNonQuery();
+                var e = DateTime.Now;
                 this.closeConnection();
                 logSQL(ref _command_, true);
+                monitorSql(ref _command_, s,e);
             }
             catch (Exception ex)
             {
@@ -254,9 +260,12 @@ namespace LK.DB
                         _command_.Parameters.Add(item);
                     }
                 }
+                var s = DateTime.Now;
                 _command_.ExecuteNonQuery();
+                var e = DateTime.Now;
                 this.closeConnection();
                 logSQL(ref _command_, true);
+                monitorSql(ref _command_, s,e);
             }
             catch (Exception ex)
             {
@@ -274,11 +283,14 @@ namespace LK.DB
                 _command_.CommandText = _SQLCreater_.__ExecuteProcedureAndReturnSQL(procedureName);
                 _command_.CommandType = CommandType.StoredProcedure;
                 _SQLCreater_.__setExecuteProcedureAndReturnParameter(_connection, procedureName, _command_, parameters);
+                var s = DateTime.Now;
                 var r = _command_.ExecuteReader();
+                var e = DateTime.Now;
                 DataTable tt = new DataTable();
                 tt.Load(r);
                 this.closeConnection();
                 logSQL(ref _command_, true);
+                monitorSql(ref _command_, s,e);
             }
             catch (Exception ex)
             {
@@ -297,11 +309,14 @@ namespace LK.DB
                 _command_.CommandText = _SQLCreater_.__ExecuteProcedureAndReturnSQL(procedureName);
                 _command_.CommandType = CommandType.StoredProcedure;
                 _SQLCreater_.__setExecuteProcedureAndReturnParameter(_connection, procedureName, _command_, parameters);
+                var s = DateTime.Now;
                 var r = _command_.ExecuteReader();
+                var e = DateTime.Now;
                 DataTable tt = new DataTable();
                 tt.Load(r);
                 this.closeConnection();                
                 logSQL(ref _command_, true);
+                monitorSql(ref _command_, s,e);
                 return tt;
             }
             catch (Exception ex)
@@ -322,7 +337,9 @@ namespace LK.DB
                 _command_.CommandType = CommandType.StoredProcedure;
                 _SQLCreater_.__setExecuteProcedureAndReturnParameter(_connection, procedureName, _command_, parameters);
                 List<DataTable> tbls = new List<DataTable>();
-                var r = _command_.ExecuteReader();                
+                var s = DateTime.Now;
+                var r = _command_.ExecuteReader();
+                var e = DateTime.Now;
                 DataTable tt = new DataTable();
                 tt.Load(r);
                 tbls.Add(tt);
@@ -333,6 +350,7 @@ namespace LK.DB
                 }
                 this.closeConnection();
                 logSQL(ref _command_, true);
+                monitorSql(ref _command_, s,e);
                 return tbls.ToArray();
             }
             catch (Exception ex)
@@ -511,10 +529,13 @@ namespace LK.DB
                 foreach (var item in this._commandParameter)
                 {
                     _command_.Parameters.Add(item);
-                }                
-                _command_.ExecuteNonQuery();                
+                }
+                var s = DateTime.Now;
+                _command_.ExecuteNonQuery();
+                var e = DateTime.Now;
                 this.closeConnection();
                 logSQL(ref _command_, true);
+                monitorSql(ref _command_, s, e);
             }
             catch (Exception ex)
             {                
@@ -540,8 +561,11 @@ namespace LK.DB
                 {
                     _command_.Parameters.Add(item);
                 }
+                var s = DateTime.Now;
                 _command_.ExecuteNonQuery();
+                var e = DateTime.Now;
                 logSQL(ref _command_,true);
+                monitorSql(ref _command_, s, e);
             }
             catch (Exception ex)
             {
@@ -599,6 +623,31 @@ namespace LK.DB
                 }                
             }
         }
+
+        private void monitorSql(ref IDbCommand cmb, DateTime rT, DateTime eT) {
+            var sqlRunTimeMaximum = LK.Config.DataBase.Factory.getInfo().GetTag("SqlRunTimeMaximum").ToLower();
+            double monitorTime = 0.0;
+            if (sqlRunTimeMaximum.Trim().Length > 0) {
+                if (LK.Util.Math.IsNumeric(sqlRunTimeMaximum)) {
+                    monitorTime = Convert.ToDouble(sqlRunTimeMaximum);
+                    TimeSpan bT = new TimeSpan();
+                    bT = eT - rT;
+                    if (bT.TotalMilliseconds > monitorTime)
+                    {
+                        log.Warn("******************************************************************");
+                        log.Warn("執行時間:" + bT.TotalMilliseconds + "毫秒");
+                        log.Warn("執行語句:" + cmb.CommandText);
+                        log.Warn("執行參數:");
+                        foreach (System.Data.IDataParameter para in cmb.Parameters)
+                        {                            
+                            log.Warn(para.ParameterName + "=>" + para.Value);                           
+                        }
+                        log.Warn("******************************************************************");
+                    }
+                }
+            }
+        }
+
         private DataTable __FillDataTable(string tableName)
         {
             System.Data.DataSet ds = new DataSet();
@@ -626,10 +675,13 @@ namespace LK.DB
                 {
                     _command_.Transaction = this.__transaction__;
                 }
+                var s = DateTime.Now;
                 var reader = _command_.ExecuteReader();
+                var e = DateTime.Now;
                 ds.Tables.Add(ret);
                 ret.Load(reader);
                 logSQL(ref _command_, true);
+                monitorSql(ref _command_, s, e);
                 if (this.__transaction__ == null)
                 {
                     this.closeConnection();
