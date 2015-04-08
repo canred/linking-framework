@@ -21,7 +21,7 @@ using System.Diagnostics;
 using System.Globalization;
 #endregion
 [DirectService("ScheduleAction")]
-public class ScheduleAction : BaseAction
+public partial class ScheduleAction : BaseAction
 {
     [DirectMethod("loadSchedule", DirectAction.Store)]
     public JObject loadSchedule(string keyword, string pageNo, string limitNo, string sort, string dir, Request request)

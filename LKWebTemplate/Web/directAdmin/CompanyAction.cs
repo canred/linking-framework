@@ -20,7 +20,7 @@ using System.Data;
 using System.Diagnostics;
 #endregion
 [DirectService("CompanyAction")]
-public class CompanyAction : BaseAction
+public partial class CompanyAction : BaseAction
 {
     [DirectMethod("getCompany", DirectAction.Store)]
     public JObject getCompany(string basic_company_uuid, Request request)

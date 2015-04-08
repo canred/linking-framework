@@ -20,7 +20,7 @@ using System.Data;
 using System.Diagnostics;
 #endregion
 [DirectService("SiteMapAction")]
-public class SiteMapAction : BaseAction
+public partial class SiteMapAction : BaseAction
 {
     [DirectMethod("loadSiteMapTree", DirectAction.TreeStore)]
     public JObject loadSiteMapTree(string parentUuid, Request request)

@@ -21,7 +21,7 @@ using System.Diagnostics;
 
 #endregion
 [DirectService("AttendantAction")]
-public class AttendantAction : BaseAction
+public partial class AttendantAction : BaseAction
 {
     [DirectMethod("getUserName", DirectAction.Load)]
     public JObject getUserName(string pUuid, Request request)
@@ -232,7 +232,7 @@ string is_default_pass, Request request)
             if (!checkProxy(new StackTrace().GetFrame(0)))
             {
                 throw new Exception("Permission Denied!");
-            };           
+            };
             if (uuid.Trim().Length > 0)
             {
                 action = SubmitAction.Edit;
@@ -247,6 +247,18 @@ string is_default_pass, Request request)
             record.ACCOUNT = account;
             record.BIRTHDAY = null;
             record.C_NAME = c_name;
+            var changeCodePage = false;
+            if (action == SubmitAction.Edit)
+            {
+                if (record.CODE_PAGE != code_page)
+                {
+                    changeCodePage = true;
+                }
+            }
+            else
+            {
+                changeCodePage = true;
+            }
             record.CODE_PAGE = code_page;
             record.COMPANY_UUID = getUser().COMPANY_UUID;
             record.DEPARTMENT_UUID = department_uuid;
@@ -262,7 +274,6 @@ string is_default_pass, Request request)
             record.IS_SUPPER = is_supper;
             record.PASSWORD = password;
             record.PHONE = phone;
-            record.CODE_PAGE = "TW";
             record.SITE_UUID = null;
             record.IS_ACTIVE = is_active;
             record.UPDATE_DATE = DateTime.Now;
@@ -325,6 +336,17 @@ string is_default_pass, Request request)
             }
             System.Collections.Hashtable otherParam = new System.Collections.Hashtable();
             otherParam.Add("UUID", record.UUID);
+
+            if (changeCodePage)
+            {
+                LKWebTemplate.Util.Session.Store ss = new LKWebTemplate.Util.Session.Store();
+                var drsAttendantV = model.getAttendantV_By_Uuid(record.UUID).AllRecord();
+                if (drsAttendantV.Count == 1)
+                {
+                    ss.setObject("USER", drsAttendantV.First());
+                    otherParam.Add("ChangeLanguage", "YES");
+                }
+            }
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject(otherParam);
         }
         catch (Exception ex)

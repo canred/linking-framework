@@ -22,7 +22,7 @@ using System.Diagnostics;
 #endregion
 
 [DirectService("AdminCompanyAction")]
-public class AdminCompanyAction : BaseAction
+public partial class AdminCompanyAction : BaseAction
 {
     [DirectMethod("loadCompany", DirectAction.Store)]
     public JObject loadCompany(string pKeyword, string pIsActive, string pageNo, string limitNo, string sort, string dir, Request request)

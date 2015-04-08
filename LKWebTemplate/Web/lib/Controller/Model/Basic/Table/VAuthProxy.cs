@@ -37,6 +37,7 @@ namespace LKWebTemplate.Model.Basic.Table
 		public string UPDATE_DATE {get{return "UPDATE_DATE" ; }}
 		public string UPDATE_USER {get{return "UPDATE_USER" ; }}
 		public string NAME_ZH_TW {get{return "NAME_ZH_TW" ; }}
+		public string NAME_JPN {get{return "NAME_JPN" ; }}
 		public string NAME_ZH_CN {get{return "NAME_ZH_CN" ; }}
 		public string NAME_EN_US {get{return "NAME_EN_US" ; }}
 		public string ID {get{return "ID" ; }}

@@ -21,7 +21,7 @@ using System.Diagnostics;
 #endregion
 
 [DirectService("SyncServerAction")]
-public class SyncServerAction : BaseAction
+public partial class SyncServerAction : BaseAction
 {
     [DirectMethod("loadCompany", DirectAction.Store)]
     public JObject loadCompany(Request request)

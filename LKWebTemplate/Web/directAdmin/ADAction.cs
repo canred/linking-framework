@@ -21,7 +21,7 @@ using System.Diagnostics;
 using System.DirectoryServices;
 #endregion
 [DirectService("ADAction")]
-public class ADAction : BaseAction
+public partial class ADAction : BaseAction
 {
     [DirectMethod("loadUser", DirectAction.Load)]
     public JObject loadUser(Request request)

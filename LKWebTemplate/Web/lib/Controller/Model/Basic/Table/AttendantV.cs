@@ -63,6 +63,7 @@ namespace LKWebTemplate.Model.Basic.Table
 		public string GRADE {get{return "GRADE" ; }}
 		public string ID {get{return "ID" ; }}
 		public string IS_DEFAULT_PASS {get{return "IS_DEFAULT_PASS" ; }}
+		public string PICTURE_URL {get{return "PICTURE_URL" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public AttendantV_Record CurrentRecord(){

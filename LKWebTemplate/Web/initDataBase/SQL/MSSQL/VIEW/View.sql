@@ -134,7 +134,7 @@ CREATE VIEW [group_attendant_v]
 	SELECT
 			 Gp_H.name_zh_tw group_name_zh_tw,
 			 Gp_H.name_zh_cn group_name_zh_cn,
-			 Gp_H.name_en_us group_name_en_us,
+			 Gp_H.name_en_us group_name_en_us,			 
 			 Gp_H.is_active is_group_active,
 			 Att.company_uuid,
 			 Cmp.id company_id,
@@ -279,7 +279,8 @@ CREATE VIEW [attendant_v]
 			 A.IS_DIRECT,
 			 A.GRADE,
 			 A.ID,
-			 A.IS_DEFAULT_PASS
+			 A.IS_DEFAULT_PASS,
+			 A.PICTURE_URL
 	FROM  attendant A  
 	LEFT OUTER JOIN  department Dep  ON  A.department_uuid  = Dep.uuid   
 	LEFT OUTER JOIN  site Sit  ON  A.site_uuid  = Sit.uuid ,
@@ -409,6 +410,7 @@ CREATE VIEW [authority_menu_v]
 			 auth_m.NAME_ZH_TW,
 			 auth_m.NAME_ZH_CN,
 			 auth_m.NAME_EN_US,
+			 auth_m.NAME_JPN,
 			 auth_m.ID,
 			 auth_m.APPMENU_UUID,
 			 auth_m.HASCHILD,
@@ -455,7 +457,8 @@ CREATE VIEW [authority_menu_v]
 				 P.url,
 				 P.parameter_class,
 				 P.p_mode,
-				 Si.application_head_uuid
+				 Si.application_head_uuid,
+				 p.runjsfunction
 		FROM  sitemap Si,
 			 apppage P 
 		WHERE	 Si.apppage_uuid  = P.uuid
@@ -538,6 +541,7 @@ CREATE VIEW [appmenu_apppage_v]
 			 am.NAME_ZH_TW,
 			 am.NAME_ZH_CN,
 			 am.NAME_EN_US,
+			 am.NAME_JPN,
 			 am.ID,
 			 am.APPMENU_UUID,
 			 am.HASCHILD,
@@ -585,6 +589,7 @@ CREATE VIEW [appmenu_v]
 			 am.NAME_ZH_TW,
 			 am.NAME_ZH_CN,
 			 am.NAME_EN_US,
+			 am.NAME_JPN,
 			 am.ID,
 			 am.APPMENU_UUID,
 			 am.HASCHILD,
@@ -601,7 +606,7 @@ CREATE VIEW [appmenu_v]
 CREATE VIEW [v_appmenu_proxy_map]
 AS
 SELECT     a.UUID AS proxy_uuid, a.Proxy_Action, a.Proxy_Method, a.description AS proxy_description, a.Proxy_Type, a.need_redirect, a.redirect_Proxy_Action, 
-                      a.redirect_Proxy_Method, a.redirect_src, a.application_head_uuid, c.name_zh_tw, c.name_zh_cn, c.name_en_us, c.uuid, b.uuid AS appmenu_proxy_uuid, 
+                      a.redirect_Proxy_Method, a.redirect_src, a.application_head_uuid, c.name_zh_tw, c.name_zh_cn, c.name_en_us,c.name_jpn, c.uuid, b.uuid AS appmenu_proxy_uuid, 
                       b.appMenu_uuid AS appmenu_uuid					  
 FROM         Proxy AS a INNER JOIN
                       APPMENU_PROXY_MAP AS b ON a.UUID = b.proxy_uuid INNER JOIN
@@ -609,7 +614,7 @@ FROM         Proxy AS a INNER JOIN
 ;
 CREATE VIEW [v_auth_proxy]
 AS
-SELECT     auth.is_user_default_page, auth.UUID, auth.IS_ACTIVE, auth.CREATE_DATE, auth.CREATE_USER, auth.UPDATE_DATE, auth.UPDATE_USER, auth.NAME_ZH_TW, 
+SELECT     auth.is_user_default_page, auth.UUID, auth.IS_ACTIVE, auth.CREATE_DATE, auth.CREATE_USER, auth.UPDATE_DATE, auth.UPDATE_USER, auth.NAME_ZH_TW, auth.NAME_JPN,
                       auth.NAME_ZH_CN, auth.NAME_EN_US, auth.ID, auth.APPMENU_UUID, auth.HASCHILD, auth.APPLICATION_HEAD_UUID, auth.ORD, auth.PARAMETER_CLASS, 
                       auth.IMAGE, auth.SITEMAP_UUID, auth.ACTION_MODE, auth.IS_DEFAULT_PAGE, auth.IS_ADMIN, auth.ATTENDANT_UUID, auth.APPLICATION_NAME, auth.url, 
                       auth.func_parameter_class, auth.p_mode, proxy.proxy_uuid, proxy.Proxy_Action, proxy.Proxy_Method, proxy.proxy_description, proxy.Proxy_Type, 

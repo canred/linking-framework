@@ -275,6 +275,7 @@ create table {user}.APPMENU
   name_zh_tw            VARCHAR2(200) not null,
   name_zh_cn            VARCHAR2(200) not null,
   name_en_us            VARCHAR2(200) not null,
+  name_jpn              VARCHAR2(200) null,
   id                    VARCHAR2(100) not null,
   appmenu_uuid          VARCHAR2(36),
   haschild              VARCHAR2(1) default 'N' not null,

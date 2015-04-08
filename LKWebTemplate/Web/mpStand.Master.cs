@@ -80,6 +80,7 @@ namespace LKWebTemplate
            IEnumerable<AuthorityMenuV_Record> menuQuery)
         {
             string ret = string.Empty;
+            string defaultLanguage = "US";
             foreach (AuthorityMenuV_Record r in menuQuery)
             {                
                 if (r.IS_ACTIVE == "Y")
@@ -88,7 +89,23 @@ namespace LKWebTemplate
                     string url = r.URL;
                     string image = r.IMAGE;
                     string parameter = r.FUNC_PARAMETER_CLASS;
-                    string name = r.NAME_ZH_TW;
+                    string name = r.NAME_EN_US;
+                    if (getUser() != null) {
+                        var lan = getUser().CODE_PAGE;
+                        if (lan.ToUpper().Equals("CHS")) {
+                            name = r.NAME_ZH_CN;
+                        }
+                        else if (lan.ToUpper().Equals("CHT")) {
+                            name = r.NAME_ZH_TW;
+                        }
+                        else if (lan.ToUpper().Equals("JPN"))
+                        {
+                            name = r.NAME_JPN;
+                        }
+                        else {
+                            name = r.NAME_EN_US;
+                        }                        
+                    };
                     string action_mode = r.ACTION_MODE;
                     string _appmenu_uuid = r.APPMENU_UUID;
                     string _uuid = r.UUID;

@@ -20,7 +20,7 @@ using System.Data;
 using System.Diagnostics;
 #endregion
 [DirectService("SyncClientAction")]
-public class SyncClientAction : BaseAction
+public partial class SyncClientAction : BaseAction
 {
     [DirectMethod("SyncCompany", DirectAction.Store)]
     public JObject SyncCompany(Request request)

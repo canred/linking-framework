@@ -20,7 +20,7 @@ using System.Data;
 using System.Diagnostics;
 #endregion
 [DirectService("AppPageAction")]
-public class AppPageAction : BaseAction
+public partial class AppPageAction : BaseAction
 {
     [DirectMethod("loadAppPage", DirectAction.Store)]
     public JObject loadAppPage(string pApplicationHeadUuid, string pKeyWord, string pageNo, string limitNo, string sort, string dir, Request request)

@@ -22,7 +22,7 @@ using System.Diagnostics;
 #endregion
 
 [DirectService("UserAction")]
-public class UserAction : BaseAction
+public partial class UserAction : BaseAction
 {
 
     [DirectMethod("ValidateCode", DirectAction.Load)]

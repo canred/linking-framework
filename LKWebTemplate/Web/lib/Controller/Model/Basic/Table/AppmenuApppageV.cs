@@ -38,6 +38,7 @@ namespace LKWebTemplate.Model.Basic.Table
 		public string NAME_ZH_TW {get{return "NAME_ZH_TW" ; }}
 		public string NAME_ZH_CN {get{return "NAME_ZH_CN" ; }}
 		public string NAME_EN_US {get{return "NAME_EN_US" ; }}
+		public string NAME_JPN {get{return "NAME_JPN" ; }}
 		public string ID {get{return "ID" ; }}
 		public string APPMENU_UUID {get{return "APPMENU_UUID" ; }}
 		public string HASCHILD {get{return "HASCHILD" ; }}
@@ -101,12 +102,12 @@ namespace LKWebTemplate.Model.Basic.Table
 		/*固定的方法，但名稱需變更 End*/
 		/*有關PK的方法*/
 		//TEMPLATE TABLE 201303180156
-		public AppmenuApppageV Fill_By_PK(string pUUID){
+		public AppmenuApppageV Fill_By_PK(string puuid){
 			try{
 				IList<AppmenuApppageV_Record> ret = null;
 				ret = this.Where(
 				new SQLCondition(this)
-									.Equal(this.UUID,pUUID)
+									.Equal(this.UUID,puuid)
 				).FetchAll<AppmenuApppageV_Record>()  ;  
 				_All_Record = ret;
 				if (_All_Record.Count > 0){
@@ -121,12 +122,12 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		//TEMPLATE TABLE 201303180156
-		public AppmenuApppageV Fill_By_PK(string pUUID,DB db){
+		public AppmenuApppageV Fill_By_PK(string puuid,DB db){
 			try{
 				IList<AppmenuApppageV_Record> ret = null;
 				ret = this.Where(
 				new SQLCondition(this)
-									.Equal(this.UUID,pUUID)
+									.Equal(this.UUID,puuid)
 				).FetchAll<AppmenuApppageV_Record>(db)  ;  
 				_All_Record = ret;
 				if (_All_Record.Count > 0){
@@ -141,12 +142,12 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		//TEMPLATE TABLE 20130319042
-		public AppmenuApppageV_Record Fetch_By_PK(string pUUID){
+		public AppmenuApppageV_Record Fetch_By_PK(string puuid){
 			try{
 				IList<AppmenuApppageV_Record> ret = null;
 				ret = this.Where(
 				new SQLCondition(this)
-									.Equal(this.UUID,pUUID)
+									.Equal(this.UUID,puuid)
 				).FetchAll<AppmenuApppageV_Record>()  ;  
 				return ret.First();
 			}
@@ -156,12 +157,12 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		//TEMPLATE TABLE 20130319044
-		public AppmenuApppageV_Record Fetch_By_PK(string pUUID,DB db){
+		public AppmenuApppageV_Record Fetch_By_PK(string puuid,DB db){
 			try{
 				IList<AppmenuApppageV_Record> ret = null;
 				ret = this.Where(
 				new SQLCondition(this)
-									.Equal(this.UUID,pUUID)
+									.Equal(this.UUID,puuid)
 				).FetchAll<AppmenuApppageV_Record>(db)  ;  
 				return ret.First();
 			}
@@ -171,12 +172,12 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		//TEMPLATE TABLE 20130319045
-		public AppmenuApppageV Fill_By_Uuid(string pUUID){
+		public AppmenuApppageV Fill_By_Uuid(string puuid){
 			try{
 				IList<AppmenuApppageV_Record> ret = null;
 				ret = this.Where(
 				new SQLCondition(this)
-									.Equal(this.UUID,pUUID)
+									.Equal(this.UUID,puuid)
 				).FetchAll<AppmenuApppageV_Record>()  ;  
 				_All_Record = ret;
 				_currentRecord = ret.First();
@@ -188,12 +189,12 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		//TEMPLATE TABLE 20130319046
-		public AppmenuApppageV Fill_By_Uuid(string pUUID,DB db){
+		public AppmenuApppageV Fill_By_Uuid(string puuid,DB db){
 			try{
 				IList<AppmenuApppageV_Record> ret = null;
 				ret = this.Where(
 				new SQLCondition(this)
-									.Equal(this.UUID,pUUID)
+									.Equal(this.UUID,puuid)
 				).FetchAll<AppmenuApppageV_Record>(db)  ;  
 				_All_Record = ret;
 				_currentRecord = ret.First();
@@ -205,12 +206,12 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		//TEMPLATE TABLE 20130319047
-		public AppmenuApppageV_Record Fetch_By_Uuid(string pUUID){
+		public AppmenuApppageV_Record Fetch_By_Uuid(string puuid){
 			try{
 				IList<AppmenuApppageV_Record> ret = null;
 				ret = this.Where(
 				new SQLCondition(this)
-									.Equal(this.UUID,pUUID)
+									.Equal(this.UUID,puuid)
 				).FetchAll<AppmenuApppageV_Record>()  ;  
 				return ret.First();
 			}
@@ -220,12 +221,12 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		//TEMPLATE TABLE 20130319048
-		public AppmenuApppageV_Record Fetch_By_Uuid(string pUUID,DB db){
+		public AppmenuApppageV_Record Fetch_By_Uuid(string puuid,DB db){
 			try{
 				IList<AppmenuApppageV_Record> ret = null;
 				ret = this.Where(
 				new SQLCondition(this)
-									.Equal(this.UUID,pUUID)
+									.Equal(this.UUID,puuid)
 				).FetchAll<AppmenuApppageV_Record>(db)  ;  
 				return ret.First();
 			}

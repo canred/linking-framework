@@ -21,7 +21,7 @@ using System.Data;
 using System.Diagnostics;
 #endregion
 [DirectService("UtilAction")]
-public class UtilAction : BaseAction
+public partial class UtilAction : BaseAction
 {
     [DirectMethod("getUid", DirectAction.Load)]
     public JObject getUid(Request request)

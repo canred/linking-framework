@@ -49,6 +49,7 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 		string _GRADE=null;
 		string _ID=null;
 		string _IS_DEFAULT_PASS=null;
+		string _PICTURE_URL=null;
 		/*欄位資訊 End*/
 
 		[ColumnName("COMPANY_ID",false,typeof(string))]
@@ -490,6 +491,19 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 			get
 			{
 				return _IS_DEFAULT_PASS;
+			}
+		}
+
+		[ColumnName("PICTURE_URL",false,typeof(string))]
+		public string PICTURE_URL
+		{
+			set
+			{
+				_PICTURE_URL=value;
+			}
+			get
+			{
+				return _PICTURE_URL;
 			}
 		}
 		public AttendantV_Record Clone(){

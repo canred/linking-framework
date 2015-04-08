@@ -21,7 +21,7 @@ using System.Diagnostics;
 #endregion
 
 [DirectService("ApplicationAction")]
-public class ApplicationAction : BaseAction
+public partial class ApplicationAction : BaseAction
 {
     [DirectMethod("loadApplication", DirectAction.Store)]
     public JObject loadApplication(string pKeyWord, string pageNo, string limitNo, string sort, string dir, Request request)

@@ -260,6 +260,7 @@ CREATE TABLE [dbo].[APPMENU](
 	[action_mode] [varchar](50) NULL,
 	[is_default_page] [varchar](1) NULL,
 	[is_admin] [varchar](1) NULL,
+	[name_jpn] [varchar](200) NULL,
  CONSTRAINT [APPMENU_PK] PRIMARY KEY CLUSTERED 
 (
 	[uuid] ASC

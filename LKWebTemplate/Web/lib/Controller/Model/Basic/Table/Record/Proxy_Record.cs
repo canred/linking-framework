@@ -177,24 +177,6 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 			}
 		}
 		/*201303180347*/
-		public List<VAppmenuProxyMap_Record> Link_VAppmenuProxyMap_By_ProxyUuid()
-		{
-			try{
-				List<VAppmenuProxyMap_Record> ret= new List<VAppmenuProxyMap_Record>();
-				var dbc = LK.Config.DataBase.Factory.getInfo();
-				VAppmenuProxyMap ___table = new VAppmenuProxyMap(dbc);
-				ret=(List<VAppmenuProxyMap_Record>)
-										___table.Where(new SQLCondition(___table)
-										.Equal(___table.PROXY_UUID,this.UUID))
-					.FetchAll<VAppmenuProxyMap_Record>() ; 
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
-		/*201303180347*/
 		public List<AppmenuProxyMap_Record> Link_AppmenuProxyMap_By_ProxyUuid()
 		{
 			try{
@@ -205,6 +187,24 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 										___table.Where(new SQLCondition(___table)
 										.Equal(___table.PROXY_UUID,this.UUID))
 					.FetchAll<AppmenuProxyMap_Record>() ; 
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		/*201303180347*/
+		public List<VAppmenuProxyMap_Record> Link_VAppmenuProxyMap_By_ProxyUuid()
+		{
+			try{
+				List<VAppmenuProxyMap_Record> ret= new List<VAppmenuProxyMap_Record>();
+				var dbc = LK.Config.DataBase.Factory.getInfo();
+				VAppmenuProxyMap ___table = new VAppmenuProxyMap(dbc);
+				ret=(List<VAppmenuProxyMap_Record>)
+										___table.Where(new SQLCondition(___table)
+										.Equal(___table.PROXY_UUID,this.UUID))
+					.FetchAll<VAppmenuProxyMap_Record>() ; 
 				return ret;
 			}
 			catch (Exception ex){
@@ -231,26 +231,6 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 			}
 		}
 		/*201303180348*/
-		public List<VAppmenuProxyMap_Record> Link_VAppmenuProxyMap_By_ProxyUuid(OrderLimit limit)
-		{
-			try{
-				List<VAppmenuProxyMap_Record> ret= new List<VAppmenuProxyMap_Record>();
-				var dbc = LK.Config.DataBase.Factory.getInfo();
-				VAppmenuProxyMap ___table = new VAppmenuProxyMap(dbc);
-				ret=(List<VAppmenuProxyMap_Record>)
-										___table.Where(new SQLCondition(___table)
-										.Equal(___table.PROXY_UUID,this.UUID))
-					.Order(limit)
-					.Limit(limit)
-					.FetchAll<VAppmenuProxyMap_Record>() ; 
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
-		/*201303180348*/
 		public List<AppmenuProxyMap_Record> Link_AppmenuProxyMap_By_ProxyUuid(OrderLimit limit)
 		{
 			try{
@@ -263,6 +243,26 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 					.Order(limit)
 					.Limit(limit)
 					.FetchAll<AppmenuProxyMap_Record>() ; 
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		/*201303180348*/
+		public List<VAppmenuProxyMap_Record> Link_VAppmenuProxyMap_By_ProxyUuid(OrderLimit limit)
+		{
+			try{
+				List<VAppmenuProxyMap_Record> ret= new List<VAppmenuProxyMap_Record>();
+				var dbc = LK.Config.DataBase.Factory.getInfo();
+				VAppmenuProxyMap ___table = new VAppmenuProxyMap(dbc);
+				ret=(List<VAppmenuProxyMap_Record>)
+										___table.Where(new SQLCondition(___table)
+										.Equal(___table.PROXY_UUID,this.UUID))
+					.Order(limit)
+					.Limit(limit)
+					.FetchAll<VAppmenuProxyMap_Record>() ; 
 				return ret;
 			}
 			catch (Exception ex){
@@ -328,11 +328,11 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 			}
 		}
 		/*201303180357*/
-		public VAppmenuProxyMap LinkFill_VAppmenuProxyMap_By_ProxyUuid()
+		public AppmenuProxyMap LinkFill_AppmenuProxyMap_By_ProxyUuid()
 		{
 			try{
-				var data = Link_VAppmenuProxyMap_By_ProxyUuid();
-				VAppmenuProxyMap ret=new VAppmenuProxyMap(data);
+				var data = Link_AppmenuProxyMap_By_ProxyUuid();
+				AppmenuProxyMap ret=new AppmenuProxyMap(data);
 				return ret;
 			}
 			catch (Exception ex){
@@ -341,11 +341,11 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 			}
 		}
 		/*201303180357*/
-		public AppmenuProxyMap LinkFill_AppmenuProxyMap_By_ProxyUuid()
+		public VAppmenuProxyMap LinkFill_VAppmenuProxyMap_By_ProxyUuid()
 		{
 			try{
-				var data = Link_AppmenuProxyMap_By_ProxyUuid();
-				AppmenuProxyMap ret=new AppmenuProxyMap(data);
+				var data = Link_VAppmenuProxyMap_By_ProxyUuid();
+				VAppmenuProxyMap ret=new VAppmenuProxyMap(data);
 				return ret;
 			}
 			catch (Exception ex){
@@ -367,11 +367,11 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 			}
 		}
 		/*201303180358*/
-		public VAppmenuProxyMap LinkFill_VAppmenuProxyMap_By_ProxyUuid(OrderLimit limit)
+		public AppmenuProxyMap LinkFill_AppmenuProxyMap_By_ProxyUuid(OrderLimit limit)
 		{
 			try{
-				var data = Link_VAppmenuProxyMap_By_ProxyUuid(limit);
-				VAppmenuProxyMap ret=new VAppmenuProxyMap(data);
+				var data = Link_AppmenuProxyMap_By_ProxyUuid(limit);
+				AppmenuProxyMap ret=new AppmenuProxyMap(data);
 				return ret;
 			}
 			catch (Exception ex){
@@ -380,11 +380,11 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 			}
 		}
 		/*201303180358*/
-		public AppmenuProxyMap LinkFill_AppmenuProxyMap_By_ProxyUuid(OrderLimit limit)
+		public VAppmenuProxyMap LinkFill_VAppmenuProxyMap_By_ProxyUuid(OrderLimit limit)
 		{
 			try{
-				var data = Link_AppmenuProxyMap_By_ProxyUuid(limit);
-				AppmenuProxyMap ret=new AppmenuProxyMap(data);
+				var data = Link_VAppmenuProxyMap_By_ProxyUuid(limit);
+				VAppmenuProxyMap ret=new VAppmenuProxyMap(data);
 				return ret;
 			}
 			catch (Exception ex){

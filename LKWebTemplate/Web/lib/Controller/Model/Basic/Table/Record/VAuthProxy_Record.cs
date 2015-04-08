@@ -23,6 +23,7 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 		DateTime? _UPDATE_DATE=null;
 		string _UPDATE_USER=null;
 		string _NAME_ZH_TW=null;
+		string _NAME_JPN=null;
 		string _NAME_ZH_CN=null;
 		string _NAME_EN_US=null;
 		string _ID=null;
@@ -154,6 +155,19 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 			get
 			{
 				return _NAME_ZH_TW;
+			}
+		}
+
+		[ColumnName("NAME_JPN",false,typeof(string))]
+		public string NAME_JPN
+		{
+			set
+			{
+				_NAME_JPN=value;
+			}
+			get
+			{
+				return _NAME_JPN;
 			}
 		}
 

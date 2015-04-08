@@ -21,7 +21,7 @@ using System.Diagnostics;
 #endregion
 
 [DirectService("AuthorityAction")]
-public class AuthorityAction : BaseAction
+public partial class AuthorityAction : BaseAction
 {
     [DirectMethod("loadAppmenuTree", DirectAction.TreeStore)]
     public JObject loadAppmenuTree(string parentUuid, string pGroupHeadUuid, Request request)

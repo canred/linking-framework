@@ -20,7 +20,7 @@ using System.Data;
 using System.Diagnostics;
 #endregion
 [DirectService("MenuAction")]
-public class MenuAction : BaseAction
+public partial class MenuAction : BaseAction
 {   
     [DirectMethod("loadMenuTree", DirectAction.TreeStore)]
     public JObject loadMenuTree(string parentUuid, Request request)
@@ -293,6 +293,7 @@ public class MenuAction : BaseAction
                             string action_mode,
                             string is_default_page,
                             string is_admin,
+                            string name_jpn,
                             Request request)
     {
         #region Declare
@@ -338,6 +339,7 @@ public class MenuAction : BaseAction
             drAppMenu.NAME_EN_US = name_en_us;
             drAppMenu.NAME_ZH_CN = name_zh_cn;
             drAppMenu.NAME_ZH_TW = name_zh_tw;
+            drAppMenu.NAME_JPN = name_jpn;
             drAppMenu.ID = id;
             drAppMenu.APPMENU_UUID = appmenu_uuid;
             drAppMenu.PARAMETER_CLASS = parameter_class;

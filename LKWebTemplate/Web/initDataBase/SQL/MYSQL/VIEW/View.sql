@@ -317,7 +317,8 @@ VIEW `attendant_v` AS
         `a`.`is_direct` AS `IS_DIRECT`,
         `a`.`grade` AS `GRADE`,
         `a`.`id` AS `ID`,
-        `a`.`is_default_pass` AS `IS_DEFAULT_PASS`
+        `a`.`is_default_pass` AS `IS_DEFAULT_PASS`,
+        `a`.`picture_url` AS `PICTURE_URL`
     from
         (((`attendant` `a`
         left join `department` `dep` ON ((`a`.`department_uuid` = `dep`.`uuid`)))
@@ -402,7 +403,6 @@ VIEW `authority_sitemap_v_sub1` AS
         `m`.`action_mode` AS `action_mode`,
         `m`.`is_default_page` AS `is_default_page`,
         `m`.`is_admin` AS `is_admin`,
-        `m`.`appmenucol` AS `appmenucol`,
         `gp_m`.`is_default_page` AS `is_user_default_page`,
         `gp_a`.`attendant_uuid` AS `attendant_uuid`
     from
@@ -535,6 +535,7 @@ VIEW `authority_menu_v_sub2` AS
         `m`.`name_zh_tw` AS `name_zh_tw`,
         `m`.`name_zh_cn` AS `name_zh_cn`,
         `m`.`name_en_us` AS `name_en_us`,
+        `m`.`name_jpn` AS `name_jpn`,
         `m`.`id` AS `id`,
         `m`.`appmenu_uuid` AS `appmenu_uuid`,
         `m`.`haschild` AS `haschild`,
@@ -546,7 +547,6 @@ VIEW `authority_menu_v_sub2` AS
         `m`.`action_mode` AS `action_mode`,
         `m`.`is_default_page` AS `is_default_page`,
         `m`.`is_admin` AS `is_admin`,
-        `m`.`appmenucol` AS `appmenucol`,
         `b`.`attendant_uuid` AS `attendant_uuid`,
         `b`.`application_name` AS `application_name`
     from
@@ -622,6 +622,7 @@ VIEW `authority_menu_v` AS
         `auth_m`.`name_zh_tw` AS `NAME_ZH_TW`,
         `auth_m`.`name_zh_cn` AS `NAME_ZH_CN`,
         `auth_m`.`name_en_us` AS `NAME_EN_US`,
+        `auth_m`.`name_jpn` AS `NAME_JPN`,
         `auth_m`.`id` AS `ID`,
         `auth_m`.`appmenu_uuid` AS `APPMENU_UUID`,
         `auth_m`.`haschild` AS `HASCHILD`,
@@ -672,7 +673,6 @@ VIEW `authority_overview_v_sub1` AS
         `m`.`action_mode` AS `action_mode`,
         `m`.`is_default_page` AS `is_default_page`,
         `m`.`is_admin` AS `is_admin`,
-        `m`.`appmenucol` AS `appmenucol`,
         `gp_m`.`is_default_page` AS `is_user_default_page`,
         `gp_a`.`attendant_uuid` AS `attendant_uuid`
     from
@@ -756,6 +756,7 @@ VIEW `appmenu_apppage_v` AS
         `am`.`name_zh_tw` AS `NAME_ZH_TW`,
         `am`.`name_zh_cn` AS `NAME_ZH_CN`,
         `am`.`name_en_us` AS `NAME_EN_US`,
+        `am`.`name_jpn` AS `NAME_JPN`,
         `am`.`id` AS `ID`,
         `am`.`appmenu_uuid` AS `APPMENU_UUID`,
         `am`.`haschild` AS `HASCHILD`,
@@ -795,6 +796,7 @@ VIEW `appmenu_v` AS
         `am`.`name_zh_tw` AS `NAME_ZH_TW`,
         `am`.`name_zh_cn` AS `NAME_ZH_CN`,
         `am`.`name_en_us` AS `NAME_EN_US`,
+        `am`.`name_jpn` AS `NAME_JPN`,
         `am`.`id` AS `ID`,
         `am`.`appmenu_uuid` AS `APPMENU_UUID`,
         `am`.`haschild` AS `HASCHILD`,
@@ -814,7 +816,7 @@ VIEW `appmenu_v` AS
 CREATE VIEW `v_appmenu_proxy_map`
 AS
 SELECT     a.UUID AS proxy_uuid, a.Proxy_Action, a.Proxy_Method, a.description AS proxy_description, a.Proxy_Type, a.need_redirect, a.redirect_Proxy_Action, 
-                      a.redirect_Proxy_Method, a.redirect_src, a.application_head_uuid, c.name_zh_tw, c.name_zh_cn, c.name_en_us, c.uuid, b.uuid AS appmenu_proxy_uuid, 
+                      a.redirect_Proxy_Method, a.redirect_src, a.application_head_uuid, c.name_zh_tw, c.name_zh_cn, c.name_en_us,c.name_jpn, c.uuid, b.uuid AS appmenu_proxy_uuid, 
                       b.appMenu_uuid AS appmenu_uuid					  
 FROM         Proxy AS a INNER JOIN
                       APPMENU_PROXY_MAP AS b ON a.UUID = b.proxy_uuid INNER JOIN
@@ -823,7 +825,7 @@ FROM         Proxy AS a INNER JOIN
 CREATE VIEW `v_auth_proxy`
 AS
 SELECT     auth.is_user_default_page, auth.UUID, auth.IS_ACTIVE, auth.CREATE_DATE, auth.CREATE_USER, auth.UPDATE_DATE, auth.UPDATE_USER, auth.NAME_ZH_TW, 
-                      auth.NAME_ZH_CN, auth.NAME_EN_US, auth.ID, auth.APPMENU_UUID, auth.HASCHILD, auth.APPLICATION_HEAD_UUID, auth.ORD, auth.PARAMETER_CLASS, 
+                      auth.NAME_ZH_CN, auth.NAME_EN_US,auth.NAME_JPN, auth.ID, auth.APPMENU_UUID, auth.HASCHILD, auth.APPLICATION_HEAD_UUID, auth.ORD, auth.PARAMETER_CLASS, 
                       auth.IMAGE, auth.SITEMAP_UUID, auth.ACTION_MODE, auth.IS_DEFAULT_PAGE, auth.IS_ADMIN, auth.ATTENDANT_UUID, auth.APPLICATION_NAME, auth.url, 
                       auth.func_parameter_class, auth.p_mode, proxy.proxy_uuid, proxy.Proxy_Action, proxy.Proxy_Method, proxy.proxy_description, proxy.Proxy_Type, 
                       proxy.need_redirect, proxy.redirect_Proxy_Action, proxy.redirect_Proxy_Method, proxy.redirect_src, proxy.appmenu_proxy_uuid

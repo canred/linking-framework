@@ -31,9 +31,6 @@
             }
         });
     </script>
-
-    
-
     <!--引入ExtJs相關的設定-->
     <script language="javascript" type="text/javascript">        
         /*設定ExtJs ux路徑*/
@@ -71,6 +68,16 @@
             Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".ProxyAction"));
 
         });
+
+        function openAttendantWin() {
+            <% if(getUser()!=null){%>
+            var subWin = Ext.create("WS.AttendantWindow", {
+                param: {
+                    uuid: '<%= getUser().UUID %>'
+                }
+            }).show();                   
+            <%}%>            
+        }
     </script>
     <link rel="stylesheet" href="<%= Page.ResolveUrl("~/css/bootstrap/css/bootstrap.css")%>" type="text/css" />
     <style type ="text/css">
@@ -119,22 +126,61 @@
                                 <!--This is sample templete-->
                             </div>
                             <div style="float: right;">
-                                 <div style="float: right;margin-top: 10px;margin-left:10px;margin-right:10px; color: #000000;" id="div1" runat="server">
+                                  <div style="float: right;margin-top: 10px;margin-left:10px;margin-right:10px; color: #000000;" id="div1" runat="server">
                                     <%
                                         var user = getUser();
-                                        if (user != null) { 
-                                            Response.Write("<input type='button' class='red-button'  value='登出'");
-                                            Response.Write("onclick='location.href=\"" + Page.ResolveUrl(LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().LogoutPage) + "\"' /></div>");                                    
-                                        }    
-                                    %>                            
+                                        string htmlOutput = "";
+                                        if (LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().EnableGuestLogin == true)
+                                        {
+                                            if (user!=null && user.ACCOUNT != LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().GuestAccount)
+                                            { 
+                                                htmlOutput+="<input type='button' class='red-button'  value='Logout'";
+                                                htmlOutput+="onclick='location.href=\"" + Page.ResolveUrl(LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().LogoutPage) + "\"' /></div>";
+                                            }else{
+                                                htmlOutput+="<input type='button' class='red-button'  value='Login'";
+                                                htmlOutput+="onclick='location.href=\"" + Page.ResolveUrl(LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().LogonPage) + "\"' /></div>";
+                                            }                                           
+                                        }
+                                        else {
+                                            if (user != null)
+                                            {
+                                                htmlOutput+="<input type='button' class='red-button'  value='Logout'";
+                                                htmlOutput+="onclick='location.href=\"" + Page.ResolveUrl(LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().LogoutPage) + "\"' /></div>";
+                                            }    
+                                        }
+
+                                        if (htmlOutput.Length > 0)
+                                        {
+                                            Response.Write(htmlOutput);
+                                        }
+                                    %>                    
                                 <div style="float: right;margin-top: 15px; color: #000000;" id="div_login_user" runat="server">
                                     <%
                                         var user = getUser();
-                                        if (user != null) {
-                                            Response.Write( user.C_NAME);
+                                        if (user != null)
+                                        {
+                                            Response.Write(user.C_NAME);
                                         }    
                                     %>
-                                    </div>                       
+                                    </div>   
+                                     <div style="float: right;margin-top: 10px; color: #000000;" id="div_setting_user" runat="server">
+                                    <%
+                                        var user = getUser();
+                                        string htmlOutput = "";
+                                        if (user != null ) {
+                                            if (user.ACCOUNT != LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().GuestAccount)
+                                            {
+                                                htmlOutput += "<img onclick='openAttendantWin();' class='img-circle' style='height:30px;width:30px;cursor:pointer;' src='" + Page.ResolveUrl(getUser().PICTURE_URL) + "'/>";
+                                            }
+                                            else {                                                
+                                                htmlOutput+="<img  style='height:24px' class='img-circle' src='" + Page.ResolveUrl("~/css/custimages/1416389212_010.png") + "'/>";
+                                            }
+                                        }
+                                        if (htmlOutput.Length > 0) {
+                                            Response.Write(htmlOutput);
+                                        }    
+                                    %>
+                            </div>                    
                             </div>
                         </div>
                         <div class="menu" id="menu" style="float: left; width: 100%; height: 33px; background: #CADAF7;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;"

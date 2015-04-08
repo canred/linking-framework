@@ -21,7 +21,7 @@ using System.Diagnostics;
 #endregion
 
 [DirectService("GroupAttendantAction")]
-public class GroupAttendantAction : BaseAction
+public partial class GroupAttendantAction : BaseAction
 {
     [DirectMethod("loadAttendantStoreInGroup", DirectAction.Store)]
     public JObject loadAttendantStoreInGroup(string pCompanyUuid, string group_head_uuid,

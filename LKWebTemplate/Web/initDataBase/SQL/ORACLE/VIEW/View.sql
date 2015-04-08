@@ -162,7 +162,7 @@ create or replace view {user}.attendant_v as
 select Cmp.id company_id,     Cmp.c_name company_c_name,    Cmp.e_name company_e_name,
        Dep.id department_id , Dep.c_name department_c_name, Dep.e_name department_e_name,
        Sit.id site_id ,       Sit.c_name site_c_name,       Sit.e_name site_e_name,
-       A."UUID",A."CREATE_DATE",A."UPDATE_DATE",A."IS_ACTIVE",A."COMPANY_UUID",A."ACCOUNT",A."C_NAME",A."E_NAME",A."EMAIL",A."PASSWORD",A."IS_SUPPER",A."IS_ADMIN",A."CODE_PAGE",A."DEPARTMENT_UUID",A."PHONE",A."SITE_UUID",A."GENDER",A."BIRTHDAY",A."HIRE_DATE",A."QUIT_DATE",A."IS_MANAGER",A."IS_DIRECT",A."GRADE",A."ID",A."IS_DEFAULT_PASS"
+       A."UUID",A."CREATE_DATE",A."UPDATE_DATE",A."IS_ACTIVE",A."COMPANY_UUID",A."ACCOUNT",A."C_NAME",A."E_NAME",A."EMAIL",A."PASSWORD",A."IS_SUPPER",A."IS_ADMIN",A."CODE_PAGE",A."DEPARTMENT_UUID",A."PHONE",A."SITE_UUID",A."GENDER",A."BIRTHDAY",A."HIRE_DATE",A."QUIT_DATE",A."IS_MANAGER",A."IS_DIRECT",A."GRADE",A."ID",A."IS_DEFAULT_PASS",A."PICTURE_URL"
   from attendant A , company Cmp , department Dep , site Sit
   where A.company_uuid=Cmp.uuid
     and A.department_uuid=Dep.uuid(+)
@@ -298,6 +298,7 @@ SELECT CASE WHEN d.is_user_default_page IS NULL THEN 'N' ELSE 'Y' END
           auth_m.NAME_ZH_TW,
           auth_m.NAME_ZH_CN,
           auth_m.NAME_EN_US,
+          auth_m.NAME_JPN,
           auth_m.ID,
           auth_m.APPMENU_UUID,
           auth_m.HASCHILD,
@@ -339,7 +340,8 @@ SELECT CASE WHEN d.is_user_default_page IS NULL THEN 'N' ELSE 'Y' END
                   P.url,
                   P.parameter_class,
                   P.p_mode,
-                  Si.application_head_uuid
+                  Si.application_head_uuid,
+                  P.runjsfunction
              FROM sitemap Si, apppage P
             WHERE     Si.apppage_uuid = P.uuid
                   --AND Si.is_active = 'Y'
@@ -418,6 +420,7 @@ SELECT am.UUID,
           am.NAME_ZH_TW,
           am.NAME_ZH_CN,
           am.NAME_EN_US,
+          am.NAME_JPN,
           am.ID,
           am.APPMENU_UUID,
           am.HASCHILD,
@@ -463,6 +466,7 @@ SELECT parentlst (am.uuid) parentlst,
           am.NAME_ZH_TW,
           am.NAME_ZH_CN,
           am.NAME_EN_US,
+          am.NAME_JPN,
           am.ID,
           am.APPMENU_UUID,
           am.HASCHILD,
@@ -479,7 +483,7 @@ SELECT parentlst (am.uuid) parentlst,
 CREATE OR REPLACE VIEW {user}.v_appmenu_proxy_map
 AS
 SELECT     a.UUID AS proxy_uuid, a.Proxy_Action, a.Proxy_Method, a.description AS proxy_description, a.Proxy_Type, a.need_redirect, a.redirect_Proxy_Action, 
-                      a.redirect_Proxy_Method, a.redirect_src, a.application_head_uuid, c.name_zh_tw, c.name_zh_cn, c.name_en_us, c.uuid, b.uuid AS appmenu_proxy_uuid, 
+                      a.redirect_Proxy_Method, a.redirect_src, a.application_head_uuid, c.name_zh_tw, c.name_zh_cn, c.name_en_us,c.name_jpn, c.uuid, b.uuid AS appmenu_proxy_uuid, 
                       b.appMenu_uuid AS appmenu_uuid					  
 FROM         Proxy  a INNER JOIN
                       APPMENU_PROXY_MAP  b ON a.UUID = b.proxy_uuid INNER JOIN
@@ -488,7 +492,7 @@ FROM         Proxy  a INNER JOIN
 
 CREATE OR REPLACE VIEW {user}.v_auth_proxy
 AS
-SELECT     auth.is_user_default_page, auth.UUID, auth.IS_ACTIVE, auth.CREATE_DATE, auth.CREATE_USER, auth.UPDATE_DATE, auth.UPDATE_USER, auth.NAME_ZH_TW, 
+SELECT     auth.is_user_default_page, auth.UUID, auth.IS_ACTIVE, auth.CREATE_DATE, auth.CREATE_USER, auth.UPDATE_DATE, auth.UPDATE_USER, auth.NAME_ZH_TW,auth.NAME_JPN,
                       auth.NAME_ZH_CN, auth.NAME_EN_US, auth.ID, auth.APPMENU_UUID, auth.HASCHILD, auth.APPLICATION_HEAD_UUID, auth.ORD, auth.PARAMETER_CLASS, 
                       auth.IMAGE, auth.SITEMAP_UUID, auth.ACTION_MODE, auth.IS_DEFAULT_PAGE, auth.IS_ADMIN, auth.ATTENDANT_UUID, auth.APPLICATION_NAME, auth.url, 
                       auth.func_parameter_class, auth.p_mode, proxy.proxy_uuid, proxy.Proxy_Action, proxy.Proxy_Method, proxy.proxy_description, proxy.Proxy_Type, 

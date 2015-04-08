@@ -2138,6 +2138,35 @@ namespace LKWebTemplate.Model.Basic
             }
         }
 
+        public AttendantV_Record getAttendantV_By_Company_Account_ForGuest(string pCompanyName, string pAccount)
+        {
+            try
+            {
+                dbc = LK.Config.DataBase.Factory.getInfo();
+                var attendantv = new AttendantV(dbc);
+
+                var result = attendantv.Where(new SQLCondition(attendantv)
+                                                .Equal(attendantv.COMPANY_ID, pCompanyName, false)
+                                                .And()
+                                                .Equal(attendantv.ACCOUNT, pAccount, false)
+                                                ).FetchAll<AttendantV_Record>();
+                if (result.Count == 1)
+                {
+                    return result.First();
+                }
+                else
+                {
+                    throw new Exception("Domainª{√“•¢±—");
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                LK.MyException.MyException.Error(this, ex);
+                throw ex;
+            }
+        }
+
     }
 }
 

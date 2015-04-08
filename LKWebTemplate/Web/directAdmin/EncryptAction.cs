@@ -22,7 +22,7 @@ using System.Configuration;
 using System.Diagnostics;
 #endregion
 [DirectService("EncryptAction")]
-public class EncryptAction : BaseAction
+public partial class EncryptAction : BaseAction
 {
     [DirectMethod("Encode", DirectAction.Load)]
     public JObject Encode(string yourstring, Request request)

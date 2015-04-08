@@ -25,6 +25,7 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 		string _NAME_ZH_TW=null;
 		string _NAME_ZH_CN=null;
 		string _NAME_EN_US=null;
+		string _NAME_JPN=null;
 		string _ID=null;
 		string _APPMENU_UUID=null;
 		string _HASCHILD=null;
@@ -171,6 +172,19 @@ namespace LKWebTemplate.Model.Basic.Table.Record
 			get
 			{
 				return _NAME_EN_US;
+			}
+		}
+
+		[ColumnName("NAME_JPN",false,typeof(string))]
+		public string NAME_JPN
+		{
+			set
+			{
+				_NAME_JPN=value;
+			}
+			get
+			{
+				return _NAME_JPN;
 			}
 		}
 

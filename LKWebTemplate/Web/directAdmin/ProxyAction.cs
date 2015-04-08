@@ -20,7 +20,7 @@ using System.Data;
 using System.Diagnostics;
 #endregion
 [DirectService("ProxyAction")]
-public class ProxyAction : BaseAction
+public partial class ProxyAction : BaseAction
 {
     [DirectMethod("loadProxy", DirectAction.Store)]
     public JObject loadProxy(string pApplicationHeadUuid, string pKeyWord, string pageNo, string limitNo, string sort, string dir, Request request)

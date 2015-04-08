@@ -236,6 +236,12 @@ Ext.define('WS.MenuWindow', {
                 allowBlank: false,
                 maxLength: 128
             }, {
+                fieldLabel: '日文名稱',
+                labelAlign: 'right',
+                name: 'NAME_JPN',
+                allowBlank: false,
+                maxLength: 128
+            }, {
                 fieldLabel: '參數',
                 labelAlign: 'right',
                 name: 'PARAMETER_CLASS',

@@ -25,7 +25,7 @@ using System.Xml;
 using System.Diagnostics;
 #endregion
 [DirectService("InitAction")]
-public class InitAction : BaseAction
+public partial class InitAction : BaseAction
 {
     [DirectMethod("renameDirectNamespace", DirectAction.Load)]
     public JObject renameDirectNamespace(string orgName, string newName, Request request)

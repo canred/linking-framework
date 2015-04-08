@@ -20,7 +20,7 @@ using System.Data;
 using System.Diagnostics;
 #endregion
 [DirectService("DeptAction")]
-public class DeptAction : BaseAction
+public partial class DeptAction : BaseAction
 {
 
     [DirectMethod("loadDepartment", DirectAction.Store)]

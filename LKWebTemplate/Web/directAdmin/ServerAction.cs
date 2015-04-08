@@ -21,7 +21,7 @@ using System.Diagnostics;
 using System.Management;
 #endregion
 [DirectService("ServerAction")]
-public class ServerAction : BaseAction
+public partial class ServerAction : BaseAction
 {
     [DirectMethod("loadCpuInfo", DirectAction.Load)]
     public JObject loadCpuInfo(Request request)

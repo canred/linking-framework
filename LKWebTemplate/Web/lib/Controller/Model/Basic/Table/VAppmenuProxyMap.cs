@@ -42,6 +42,7 @@ namespace LKWebTemplate.Model.Basic.Table
 		public string NAME_ZH_TW {get{return "NAME_ZH_TW" ; }}
 		public string NAME_ZH_CN {get{return "NAME_ZH_CN" ; }}
 		public string NAME_EN_US {get{return "NAME_EN_US" ; }}
+		public string NAME_JPN {get{return "NAME_JPN" ; }}
 		public string UUID {get{return "UUID" ; }}
 		public string APPMENU_PROXY_UUID {get{return "APPMENU_PROXY_UUID" ; }}
 		public string APPMENU_UUID {get{return "APPMENU_UUID" ; }}
@@ -268,28 +269,6 @@ namespace LKWebTemplate.Model.Basic.Table
 				throw ex;
 			}
 		}
-		public List<Appmenu_Record> Link_Appmenu_By_Uuid()
-		{
-			try{
-				List<Appmenu_Record> ret= new List<Appmenu_Record>();
-				var dbc = LK.Config.DataBase.Factory.getInfo();
-				Appmenu ___table = new Appmenu(dbc);
-				SQLCondition condition = new SQLCondition(___table) ;
-				foreach(var item in AllRecord()){
-						condition
-						.L().Equal(___table.UUID,item.APPMENU_UUID).R().Or()  ; 
- 				}
-				condition.CheckSQL();
-				ret=(List<Appmenu_Record>)
-						___table.Where(condition)
-						.FetchAll<Appmenu_Record>() ; 
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
 		public List<Proxy_Record> Link_Proxy_By_Uuid()
 		{
 			try{
@@ -334,6 +313,28 @@ namespace LKWebTemplate.Model.Basic.Table
 				throw ex;
 			}
 		}
+		public List<Appmenu_Record> Link_Appmenu_By_Uuid()
+		{
+			try{
+				List<Appmenu_Record> ret= new List<Appmenu_Record>();
+				var dbc = LK.Config.DataBase.Factory.getInfo();
+				Appmenu ___table = new Appmenu(dbc);
+				SQLCondition condition = new SQLCondition(___table) ;
+				foreach(var item in AllRecord()){
+						condition
+						.L().Equal(___table.UUID,item.APPMENU_UUID).R().Or()  ; 
+ 				}
+				condition.CheckSQL();
+				ret=(List<Appmenu_Record>)
+						___table.Where(condition)
+						.FetchAll<Appmenu_Record>() ; 
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
 		/*201303180340*/
 		public List<ApplicationHead_Record> Link_ApplicationHead_By_Uuid(OrderLimit limit)
 		{
@@ -352,31 +353,6 @@ namespace LKWebTemplate.Model.Basic.Table
 						.Order(limit)
 						.Limit(limit)
 						.FetchAll<ApplicationHead_Record>() ; 
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
-		/*201303180340*/
-		public List<Appmenu_Record> Link_Appmenu_By_Uuid(OrderLimit limit)
-		{
-			try{
-				List<Appmenu_Record> ret= new List<Appmenu_Record>();
-				var dbc = LK.Config.DataBase.Factory.getInfo();
-				Appmenu ___table = new Appmenu(dbc);
-				SQLCondition condition = new SQLCondition(___table) ;
-				foreach(var item in AllRecord()){
-						condition
-						.L().Equal(___table.UUID,item.APPMENU_UUID).R().Or()  ; 
- 				}
-				condition.CheckSQL();
-				ret=(List<Appmenu_Record>)
-						___table.Where(condition)
-						.Order(limit)
-						.Limit(limit)
-						.FetchAll<Appmenu_Record>() ; 
 				return ret;
 			}
 			catch (Exception ex){
@@ -434,12 +410,24 @@ namespace LKWebTemplate.Model.Basic.Table
 				throw ex;
 			}
 		}
-		/*201303180336*/
-		public ApplicationHead LinkFill_ApplicationHead_By_Uuid()
+		/*201303180340*/
+		public List<Appmenu_Record> Link_Appmenu_By_Uuid(OrderLimit limit)
 		{
 			try{
-				var data = Link_ApplicationHead_By_Uuid();
-				ApplicationHead ret=new ApplicationHead(data);
+				List<Appmenu_Record> ret= new List<Appmenu_Record>();
+				var dbc = LK.Config.DataBase.Factory.getInfo();
+				Appmenu ___table = new Appmenu(dbc);
+				SQLCondition condition = new SQLCondition(___table) ;
+				foreach(var item in AllRecord()){
+						condition
+						.L().Equal(___table.UUID,item.APPMENU_UUID).R().Or()  ; 
+ 				}
+				condition.CheckSQL();
+				ret=(List<Appmenu_Record>)
+						___table.Where(condition)
+						.Order(limit)
+						.Limit(limit)
+						.FetchAll<Appmenu_Record>() ; 
 				return ret;
 			}
 			catch (Exception ex){
@@ -448,11 +436,11 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180336*/
-		public Appmenu LinkFill_Appmenu_By_Uuid()
+		public ApplicationHead LinkFill_ApplicationHead_By_Uuid()
 		{
 			try{
-				var data = Link_Appmenu_By_Uuid();
-				Appmenu ret=new Appmenu(data);
+				var data = Link_ApplicationHead_By_Uuid();
+				ApplicationHead ret=new ApplicationHead(data);
 				return ret;
 			}
 			catch (Exception ex){
@@ -486,12 +474,12 @@ namespace LKWebTemplate.Model.Basic.Table
 				throw ex;
 			}
 		}
-		/*201303180337*/
-		public ApplicationHead LinkFill_ApplicationHead_By_Uuid(OrderLimit limit)
+		/*201303180336*/
+		public Appmenu LinkFill_Appmenu_By_Uuid()
 		{
 			try{
-				var data = Link_ApplicationHead_By_Uuid(limit);
-				ApplicationHead ret=new ApplicationHead(data);
+				var data = Link_Appmenu_By_Uuid();
+				Appmenu ret=new Appmenu(data);
 				return ret;
 			}
 			catch (Exception ex){
@@ -500,11 +488,11 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180337*/
-		public Appmenu LinkFill_Appmenu_By_Uuid(OrderLimit limit)
+		public ApplicationHead LinkFill_ApplicationHead_By_Uuid(OrderLimit limit)
 		{
 			try{
-				var data = Link_Appmenu_By_Uuid(limit);
-				Appmenu ret=new Appmenu(data);
+				var data = Link_ApplicationHead_By_Uuid(limit);
+				ApplicationHead ret=new ApplicationHead(data);
 				return ret;
 			}
 			catch (Exception ex){
@@ -531,6 +519,19 @@ namespace LKWebTemplate.Model.Basic.Table
 			try{
 				var data = Link_AppmenuProxyMap_By_Uuid(limit);
 				AppmenuProxyMap ret=new AppmenuProxyMap(data);
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		/*201303180337*/
+		public Appmenu LinkFill_Appmenu_By_Uuid(OrderLimit limit)
+		{
+			try{
+				var data = Link_Appmenu_By_Uuid(limit);
+				Appmenu ret=new Appmenu(data);
 				return ret;
 			}
 			catch (Exception ex){

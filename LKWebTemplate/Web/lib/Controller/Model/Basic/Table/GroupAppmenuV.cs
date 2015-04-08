@@ -219,28 +219,6 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*依照資料表與資料表的關係，產生出來的方法*/
-		public List<Appmenu_Record> Link_Appmenu_By_Uuid()
-		{
-			try{
-				List<Appmenu_Record> ret= new List<Appmenu_Record>();
-				var dbc = LK.Config.DataBase.Factory.getInfo();
-				Appmenu ___table = new Appmenu(dbc);
-				SQLCondition condition = new SQLCondition(___table) ;
-				foreach(var item in AllRecord()){
-						condition
-						.L().Equal(___table.UUID,item.APPMENU_UUID).R().Or()  ; 
- 				}
-				condition.CheckSQL();
-				ret=(List<Appmenu_Record>)
-						___table.Where(condition)
-						.FetchAll<Appmenu_Record>() ; 
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
 		public List<GroupHead_Record> Link_GroupHead_By_Uuid()
 		{
 			try{
@@ -263,8 +241,7 @@ namespace LKWebTemplate.Model.Basic.Table
 				throw ex;
 			}
 		}
-		/*201303180340*/
-		public List<Appmenu_Record> Link_Appmenu_By_Uuid(OrderLimit limit)
+		public List<Appmenu_Record> Link_Appmenu_By_Uuid()
 		{
 			try{
 				List<Appmenu_Record> ret= new List<Appmenu_Record>();
@@ -278,8 +255,6 @@ namespace LKWebTemplate.Model.Basic.Table
 				condition.CheckSQL();
 				ret=(List<Appmenu_Record>)
 						___table.Where(condition)
-						.Order(limit)
-						.Limit(limit)
 						.FetchAll<Appmenu_Record>() ; 
 				return ret;
 			}
@@ -313,12 +288,24 @@ namespace LKWebTemplate.Model.Basic.Table
 				throw ex;
 			}
 		}
-		/*201303180336*/
-		public Appmenu LinkFill_Appmenu_By_Uuid()
+		/*201303180340*/
+		public List<Appmenu_Record> Link_Appmenu_By_Uuid(OrderLimit limit)
 		{
 			try{
-				var data = Link_Appmenu_By_Uuid();
-				Appmenu ret=new Appmenu(data);
+				List<Appmenu_Record> ret= new List<Appmenu_Record>();
+				var dbc = LK.Config.DataBase.Factory.getInfo();
+				Appmenu ___table = new Appmenu(dbc);
+				SQLCondition condition = new SQLCondition(___table) ;
+				foreach(var item in AllRecord()){
+						condition
+						.L().Equal(___table.UUID,item.APPMENU_UUID).R().Or()  ; 
+ 				}
+				condition.CheckSQL();
+				ret=(List<Appmenu_Record>)
+						___table.Where(condition)
+						.Order(limit)
+						.Limit(limit)
+						.FetchAll<Appmenu_Record>() ; 
 				return ret;
 			}
 			catch (Exception ex){
@@ -339,11 +326,11 @@ namespace LKWebTemplate.Model.Basic.Table
 				throw ex;
 			}
 		}
-		/*201303180337*/
-		public Appmenu LinkFill_Appmenu_By_Uuid(OrderLimit limit)
+		/*201303180336*/
+		public Appmenu LinkFill_Appmenu_By_Uuid()
 		{
 			try{
-				var data = Link_Appmenu_By_Uuid(limit);
+				var data = Link_Appmenu_By_Uuid();
 				Appmenu ret=new Appmenu(data);
 				return ret;
 			}
@@ -358,6 +345,19 @@ namespace LKWebTemplate.Model.Basic.Table
 			try{
 				var data = Link_GroupHead_By_Uuid(limit);
 				GroupHead ret=new GroupHead(data);
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		/*201303180337*/
+		public Appmenu LinkFill_Appmenu_By_Uuid(OrderLimit limit)
+		{
+			try{
+				var data = Link_Appmenu_By_Uuid(limit);
+				Appmenu ret=new Appmenu(data);
 				return ret;
 			}
 			catch (Exception ex){

@@ -21,7 +21,7 @@ using System.Diagnostics;
 #endregion
 
 [DirectService("GroupHeadAction")]
-public class GroupHeadAction : BaseAction
+public partial class GroupHeadAction : BaseAction
 {
     [DirectMethod("load", DirectAction.Store)]
     public JObject load(string company_uuid, string application_head_uuid, string attendant_uuid,

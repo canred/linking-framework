@@ -21,7 +21,7 @@ using System.Diagnostics;
 #endregion
 
 [DirectService("ErrorLogAction")]
-public class ErrorLogAction : BaseAction
+public partial class ErrorLogAction : BaseAction
 {
     [DirectMethod("load", DirectAction.Load)]
     public JObject load(string is_read, string pageNo, string limitNo, string sort, string dir, Request request)

@@ -22,7 +22,7 @@ using System.Net;
 using System.Net.Sockets;
 #endregion
 [DirectService("CloudAction")]
-public class CloudAction : BaseAction
+public partial class CloudAction : BaseAction
 {
     [DirectMethod("loadActiveConnection", DirectAction.Load)]
     public JObject loadActiveConnection(string activeConnectId, Request request)

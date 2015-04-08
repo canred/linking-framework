@@ -49,6 +49,7 @@ namespace LKWebTemplate.Model.Basic.Table
 		public string ACTION_MODE {get{return "ACTION_MODE" ; }}
 		public string IS_DEFAULT_PAGE {get{return "IS_DEFAULT_PAGE" ; }}
 		public string IS_ADMIN {get{return "IS_ADMIN" ; }}
+		public string NAME_JPN {get{return "NAME_JPN" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public Appmenu_Record CurrentRecord(){
@@ -337,29 +338,6 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180320*/
-		public List<AppmenuApppageV_Record> Link_AppmenuApppageV_By_AppmenuUuid()
-		{
-			try{
-				List<AppmenuApppageV_Record> ret= new List<AppmenuApppageV_Record>();
-				var dbc = LK.Config.DataBase.Factory.getInfo();
-				AppmenuApppageV ___table = new AppmenuApppageV(dbc);
-				SQLCondition condition = new SQLCondition(___table) ;
-				foreach(var item in AllRecord()){
-						condition
-						.L().Equal(___table.APPMENU_UUID,item.UUID).R().Or()  ; 
- 				}
-				condition.CheckSQL();
-				ret=(List<AppmenuApppageV_Record>)
-						___table.Where(condition)
-						.FetchAll<AppmenuApppageV_Record>() ; 
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
-		/*201303180320*/
 		public List<GroupAppmenuV_Record> Link_GroupAppmenuV_By_AppmenuUuid()
 		{
 			try{
@@ -375,6 +353,29 @@ namespace LKWebTemplate.Model.Basic.Table
 				ret=(List<GroupAppmenuV_Record>)
 						___table.Where(condition)
 						.FetchAll<GroupAppmenuV_Record>() ; 
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		/*201303180320*/
+		public List<AppmenuApppageV_Record> Link_AppmenuApppageV_By_AppmenuUuid()
+		{
+			try{
+				List<AppmenuApppageV_Record> ret= new List<AppmenuApppageV_Record>();
+				var dbc = LK.Config.DataBase.Factory.getInfo();
+				AppmenuApppageV ___table = new AppmenuApppageV(dbc);
+				SQLCondition condition = new SQLCondition(___table) ;
+				foreach(var item in AllRecord()){
+						condition
+						.L().Equal(___table.APPMENU_UUID,item.UUID).R().Or()  ; 
+ 				}
+				condition.CheckSQL();
+				ret=(List<AppmenuApppageV_Record>)
+						___table.Where(condition)
+						.FetchAll<AppmenuApppageV_Record>() ; 
 				return ret;
 			}
 			catch (Exception ex){
@@ -456,31 +457,6 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180321*/
-		public List<AppmenuApppageV_Record> Link_AppmenuApppageV_By_AppmenuUuid(OrderLimit limit)
-		{
-			try{
-				List<AppmenuApppageV_Record> ret= new List<AppmenuApppageV_Record>();
-				var dbc = LK.Config.DataBase.Factory.getInfo();
-				AppmenuApppageV ___table = new AppmenuApppageV(dbc);
-				SQLCondition condition = new SQLCondition(___table) ;
-				foreach(var item in AllRecord()){
-						condition
-						.L().Equal(___table.APPMENU_UUID,item.UUID).R().Or()  ; 
- 				}
-				condition.CheckSQL();
-				ret=(List<AppmenuApppageV_Record>)
-						___table.Where(condition)
-						.Order(limit)
-						.Limit(limit)
-						.FetchAll<AppmenuApppageV_Record>() ; 
-				return ret;
-			}
-			catch (Exception ex){
-				log.Error(ex);LK.MyException.MyException.Error(this, ex);
-				throw ex;
-			}
-		}
-		/*201303180321*/
 		public List<GroupAppmenuV_Record> Link_GroupAppmenuV_By_AppmenuUuid(OrderLimit limit)
 		{
 			try{
@@ -498,6 +474,31 @@ namespace LKWebTemplate.Model.Basic.Table
 						.Order(limit)
 						.Limit(limit)
 						.FetchAll<GroupAppmenuV_Record>() ; 
+				return ret;
+			}
+			catch (Exception ex){
+				log.Error(ex);LK.MyException.MyException.Error(this, ex);
+				throw ex;
+			}
+		}
+		/*201303180321*/
+		public List<AppmenuApppageV_Record> Link_AppmenuApppageV_By_AppmenuUuid(OrderLimit limit)
+		{
+			try{
+				List<AppmenuApppageV_Record> ret= new List<AppmenuApppageV_Record>();
+				var dbc = LK.Config.DataBase.Factory.getInfo();
+				AppmenuApppageV ___table = new AppmenuApppageV(dbc);
+				SQLCondition condition = new SQLCondition(___table) ;
+				foreach(var item in AllRecord()){
+						condition
+						.L().Equal(___table.APPMENU_UUID,item.UUID).R().Or()  ; 
+ 				}
+				condition.CheckSQL();
+				ret=(List<AppmenuApppageV_Record>)
+						___table.Where(condition)
+						.Order(limit)
+						.Limit(limit)
+						.FetchAll<AppmenuApppageV_Record>() ; 
 				return ret;
 			}
 			catch (Exception ex){
@@ -698,11 +699,11 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180324*/
-		public AppmenuApppageV LinkFill_AppmenuApppageV_By_AppmenuUuid()
+		public GroupAppmenuV LinkFill_GroupAppmenuV_By_AppmenuUuid()
 		{
 			try{
-				var data = Link_AppmenuApppageV_By_AppmenuUuid();
-				AppmenuApppageV ret=new AppmenuApppageV(data);
+				var data = Link_GroupAppmenuV_By_AppmenuUuid();
+				GroupAppmenuV ret=new GroupAppmenuV(data);
 				return ret;
 			}
 			catch (Exception ex){
@@ -711,11 +712,11 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180324*/
-		public GroupAppmenuV LinkFill_GroupAppmenuV_By_AppmenuUuid()
+		public AppmenuApppageV LinkFill_AppmenuApppageV_By_AppmenuUuid()
 		{
 			try{
-				var data = Link_GroupAppmenuV_By_AppmenuUuid();
-				GroupAppmenuV ret=new GroupAppmenuV(data);
+				var data = Link_AppmenuApppageV_By_AppmenuUuid();
+				AppmenuApppageV ret=new AppmenuApppageV(data);
 				return ret;
 			}
 			catch (Exception ex){
@@ -763,11 +764,11 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180325*/
-		public AppmenuApppageV LinkFill_AppmenuApppageV_By_AppmenuUuid(OrderLimit limit)
+		public GroupAppmenuV LinkFill_GroupAppmenuV_By_AppmenuUuid(OrderLimit limit)
 		{
 			try{
-				var data = Link_AppmenuApppageV_By_AppmenuUuid(limit);
-				AppmenuApppageV ret=new AppmenuApppageV(data);
+				var data = Link_GroupAppmenuV_By_AppmenuUuid(limit);
+				GroupAppmenuV ret=new GroupAppmenuV(data);
 				return ret;
 			}
 			catch (Exception ex){
@@ -776,11 +777,11 @@ namespace LKWebTemplate.Model.Basic.Table
 			}
 		}
 		/*201303180325*/
-		public GroupAppmenuV LinkFill_GroupAppmenuV_By_AppmenuUuid(OrderLimit limit)
+		public AppmenuApppageV LinkFill_AppmenuApppageV_By_AppmenuUuid(OrderLimit limit)
 		{
 			try{
-				var data = Link_GroupAppmenuV_By_AppmenuUuid(limit);
-				GroupAppmenuV ret=new GroupAppmenuV(data);
+				var data = Link_AppmenuApppageV_By_AppmenuUuid(limit);
+				AppmenuApppageV ret=new AppmenuApppageV(data);
 				return ret;
 			}
 			catch (Exception ex){

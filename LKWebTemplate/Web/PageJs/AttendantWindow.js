@@ -4,12 +4,12 @@ Ext.define('WS.AttendantWindow', {
     icon: SYSTEM_URL_ROOT + '/css/images/manb16x16.png',
     title: '人員維護',
     closable: false,
-	modal: true,
+    modal: true,
     closeAction: 'destroy',
     param: {
         uuid: undefined
     },
-    height: 380,
+    height: 400,
     width: 550,
     layout: 'fit',
     resizable: false,
@@ -154,6 +154,33 @@ Ext.define('WS.AttendantWindow', {
                             inputValue: 'N',
                             padding: '0 0 0 60'
                         }]
+                    },{
+                        xtype: 'container',
+                        layout: 'hbox',
+                        defaultType: 'radiofield',
+                        items: [{
+                            fieldLabel: '使用語言',
+                            labelAlign: 'right',
+                            boxLabel: '繁中',
+                            name: 'CODE_PAGE',
+                            inputValue: 'CHT',
+                            checked: true
+                        }, {
+                            boxLabel: '簡中',
+                            name: 'CODE_PAGE',
+                            inputValue: 'CHS',
+                            padding: '0 0 0 10'
+                        }, {
+                            boxLabel: '英文',
+                            name: 'CODE_PAGE',
+                            inputValue: 'ENG',
+                            padding: '0 0 0 10'
+                        }, {
+                            boxLabel: '日文',
+                            name: 'CODE_PAGE',
+                            inputValue: 'JPN',
+                            padding: '0 0 0 10'
+                        }]
                     }, {
                         xtype: 'hiddenfield',
                         fieldLabel: 'UUID',
@@ -217,8 +244,10 @@ Ext.define('WS.AttendantWindow', {
                         waitMsg: '更新中...',
                         success: function(form, action) {
                             this.param.uuid = action.result.UUID;
-                            this.down("#UUID").setValue(action.result.UUID);
-
+                            this.down("#UUID").setValue(action.result.UUID);                            
+                            if(action.result.ChangeLanguage=='YES'){
+                                this.param.ChangeLanguage = true;
+                            };
                             this.down("#AttendantForm").getForm().load({
                                 params: {
                                     'pUuid': this.param.uuid
@@ -265,8 +294,8 @@ Ext.define('WS.AttendantWindow', {
             }, {
                 icon: SYSTEM_URL_ROOT + '/css/custimages/exit16x16.png',
                 text: '關閉',
-                handler: function() {
-                    this.up('window').hide();
+                handler: function() {                    
+                    this.up('window').close();
                 }
             }]
         })];
@@ -306,7 +335,7 @@ Ext.define('WS.AttendantWindow', {
                 this.down('#AttendantForm').getForm().reset();
             };
         },
-        'hide': function() {
+        'close': function() {
             this.closeEvent();
         }
     }
