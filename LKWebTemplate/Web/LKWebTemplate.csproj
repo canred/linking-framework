@@ -45,10 +45,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LK, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>refDll\LK.dll</HintPath>
-    </Reference>
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data, Version=6.9.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json.Net35, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
@@ -13262,7 +13258,10 @@
     <Content Include="js\ux\google\Api.js" />
     <Content Include="js\ux\google\Feeds.js" />
     <Content Include="LKWebTemplate4.png" />
-    <Content Include="PageJs\AllModel.js" />
+    <Content Include="PageJs\Direct%40System.js" />
+    <Content Include="PageJs\Direct-Basic.js" />
+    <Content Include="PageJs\Model%40System.js" />
+    <Content Include="PageJs\Model-Basic.js" />
     <Content Include="PageJs\ApplicationWindow.js" />
     <Content Include="PageJs\AppMenuVTree.js" />
     <Content Include="PageJs\AppPagePickerWindow.js" />
@@ -18090,6 +18089,12 @@
     <Folder Include="initDataBase\SQL\MSSQL\VIEW-Action\" />
     <Folder Include="initDataBase\SQL\MYSQL\VIEW-Action\" />
     <Folder Include="initDataBase\SQL\ORACLE\VIEW-Action\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\LK\LK.csproj">
+      <Project>{432fae84-a610-4369-8b98-09eb97c269ca}</Project>
+      <Name>LK</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

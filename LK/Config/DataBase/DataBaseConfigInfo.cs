@@ -14,6 +14,7 @@ namespace LK.Config.DataBase
         private static readonly Timer baseConfigTimer = new Timer(15000);
         private static System.Xml.XmlDocument m_configinfo;
         private static System.Data.DataTable m_dt;
+        private static Object thisLock = new object();
         /// <summary>
         /// 靜態構造函數初始化相應實例和定時器
         /// </summary>
@@ -49,51 +50,54 @@ namespace LK.Config.DataBase
             {
                 if (m_configinfo.FirstChild.NextSibling != null)
                 {
-                    m_dt = new System.Data.DataTable();
-                    m_dt.Columns.Add("key");
-                    m_dt.Columns.Add("value");
-                    m_dt.Columns.Add("Type");
-                    m_dt.Columns.Add("DataSchema");
-                    m_dt.Columns.Add("Case_Sensitive");
-                    m_dt.Columns.Add("where");
-                    m_dt.Columns.Add("count");
-                    m_dt.Columns.Add("hit");
-                    m_dt.Columns.Add("rate");
-                    m_dt.Columns.Add("logSQL");
-                    m_dt.AcceptChanges();
-                    foreach (XmlNode item in m_configinfo.FirstChild.NextSibling.ChildNodes)
+                    lock (thisLock)
                     {
-                        var newRow = m_dt.NewRow();
-
-                        if (item.Name == "DB")
+                        m_dt = new System.Data.DataTable();
+                        m_dt.Columns.Add("key");
+                        m_dt.Columns.Add("value");
+                        m_dt.Columns.Add("Type");
+                        m_dt.Columns.Add("DataSchema");
+                        m_dt.Columns.Add("Case_Sensitive");
+                        m_dt.Columns.Add("where");
+                        m_dt.Columns.Add("count");
+                        m_dt.Columns.Add("hit");
+                        m_dt.Columns.Add("rate");
+                        m_dt.Columns.Add("logSQL");
+                        m_dt.AcceptChanges();
+                        foreach (XmlNode item in m_configinfo.FirstChild.NextSibling.ChildNodes)
                         {
-                            newRow["key"] = item.Name + "->" + item.Attributes["Name"].Value;
-                            if (item.Attributes["Type"] != null)
+                            #region
+                            var newRow = m_dt.NewRow();
+                            if (item.Name == "DB")
                             {
-                                newRow["Type"] = item.Attributes["Type"].Value;
+                                newRow["key"] = item.Name + "->" + item.Attributes["Name"].Value;
+                                if (item.Attributes["Type"] != null)
+                                {
+                                    newRow["Type"] = item.Attributes["Type"].Value;
+                                }
+                                if (item.Attributes["DataSchema"] != null)
+                                {
+                                    newRow["DataSchema"] = item.Attributes["DataSchema"].Value;
+                                }
+                                if (item.Attributes["Case_Sensitive"] != null)
+                                {
+                                    newRow["Case_Sensitive"] = item.Attributes["Case_Sensitive"].Value;
+                                }
+                                if (item.Attributes["Where"] != null)
+                                {
+                                    newRow["Where"] = item.Attributes["Where"].Value;
+                                }
                             }
-                            if (item.Attributes["DataSchema"] != null)
+                            else
                             {
-                                newRow["DataSchema"] = item.Attributes["DataSchema"].Value;
+                                newRow["key"] = item.Name;
                             }
-                            if (item.Attributes["Case_Sensitive"] != null)
-                            {
-                                newRow["Case_Sensitive"] = item.Attributes["Case_Sensitive"].Value;
-                            }
-                            if (item.Attributes["Where"] != null)
-                            {
-                                newRow["Where"] = item.Attributes["Where"].Value;
-                            }                           
+                            newRow["value"] = (item).InnerText;
+                            m_dt.Rows.Add(newRow);
+                            #endregion
                         }
-                        else
-                        {
-                            newRow["key"] = item.Name;
-                        }
-                        newRow["value"] = (item).InnerText;
-                        
-                        m_dt.Rows.Add(newRow);
+                        m_dt.AcceptChanges();
                     }
-                    m_dt.AcceptChanges();
                 }
                 return m_dt;
             }

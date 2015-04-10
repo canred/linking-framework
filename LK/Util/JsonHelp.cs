@@ -69,7 +69,15 @@ namespace LK.Util
             try
             {
                 JObject ret = new JObject();
-                ret = JObject.Parse(DataTable2Json(result, start, limit));
+                System.Collections.Hashtable ht = new System.Collections.Hashtable();
+                foreach (System.Data.DataColumn dc in result.Columns)
+                {
+                    if (!ht.ContainsKey(dc.ColumnName))
+                    {
+                        ht.Add(dc.ColumnName, dc.DataType.Name);
+                    }
+                };
+                ret = JObject.Parse(DataTable2Json(ht,result, start, limit));
                 return ret;
             }
             catch (Exception ex)
@@ -245,6 +253,7 @@ namespace LK.Util
 
         private static System.Collections.Hashtable getTableColumnToHt( LK.DB.RecordBase c) {
             System.Collections.Hashtable ht = new System.Collections.Hashtable();
+           
             foreach (var col in c.getAllColumn()) {
                 ht.Add(col.Name,col.GetType().Name);
             }
@@ -255,6 +264,10 @@ namespace LK.Util
             where T : LK.DB.RecordBase
         {
             System.Collections.Hashtable ht = new System.Collections.Hashtable();
+            if (t.Count == 0)
+            {
+                return ht;
+            };
             foreach (var col in t.First().getAllColumn())
             {
                 ht.Add(col.Name, col.GetType().Name);
@@ -452,51 +465,53 @@ namespace LK.Util
             ret = cleanString(ret);
             return ret;
         }
-        public static string DataTable2Json(DataTable result, int start, int limit)
+        public static string DataTable2Json(System.Collections.Hashtable htCol,DataTable result, int start, int limit)
         {
             string ret = "";
             ret = "{";
             ret += "'TotalResults':" + result.Rows.Count + ",";
             ret += "'TotalPages':" + ((result.Rows.Count / limit) + 1) + ",'Item':[";
             int i = 0;
+           
             foreach (DataRow item in result.Rows)
             {
                 if (i >= start && i < start + limit)
                 {
                     ret += "{";
                     #region 在欄位中找Mappint
-                    foreach (System.Data.DataColumn dc in result.Columns)
-                    {
-                        if (item[dc.ColumnName].ToString().Trim().Length == 0)
+                    foreach (System.Collections.DictionaryEntry col in htCol) {
+                        #region
+
+                        if ( item[col.Key.ToString()].ToString().Trim().Length == 0)
                         {
-                            ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'',";
+                            ret += "'" + col.Key.ToString().ToUpper() + "'" + ":'',";
                         }
                         else
                         {
-                            var colType = result.Columns[dc.ColumnName].DataType.Name;
+                            var colType = col.Value.ToString();// result.Columns[dc.ColumnName].DataType.Name;
                             switch (colType)
                             {
                                 case "String":
-                                    ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()).Replace("\r\n", "\\r\\n") + "',";
+                                    ret += "'" + col.Key.ToString().ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[col.Key.ToString()].ToString()).Replace("\r\n", "\\r\\n") + "',";
                                     break;
                                 case "DateTime":
                                     var _dataTime = DateTime.MinValue;
-                                    var isDateTime = DateTime.TryParse(item[dc.ColumnName].ToString(), out _dataTime);
+                                    var isDateTime = DateTime.TryParse(item[col.Key.ToString()].ToString(), out _dataTime);
                                     if (isDateTime)
                                     {
-                                        _dataTime = Convert.ToDateTime(item[dc.ColumnName].ToString());
-                                        ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(_dataTime.ToString("yyyy/MM/dd HH:mm:ss")) + "',";
+                                        _dataTime = Convert.ToDateTime(item[col.Key.ToString()].ToString());
+                                        ret += "'" + col.Key.ToString().ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(_dataTime.ToString("yyyy/MM/dd HH:mm:ss")) + "',";
                                     }
                                     else
                                     {
-                                        ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
+                                        ret += "'" + col.Key.ToString().ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[col.Key.ToString()].ToString()) + "',";
                                     }
                                     break;
                                 case "Decimal":
-                                    ret += "'" + dc.ColumnName.ToUpper() + "'" + ":" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + ",";
+                                    ret += "'" + col.Key.ToString().ToUpper() + "'" + ":" + System.Security.SecurityElement.Escape(item[col.Key.ToString()].ToString()) + ",";
                                     break;
                                 default:
-                                    ret += "'" + dc.ColumnName.ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
+                                    ret += "'" + col.Key.ToString().ToUpper() + "'" + ":'" + System.Security.SecurityElement.Escape(item[col.Key.ToString()].ToString()) + "',";
                                     break;
                             }
                             if (result.Constraints.Count > 0)
@@ -504,33 +519,33 @@ namespace LK.Util
                                 #region 加入PK資訊
                                 foreach (var ct in ((System.Data.UniqueConstraint)(result.Constraints[0])).Columns)
                                 {
-                                    if (ct.ToString().ToLower() == dc.ColumnName.ToUpper())
+                                    if (ct.ToString().ToLower() == col.Key.ToString().ToUpper())
                                     {
                                         switch (colType)
                                         {
                                             case "String":
-                                                ret += "'PK_" + dc.ColumnName.ToUpper() + "':'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
+                                                ret += "'PK_" + col.Key.ToString().ToUpper() + "':'" + System.Security.SecurityElement.Escape(item[col.Key.ToString()].ToString()) + "',";
 
                                                 break;
                                             case "DateTime":
                                                 var _dataTime = DateTime.MinValue;
-                                                var isDateTime = DateTime.TryParse(item[dc.ColumnName].ToString(), out _dataTime);
+                                                var isDateTime = DateTime.TryParse(item[col.Key.ToString()].ToString(), out _dataTime);
                                                 if (isDateTime)
                                                 {
-                                                    _dataTime = Convert.ToDateTime(item[dc.ColumnName].ToString());
-                                                    ret += "'PK_" + dc.ColumnName.ToUpper() + "':'" + System.Security.SecurityElement.Escape(_dataTime.ToString("yyyy/MM/dd HH:mm:ss")) + "',";
+                                                    _dataTime = Convert.ToDateTime(item[col.Key.ToString()].ToString());
+                                                    ret += "'PK_" + col.Key.ToString().ToUpper() + "':'" + System.Security.SecurityElement.Escape(_dataTime.ToString("yyyy/MM/dd HH:mm:ss")) + "',";
                                                 }
                                                 else
                                                 {
-                                                    ret += "'PK_" + dc.ColumnName.ToUpper() + "':'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
+                                                    ret += "'PK_" + col.Key.ToString().ToUpper() + "':'" + System.Security.SecurityElement.Escape(item[col.Key.ToString()].ToString()) + "',";
 
                                                 }
                                                 break;
                                             case "Decimal":
-                                                ret += "'PK_" + dc.ColumnName.ToUpper() + "':" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + ",";
+                                                ret += "'PK_" + col.Key.ToString().ToUpper() + "':" + System.Security.SecurityElement.Escape(item[col.Key.ToString()].ToString()) + ",";
                                                 break;
                                             default:
-                                                ret += "'PK_" + dc.ColumnName.ToUpper() + "':'" + System.Security.SecurityElement.Escape(item[dc.ColumnName].ToString()) + "',";
+                                                ret += "'PK_" + col.Key.ToString().ToUpper() + "':'" + System.Security.SecurityElement.Escape(item[col.Key.ToString()].ToString()) + "',";
                                                 break;
                                         }
                                         break;
@@ -539,7 +554,12 @@ namespace LK.Util
                                 #endregion
                             }
                         }
+                        #endregion
                     }
+                    //foreach (System.Data.DataColumn dc in result.Columns)
+                    //{
+                       
+                    //}
                     #endregion  在欄位中找Mappint
                     if (ret.EndsWith(","))
                         ret = ret.Remove(ret.Length - 1, 1);

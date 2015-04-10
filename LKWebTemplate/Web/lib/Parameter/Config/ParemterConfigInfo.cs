@@ -4,7 +4,7 @@ using LK.Config;
 namespace LKWebTemplate.Parameter.Config
 {
     [Serializable]
-    public class ParemterConfigInfo : IConfigInfo
+    public partial class ParemterConfigInfo : IConfigInfo
     {
 
         private string _appName = "";

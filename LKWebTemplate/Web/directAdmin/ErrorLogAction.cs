@@ -81,15 +81,7 @@ public partial class ErrorLogAction : BaseAction
             {
                 throw new Exception("Permission Denied!");
             };
-            var data = basicModel.getAllErrorLog_ByIsRead("N");
-            if (data.Count > 0)
-            {
-                foreach (ErrorLog_Record dr in data)
-                {
-                    dr.IS_READ = "Y";
-                    dr.gotoTable().Update(dr);
-                }
-            }
+            basicModel.setAllErrorLog_IsRead();
             return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
         }
         catch (Exception ex)

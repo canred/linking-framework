@@ -10,7 +10,7 @@ Ext.define('WS.AttendantPickerWindow', {
         attendant: Ext.create('Ext.data.Store', {
             successProperty: 'success',
             autoLoad: true,
-            model: 'ATTEDNANTVV',
+            model: 'ATTENDANT_V',
             pageSize: 10,
             proxy: {
                 type: 'direct',

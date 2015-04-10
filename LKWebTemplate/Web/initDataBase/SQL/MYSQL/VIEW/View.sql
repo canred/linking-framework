@@ -741,11 +741,7 @@ VIEW `appmenu_apppage_v_sub1` AS
             and (`page`.`is_active` = 'Y')
             and (`si`.`apppage_uuid` = `page`.`uuid`))
 ;
-CREATE 
-     
-    
-    
-VIEW `appmenu_apppage_v` AS
+CREATE VIEW `appmenu_apppage_v` AS
     select 
         `am`.`uuid` AS `UUID`,
         `am`.`is_active` AS `IS_ACTIVE`,
@@ -780,11 +776,7 @@ VIEW `appmenu_apppage_v` AS
     where
         (`am`.`is_active` = 'Y')
 ;
-CREATE 
-     
-    
-    
-VIEW `appmenu_v` AS
+CREATE VIEW `appmenu_v` AS
     select 
         parentlst(`am`.`uuid`) AS `parentlst`,
         `am`.`uuid` AS `UUID`,

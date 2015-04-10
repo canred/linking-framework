@@ -56,7 +56,7 @@ Ext.define('APPPAGE', {
     ]
 });
 
-Ext.define('ATTEDNANTVV', {
+Ext.define('ATTENDANT_V', {
     extend: 'Ext.data.Model',
     fields: [
         'COMPANY_ID',
@@ -92,7 +92,8 @@ Ext.define('ATTEDNANTVV', {
         'IS_DIRECT',
         'GRADE',
         'ID',
-        'IS_DEFAULT_PASS'
+        'IS_DEFAULT_PASS',
+		'PICTURE_URL'
     ]
 });
 
@@ -176,6 +177,7 @@ Ext.define('V_APPMENU_PROXY_MAP', {
         'NAME_ZH_TW',
         'NAME_ZH_CN',
         'NAME_EN_US',
+        'NAME_JPN',
         'UUID',
         'APPMENU_PROXY_UUID',
         'APPMENU_UUID',

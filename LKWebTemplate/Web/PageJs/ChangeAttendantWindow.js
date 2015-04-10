@@ -29,7 +29,7 @@ Ext.define('WS.ChangeAttendantWindow', {
         attendantV: Ext.create('Ext.data.Store', {
             successProperty: 'success',
             autoLoad: false,
-            model: 'ATTEDNANTVV',
+            model: 'ATTENDANT_V',
             pageSize: 10,
             proxy: {
                 type: 'direct',

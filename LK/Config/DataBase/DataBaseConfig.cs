@@ -13,6 +13,7 @@ namespace LK.Config.DataBase
         public static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);        
         private static string _focusTag = "DataBaseConfig";
         private static string focusTag = "DataBaseConfig";
+        private static Object thisLock = new object();
         public static string filename;
         #region DataBaseConfigFileManager()
         static DataBaseConfig()
@@ -44,42 +45,40 @@ namespace LK.Config.DataBase
         {
             try
             {
-                HttpContext context = HttpContext.Current;
-                var nv = new NameValueCollection();
-                var a = new object();
-                lock (a)
-                {
-                    focusTag = _focusTag;
-                }
-                nv = (NameValueCollection)ConfigurationManager.GetSection("APConfigFiles");
-                for (int i = 0; i < nv.AllKeys.Length; i++)
-                {
-                    if (nv.AllKeys[i].ToUpper() == focusTag.ToUpper())
+                lock (thisLock) {
+                    HttpContext context = HttpContext.Current;
+                    var nv = new NameValueCollection();                    
+                    focusTag = _focusTag;                    
+                    nv = (NameValueCollection)ConfigurationManager.GetSection("APConfigFiles");
+                    for (int i = 0; i < nv.AllKeys.Length; i++)
                     {
-                        filename = nv[i];
-                        break;
+                        if (nv.AllKeys[i].ToUpper() == focusTag.ToUpper())
+                        {
+                            filename = nv[i];
+                            break;
+                        }
                     }
-                }
-                if (context != null)
-                {
-                    if (filename.IndexOf("~") > -1)
+                    if (context != null)
                     {
-                        filename = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + filename.Replace("~", "");                            
+                        if (filename.IndexOf("~") > -1)
+                        {
+                            filename = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + filename.Replace("~", "");
+                        }
+                        else
+                        {
+                            filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
+                        }
                     }
                     else
                     {
-                        filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
+                        filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename.Replace("~/", ""));
                     }
-                }
-                else
-                {
-                    filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename.Replace("~/", ""));
-                }
-                if (!File.Exists(filename))
-                {
-                    throw new Exception("發生錯誤: 沒有正確的" + focusTag + "文件");
-                }
-                return filename;
+                    if (!File.Exists(filename))
+                    {
+                        throw new Exception("發生錯誤: 沒有正確的" + focusTag + "文件");
+                    }
+                    return filename;
+                }                
             }
             catch (Exception ex)
             {

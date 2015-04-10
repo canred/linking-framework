@@ -77,7 +77,7 @@ Ext.define('WS.GroupWindow', {
         attendantnotingroupattendant: Ext.create('Ext.data.Store', {
             successProperty: 'success',
             autoLoad: false,
-            model: 'ATTEDNANTVV',
+            model: 'ATTENDANT_V',
             pageSize: 9999,
             proxy: {
                 type: 'direct',
@@ -116,7 +116,7 @@ Ext.define('WS.GroupWindow', {
         attendantingroupattendant: Ext.create('Ext.data.Store', {
             successProperty: 'success',
             autoLoad: false,
-            model: 'ATTEDNANTVV',
+            model: 'ATTENDANT_V',
             pageSize: 9999,
             proxy: {
                 type: 'direct',

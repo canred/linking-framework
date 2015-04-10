@@ -336,6 +336,9 @@ Ext.define('WS.AttendantWindow', {
             };
         },
         'close': function() {
+            if(this.param.ChangeLanguage && this.param.ChangeLanguage==true){
+                location.href = location.href;
+            };
             this.closeEvent();
         }
     }

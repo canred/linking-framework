@@ -44,29 +44,16 @@
         Ext.onReady(function () {
             /*引入ModelAll.js*/
             Ext.Loader.loadScript([
-              SYSTEM_URL_ROOT + '/pagejs/AllModel.js'
+              SYSTEM_URL_ROOT + '/pagejs/Model-Basic.js',
+              SYSTEM_URL_ROOT + '/pagejs/Model@System.js'
             ]);
             /*初始化UTIL類*/
             UTIL = Ext.create('WS.Util');
-            //引入ExtJs Direct Provider
-            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".ApplicationAction"));
-            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".ADAction"));
-            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".AttendantAction"));
-            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".AppPageAction"));
-            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".AuthorityAction"));
-            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".AdminCompanyAction"));
-            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".CompanyAction"));
-            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".DeptAction"));
-            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".ErrorLogAction"));
-            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".GroupHeadAction"));
-            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".GroupAttendantAction"));
-            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".MenuAction"));
-            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".UserAction"));
-            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".SyncClientAction"));
-            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".ScheduleAction"));
-            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".SiteMapAction"));
-            Ext.direct.Manager.addProvider(eval(SYSTEM_APPLICATION + ".ProxyAction"));
-
+            /*引入Direct-xxx文件.js*/
+            Ext.Loader.loadScript([
+              SYSTEM_URL_ROOT + '/pagejs/Direct-Basic.js',
+              SYSTEM_URL_ROOT + '/pagejs/Direct@System.js'
+            ]);
         });
 
         function openAttendantWin() {
@@ -169,8 +156,11 @@
                                         string htmlOutput = "";
                                         if (user != null ) {
                                             if (user.ACCOUNT != LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().GuestAccount)
-                                            {
-                                                htmlOutput += "<img onclick='openAttendantWin();' class='img-circle' style='height:30px;width:30px;cursor:pointer;' src='" + Page.ResolveUrl(getUser().PICTURE_URL) + "'/>";
+                                            {                                                
+                                                if (getUser().PICTURE_URL != null)
+                                                {
+                                                    htmlOutput += "<img onclick='openAttendantWin();' class='img-circle' style='height:30px;width:30px;cursor:pointer;' src='" + Page.ResolveUrl(getUser().PICTURE_URL) + "'/>";
+                                                }
                                             }
                                             else {                                                
                                                 htmlOutput+="<img  style='height:24px' class='img-circle' src='" + Page.ResolveUrl("~/css/custimages/1416389212_010.png") + "'/>";
