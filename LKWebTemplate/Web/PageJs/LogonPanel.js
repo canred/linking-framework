@@ -2,6 +2,60 @@
 var WS_LOGONPANEL;
 /*WS.LogonPanel物件類別*/
 /*columns 使用default*/
+
+Ext.define('WS.GMWindow', {
+        extend : 'Ext.window.Window', 
+        title : 'title',  
+        closeAction : 'destory',
+        width : 200,
+        modal:true,
+        height : 300,        
+        resizable : true,
+        draggable : true,
+        initComponent : function() {        
+            this.items = [{
+                xtype:'textfield',
+                fieldLabel:'fieldLabel',
+                itemId:'txt',
+                value:'Hello world',
+                flex:1                
+            },{
+                xtype:'button',
+                text:'Open',
+                handler:function(handler,scope){
+                    var mainWin = this.up('window');
+                    var subWin= Ext.create('WS.GMWindow',{
+                        param:{
+                            parentObj: mainWin
+                        }
+                    });
+
+
+                    subWin.on('closeEvent',function(self,ret){
+                        //alert(ret);
+                        self.param.parentObj.down("#txtRet").setValue(ret);
+                    });
+                    subWin.show();
+                }
+            },{
+                xtype:'textfield',
+                fieldLabel:'fieldLabel',
+                itemId:'txtRet'          
+            }];
+            this.callParent(arguments);
+        },        
+        listeners : {            
+            'afterrender' : function() {
+                //Ext.getBody().mask();                
+            },
+            'close' : function() {
+                this.fireEvent('closeEvent',this,this.down('#txt').getValue());
+                //Ext.getBody().unmask();
+            }
+        }
+    });        
+
+
 Ext.define('WS.LogonPanel', {
     extend: 'Ext.panel.Panel',
     closeAction: 'destroy',
@@ -224,6 +278,78 @@ Ext.define('WS.LogonPanel', {
                     });
                 }
             }]
+        }, {
+            xtype: 'gridpanel',
+            store: Ext.create('Ext.data.Store', {
+                extend: 'Ext.data.Store',
+                autoLoad: true,
+                model: 'ATTENDANT_V',
+                remoteSort: true,
+                pageSize: 10,
+                proxy: {
+                    type: 'direct',
+                    api: {
+                        read: WS.AttendantAction.load
+                    },
+                    reader: {
+                        root: 'data'
+                    },                   
+                    paramsAsHash: true,
+                    paramOrder: [ 'company_uuid',  'keyword', 'page', 'limit', 'sort', 'dir'],
+                    extraParams: {
+                        'company_uuid': '14043017113800054',
+                        'keyword':''
+                    },
+                    simpleSortMode: true,
+                    listeners: {
+                        exception: function(proxy, response, operation) {
+                            Ext.MessageBox.show({
+                                title: 'REMOTE EXCEPTON A',
+                                msg: operation.getError(),
+                                icon: Ext.MessageBox.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                        }
+                    }
+                },               
+                sorters: [{
+                    property: 'UUID',
+                    direction: 'ASC'
+                }]
+            }),
+            padding: 5,
+            autoScroll: true,
+            columns: [{
+                text: "A",
+                dataIndex: 'C_NAME',
+                align: 'center',
+                flex: 1
+            }, {
+                text: "B",
+                dataIndex: 'COLUMN_NAME_1',
+                align: 'center',
+                flex: 1
+            }],
+            height: 270,
+            bbar: Ext.create('Ext.toolbar.Paging', {
+                //store: storeActivityFiles,
+                displayInfo: true,
+                displayMsg: '第{0}~{1}資料/共{2}筆',
+                emptyMsg: "無資料顯示"
+            }),
+            listeners: {
+                cellclick: function(iView, iCellEl, iColIdx, iRecord, iRowEl, iRowIdx, iEvent) {
+
+                }
+            }
+        },{
+            xtype:'button',
+            text:'open',
+            handler:function(handler,scope){
+                var subWin = Ext.create('WS.GMWindow',{});
+                subWin.show
+();
+            }
         }];
         me.callParent(arguments);
     }

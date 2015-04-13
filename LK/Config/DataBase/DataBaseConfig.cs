@@ -58,7 +58,11 @@ namespace LK.Config.DataBase
                             break;
                         }
                     }
-                    if (context != null)
+                    if (filename.IndexOf(":") > -1)
+                    {
+                        //使用絕對路徑
+                    }
+                    else if (context != null)
                     {
                         if (filename.IndexOf("~") > -1)
                         {

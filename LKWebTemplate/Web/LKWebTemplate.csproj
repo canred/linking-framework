@@ -2912,6 +2912,8 @@
     <Content Include="js\bootstrap-files.js" />
     <Content Include="js\bootstrap-manifest.js" />
     <Content Include="js\chart\canred.js" />
+    <Content Include="js\CHS-Message.js" />
+    <Content Include="js\CHT-Message.js" />
     <Content Include="js\echarts-2.2.1\.gitignore" />
     <Content Include="js\echarts-2.2.1\build\dist\chart\bar.js" />
     <Content Include="js\echarts-2.2.1\build\dist\chart\chord.js" />
@@ -3068,6 +3070,7 @@
     <Content Include="js\echarts-2.2.1\test\performance\option.js" />
     <Content Include="js\echarts-2.2.1\test\performance\p.html" />
     <Content Include="js\echarts-2.2.1\test\performance\p.js" />
+    <Content Include="js\JPN-Message.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\packages\ext-aria\.sencha\package\Boot.js" />
     <Content Include="js\packages\ext-aria\.sencha\package\bootstrap-impl.xml" />
@@ -13241,6 +13244,7 @@
     <Content Include="js\src\window\Toast.js" />
     <Content Include="js\src\window\Window.js" />
     <Content Include="js\src\ZIndexManager.js" />
+    <Content Include="js\US-Message.js" />
     <Content Include="js\ux\css\Explorer.css" />
     <Content Include="js\ux\css\images\explorer-leaf.png" />
     <Content Include="js\ux\css\images\explorer-node.png" />
@@ -13306,6 +13310,7 @@
     <Content Include="refDll\LK.dll" />
     <Content Include="refDll\LK.pdb" />
     <Content Include="refDll\log4net.xml" />
+    <Content Include="test.aspx" />
     <Content Include="Upload\myCompany\user\15033118342900048.jpg" />
     <Content Include="Upload\myCompany\user\15033118345200057.jpg" />
     <Content Include="Upload\myCompany\user\15040109195200097.jpg" />
@@ -13316,7 +13321,9 @@
     <Content Include="Upload\myCompany\user\15040109375600398.jpg" />
     <Content Include="Upload\myCompany\user\15040109380300402.jpg" />
     <Content Include="Warming\NoPermission.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="ProxyTouch.ashx" />
     <Content Include="refDll\GenCode\LK-Gencode.vshost.exe.config" />
     <Content Include="refDll\GenCode\LK_Gencode.exe.config" />
@@ -13415,6 +13422,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="lib\Util\Lan.cs" />
     <Compile Include="mpEmpty.Master.cs">
       <DependentUpon>mpEmpty.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -13432,6 +13440,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProxyTouch.ashx.cs">
       <DependentUpon>ProxyTouch.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="test.aspx.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="test.aspx.designer.cs">
+      <DependentUpon>test.aspx</DependentUpon>
     </Compile>
     <Compile Include="Warming\NoPermission.aspx.cs">
       <DependentUpon>NoPermission.aspx</DependentUpon>

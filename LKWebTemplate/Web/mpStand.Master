@@ -83,6 +83,7 @@
 
         legend {  
           margin-bottom: 0px;
+          width:auto;
         }
     </style>    
     <asp:ContentPlaceHolder ID="head" runat="server">

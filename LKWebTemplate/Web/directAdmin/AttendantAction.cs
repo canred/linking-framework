@@ -88,6 +88,17 @@ public partial class AttendantAction : BaseAction
             /*取得資料*/
             var q1 = DateTime.Now;
             var data = model.getAttendantV_By_CompanyUuid_KeyWord(company_uuid, keyword, orderLimit);
+            
+            //var record = data.First();
+            //record.C_NAME = "GM";
+            //record.gotoTable().Update_Empty2Null(record);
+            //LK.DB.DB db = new LK.DB.DB(record);
+
+            //db.BeginTransaction();
+            //record.gotoTable().Update_Empty2Null(record, db);
+            //db.Commit();
+            
+
             var q2 = DateTime.Now;
             TimeSpan q = q2 - q1;
 
