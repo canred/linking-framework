@@ -31,10 +31,11 @@ Ext.define('WS.GroupWindow', {
     fnQuery: function() {
         var mainWin = this.up('window'),
             store = mainWin.myStore.attendantnotingroupattendant,
-            proxy = store.getProxy();
+            proxy = store.getProxy(),
+            cmbCompany = mainWin.down('#cmbCompany');
         proxy.setExtraParam('group_head_uuid', mainWin.param.uuid);
         proxy.setExtraParam('keyword', mainWin.down('#txtSearch').getValue());
-        proxy.setExtraParam('company_uuid', mainWin.param.companyUuid);
+        proxy.setExtraParam('company_uuid', cmbCompany.getValue());
         store.loadPage(1);
     },
     myStore: {
@@ -117,7 +118,7 @@ Ext.define('WS.GroupWindow', {
             successProperty: 'success',
             autoLoad: false,
             model: 'ATTENDANT_V',
-            pageSize: 9999,
+            pageSize: 999999,
             proxy: {
                 type: 'direct',
                 api: {
@@ -152,7 +153,51 @@ Ext.define('WS.GroupWindow', {
                 direction: 'ASC'
             }]
         }),
-        appmenutree: Ext.create('WS.AppMenuVTree', {})
+        appmenutree: Ext.create('WS.AppMenuVTree', {}),
+        company:Ext.create('Ext.data.Store', {
+            extend : 'Ext.data.Store',
+            autoLoad : false,
+            model : 'COMPANY',
+            remoteSort:true,
+            pageSize : 9999,
+            proxy : {
+                type : 'direct',
+                api : {
+                    read : WS.AdminCompanyAction.loadAllCompany
+                },
+                reader : {
+                    root : 'data'
+                },
+                paramsAsHash : true,
+                paramOrder : ['pKeyword', 'page', 'limit', 'sort', 'dir'],
+                extraParams : {
+                    'pKeyword' : ''
+                },
+                simpleSortMode : true,
+                listeners : {
+                    exception : function(proxy, response, operation) {
+                        Ext.MessageBox.show({
+                            title : 'REMOTE EXCEPTON A',
+                            msg : operation.getError(),
+                            icon : Ext.MessageBox.ERROR,
+                            buttons : Ext.Msg.OK
+                        });
+                    }
+                }
+            },
+            listeners: {
+                load: function(store, records, sucessful, eOpts) {
+                    store.insert(0, {
+                        'UUID': '',
+                        'C_NAME': '全部'
+                    });
+                }
+            },
+            sorters : [{
+                property : 'C_NAME',
+                direction : 'ASC'
+            }]
+        })
     },
     fnSetParentsChecked: function(obj, checked) {
         obj.set('checked', checked);
@@ -467,14 +512,34 @@ Ext.define('WS.GroupWindow', {
                         width: '100%',
                         border: true,
                         labelWidth: 60,
-                        items: [{
+                        items: [
+                        {
                             xtype: 'container',
                             layout: 'hbox',
-                            items: [{
+                            items: [
+                            {
+                                xtype: 'combo',
+                                fieldLabel: '公司', 
+                                labelAlign:'right',                 
+                                itemId:'cmbCompany',
+                                displayField: 'C_NAME',
+                                valueField: 'UUID',
+                                editable: false,
+                                hidden: false,
+                                value:'',
+                                store: this.myStore.company,
+                                listeners : {
+                                    'select' : function(combo,records,eOpts){
+                                
+                                    }
+                                }
+                            },
+                            {
                                 xtype: "textfield",
                                 name: "_txtSearch",
                                 itemId: 'txtSearch',
                                 fieldLabel: '關鍵字',
+                                labelAlign:'right',
                                 width: 200,
                                 enableKeyEvents: true,
                                 listeners: {
@@ -575,7 +640,13 @@ Ext.define('WS.GroupWindow', {
                             },
                             width: '50%',
                             store: this.myStore.attendantingroupattendant,
-                            columns: [{
+                            columns: [
+                            {
+                                header:'公司',sortable: true,
+                                width: 150,
+                                dataIndex: 'COMPANY_C_NAME'
+                            },
+                            {
                                 header: "名稱",
                                 sortable: true,
                                 width: '20%',
@@ -590,6 +661,7 @@ Ext.define('WS.GroupWindow', {
                                 header: "帳號",
                                 width: '20%',
                                 sortable: true,
+                                hidden:true,
                                 dataIndex: 'ACCOUNT'
                             }, {
                                 header: "信箱",
@@ -627,6 +699,7 @@ Ext.define('WS.GroupWindow', {
                 msg: "資料載入中，請稍等...",
                 store: this.myStore.appmenutree
             });
+            this.down('#cmbCompany').getStore().load();
             myMask.show();
             if (this.param.uuid != undefined) {
                 /*When 編輯/刪除資料*/

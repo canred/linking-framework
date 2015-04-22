@@ -7,6 +7,7 @@ Ext.define('WS.ErrorTraceWindow', {
     height: $(document).height() * .9,
     resizable: false,
     draggable: false,
+    modal:true,
     myStore: {
         errorlog: Ext.create('Ext.data.Store', {
             successProperty: 'success',

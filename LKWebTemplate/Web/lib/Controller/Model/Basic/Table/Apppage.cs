@@ -29,20 +29,48 @@ namespace LKWebTemplate.Model.Basic.Table
 			this._All_Record = currenData;
 		}
 		/*欄位資訊 Start*/
-		public string UUID {get{return "UUID" ; }}
-		public string IS_ACTIVE {get{return "IS_ACTIVE" ; }}
-		public string CREATE_DATE {get{return "CREATE_DATE" ; }}
-		public string CREATE_USER {get{return "CREATE_USER" ; }}
-		public string UPDATE_DATE {get{return "UPDATE_DATE" ; }}
-		public string UPDATE_USER {get{return "UPDATE_USER" ; }}
-		public string ID {get{return "ID" ; }}
-		public string NAME {get{return "NAME" ; }}
-		public string DESCRIPTION {get{return "DESCRIPTION" ; }}
-		public string URL {get{return "URL" ; }}
-		public string PARAMETER_CLASS {get{return "PARAMETER_CLASS" ; }}
-		public string APPLICATION_HEAD_UUID {get{return "APPLICATION_HEAD_UUID" ; }}
-		public string P_MODE {get{return "P_MODE" ; }}
-		public string RUNJSFUNCTION {get{return "RUNJSFUNCTION" ; }}
+		public string UUID {
+			[ColumnName("UUID",true,typeof(string))]
+			get{return "UUID" ; }}
+		public string IS_ACTIVE {
+			[ColumnName("IS_ACTIVE",false,typeof(string))]
+			get{return "IS_ACTIVE" ; }}
+		public string CREATE_DATE {
+			[ColumnName("CREATE_DATE",false,typeof(DateTime?))]
+			get{return "CREATE_DATE" ; }}
+		public string CREATE_USER {
+			[ColumnName("CREATE_USER",false,typeof(string))]
+			get{return "CREATE_USER" ; }}
+		public string UPDATE_DATE {
+			[ColumnName("UPDATE_DATE",false,typeof(DateTime?))]
+			get{return "UPDATE_DATE" ; }}
+		public string UPDATE_USER {
+			[ColumnName("UPDATE_USER",false,typeof(string))]
+			get{return "UPDATE_USER" ; }}
+		public string ID {
+			[ColumnName("ID",false,typeof(string))]
+			get{return "ID" ; }}
+		public string NAME {
+			[ColumnName("NAME",false,typeof(string))]
+			get{return "NAME" ; }}
+		public string DESCRIPTION {
+			[ColumnName("DESCRIPTION",false,typeof(string))]
+			get{return "DESCRIPTION" ; }}
+		public string URL {
+			[ColumnName("URL",false,typeof(string))]
+			get{return "URL" ; }}
+		public string PARAMETER_CLASS {
+			[ColumnName("PARAMETER_CLASS",false,typeof(string))]
+			get{return "PARAMETER_CLASS" ; }}
+		public string APPLICATION_HEAD_UUID {
+			[ColumnName("APPLICATION_HEAD_UUID",false,typeof(string))]
+			get{return "APPLICATION_HEAD_UUID" ; }}
+		public string P_MODE {
+			[ColumnName("P_MODE",false,typeof(string))]
+			get{return "P_MODE" ; }}
+		public string RUNJSFUNCTION {
+			[ColumnName("RUNJSFUNCTION",false,typeof(string))]
+			get{return "RUNJSFUNCTION" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public Apppage_Record CurrentRecord(){

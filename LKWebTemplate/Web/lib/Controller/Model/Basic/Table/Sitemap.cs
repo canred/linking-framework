@@ -29,17 +29,39 @@ namespace LKWebTemplate.Model.Basic.Table
 			this._All_Record = currenData;
 		}
 		/*欄位資訊 Start*/
-		public string UUID {get{return "UUID" ; }}
-		public string IS_ACTIVE {get{return "IS_ACTIVE" ; }}
-		public string CREATE_DATE {get{return "CREATE_DATE" ; }}
-		public string CREATE_USER {get{return "CREATE_USER" ; }}
-		public string UPDATE_DATE {get{return "UPDATE_DATE" ; }}
-		public string UPDATE_USER {get{return "UPDATE_USER" ; }}
-		public string SITEMAP_UUID {get{return "SITEMAP_UUID" ; }}
-		public string APPPAGE_UUID {get{return "APPPAGE_UUID" ; }}
-		public string ROOT_UUID {get{return "ROOT_UUID" ; }}
-		public string HASCHILD {get{return "HASCHILD" ; }}
-		public string APPLICATION_HEAD_UUID {get{return "APPLICATION_HEAD_UUID" ; }}
+		public string UUID {
+			[ColumnName("UUID",true,typeof(string))]
+			get{return "UUID" ; }}
+		public string IS_ACTIVE {
+			[ColumnName("IS_ACTIVE",false,typeof(string))]
+			get{return "IS_ACTIVE" ; }}
+		public string CREATE_DATE {
+			[ColumnName("CREATE_DATE",false,typeof(DateTime?))]
+			get{return "CREATE_DATE" ; }}
+		public string CREATE_USER {
+			[ColumnName("CREATE_USER",false,typeof(string))]
+			get{return "CREATE_USER" ; }}
+		public string UPDATE_DATE {
+			[ColumnName("UPDATE_DATE",false,typeof(DateTime?))]
+			get{return "UPDATE_DATE" ; }}
+		public string UPDATE_USER {
+			[ColumnName("UPDATE_USER",false,typeof(string))]
+			get{return "UPDATE_USER" ; }}
+		public string SITEMAP_UUID {
+			[ColumnName("SITEMAP_UUID",false,typeof(string))]
+			get{return "SITEMAP_UUID" ; }}
+		public string APPPAGE_UUID {
+			[ColumnName("APPPAGE_UUID",false,typeof(string))]
+			get{return "APPPAGE_UUID" ; }}
+		public string ROOT_UUID {
+			[ColumnName("ROOT_UUID",false,typeof(string))]
+			get{return "ROOT_UUID" ; }}
+		public string HASCHILD {
+			[ColumnName("HASCHILD",false,typeof(string))]
+			get{return "HASCHILD" ; }}
+		public string APPLICATION_HEAD_UUID {
+			[ColumnName("APPLICATION_HEAD_UUID",false,typeof(string))]
+			get{return "APPLICATION_HEAD_UUID" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public Sitemap_Record CurrentRecord(){

@@ -29,11 +29,21 @@ namespace LKWebTemplate.Model.Basic.Table
 			this._All_Record = currenData;
 		}
 		/*欄位資訊 Start*/
-		public string UUID {get{return "UUID" ; }}
-		public string SCHEDULE_UUID {get{return "SCHEDULE_UUID" ; }}
-		public string START_TIME {get{return "START_TIME" ; }}
-		public string FINISH_TIME {get{return "FINISH_TIME" ; }}
-		public string STATUS {get{return "STATUS" ; }}
+		public string UUID {
+			[ColumnName("UUID",true,typeof(string))]
+			get{return "UUID" ; }}
+		public string SCHEDULE_UUID {
+			[ColumnName("SCHEDULE_UUID",false,typeof(string))]
+			get{return "SCHEDULE_UUID" ; }}
+		public string START_TIME {
+			[ColumnName("START_TIME",false,typeof(DateTime?))]
+			get{return "START_TIME" ; }}
+		public string FINISH_TIME {
+			[ColumnName("FINISH_TIME",false,typeof(DateTime?))]
+			get{return "FINISH_TIME" ; }}
+		public string STATUS {
+			[ColumnName("STATUS",false,typeof(string))]
+			get{return "STATUS" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public ScheduleTime_Record CurrentRecord(){

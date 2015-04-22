@@ -29,15 +29,33 @@ namespace LKWebTemplate.Model.Basic.Table
 			this._All_Record = currenData;
 		}
 		/*欄位資訊 Start*/
-		public string UUID {get{return "UUID" ; }}
-		public string CREATE_DATE {get{return "CREATE_DATE" ; }}
-		public string UPDATE_DATE {get{return "UPDATE_DATE" ; }}
-		public string IS_ACTIVE {get{return "IS_ACTIVE" ; }}
-		public string COMPANY_UUID {get{return "COMPANY_UUID" ; }}
-		public string ID {get{return "ID" ; }}
-		public string C_NAME {get{return "C_NAME" ; }}
-		public string E_NAME {get{return "E_NAME" ; }}
-		public string PARENT_SITE_UUID {get{return "PARENT_SITE_UUID" ; }}
+		public string UUID {
+			[ColumnName("UUID",true,typeof(string))]
+			get{return "UUID" ; }}
+		public string CREATE_DATE {
+			[ColumnName("CREATE_DATE",false,typeof(DateTime?))]
+			get{return "CREATE_DATE" ; }}
+		public string UPDATE_DATE {
+			[ColumnName("UPDATE_DATE",false,typeof(DateTime?))]
+			get{return "UPDATE_DATE" ; }}
+		public string IS_ACTIVE {
+			[ColumnName("IS_ACTIVE",false,typeof(string))]
+			get{return "IS_ACTIVE" ; }}
+		public string COMPANY_UUID {
+			[ColumnName("COMPANY_UUID",false,typeof(string))]
+			get{return "COMPANY_UUID" ; }}
+		public string ID {
+			[ColumnName("ID",false,typeof(string))]
+			get{return "ID" ; }}
+		public string C_NAME {
+			[ColumnName("C_NAME",false,typeof(string))]
+			get{return "C_NAME" ; }}
+		public string E_NAME {
+			[ColumnName("E_NAME",false,typeof(string))]
+			get{return "E_NAME" ; }}
+		public string PARENT_SITE_UUID {
+			[ColumnName("PARENT_SITE_UUID",false,typeof(string))]
+			get{return "PARENT_SITE_UUID" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public Site_Record CurrentRecord(){

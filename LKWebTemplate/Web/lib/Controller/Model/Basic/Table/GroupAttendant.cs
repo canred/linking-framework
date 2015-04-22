@@ -29,14 +29,30 @@ namespace LKWebTemplate.Model.Basic.Table
 			this._All_Record = currenData;
 		}
 		/*欄位資訊 Start*/
-		public string UUID {get{return "UUID" ; }}
-		public string IS_ACTIVE {get{return "IS_ACTIVE" ; }}
-		public string CREATE_DATE {get{return "CREATE_DATE" ; }}
-		public string CREATE_USER {get{return "CREATE_USER" ; }}
-		public string UPDATE_DATE {get{return "UPDATE_DATE" ; }}
-		public string UPDATE_USER {get{return "UPDATE_USER" ; }}
-		public string GROUP_HEAD_UUID {get{return "GROUP_HEAD_UUID" ; }}
-		public string ATTENDANT_UUID {get{return "ATTENDANT_UUID" ; }}
+		public string UUID {
+			[ColumnName("UUID",true,typeof(string))]
+			get{return "UUID" ; }}
+		public string IS_ACTIVE {
+			[ColumnName("IS_ACTIVE",false,typeof(string))]
+			get{return "IS_ACTIVE" ; }}
+		public string CREATE_DATE {
+			[ColumnName("CREATE_DATE",false,typeof(DateTime?))]
+			get{return "CREATE_DATE" ; }}
+		public string CREATE_USER {
+			[ColumnName("CREATE_USER",false,typeof(string))]
+			get{return "CREATE_USER" ; }}
+		public string UPDATE_DATE {
+			[ColumnName("UPDATE_DATE",false,typeof(DateTime?))]
+			get{return "UPDATE_DATE" ; }}
+		public string UPDATE_USER {
+			[ColumnName("UPDATE_USER",false,typeof(string))]
+			get{return "UPDATE_USER" ; }}
+		public string GROUP_HEAD_UUID {
+			[ColumnName("GROUP_HEAD_UUID",false,typeof(string))]
+			get{return "GROUP_HEAD_UUID" ; }}
+		public string ATTENDANT_UUID {
+			[ColumnName("ATTENDANT_UUID",false,typeof(string))]
+			get{return "ATTENDANT_UUID" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public GroupAttendant_Record CurrentRecord(){

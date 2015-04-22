@@ -131,6 +131,30 @@ namespace LKWebTemplate
             return null;
         }
 
+        public IList<Limew.Model.Basic.Table.Record.AuthorityMenuV_Record> getUserMenu()
+        {
+            if (ss.ExistKey("USERMENU"))
+            {
+                return (IList<Limew.Model.Basic.Table.Record.AuthorityMenuV_Record>)ss.getObject("USERMENU");
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+          public IList<Limew.Model.Basic.Table.Record.GroupAttendantV_Record> getUserGroup()
+        {
+            if (ss.ExistKey("USER_GROUP"))
+            {
+                return (IList<Limew.Model.Basic.Table.Record.GroupAttendantV_Record>)ss.getObject("USER_GROUP");
+            }
+            else
+            {
+                return null;
+            }
+        }
+        
         public string showSync()
         {
             string ret = "true";

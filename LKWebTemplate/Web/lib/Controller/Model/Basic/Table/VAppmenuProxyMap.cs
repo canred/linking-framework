@@ -29,23 +29,57 @@ namespace LKWebTemplate.Model.Basic.Table
 			this._All_Record = currenData;
 		}
 		/*欄位資訊 Start*/
-		public string PROXY_UUID {get{return "PROXY_UUID" ; }}
-		public string PROXY_ACTION {get{return "PROXY_ACTION" ; }}
-		public string PROXY_METHOD {get{return "PROXY_METHOD" ; }}
-		public string PROXY_DESCRIPTION {get{return "PROXY_DESCRIPTION" ; }}
-		public string PROXY_TYPE {get{return "PROXY_TYPE" ; }}
-		public string NEED_REDIRECT {get{return "NEED_REDIRECT" ; }}
-		public string REDIRECT_PROXY_ACTION {get{return "REDIRECT_PROXY_ACTION" ; }}
-		public string REDIRECT_PROXY_METHOD {get{return "REDIRECT_PROXY_METHOD" ; }}
-		public string REDIRECT_SRC {get{return "REDIRECT_SRC" ; }}
-		public string APPLICATION_HEAD_UUID {get{return "APPLICATION_HEAD_UUID" ; }}
-		public string NAME_ZH_TW {get{return "NAME_ZH_TW" ; }}
-		public string NAME_ZH_CN {get{return "NAME_ZH_CN" ; }}
-		public string NAME_EN_US {get{return "NAME_EN_US" ; }}
-		public string NAME_JPN {get{return "NAME_JPN" ; }}
-		public string UUID {get{return "UUID" ; }}
-		public string APPMENU_PROXY_UUID {get{return "APPMENU_PROXY_UUID" ; }}
-		public string APPMENU_UUID {get{return "APPMENU_UUID" ; }}
+		public string PROXY_UUID {
+			[ColumnName("PROXY_UUID",true,typeof(string))]
+			get{return "PROXY_UUID" ; }}
+		public string PROXY_ACTION {
+			[ColumnName("PROXY_ACTION",false,typeof(string))]
+			get{return "PROXY_ACTION" ; }}
+		public string PROXY_METHOD {
+			[ColumnName("PROXY_METHOD",false,typeof(string))]
+			get{return "PROXY_METHOD" ; }}
+		public string PROXY_DESCRIPTION {
+			[ColumnName("PROXY_DESCRIPTION",false,typeof(string))]
+			get{return "PROXY_DESCRIPTION" ; }}
+		public string PROXY_TYPE {
+			[ColumnName("PROXY_TYPE",false,typeof(string))]
+			get{return "PROXY_TYPE" ; }}
+		public string NEED_REDIRECT {
+			[ColumnName("NEED_REDIRECT",false,typeof(string))]
+			get{return "NEED_REDIRECT" ; }}
+		public string REDIRECT_PROXY_ACTION {
+			[ColumnName("REDIRECT_PROXY_ACTION",false,typeof(string))]
+			get{return "REDIRECT_PROXY_ACTION" ; }}
+		public string REDIRECT_PROXY_METHOD {
+			[ColumnName("REDIRECT_PROXY_METHOD",false,typeof(string))]
+			get{return "REDIRECT_PROXY_METHOD" ; }}
+		public string REDIRECT_SRC {
+			[ColumnName("REDIRECT_SRC",false,typeof(string))]
+			get{return "REDIRECT_SRC" ; }}
+		public string APPLICATION_HEAD_UUID {
+			[ColumnName("APPLICATION_HEAD_UUID",false,typeof(string))]
+			get{return "APPLICATION_HEAD_UUID" ; }}
+		public string NAME_ZH_TW {
+			[ColumnName("NAME_ZH_TW",false,typeof(string))]
+			get{return "NAME_ZH_TW" ; }}
+		public string NAME_ZH_CN {
+			[ColumnName("NAME_ZH_CN",false,typeof(string))]
+			get{return "NAME_ZH_CN" ; }}
+		public string NAME_EN_US {
+			[ColumnName("NAME_EN_US",false,typeof(string))]
+			get{return "NAME_EN_US" ; }}
+		public string NAME_JPN {
+			[ColumnName("NAME_JPN",false,typeof(string))]
+			get{return "NAME_JPN" ; }}
+		public string UUID {
+			[ColumnName("UUID",true,typeof(string))]
+			get{return "UUID" ; }}
+		public string APPMENU_PROXY_UUID {
+			[ColumnName("APPMENU_PROXY_UUID",true,typeof(string))]
+			get{return "APPMENU_PROXY_UUID" ; }}
+		public string APPMENU_UUID {
+			[ColumnName("APPMENU_UUID",false,typeof(string))]
+			get{return "APPMENU_UUID" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public VAppmenuProxyMap_Record CurrentRecord(){

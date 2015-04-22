@@ -192,5 +192,49 @@ public partial class AdminCompanyAction : BaseAction
             return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
+	
+	[DirectMethod("loadAllCompany", DirectAction.Store)]
+    public JObject loadAllCompany(string pKeyword, string pageNo, string limitNo, string sort, string dir, Request request)
+    {
+        #region Declare
+        List<JObject> jobject = new List<JObject>();
+        BasicModel basicModel = new BasicModel();
+        CompanyAction table = new CompanyAction();
+        OrderLimit orderLimit = null;
+        #endregion
+        try
+        {
+            /*Cloud身份檢查*/
+            checkUser(request.HttpRequest);
+            if (this.getUser() == null)
+            {
+                throw new Exception("Identity authentication failed.");
+            }
+            /*權限檢查*/
+            if (!checkProxy(new StackTrace().GetFrame(0)))
+            {
+                throw new Exception("Permission Denied!");
+            };
+            /*是Store操作一下就可能含有分頁資訊。*/
+            orderLimit = ExtDirect.Direct.Helper.Order.getOrderLimit(pageNo, limitNo, sort, dir);
+            /*取得總資料數*/
+            var totalCount = basicModel.getCompany_By_KeyWord_Count(pKeyword);
+            /*取得資料*/
+            var data = basicModel.getCompany_By_KeyWord(pKeyword, orderLimit);
+            if (data.Count > 0)
+            {
+                /*將List<RecordBase>變成JSON字符串*/
+                jobject = JsonHelper.RecordBaseListJObject(data);
+            }
+            /*使用Store Std out 『Sotre物件標準輸出格式』*/
+            return ExtDirect.Direct.Helper.Store.OutputJObject(jobject, totalCount);
+        }
+        catch (Exception ex)
+        {
+            log.Error(ex); LK.MyException.MyException.Error(this, ex);
+            /*將Exception轉成EXT Exception JSON格式*/
+            return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
+        }
+    }
 }
 

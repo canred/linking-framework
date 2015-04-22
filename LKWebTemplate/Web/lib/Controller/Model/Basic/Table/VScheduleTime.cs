@@ -29,34 +29,90 @@ namespace LKWebTemplate.Model.Basic.Table
 			this._All_Record = currenData;
 		}
 		/*欄位資訊 Start*/
-		public string SCHEDULE_UUID {get{return "SCHEDULE_UUID" ; }}
-		public string C_DAY {get{return "C_DAY" ; }}
-		public string C_DAY_OF_MONTH {get{return "C_DAY_OF_MONTH" ; }}
-		public string C_DAY_OF_WEEK {get{return "C_DAY_OF_WEEK" ; }}
-		public string C_HOUR {get{return "C_HOUR" ; }}
-		public string C_MINUTE {get{return "C_MINUTE" ; }}
-		public string C_MONTH {get{return "C_MONTH" ; }}
-		public string C_WEEK {get{return "C_WEEK" ; }}
-		public string C_WEEK_OF_MONTH {get{return "C_WEEK_OF_MONTH" ; }}
-		public string C_WEEK_OF_YEAR {get{return "C_WEEK_OF_YEAR" ; }}
-		public string C_YEAR {get{return "C_YEAR" ; }}
-		public string CYCLE_TYPE {get{return "CYCLE_TYPE" ; }}
-		public string HOUR {get{return "HOUR" ; }}
-		public string IS_ACTIVE {get{return "IS_ACTIVE" ; }}
-		public string IS_CYCLE {get{return "IS_CYCLE" ; }}
-		public string LAST_RUN_STATUS {get{return "LAST_RUN_STATUS" ; }}
-		public string LAST_RUN_TIME {get{return "LAST_RUN_TIME" ; }}
-		public string MINUTE {get{return "MINUTE" ; }}
-		public string RUN_ATTENDANT_UUID {get{return "RUN_ATTENDANT_UUID" ; }}
-		public string RUN_URL {get{return "RUN_URL" ; }}
-		public string RUN_URL_PARAMETER {get{return "RUN_URL_PARAMETER" ; }}
-		public string SCHEDULE_END_DATE {get{return "SCHEDULE_END_DATE" ; }}
-		public string SCHEDULE_NAME {get{return "SCHEDULE_NAME" ; }}
-		public string SINGLE_DATE {get{return "SINGLE_DATE" ; }}
-		public string SCHEDULE_TIME_UUID {get{return "SCHEDULE_TIME_UUID" ; }}
-		public string STATUS {get{return "STATUS" ; }}
-		public string START_TIME {get{return "START_TIME" ; }}
-		public string FINISH_TIME {get{return "FINISH_TIME" ; }}
+		public string SCHEDULE_UUID {
+			[ColumnName("SCHEDULE_UUID",true,typeof(string))]
+			get{return "SCHEDULE_UUID" ; }}
+		public string C_DAY {
+			[ColumnName("C_DAY",false,typeof(int?))]
+			get{return "C_DAY" ; }}
+		public string C_DAY_OF_MONTH {
+			[ColumnName("C_DAY_OF_MONTH",false,typeof(string))]
+			get{return "C_DAY_OF_MONTH" ; }}
+		public string C_DAY_OF_WEEK {
+			[ColumnName("C_DAY_OF_WEEK",false,typeof(string))]
+			get{return "C_DAY_OF_WEEK" ; }}
+		public string C_HOUR {
+			[ColumnName("C_HOUR",false,typeof(int?))]
+			get{return "C_HOUR" ; }}
+		public string C_MINUTE {
+			[ColumnName("C_MINUTE",false,typeof(int?))]
+			get{return "C_MINUTE" ; }}
+		public string C_MONTH {
+			[ColumnName("C_MONTH",false,typeof(int?))]
+			get{return "C_MONTH" ; }}
+		public string C_WEEK {
+			[ColumnName("C_WEEK",false,typeof(int?))]
+			get{return "C_WEEK" ; }}
+		public string C_WEEK_OF_MONTH {
+			[ColumnName("C_WEEK_OF_MONTH",false,typeof(string))]
+			get{return "C_WEEK_OF_MONTH" ; }}
+		public string C_WEEK_OF_YEAR {
+			[ColumnName("C_WEEK_OF_YEAR",false,typeof(string))]
+			get{return "C_WEEK_OF_YEAR" ; }}
+		public string C_YEAR {
+			[ColumnName("C_YEAR",false,typeof(int?))]
+			get{return "C_YEAR" ; }}
+		public string CYCLE_TYPE {
+			[ColumnName("CYCLE_TYPE",false,typeof(string))]
+			get{return "CYCLE_TYPE" ; }}
+		public string HOUR {
+			[ColumnName("HOUR",false,typeof(string))]
+			get{return "HOUR" ; }}
+		public string IS_ACTIVE {
+			[ColumnName("IS_ACTIVE",false,typeof(string))]
+			get{return "IS_ACTIVE" ; }}
+		public string IS_CYCLE {
+			[ColumnName("IS_CYCLE",false,typeof(string))]
+			get{return "IS_CYCLE" ; }}
+		public string LAST_RUN_STATUS {
+			[ColumnName("LAST_RUN_STATUS",false,typeof(string))]
+			get{return "LAST_RUN_STATUS" ; }}
+		public string LAST_RUN_TIME {
+			[ColumnName("LAST_RUN_TIME",false,typeof(DateTime?))]
+			get{return "LAST_RUN_TIME" ; }}
+		public string MINUTE {
+			[ColumnName("MINUTE",false,typeof(string))]
+			get{return "MINUTE" ; }}
+		public string RUN_ATTENDANT_UUID {
+			[ColumnName("RUN_ATTENDANT_UUID",false,typeof(string))]
+			get{return "RUN_ATTENDANT_UUID" ; }}
+		public string RUN_URL {
+			[ColumnName("RUN_URL",false,typeof(string))]
+			get{return "RUN_URL" ; }}
+		public string RUN_URL_PARAMETER {
+			[ColumnName("RUN_URL_PARAMETER",false,typeof(string))]
+			get{return "RUN_URL_PARAMETER" ; }}
+		public string SCHEDULE_END_DATE {
+			[ColumnName("SCHEDULE_END_DATE",false,typeof(DateTime?))]
+			get{return "SCHEDULE_END_DATE" ; }}
+		public string SCHEDULE_NAME {
+			[ColumnName("SCHEDULE_NAME",false,typeof(string))]
+			get{return "SCHEDULE_NAME" ; }}
+		public string SINGLE_DATE {
+			[ColumnName("SINGLE_DATE",false,typeof(DateTime?))]
+			get{return "SINGLE_DATE" ; }}
+		public string SCHEDULE_TIME_UUID {
+			[ColumnName("SCHEDULE_TIME_UUID",true,typeof(string))]
+			get{return "SCHEDULE_TIME_UUID" ; }}
+		public string STATUS {
+			[ColumnName("STATUS",false,typeof(string))]
+			get{return "STATUS" ; }}
+		public string START_TIME {
+			[ColumnName("START_TIME",false,typeof(DateTime?))]
+			get{return "START_TIME" ; }}
+		public string FINISH_TIME {
+			[ColumnName("FINISH_TIME",false,typeof(DateTime?))]
+			get{return "FINISH_TIME" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public VScheduleTime_Record CurrentRecord(){

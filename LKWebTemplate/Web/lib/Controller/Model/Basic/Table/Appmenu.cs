@@ -29,27 +29,69 @@ namespace LKWebTemplate.Model.Basic.Table
 			this._All_Record = currenData;
 		}
 		/*欄位資訊 Start*/
-		public string UUID {get{return "UUID" ; }}
-		public string IS_ACTIVE {get{return "IS_ACTIVE" ; }}
-		public string CREATE_DATE {get{return "CREATE_DATE" ; }}
-		public string CREATE_USER {get{return "CREATE_USER" ; }}
-		public string UPDATE_DATE {get{return "UPDATE_DATE" ; }}
-		public string UPDATE_USER {get{return "UPDATE_USER" ; }}
-		public string NAME_ZH_TW {get{return "NAME_ZH_TW" ; }}
-		public string NAME_ZH_CN {get{return "NAME_ZH_CN" ; }}
-		public string NAME_EN_US {get{return "NAME_EN_US" ; }}
-		public string ID {get{return "ID" ; }}
-		public string APPMENU_UUID {get{return "APPMENU_UUID" ; }}
-		public string HASCHILD {get{return "HASCHILD" ; }}
-		public string APPLICATION_HEAD_UUID {get{return "APPLICATION_HEAD_UUID" ; }}
-		public string ORD {get{return "ORD" ; }}
-		public string PARAMETER_CLASS {get{return "PARAMETER_CLASS" ; }}
-		public string IMAGE {get{return "IMAGE" ; }}
-		public string SITEMAP_UUID {get{return "SITEMAP_UUID" ; }}
-		public string ACTION_MODE {get{return "ACTION_MODE" ; }}
-		public string IS_DEFAULT_PAGE {get{return "IS_DEFAULT_PAGE" ; }}
-		public string IS_ADMIN {get{return "IS_ADMIN" ; }}
-		public string NAME_JPN {get{return "NAME_JPN" ; }}
+		public string UUID {
+			[ColumnName("UUID",true,typeof(string))]
+			get{return "UUID" ; }}
+		public string IS_ACTIVE {
+			[ColumnName("IS_ACTIVE",false,typeof(string))]
+			get{return "IS_ACTIVE" ; }}
+		public string CREATE_DATE {
+			[ColumnName("CREATE_DATE",false,typeof(DateTime?))]
+			get{return "CREATE_DATE" ; }}
+		public string CREATE_USER {
+			[ColumnName("CREATE_USER",false,typeof(string))]
+			get{return "CREATE_USER" ; }}
+		public string UPDATE_DATE {
+			[ColumnName("UPDATE_DATE",false,typeof(DateTime?))]
+			get{return "UPDATE_DATE" ; }}
+		public string UPDATE_USER {
+			[ColumnName("UPDATE_USER",false,typeof(string))]
+			get{return "UPDATE_USER" ; }}
+		public string NAME_ZH_TW {
+			[ColumnName("NAME_ZH_TW",false,typeof(string))]
+			get{return "NAME_ZH_TW" ; }}
+		public string NAME_ZH_CN {
+			[ColumnName("NAME_ZH_CN",false,typeof(string))]
+			get{return "NAME_ZH_CN" ; }}
+		public string NAME_EN_US {
+			[ColumnName("NAME_EN_US",false,typeof(string))]
+			get{return "NAME_EN_US" ; }}
+		public string ID {
+			[ColumnName("ID",false,typeof(string))]
+			get{return "ID" ; }}
+		public string APPMENU_UUID {
+			[ColumnName("APPMENU_UUID",false,typeof(string))]
+			get{return "APPMENU_UUID" ; }}
+		public string HASCHILD {
+			[ColumnName("HASCHILD",false,typeof(string))]
+			get{return "HASCHILD" ; }}
+		public string APPLICATION_HEAD_UUID {
+			[ColumnName("APPLICATION_HEAD_UUID",false,typeof(string))]
+			get{return "APPLICATION_HEAD_UUID" ; }}
+		public string ORD {
+			[ColumnName("ORD",false,typeof(decimal?))]
+			get{return "ORD" ; }}
+		public string PARAMETER_CLASS {
+			[ColumnName("PARAMETER_CLASS",false,typeof(string))]
+			get{return "PARAMETER_CLASS" ; }}
+		public string IMAGE {
+			[ColumnName("IMAGE",false,typeof(string))]
+			get{return "IMAGE" ; }}
+		public string SITEMAP_UUID {
+			[ColumnName("SITEMAP_UUID",false,typeof(string))]
+			get{return "SITEMAP_UUID" ; }}
+		public string ACTION_MODE {
+			[ColumnName("ACTION_MODE",false,typeof(string))]
+			get{return "ACTION_MODE" ; }}
+		public string IS_DEFAULT_PAGE {
+			[ColumnName("IS_DEFAULT_PAGE",false,typeof(string))]
+			get{return "IS_DEFAULT_PAGE" ; }}
+		public string IS_ADMIN {
+			[ColumnName("IS_ADMIN",false,typeof(string))]
+			get{return "IS_ADMIN" ; }}
+		public string NAME_JPN {
+			[ColumnName("NAME_JPN",false,typeof(string))]
+			get{return "NAME_JPN" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public Appmenu_Record CurrentRecord(){

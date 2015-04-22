@@ -1755,11 +1755,27 @@ namespace Gencode
             sw.WriteLine("\t\t}");
               
         
-
+            //canred
             sw.WriteLine("\t\t/*欄位資訊 Start*/");
             foreach (var item in source.cols)
             {
-                sw.WriteLine("\t\tpublic string"  + " " + item.columnName.ToUpper() + " {get{return \""+item.columnName.ToUpper()+"\" ; }}");
+                
+                bool isPK = false;
+                foreach (var pk in source.ConstraintCol)
+                {
+                    if (item.columnName.ToUpper() == pk.columnName.ToUpper())
+                    {
+                        isPK = true;
+                    }
+                }
+                
+                
+                //sw.WriteLine("\t\tpublic string"  + " " + item.columnName.ToUpper() + " {get{return \""+item.columnName.ToUpper()+"\" ; }}");
+                sw.WriteLine("\t\tpublic string" + " " + item.columnName.ToUpper() + " {");
+                sw.WriteLine("\t\t\t[ColumnName(\"" + item.columnName.ToUpper() + "\"," + (isPK ? "true" : "false") + ",typeof(" + columnType2objectType(item.columnType) + "))]");
+                sw.WriteLine("\t\t\tget{return \"" + item.columnName.ToUpper() + "\" ; }}")
+                
+                ;
             }
             sw.WriteLine("\t\t/*欄位資訊 End*/");
 

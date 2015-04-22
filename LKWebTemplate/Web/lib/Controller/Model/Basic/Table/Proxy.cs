@@ -29,16 +29,36 @@ namespace LKWebTemplate.Model.Basic.Table
 			this._All_Record = currenData;
 		}
 		/*欄位資訊 Start*/
-		public string UUID {get{return "UUID" ; }}
-		public string PROXY_ACTION {get{return "PROXY_ACTION" ; }}
-		public string PROXY_METHOD {get{return "PROXY_METHOD" ; }}
-		public string DESCRIPTION {get{return "DESCRIPTION" ; }}
-		public string PROXY_TYPE {get{return "PROXY_TYPE" ; }}
-		public string NEED_REDIRECT {get{return "NEED_REDIRECT" ; }}
-		public string REDIRECT_PROXY_ACTION {get{return "REDIRECT_PROXY_ACTION" ; }}
-		public string REDIRECT_PROXY_METHOD {get{return "REDIRECT_PROXY_METHOD" ; }}
-		public string APPLICATION_HEAD_UUID {get{return "APPLICATION_HEAD_UUID" ; }}
-		public string REDIRECT_SRC {get{return "REDIRECT_SRC" ; }}
+		public string UUID {
+			[ColumnName("UUID",true,typeof(string))]
+			get{return "UUID" ; }}
+		public string PROXY_ACTION {
+			[ColumnName("PROXY_ACTION",false,typeof(string))]
+			get{return "PROXY_ACTION" ; }}
+		public string PROXY_METHOD {
+			[ColumnName("PROXY_METHOD",false,typeof(string))]
+			get{return "PROXY_METHOD" ; }}
+		public string DESCRIPTION {
+			[ColumnName("DESCRIPTION",false,typeof(string))]
+			get{return "DESCRIPTION" ; }}
+		public string PROXY_TYPE {
+			[ColumnName("PROXY_TYPE",false,typeof(string))]
+			get{return "PROXY_TYPE" ; }}
+		public string NEED_REDIRECT {
+			[ColumnName("NEED_REDIRECT",false,typeof(string))]
+			get{return "NEED_REDIRECT" ; }}
+		public string REDIRECT_PROXY_ACTION {
+			[ColumnName("REDIRECT_PROXY_ACTION",false,typeof(string))]
+			get{return "REDIRECT_PROXY_ACTION" ; }}
+		public string REDIRECT_PROXY_METHOD {
+			[ColumnName("REDIRECT_PROXY_METHOD",false,typeof(string))]
+			get{return "REDIRECT_PROXY_METHOD" ; }}
+		public string APPLICATION_HEAD_UUID {
+			[ColumnName("APPLICATION_HEAD_UUID",false,typeof(string))]
+			get{return "APPLICATION_HEAD_UUID" ; }}
+		public string REDIRECT_SRC {
+			[ColumnName("REDIRECT_SRC",false,typeof(string))]
+			get{return "REDIRECT_SRC" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public Proxy_Record CurrentRecord(){

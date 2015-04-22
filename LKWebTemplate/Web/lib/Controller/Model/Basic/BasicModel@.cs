@@ -2179,6 +2179,127 @@ namespace LKWebTemplate.Model.Basic
                 throw ex;
             }
         }
+		
+		public IList<AttendantV_Record> getAttendantV_By_KeyWord(string pKeyword, string pIsActive, OrderLimit orderlimit)
+        {
+            try
+            {
+                dbc = LK.Config.DataBase.Factory.getInfo();
+                LKWebTemplate.Model.Basic.Table.AttendantV attendantv = new LKWebTemplate.Model.Basic.Table.AttendantV(dbc);
+
+                SQLCondition sc = new SQLCondition(attendantv);
+                sc
+                .L()
+                    .iBLike(attendantv.ACCOUNT, pKeyword)
+                    .Or()
+                    .iBLike(attendantv.C_NAME, pKeyword)
+                    .Or()
+                    .iBLike(attendantv.DEPARTMENT_C_NAME, pKeyword)
+                    .Or()
+                    .iBLike(attendantv.DEPARTMENT_E_NAME, pKeyword)
+                    .Or()
+                    .iBLike(attendantv.DEPARTMENT_ID, pKeyword)
+                    .Or()
+                    .iBLike(attendantv.E_NAME, pKeyword)
+                    .Or()
+                    .iBLike(attendantv.EMAIL, pKeyword)
+                    .Or()
+                    .iBLike(attendantv.PHONE, pKeyword)
+                .R();
+
+                if (pIsActive.Trim().Length > 0)
+                {
+                    sc.And()
+                        .Equal(attendantv.IS_ACTIVE, pIsActive);
+                }
+
+                var result = attendantv.Where(sc)
+                .Limit(orderlimit)
+                .FetchAll<AttendantV_Record>();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                LK.MyException.MyException.Error(this, ex);
+                throw ex;
+            }
+        }
+		
+		public Int32 getCompany_By_KeyWord_Count(string pKeyword)
+        {
+            try
+            {
+                dbc = LK.Config.DataBase.Factory.getInfo();
+                LKWebTemplate.Model.Basic.Table.Company company = new LKWebTemplate.Model.Basic.Table.Company(dbc);
+                var result = company.Where(new SQLCondition(company)
+                .L()
+                    .iBLike(company.C_NAME, pKeyword)
+                    .Or()
+                    .iBLike(company.E_NAME, pKeyword)
+                    .Or()
+                    .iBLike(company.ID, pKeyword)
+                    .Or()
+                    .iBLike(company.NAME_ZH_CN, pKeyword)
+
+                .R())
+                .FetchCount();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                LK.MyException.MyException.Error(this, ex);
+                throw ex;
+            }
+        }
+		
+		public IList<AttendantV_Record> getAttendantInGroupAttendant(string group_head_uuid, string search_text, string pIsActive, OrderLimit orderLimit)
+        {
+            try
+            {
+                IList<AttendantV_Record> attLst = getAttendantV_By_KeyWord( search_text, pIsActive, orderLimit);
+                IList<GroupAttendantV_Record> groupLst = getGroupAttendantVByGroupHeadUuid(group_head_uuid);
+
+                return (from c in attLst where (from s in groupLst select s.ATTENDANT_UUID).Contains(c.UUID) select c).ToList();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw ex;
+            }
+        }
+
+        public IList<Company_Record> getCompany_By_KeyWord(string pKeyword, OrderLimit orderlimit)
+        {
+            try
+            {
+                dbc = LK.Config.DataBase.Factory.getInfo();
+                LKWebTemplate.Model.Basic.Table.Company company = new LKWebTemplate.Model.Basic.Table.Company(dbc);
+                var result = company.Where(new SQLCondition(company)
+                .L()
+                    .iBLike(company.C_NAME, pKeyword)
+                    .Or()
+                    .iBLike(company.E_NAME, pKeyword)
+                    .Or()
+                    .iBLike(company.ID, pKeyword)
+                    .Or()
+                    .iBLike(company.NAME_ZH_CN, pKeyword)
+
+                .R())
+                .Limit(orderlimit)
+                .FetchAll<Company_Record>();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                LK.MyException.MyException.Error(this, ex);
+                throw ex;
+            }
+        }
 
     }
 }

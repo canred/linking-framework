@@ -46,7 +46,7 @@ public partial class GroupAttendantAction : BaseAction
             };
             /*是Store操作一下就可能含有分頁資訊。*/
             orderLimit = ExtDirect.Direct.Helper.Order.getOrderLimit(pageNo, limitNo, sort, dir);           
-            var data = basicModel.getAttendantInGroupAttendant(pCompanyUuid, group_head_uuid,
+            var data = basicModel.getAttendantInGroupAttendant(group_head_uuid,
                 pKeyword, pIsActive, orderLimit);//basicModel.getGroupHead_By(group_head_uuid, orderLimit);
             if (data.Count > 0)
             {

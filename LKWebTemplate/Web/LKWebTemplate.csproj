@@ -13310,7 +13310,6 @@
     <Content Include="refDll\LK.dll" />
     <Content Include="refDll\LK.pdb" />
     <Content Include="refDll\log4net.xml" />
-    <Content Include="test.aspx" />
     <Content Include="Upload\myCompany\user\15033118342900048.jpg" />
     <Content Include="Upload\myCompany\user\15033118345200057.jpg" />
     <Content Include="Upload\myCompany\user\15040109195200097.jpg" />
@@ -13440,13 +13439,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProxyTouch.ashx.cs">
       <DependentUpon>ProxyTouch.ashx</DependentUpon>
-    </Compile>
-    <Compile Include="test.aspx.cs">
-      <DependentUpon>test.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="test.aspx.designer.cs">
-      <DependentUpon>test.aspx</DependentUpon>
     </Compile>
     <Compile Include="Warming\NoPermission.aspx.cs">
       <DependentUpon>NoPermission.aspx</DependentUpon>

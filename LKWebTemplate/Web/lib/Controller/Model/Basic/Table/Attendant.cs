@@ -29,33 +29,87 @@ namespace LKWebTemplate.Model.Basic.Table
 			this._All_Record = currenData;
 		}
 		/*欄位資訊 Start*/
-		public string UUID {get{return "UUID" ; }}
-		public string CREATE_DATE {get{return "CREATE_DATE" ; }}
-		public string UPDATE_DATE {get{return "UPDATE_DATE" ; }}
-		public string IS_ACTIVE {get{return "IS_ACTIVE" ; }}
-		public string COMPANY_UUID {get{return "COMPANY_UUID" ; }}
-		public string ACCOUNT {get{return "ACCOUNT" ; }}
-		public string C_NAME {get{return "C_NAME" ; }}
-		public string E_NAME {get{return "E_NAME" ; }}
-		public string EMAIL {get{return "EMAIL" ; }}
-		public string PASSWORD {get{return "PASSWORD" ; }}
-		public string IS_SUPPER {get{return "IS_SUPPER" ; }}
-		public string IS_ADMIN {get{return "IS_ADMIN" ; }}
-		public string CODE_PAGE {get{return "CODE_PAGE" ; }}
-		public string DEPARTMENT_UUID {get{return "DEPARTMENT_UUID" ; }}
-		public string PHONE {get{return "PHONE" ; }}
-		public string SITE_UUID {get{return "SITE_UUID" ; }}
-		public string GENDER {get{return "GENDER" ; }}
-		public string BIRTHDAY {get{return "BIRTHDAY" ; }}
-		public string HIRE_DATE {get{return "HIRE_DATE" ; }}
-		public string QUIT_DATE {get{return "QUIT_DATE" ; }}
-		public string IS_MANAGER {get{return "IS_MANAGER" ; }}
-		public string IS_DIRECT {get{return "IS_DIRECT" ; }}
-		public string GRADE {get{return "GRADE" ; }}
-		public string ID {get{return "ID" ; }}
-		public string SRC_UUID {get{return "SRC_UUID" ; }}
-		public string IS_DEFAULT_PASS {get{return "IS_DEFAULT_PASS" ; }}
-		public string PICTURE_URL {get{return "PICTURE_URL" ; }}
+		public string UUID {
+			[ColumnName("UUID",true,typeof(string))]
+			get{return "UUID" ; }}
+		public string CREATE_DATE {
+			[ColumnName("CREATE_DATE",false,typeof(DateTime?))]
+			get{return "CREATE_DATE" ; }}
+		public string UPDATE_DATE {
+			[ColumnName("UPDATE_DATE",false,typeof(DateTime?))]
+			get{return "UPDATE_DATE" ; }}
+		public string IS_ACTIVE {
+			[ColumnName("IS_ACTIVE",false,typeof(string))]
+			get{return "IS_ACTIVE" ; }}
+		public string COMPANY_UUID {
+			[ColumnName("COMPANY_UUID",false,typeof(string))]
+			get{return "COMPANY_UUID" ; }}
+		public string ACCOUNT {
+			[ColumnName("ACCOUNT",false,typeof(string))]
+			get{return "ACCOUNT" ; }}
+		public string C_NAME {
+			[ColumnName("C_NAME",false,typeof(string))]
+			get{return "C_NAME" ; }}
+		public string E_NAME {
+			[ColumnName("E_NAME",false,typeof(string))]
+			get{return "E_NAME" ; }}
+		public string EMAIL {
+			[ColumnName("EMAIL",false,typeof(string))]
+			get{return "EMAIL" ; }}
+		public string PASSWORD {
+			[ColumnName("PASSWORD",false,typeof(string))]
+			get{return "PASSWORD" ; }}
+		public string IS_SUPPER {
+			[ColumnName("IS_SUPPER",false,typeof(string))]
+			get{return "IS_SUPPER" ; }}
+		public string IS_ADMIN {
+			[ColumnName("IS_ADMIN",false,typeof(string))]
+			get{return "IS_ADMIN" ; }}
+		public string CODE_PAGE {
+			[ColumnName("CODE_PAGE",false,typeof(string))]
+			get{return "CODE_PAGE" ; }}
+		public string DEPARTMENT_UUID {
+			[ColumnName("DEPARTMENT_UUID",false,typeof(string))]
+			get{return "DEPARTMENT_UUID" ; }}
+		public string PHONE {
+			[ColumnName("PHONE",false,typeof(string))]
+			get{return "PHONE" ; }}
+		public string SITE_UUID {
+			[ColumnName("SITE_UUID",false,typeof(string))]
+			get{return "SITE_UUID" ; }}
+		public string GENDER {
+			[ColumnName("GENDER",false,typeof(string))]
+			get{return "GENDER" ; }}
+		public string BIRTHDAY {
+			[ColumnName("BIRTHDAY",false,typeof(DateTime?))]
+			get{return "BIRTHDAY" ; }}
+		public string HIRE_DATE {
+			[ColumnName("HIRE_DATE",false,typeof(DateTime?))]
+			get{return "HIRE_DATE" ; }}
+		public string QUIT_DATE {
+			[ColumnName("QUIT_DATE",false,typeof(DateTime?))]
+			get{return "QUIT_DATE" ; }}
+		public string IS_MANAGER {
+			[ColumnName("IS_MANAGER",false,typeof(string))]
+			get{return "IS_MANAGER" ; }}
+		public string IS_DIRECT {
+			[ColumnName("IS_DIRECT",false,typeof(string))]
+			get{return "IS_DIRECT" ; }}
+		public string GRADE {
+			[ColumnName("GRADE",false,typeof(string))]
+			get{return "GRADE" ; }}
+		public string ID {
+			[ColumnName("ID",false,typeof(string))]
+			get{return "ID" ; }}
+		public string SRC_UUID {
+			[ColumnName("SRC_UUID",false,typeof(string))]
+			get{return "SRC_UUID" ; }}
+		public string IS_DEFAULT_PASS {
+			[ColumnName("IS_DEFAULT_PASS",false,typeof(string))]
+			get{return "IS_DEFAULT_PASS" ; }}
+		public string PICTURE_URL {
+			[ColumnName("PICTURE_URL",false,typeof(string))]
+			get{return "PICTURE_URL" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public Attendant_Record CurrentRecord(){

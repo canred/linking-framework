@@ -29,43 +29,117 @@ namespace LKWebTemplate.Model.Basic.Table
 			this._All_Record = currenData;
 		}
 		/*欄位資訊 Start*/
-		public string IS_USER_DEFAULT_PAGE {get{return "IS_USER_DEFAULT_PAGE" ; }}
-		public string UUID {get{return "UUID" ; }}
-		public string IS_ACTIVE {get{return "IS_ACTIVE" ; }}
-		public string CREATE_DATE {get{return "CREATE_DATE" ; }}
-		public string CREATE_USER {get{return "CREATE_USER" ; }}
-		public string UPDATE_DATE {get{return "UPDATE_DATE" ; }}
-		public string UPDATE_USER {get{return "UPDATE_USER" ; }}
-		public string NAME_ZH_TW {get{return "NAME_ZH_TW" ; }}
-		public string NAME_JPN {get{return "NAME_JPN" ; }}
-		public string NAME_ZH_CN {get{return "NAME_ZH_CN" ; }}
-		public string NAME_EN_US {get{return "NAME_EN_US" ; }}
-		public string ID {get{return "ID" ; }}
-		public string APPMENU_UUID {get{return "APPMENU_UUID" ; }}
-		public string HASCHILD {get{return "HASCHILD" ; }}
-		public string APPLICATION_HEAD_UUID {get{return "APPLICATION_HEAD_UUID" ; }}
-		public string ORD {get{return "ORD" ; }}
-		public string PARAMETER_CLASS {get{return "PARAMETER_CLASS" ; }}
-		public string IMAGE {get{return "IMAGE" ; }}
-		public string SITEMAP_UUID {get{return "SITEMAP_UUID" ; }}
-		public string ACTION_MODE {get{return "ACTION_MODE" ; }}
-		public string IS_DEFAULT_PAGE {get{return "IS_DEFAULT_PAGE" ; }}
-		public string IS_ADMIN {get{return "IS_ADMIN" ; }}
-		public string ATTENDANT_UUID {get{return "ATTENDANT_UUID" ; }}
-		public string APPLICATION_NAME {get{return "APPLICATION_NAME" ; }}
-		public string URL {get{return "URL" ; }}
-		public string FUNC_PARAMETER_CLASS {get{return "FUNC_PARAMETER_CLASS" ; }}
-		public string P_MODE {get{return "P_MODE" ; }}
-		public string PROXY_UUID {get{return "PROXY_UUID" ; }}
-		public string PROXY_ACTION {get{return "PROXY_ACTION" ; }}
-		public string PROXY_METHOD {get{return "PROXY_METHOD" ; }}
-		public string PROXY_DESCRIPTION {get{return "PROXY_DESCRIPTION" ; }}
-		public string PROXY_TYPE {get{return "PROXY_TYPE" ; }}
-		public string NEED_REDIRECT {get{return "NEED_REDIRECT" ; }}
-		public string REDIRECT_PROXY_ACTION {get{return "REDIRECT_PROXY_ACTION" ; }}
-		public string REDIRECT_PROXY_METHOD {get{return "REDIRECT_PROXY_METHOD" ; }}
-		public string REDIRECT_SRC {get{return "REDIRECT_SRC" ; }}
-		public string APPMENU_PROXY_UUID {get{return "APPMENU_PROXY_UUID" ; }}
+		public string IS_USER_DEFAULT_PAGE {
+			[ColumnName("IS_USER_DEFAULT_PAGE",false,typeof(string))]
+			get{return "IS_USER_DEFAULT_PAGE" ; }}
+		public string UUID {
+			[ColumnName("UUID",false,typeof(string))]
+			get{return "UUID" ; }}
+		public string IS_ACTIVE {
+			[ColumnName("IS_ACTIVE",false,typeof(string))]
+			get{return "IS_ACTIVE" ; }}
+		public string CREATE_DATE {
+			[ColumnName("CREATE_DATE",false,typeof(DateTime?))]
+			get{return "CREATE_DATE" ; }}
+		public string CREATE_USER {
+			[ColumnName("CREATE_USER",false,typeof(string))]
+			get{return "CREATE_USER" ; }}
+		public string UPDATE_DATE {
+			[ColumnName("UPDATE_DATE",false,typeof(DateTime?))]
+			get{return "UPDATE_DATE" ; }}
+		public string UPDATE_USER {
+			[ColumnName("UPDATE_USER",false,typeof(string))]
+			get{return "UPDATE_USER" ; }}
+		public string NAME_ZH_TW {
+			[ColumnName("NAME_ZH_TW",false,typeof(string))]
+			get{return "NAME_ZH_TW" ; }}
+		public string NAME_JPN {
+			[ColumnName("NAME_JPN",false,typeof(string))]
+			get{return "NAME_JPN" ; }}
+		public string NAME_ZH_CN {
+			[ColumnName("NAME_ZH_CN",false,typeof(string))]
+			get{return "NAME_ZH_CN" ; }}
+		public string NAME_EN_US {
+			[ColumnName("NAME_EN_US",false,typeof(string))]
+			get{return "NAME_EN_US" ; }}
+		public string ID {
+			[ColumnName("ID",false,typeof(string))]
+			get{return "ID" ; }}
+		public string APPMENU_UUID {
+			[ColumnName("APPMENU_UUID",false,typeof(string))]
+			get{return "APPMENU_UUID" ; }}
+		public string HASCHILD {
+			[ColumnName("HASCHILD",false,typeof(string))]
+			get{return "HASCHILD" ; }}
+		public string APPLICATION_HEAD_UUID {
+			[ColumnName("APPLICATION_HEAD_UUID",false,typeof(string))]
+			get{return "APPLICATION_HEAD_UUID" ; }}
+		public string ORD {
+			[ColumnName("ORD",false,typeof(decimal?))]
+			get{return "ORD" ; }}
+		public string PARAMETER_CLASS {
+			[ColumnName("PARAMETER_CLASS",false,typeof(string))]
+			get{return "PARAMETER_CLASS" ; }}
+		public string IMAGE {
+			[ColumnName("IMAGE",false,typeof(string))]
+			get{return "IMAGE" ; }}
+		public string SITEMAP_UUID {
+			[ColumnName("SITEMAP_UUID",false,typeof(string))]
+			get{return "SITEMAP_UUID" ; }}
+		public string ACTION_MODE {
+			[ColumnName("ACTION_MODE",false,typeof(string))]
+			get{return "ACTION_MODE" ; }}
+		public string IS_DEFAULT_PAGE {
+			[ColumnName("IS_DEFAULT_PAGE",false,typeof(string))]
+			get{return "IS_DEFAULT_PAGE" ; }}
+		public string IS_ADMIN {
+			[ColumnName("IS_ADMIN",false,typeof(string))]
+			get{return "IS_ADMIN" ; }}
+		public string ATTENDANT_UUID {
+			[ColumnName("ATTENDANT_UUID",false,typeof(string))]
+			get{return "ATTENDANT_UUID" ; }}
+		public string APPLICATION_NAME {
+			[ColumnName("APPLICATION_NAME",false,typeof(string))]
+			get{return "APPLICATION_NAME" ; }}
+		public string URL {
+			[ColumnName("URL",false,typeof(string))]
+			get{return "URL" ; }}
+		public string FUNC_PARAMETER_CLASS {
+			[ColumnName("FUNC_PARAMETER_CLASS",false,typeof(string))]
+			get{return "FUNC_PARAMETER_CLASS" ; }}
+		public string P_MODE {
+			[ColumnName("P_MODE",false,typeof(string))]
+			get{return "P_MODE" ; }}
+		public string PROXY_UUID {
+			[ColumnName("PROXY_UUID",false,typeof(string))]
+			get{return "PROXY_UUID" ; }}
+		public string PROXY_ACTION {
+			[ColumnName("PROXY_ACTION",false,typeof(string))]
+			get{return "PROXY_ACTION" ; }}
+		public string PROXY_METHOD {
+			[ColumnName("PROXY_METHOD",false,typeof(string))]
+			get{return "PROXY_METHOD" ; }}
+		public string PROXY_DESCRIPTION {
+			[ColumnName("PROXY_DESCRIPTION",false,typeof(string))]
+			get{return "PROXY_DESCRIPTION" ; }}
+		public string PROXY_TYPE {
+			[ColumnName("PROXY_TYPE",false,typeof(string))]
+			get{return "PROXY_TYPE" ; }}
+		public string NEED_REDIRECT {
+			[ColumnName("NEED_REDIRECT",false,typeof(string))]
+			get{return "NEED_REDIRECT" ; }}
+		public string REDIRECT_PROXY_ACTION {
+			[ColumnName("REDIRECT_PROXY_ACTION",false,typeof(string))]
+			get{return "REDIRECT_PROXY_ACTION" ; }}
+		public string REDIRECT_PROXY_METHOD {
+			[ColumnName("REDIRECT_PROXY_METHOD",false,typeof(string))]
+			get{return "REDIRECT_PROXY_METHOD" ; }}
+		public string REDIRECT_SRC {
+			[ColumnName("REDIRECT_SRC",false,typeof(string))]
+			get{return "REDIRECT_SRC" ; }}
+		public string APPMENU_PROXY_UUID {
+			[ColumnName("APPMENU_PROXY_UUID",false,typeof(string))]
+			get{return "APPMENU_PROXY_UUID" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public VAuthProxy_Record CurrentRecord(){

@@ -29,9 +29,15 @@ namespace LKWebTemplate.Model.Basic.Table
 			this._All_Record = currenData;
 		}
 		/*欄位資訊 Start*/
-		public string UUID {get{return "UUID" ; }}
-		public string PROXY_UUID {get{return "PROXY_UUID" ; }}
-		public string APPMENU_UUID {get{return "APPMENU_UUID" ; }}
+		public string UUID {
+			[ColumnName("UUID",true,typeof(string))]
+			get{return "UUID" ; }}
+		public string PROXY_UUID {
+			[ColumnName("PROXY_UUID",false,typeof(string))]
+			get{return "PROXY_UUID" ; }}
+		public string APPMENU_UUID {
+			[ColumnName("APPMENU_UUID",false,typeof(string))]
+			get{return "APPMENU_UUID" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public AppmenuProxyMap_Record CurrentRecord(){

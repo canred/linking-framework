@@ -29,20 +29,48 @@ namespace LKWebTemplate.Model.Basic.Table
 			this._All_Record = currenData;
 		}
 		/*欄位資訊 Start*/
-		public string UUID {get{return "UUID" ; }}
-		public string CREATE_DATE {get{return "CREATE_DATE" ; }}
-		public string UPDATE_DATE {get{return "UPDATE_DATE" ; }}
-		public string IS_ACTIVE {get{return "IS_ACTIVE" ; }}
-		public string ERROR_CODE {get{return "ERROR_CODE" ; }}
-		public string ERROR_TIME {get{return "ERROR_TIME" ; }}
-		public string ERROR_MESSAGE {get{return "ERROR_MESSAGE" ; }}
-		public string APPLICATION_NAME {get{return "APPLICATION_NAME" ; }}
-		public string ATTENDANT_UUID {get{return "ATTENDANT_UUID" ; }}
-		public string ERROR_TYPE {get{return "ERROR_TYPE" ; }}
-		public string IS_READ {get{return "IS_READ" ; }}
-		public string C_NAME {get{return "C_NAME" ; }}
-		public string E_NAME {get{return "E_NAME" ; }}
-		public string ID {get{return "ID" ; }}
+		public string UUID {
+			[ColumnName("UUID",true,typeof(string))]
+			get{return "UUID" ; }}
+		public string CREATE_DATE {
+			[ColumnName("CREATE_DATE",false,typeof(DateTime?))]
+			get{return "CREATE_DATE" ; }}
+		public string UPDATE_DATE {
+			[ColumnName("UPDATE_DATE",false,typeof(DateTime?))]
+			get{return "UPDATE_DATE" ; }}
+		public string IS_ACTIVE {
+			[ColumnName("IS_ACTIVE",false,typeof(string))]
+			get{return "IS_ACTIVE" ; }}
+		public string ERROR_CODE {
+			[ColumnName("ERROR_CODE",false,typeof(string))]
+			get{return "ERROR_CODE" ; }}
+		public string ERROR_TIME {
+			[ColumnName("ERROR_TIME",false,typeof(string))]
+			get{return "ERROR_TIME" ; }}
+		public string ERROR_MESSAGE {
+			[ColumnName("ERROR_MESSAGE",false,typeof(string))]
+			get{return "ERROR_MESSAGE" ; }}
+		public string APPLICATION_NAME {
+			[ColumnName("APPLICATION_NAME",false,typeof(string))]
+			get{return "APPLICATION_NAME" ; }}
+		public string ATTENDANT_UUID {
+			[ColumnName("ATTENDANT_UUID",false,typeof(string))]
+			get{return "ATTENDANT_UUID" ; }}
+		public string ERROR_TYPE {
+			[ColumnName("ERROR_TYPE",false,typeof(string))]
+			get{return "ERROR_TYPE" ; }}
+		public string IS_READ {
+			[ColumnName("IS_READ",false,typeof(string))]
+			get{return "IS_READ" ; }}
+		public string C_NAME {
+			[ColumnName("C_NAME",false,typeof(string))]
+			get{return "C_NAME" ; }}
+		public string E_NAME {
+			[ColumnName("E_NAME",false,typeof(string))]
+			get{return "E_NAME" ; }}
+		public string ID {
+			[ColumnName("ID",false,typeof(string))]
+			get{return "ID" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public ErrorLogV_Record CurrentRecord(){

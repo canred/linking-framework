@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LK.Attribute
 {
-    [System.AttributeUsage(System.AttributeTargets.Field | System.AttributeTargets.Property)]
+    [System.AttributeUsage(System.AttributeTargets.Field | System.AttributeTargets.Property | System.AttributeTargets.Method | System.AttributeTargets.All)]
     public class ColumnName : System.Attribute
     {
         private string columnName = "";

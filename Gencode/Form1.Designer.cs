@@ -294,7 +294,7 @@
             this.label7.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label7.Size = new System.Drawing.Size(176, 22);
             this.label7.TabIndex = 29;
-            this.label7.Text = "Build Code Ver 1.0.2";
+            this.label7.Text = "Build Code Ver 1.0.3";
             this.label7.Click += new System.EventHandler(this.label7_Click_1);
             // 
             // openFileDialog1

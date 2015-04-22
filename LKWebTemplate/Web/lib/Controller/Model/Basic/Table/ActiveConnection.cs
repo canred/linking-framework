@@ -29,14 +29,30 @@ namespace LKWebTemplate.Model.Basic.Table
 			this._All_Record = currenData;
 		}
 		/*欄位資訊 Start*/
-		public string UUID {get{return "UUID" ; }}
-		public string ACCOUNT {get{return "ACCOUNT" ; }}
-		public string COMPANY_UUID {get{return "COMPANY_UUID" ; }}
-		public string IP {get{return "IP" ; }}
-		public string APPLICATION {get{return "APPLICATION" ; }}
-		public string STARTTIME {get{return "STARTTIME" ; }}
-		public string EXPIRESTIME {get{return "EXPIRESTIME" ; }}
-		public string STATUS {get{return "STATUS" ; }}
+		public string UUID {
+			[ColumnName("UUID",true,typeof(string))]
+			get{return "UUID" ; }}
+		public string ACCOUNT {
+			[ColumnName("ACCOUNT",false,typeof(string))]
+			get{return "ACCOUNT" ; }}
+		public string COMPANY_UUID {
+			[ColumnName("COMPANY_UUID",false,typeof(string))]
+			get{return "COMPANY_UUID" ; }}
+		public string IP {
+			[ColumnName("IP",false,typeof(string))]
+			get{return "IP" ; }}
+		public string APPLICATION {
+			[ColumnName("APPLICATION",false,typeof(string))]
+			get{return "APPLICATION" ; }}
+		public string STARTTIME {
+			[ColumnName("STARTTIME",false,typeof(DateTime?))]
+			get{return "STARTTIME" ; }}
+		public string EXPIRESTIME {
+			[ColumnName("EXPIRESTIME",false,typeof(DateTime?))]
+			get{return "EXPIRESTIME" ; }}
+		public string STATUS {
+			[ColumnName("STATUS",false,typeof(string))]
+			get{return "STATUS" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public ActiveConnection_Record CurrentRecord(){

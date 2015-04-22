@@ -29,25 +29,63 @@ namespace LKWebTemplate.Model.Basic.Table
 			this._All_Record = currenData;
 		}
 		/*欄位資訊 Start*/
-		public string UUID {get{return "UUID" ; }}
-		public string CREATE_DATE {get{return "CREATE_DATE" ; }}
-		public string UPDATE_DATE {get{return "UPDATE_DATE" ; }}
-		public string IS_ACTIVE {get{return "IS_ACTIVE" ; }}
-		public string CLASS {get{return "CLASS" ; }}
-		public string ID {get{return "ID" ; }}
-		public string C_NAME {get{return "C_NAME" ; }}
-		public string E_NAME {get{return "E_NAME" ; }}
-		public string VOUCHER_POINT_UUID {get{return "VOUCHER_POINT_UUID" ; }}
-		public string WEEK_SHIFT {get{return "WEEK_SHIFT" ; }}
-		public string OU_SYNC_TYPE {get{return "OU_SYNC_TYPE" ; }}
-		public string NAME_ZH_CN {get{return "NAME_ZH_CN" ; }}
-		public string CONCURRENT_USER {get{return "CONCURRENT_USER" ; }}
-		public string EXPIRED_DATE {get{return "EXPIRED_DATE" ; }}
-		public string SALES_ATTENDANT_UUID {get{return "SALES_ATTENDANT_UUID" ; }}
-		public string IS_SYNC_AD_USER {get{return "IS_SYNC_AD_USER" ; }}
-		public string AD_LDAP {get{return "AD_LDAP" ; }}
-		public string AD_LDAP_USER {get{return "AD_LDAP_USER" ; }}
-		public string AD_LDAP_USER_PASSWORD {get{return "AD_LDAP_USER_PASSWORD" ; }}
+		public string UUID {
+			[ColumnName("UUID",true,typeof(string))]
+			get{return "UUID" ; }}
+		public string CREATE_DATE {
+			[ColumnName("CREATE_DATE",false,typeof(DateTime?))]
+			get{return "CREATE_DATE" ; }}
+		public string UPDATE_DATE {
+			[ColumnName("UPDATE_DATE",false,typeof(DateTime?))]
+			get{return "UPDATE_DATE" ; }}
+		public string IS_ACTIVE {
+			[ColumnName("IS_ACTIVE",false,typeof(string))]
+			get{return "IS_ACTIVE" ; }}
+		public string CLASS {
+			[ColumnName("CLASS",false,typeof(string))]
+			get{return "CLASS" ; }}
+		public string ID {
+			[ColumnName("ID",false,typeof(string))]
+			get{return "ID" ; }}
+		public string C_NAME {
+			[ColumnName("C_NAME",false,typeof(string))]
+			get{return "C_NAME" ; }}
+		public string E_NAME {
+			[ColumnName("E_NAME",false,typeof(string))]
+			get{return "E_NAME" ; }}
+		public string VOUCHER_POINT_UUID {
+			[ColumnName("VOUCHER_POINT_UUID",false,typeof(string))]
+			get{return "VOUCHER_POINT_UUID" ; }}
+		public string WEEK_SHIFT {
+			[ColumnName("WEEK_SHIFT",false,typeof(decimal?))]
+			get{return "WEEK_SHIFT" ; }}
+		public string OU_SYNC_TYPE {
+			[ColumnName("OU_SYNC_TYPE",false,typeof(string))]
+			get{return "OU_SYNC_TYPE" ; }}
+		public string NAME_ZH_CN {
+			[ColumnName("NAME_ZH_CN",false,typeof(string))]
+			get{return "NAME_ZH_CN" ; }}
+		public string CONCURRENT_USER {
+			[ColumnName("CONCURRENT_USER",false,typeof(string))]
+			get{return "CONCURRENT_USER" ; }}
+		public string EXPIRED_DATE {
+			[ColumnName("EXPIRED_DATE",false,typeof(DateTime?))]
+			get{return "EXPIRED_DATE" ; }}
+		public string SALES_ATTENDANT_UUID {
+			[ColumnName("SALES_ATTENDANT_UUID",false,typeof(string))]
+			get{return "SALES_ATTENDANT_UUID" ; }}
+		public string IS_SYNC_AD_USER {
+			[ColumnName("IS_SYNC_AD_USER",false,typeof(string))]
+			get{return "IS_SYNC_AD_USER" ; }}
+		public string AD_LDAP {
+			[ColumnName("AD_LDAP",false,typeof(string))]
+			get{return "AD_LDAP" ; }}
+		public string AD_LDAP_USER {
+			[ColumnName("AD_LDAP_USER",false,typeof(string))]
+			get{return "AD_LDAP_USER" ; }}
+		public string AD_LDAP_USER_PASSWORD {
+			[ColumnName("AD_LDAP_USER_PASSWORD",false,typeof(string))]
+			get{return "AD_LDAP_USER_PASSWORD" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public Company_Record CurrentRecord(){

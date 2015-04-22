@@ -29,23 +29,57 @@ namespace LKWebTemplate.Model.Basic.Table
 			this._All_Record = currenData;
 		}
 		/*欄位資訊 Start*/
-		public string UUID {get{return "UUID" ; }}
-		public string CREATE_DATE {get{return "CREATE_DATE" ; }}
-		public string UPDATE_DATE {get{return "UPDATE_DATE" ; }}
-		public string IS_ACTIVE {get{return "IS_ACTIVE" ; }}
-		public string COMPANY_UUID {get{return "COMPANY_UUID" ; }}
-		public string ID {get{return "ID" ; }}
-		public string C_NAME {get{return "C_NAME" ; }}
-		public string E_NAME {get{return "E_NAME" ; }}
-		public string PARENT_DEPARTMENT_UUID {get{return "PARENT_DEPARTMENT_UUID" ; }}
-		public string MANAGER_UUID {get{return "MANAGER_UUID" ; }}
-		public string PARENT_DEPARTMENT_ID {get{return "PARENT_DEPARTMENT_ID" ; }}
-		public string MANAGER_ID {get{return "MANAGER_ID" ; }}
-		public string PARENT_DEPARTMENT_UUID_LIST {get{return "PARENT_DEPARTMENT_UUID_LIST" ; }}
-		public string S_NAME {get{return "S_NAME" ; }}
-		public string COST_CENTER {get{return "COST_CENTER" ; }}
-		public string SRC_UUID {get{return "SRC_UUID" ; }}
-		public string FULL_DEPARTMENT_NAME {get{return "FULL_DEPARTMENT_NAME" ; }}
+		public string UUID {
+			[ColumnName("UUID",true,typeof(string))]
+			get{return "UUID" ; }}
+		public string CREATE_DATE {
+			[ColumnName("CREATE_DATE",false,typeof(DateTime?))]
+			get{return "CREATE_DATE" ; }}
+		public string UPDATE_DATE {
+			[ColumnName("UPDATE_DATE",false,typeof(DateTime?))]
+			get{return "UPDATE_DATE" ; }}
+		public string IS_ACTIVE {
+			[ColumnName("IS_ACTIVE",false,typeof(string))]
+			get{return "IS_ACTIVE" ; }}
+		public string COMPANY_UUID {
+			[ColumnName("COMPANY_UUID",false,typeof(string))]
+			get{return "COMPANY_UUID" ; }}
+		public string ID {
+			[ColumnName("ID",false,typeof(string))]
+			get{return "ID" ; }}
+		public string C_NAME {
+			[ColumnName("C_NAME",false,typeof(string))]
+			get{return "C_NAME" ; }}
+		public string E_NAME {
+			[ColumnName("E_NAME",false,typeof(string))]
+			get{return "E_NAME" ; }}
+		public string PARENT_DEPARTMENT_UUID {
+			[ColumnName("PARENT_DEPARTMENT_UUID",false,typeof(string))]
+			get{return "PARENT_DEPARTMENT_UUID" ; }}
+		public string MANAGER_UUID {
+			[ColumnName("MANAGER_UUID",false,typeof(string))]
+			get{return "MANAGER_UUID" ; }}
+		public string PARENT_DEPARTMENT_ID {
+			[ColumnName("PARENT_DEPARTMENT_ID",false,typeof(string))]
+			get{return "PARENT_DEPARTMENT_ID" ; }}
+		public string MANAGER_ID {
+			[ColumnName("MANAGER_ID",false,typeof(string))]
+			get{return "MANAGER_ID" ; }}
+		public string PARENT_DEPARTMENT_UUID_LIST {
+			[ColumnName("PARENT_DEPARTMENT_UUID_LIST",false,typeof(string))]
+			get{return "PARENT_DEPARTMENT_UUID_LIST" ; }}
+		public string S_NAME {
+			[ColumnName("S_NAME",false,typeof(string))]
+			get{return "S_NAME" ; }}
+		public string COST_CENTER {
+			[ColumnName("COST_CENTER",false,typeof(string))]
+			get{return "COST_CENTER" ; }}
+		public string SRC_UUID {
+			[ColumnName("SRC_UUID",false,typeof(string))]
+			get{return "SRC_UUID" ; }}
+		public string FULL_DEPARTMENT_NAME {
+			[ColumnName("FULL_DEPARTMENT_NAME",false,typeof(string))]
+			get{return "FULL_DEPARTMENT_NAME" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public Department_Record CurrentRecord(){

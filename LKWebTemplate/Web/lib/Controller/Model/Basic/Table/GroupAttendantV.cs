@@ -29,28 +29,72 @@ namespace LKWebTemplate.Model.Basic.Table
 			this._All_Record = currenData;
 		}
 		/*欄位資訊 Start*/
-		public string GROUP_NAME_ZH_TW {get{return "GROUP_NAME_ZH_TW" ; }}
-		public string GROUP_NAME_ZH_CN {get{return "GROUP_NAME_ZH_CN" ; }}
-		public string GROUP_NAME_EN_US {get{return "GROUP_NAME_EN_US" ; }}
-		public string IS_GROUP_ACTIVE {get{return "IS_GROUP_ACTIVE" ; }}
-		public string COMPANY_UUID {get{return "COMPANY_UUID" ; }}
-		public string COMPANY_ID {get{return "COMPANY_ID" ; }}
-		public string COMPANY_C_NAME {get{return "COMPANY_C_NAME" ; }}
-		public string COMPANY_E_NAME {get{return "COMPANY_E_NAME" ; }}
-		public string GROUP_ID {get{return "GROUP_ID" ; }}
-		public string APPLICATION_HEAD_UUID {get{return "APPLICATION_HEAD_UUID" ; }}
-		public string ATTENDANT_C_NAME {get{return "ATTENDANT_C_NAME" ; }}
-		public string ATTENDANT_E_NAME {get{return "ATTENDANT_E_NAME" ; }}
-		public string ACCOUNT {get{return "ACCOUNT" ; }}
-		public string EMAIL {get{return "EMAIL" ; }}
-		public string IS_ATTENDANT_ACTIVE {get{return "IS_ATTENDANT_ACTIVE" ; }}
-		public string UUID {get{return "UUID" ; }}
-		public string CREATE_DATE {get{return "CREATE_DATE" ; }}
-		public string UPDATE_DATE {get{return "UPDATE_DATE" ; }}
-		public string IS_ACTIVE {get{return "IS_ACTIVE" ; }}
-		public string GROUP_HEAD_UUID {get{return "GROUP_HEAD_UUID" ; }}
-		public string ATTENDANT_UUID {get{return "ATTENDANT_UUID" ; }}
-		public string DEPARTMENT_UUID {get{return "DEPARTMENT_UUID" ; }}
+		public string GROUP_NAME_ZH_TW {
+			[ColumnName("GROUP_NAME_ZH_TW",false,typeof(string))]
+			get{return "GROUP_NAME_ZH_TW" ; }}
+		public string GROUP_NAME_ZH_CN {
+			[ColumnName("GROUP_NAME_ZH_CN",false,typeof(string))]
+			get{return "GROUP_NAME_ZH_CN" ; }}
+		public string GROUP_NAME_EN_US {
+			[ColumnName("GROUP_NAME_EN_US",false,typeof(string))]
+			get{return "GROUP_NAME_EN_US" ; }}
+		public string IS_GROUP_ACTIVE {
+			[ColumnName("IS_GROUP_ACTIVE",false,typeof(string))]
+			get{return "IS_GROUP_ACTIVE" ; }}
+		public string COMPANY_UUID {
+			[ColumnName("COMPANY_UUID",false,typeof(string))]
+			get{return "COMPANY_UUID" ; }}
+		public string COMPANY_ID {
+			[ColumnName("COMPANY_ID",false,typeof(string))]
+			get{return "COMPANY_ID" ; }}
+		public string COMPANY_C_NAME {
+			[ColumnName("COMPANY_C_NAME",false,typeof(string))]
+			get{return "COMPANY_C_NAME" ; }}
+		public string COMPANY_E_NAME {
+			[ColumnName("COMPANY_E_NAME",false,typeof(string))]
+			get{return "COMPANY_E_NAME" ; }}
+		public string GROUP_ID {
+			[ColumnName("GROUP_ID",false,typeof(string))]
+			get{return "GROUP_ID" ; }}
+		public string APPLICATION_HEAD_UUID {
+			[ColumnName("APPLICATION_HEAD_UUID",false,typeof(string))]
+			get{return "APPLICATION_HEAD_UUID" ; }}
+		public string ATTENDANT_C_NAME {
+			[ColumnName("ATTENDANT_C_NAME",false,typeof(string))]
+			get{return "ATTENDANT_C_NAME" ; }}
+		public string ATTENDANT_E_NAME {
+			[ColumnName("ATTENDANT_E_NAME",false,typeof(string))]
+			get{return "ATTENDANT_E_NAME" ; }}
+		public string ACCOUNT {
+			[ColumnName("ACCOUNT",false,typeof(string))]
+			get{return "ACCOUNT" ; }}
+		public string EMAIL {
+			[ColumnName("EMAIL",false,typeof(string))]
+			get{return "EMAIL" ; }}
+		public string IS_ATTENDANT_ACTIVE {
+			[ColumnName("IS_ATTENDANT_ACTIVE",false,typeof(string))]
+			get{return "IS_ATTENDANT_ACTIVE" ; }}
+		public string UUID {
+			[ColumnName("UUID",true,typeof(string))]
+			get{return "UUID" ; }}
+		public string CREATE_DATE {
+			[ColumnName("CREATE_DATE",false,typeof(DateTime?))]
+			get{return "CREATE_DATE" ; }}
+		public string UPDATE_DATE {
+			[ColumnName("UPDATE_DATE",false,typeof(DateTime?))]
+			get{return "UPDATE_DATE" ; }}
+		public string IS_ACTIVE {
+			[ColumnName("IS_ACTIVE",false,typeof(string))]
+			get{return "IS_ACTIVE" ; }}
+		public string GROUP_HEAD_UUID {
+			[ColumnName("GROUP_HEAD_UUID",false,typeof(string))]
+			get{return "GROUP_HEAD_UUID" ; }}
+		public string ATTENDANT_UUID {
+			[ColumnName("ATTENDANT_UUID",false,typeof(string))]
+			get{return "ATTENDANT_UUID" ; }}
+		public string DEPARTMENT_UUID {
+			[ColumnName("DEPARTMENT_UUID",false,typeof(string))]
+			get{return "DEPARTMENT_UUID" ; }}
 		/*欄位資訊 End*/
 		/*固定的方法，但名稱需變更 Start*/
 		public GroupAttendantV_Record CurrentRecord(){

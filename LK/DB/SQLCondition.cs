@@ -29,6 +29,7 @@ namespace LK.DB
         string dbType = "";
         /*DataParamert的站位符*/
         private string parameterFlag = ":######";
+        private object _modelObj = new object();
         /// <summary>
         /// 取得要執行的SQL語句
         /// </summary>
@@ -105,6 +106,8 @@ namespace LK.DB
                 {
                     _TABLE_ = ((TableView)(attrs2[0])).getName();
                 }
+
+                _modelObj = modelObj;
             }
             catch (Exception ex)
             {
@@ -131,13 +134,23 @@ namespace LK.DB
         {
             try
             {
-                if (caseSensitive == true)
+                string columnType = getColumnType(columnName);
+                 if (columnTypeIsNumber(columnName)) {
+                    CSQL += " " + columnName + "=" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
                 {
                     CSQL += " " + columnName + "=" + parameterFlag + " ";
                 }
-                else
-                {
-                    CSQL += " upper(" + columnName + ")=upper(" + parameterFlag + ") ";
+                else {
+                    if (caseSensitive == true)
+                    {
+                        CSQL += " " + columnName + "=" + parameterFlag + " ";
+                    }
+                    else
+                    {
+                        CSQL += " upper(" + columnName + ")=upper(" + parameterFlag + ") ";
+                    }
                 }
                 _parameter.Add(value);
                 return this;
@@ -158,14 +171,29 @@ namespace LK.DB
         {
             try
             {
-                if (isCase_Sensitive == true)
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + "=" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
                 {
                     CSQL += " " + columnName + "=" + parameterFlag + " ";
                 }
                 else
                 {
-                    CSQL += " upper(" + columnName + ")=upper(" + parameterFlag + ") ";
+                    if (isCase_Sensitive == true)
+                    {
+                        CSQL += " " + columnName + "=" + parameterFlag + " ";
+                    }
+                    else
+                    {
+                        CSQL += " upper(" + columnName + ")=upper(" + parameterFlag + ") ";
+                    }
                 }
+
+
+               
                 _parameter.Add(value);
                 return this;
             }
@@ -185,7 +213,19 @@ namespace LK.DB
         {
             try
             {
-                CSQL += " upper(" + columnName + ")=upper(" + parameterFlag + ") ";
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + "=" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
+                {
+                    CSQL += " " + columnName + "=" + parameterFlag + " ";
+                }
+                else
+                {
+                    CSQL += " upper(" + columnName + ")=upper(" + parameterFlag + ") ";
+                }                
                 _parameter.Add(value);
                 return this;
             }
@@ -223,14 +263,27 @@ namespace LK.DB
         {
             try
             {
-                if (caseSensitive == true)
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + "<>" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
                 {
                     CSQL += " " + columnName + "<>" + parameterFlag + " ";
                 }
                 else
                 {
-                    CSQL += " upper(" + columnName + ")<>upper(" + parameterFlag + ") ";
-                }
+                    if (caseSensitive == true)
+                    {
+                        CSQL += " " + columnName + "<>" + parameterFlag + " ";
+                    }
+                    else
+                    {
+                        CSQL += " upper(" + columnName + ")<>upper(" + parameterFlag + ") ";
+                    }
+                }          
+               
                 _parameter.Add(value);
                 return this;
             }
@@ -250,14 +303,27 @@ namespace LK.DB
         {
             try
             {
-                if (isCase_Sensitive == true)
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + "<>" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
                 {
                     CSQL += " " + columnName + "<>" + parameterFlag + " ";
                 }
                 else
                 {
-                    CSQL += " upper(" + columnName + ")<>upper(" + parameterFlag + ") ";
-                }
+                    if (isCase_Sensitive == true)
+                    {
+                        CSQL += " " + columnName + "<>" + parameterFlag + " ";
+                    }
+                    else
+                    {
+                        CSQL += " upper(" + columnName + ")<>upper(" + parameterFlag + ") ";
+                    }
+                }    
+               
                 _parameter.Add(value);
                 return this;
             }
@@ -277,7 +343,21 @@ namespace LK.DB
         {
             try
             {
-                CSQL += " upper(" + columnName + ")<>upper(" + parameterFlag + ") ";
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + "<>" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
+                {
+                    CSQL += " " + columnName + "<>" + parameterFlag + " ";
+                }
+                else
+                {
+                    CSQL += " upper(" + columnName + ")<>upper(" + parameterFlag + ") ";
+                }   
+
+                
                 _parameter.Add(value);
                 return this;
             }
@@ -382,14 +462,26 @@ namespace LK.DB
         {
             try
             {
-                if (isCase_Sensitive == true)
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + ">=" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
                 {
                     CSQL += " " + columnName + ">=" + parameterFlag + " ";
                 }
                 else
                 {
-                    CSQL += " upper(" + columnName + ")>=upper(" + parameterFlag + ") ";
-                }
+                    if (isCase_Sensitive == true)
+                    {
+                        CSQL += " " + columnName + ">=" + parameterFlag + " ";
+                    }
+                    else
+                    {
+                        CSQL += " upper(" + columnName + ")>=upper(" + parameterFlag + ") ";
+                    }
+                }                  
                 _parameter.Add(value);
                 return this;
             }
@@ -409,7 +501,59 @@ namespace LK.DB
         {
             try
             {
-                CSQL += " upper(" + columnName + ")>=upper(" + parameterFlag + ") ";
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + ">=" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
+                {
+                    CSQL += " " + columnName + ">=" + parameterFlag + " ";
+                }
+                else
+                {
+                    CSQL += " upper(" + columnName + ")>=upper(" + parameterFlag + ") ";
+                } 
+               
+                _parameter.Add(value);
+                return this;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw ex;
+            }
+        }
+
+       
+        public virtual SQLCondition OverEqual(string columnName, object value, bool caseSensitive)
+        {
+            try
+            {
+
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + ">=" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
+                {
+                    CSQL += " " + columnName + ">=" + parameterFlag + " ";
+                }
+                else
+                {
+                    if (caseSensitive == true)
+                    {
+                        CSQL += " " + columnName + ">=" + parameterFlag + " ";
+                    }
+                    else
+                    {
+                        CSQL += " upper(" + columnName + ")>=upper(" + parameterFlag + ") ";
+                    }
+                } 
+               
+
+               
                 _parameter.Add(value);
                 return this;
             }
@@ -429,14 +573,27 @@ namespace LK.DB
         {
             try
             {
-                if (isCase_Sensitive == true)
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + ">" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
                 {
                     CSQL += " " + columnName + ">" + parameterFlag + " ";
                 }
                 else
                 {
-                    CSQL += " upper(" + columnName + ")>upper(" + parameterFlag + ") ";
-                }
+                    if (isCase_Sensitive == true)
+                    {
+                        CSQL += " " + columnName + ">" + parameterFlag + " ";
+                    }
+                    else
+                    {
+                        CSQL += " upper(" + columnName + ")>upper(" + parameterFlag + ") ";
+                    }
+                } 
+                
                 _parameter.Add(value);
                 return this;
             }
@@ -446,6 +603,42 @@ namespace LK.DB
                 throw ex;
             }
         }
+
+        public virtual SQLCondition OverThen(string columnName, object value, bool isCase_Sensitive)
+        {
+            try
+            {
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + ">" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
+                {
+                    CSQL += " " + columnName + ">" + parameterFlag + " ";
+                }
+                else
+                {
+                    if (isCase_Sensitive == true)
+                    {
+                        CSQL += " " + columnName + ">" + parameterFlag + " ";
+                    }
+                    else
+                    {
+                        CSQL += " upper(" + columnName + ")>upper(" + parameterFlag + ") ";
+                    }
+                } 
+               
+                _parameter.Add(value);
+                return this;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw ex;
+            }
+        }
+
         /// <summary>
         /// 取定Where語句中的大於(忽略大小寫)
         /// </summary>
@@ -456,7 +649,21 @@ namespace LK.DB
         {
             try
             {
-                CSQL += " upper(" + columnName + ")>upper(" + parameterFlag + ") ";
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + ">" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
+                {
+                    CSQL += " " + columnName + ">" + parameterFlag + " ";
+                }
+                else
+                {
+                    CSQL += " upper(" + columnName + ")>upper(" + parameterFlag + ") ";
+                } 
+
+                
                 _parameter.Add(value);
                 return this;
             }
@@ -476,14 +683,28 @@ namespace LK.DB
         {
             try
             {
-                if (isCase_Sensitive == true)
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + "<=" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
                 {
                     CSQL += " " + columnName + "<=" + parameterFlag + " ";
                 }
                 else
                 {
-                    CSQL += " upper(" + columnName + ")<=upper(" + parameterFlag + ") ";
-                }
+                    if (isCase_Sensitive == true)
+                    {
+                        CSQL += " " + columnName + "<=" + parameterFlag + " ";
+                    }
+                    else
+                    {
+                        CSQL += " upper(" + columnName + ")<=upper(" + parameterFlag + ") ";
+                    }
+                } 
+
+                
                 _parameter.Add(value);
                 return this;
             }
@@ -504,7 +725,57 @@ namespace LK.DB
             try
             {
 
-                CSQL += " upper(" + columnName + ")<=upper(" + parameterFlag + ") ";
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + "<=" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
+                {
+                    CSQL += " " + columnName + "<=" + parameterFlag + " ";
+                }
+                else
+                {
+                    CSQL += " upper(" + columnName + ")<=upper(" + parameterFlag + ") ";
+                }
+
+                
+                _parameter.Add(value);
+                return this;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw ex;
+            }
+        }
+
+        public virtual SQLCondition LessEqual(string columnName, object value, bool caseSensitive)
+        {
+            try
+            {
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + "<=" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
+                {
+                    CSQL += " " + columnName + "<=" + parameterFlag + " ";
+                }
+                else
+                {
+                    if (caseSensitive == true)
+                    {
+                        CSQL += " " + columnName + "<=" + parameterFlag + " ";
+                    }
+                    else
+                    {
+                        CSQL += " upper(" + columnName + ")<=upper(" + parameterFlag + ") ";
+                    }
+                }
+
+               
                 _parameter.Add(value);
                 return this;
             }
@@ -524,14 +795,64 @@ namespace LK.DB
         {
             try
             {
-                if (isCase_Sensitive == true)
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + "<" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
                 {
                     CSQL += " " + columnName + "<" + parameterFlag + " ";
                 }
                 else
                 {
-                    CSQL += " upper(" + columnName + ")<upper(" + parameterFlag + ") ";
+                    if (isCase_Sensitive == true)
+                    {
+                        CSQL += " " + columnName + "<" + parameterFlag + " ";
+                    }
+                    else
+                    {
+                        CSQL += " upper(" + columnName + ")<upper(" + parameterFlag + ") ";
+                    }
                 }
+
+                
+                _parameter.Add(value);
+                return this;
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw ex;
+            }
+        }
+
+        public virtual SQLCondition LessThen(string columnName, object value, bool isCase_Sensitive)
+        {
+            try
+            {
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + "<" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
+                {
+                    CSQL += " " + columnName + "<" + parameterFlag + " ";
+                }
+                else
+                {
+                    if (isCase_Sensitive == true)
+                    {
+                        CSQL += " " + columnName + "<" + parameterFlag + " ";
+                    }
+                    else
+                    {
+                        CSQL += " upper(" + columnName + ")<upper(" + parameterFlag + ") ";
+                    }
+                }
+
+                
                 _parameter.Add(value);
                 return this;
             }
@@ -551,7 +872,21 @@ namespace LK.DB
         {
             try
             {
-                CSQL += " upper(" + columnName + ")<upper(" + parameterFlag + ") ";
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + "<" + parameterFlag + " ";
+                }
+                else if (columnTypeIsDateTime(columnName))
+                {
+                    CSQL += " " + columnName + "<" + parameterFlag + " ";
+                }
+                else
+                {
+                    CSQL += " upper(" + columnName + ")<upper(" + parameterFlag + ") ";
+                }
+
+                
                 _parameter.Add(value);
                 return this;
             }
@@ -893,14 +1228,28 @@ namespace LK.DB
             try
             {
                 CSQL += " ";
-                if (isCase_Sensitive == true)
+
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + " IN (";
+                }
+                else if (columnTypeIsDateTime(columnName))
                 {
                     CSQL += " " + columnName + " IN (";
                 }
                 else
                 {
-                    CSQL += " upper( " + columnName + " ) IN (";
+                    if (isCase_Sensitive == true)
+                    {
+                        CSQL += " " + columnName + " IN (";
+                    }
+                    else
+                    {
+                        CSQL += " upper( " + columnName + " ) IN (";
+                    }
                 }
+
                 foreach (string tmp in values)
                 {
                     if (isCase_Sensitive == true)
@@ -937,7 +1286,20 @@ namespace LK.DB
             try
             {
                 CSQL += " ";
-                CSQL += " upper( " + columnName + " ) IN (";
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + " IN (";
+                }
+                else if (columnTypeIsDateTime(columnName))
+                {
+                    CSQL += " " + columnName + " IN (";
+                }
+                else
+                {
+                    CSQL += " upper( " + columnName + " ) IN (";
+                }
+                
                 foreach (string tmp in values)
                 {
                     CSQL += " :######, ";
@@ -961,7 +1323,21 @@ namespace LK.DB
             try
             {
                 CSQL += " ";
-                CSQL += " " + columnName + "  NOT IN (";
+                string columnType = getColumnType(columnName);
+                if (columnTypeIsNumber(columnName))
+                {
+                    CSQL += " " + columnName + " NOT IN (";
+                }
+                else if (columnTypeIsDateTime(columnName))
+                {
+                    CSQL += " " + columnName + " NOT IN (";
+                }
+                else
+                {
+                    CSQL += " " + columnName + "  NOT IN (";
+                }
+
+               
                 foreach (string tmp in values)
                 {
                     CSQL += " :######, ";
@@ -1004,5 +1380,53 @@ namespace LK.DB
                 throw ex;
             }
         }
+
+        private string getColumnType(string columnName)
+        {
+            return this._modelObj.GetType().GetProperty(columnName).PropertyType.Name;
+        }
+
+        private bool columnTypeIsNumber(string columnName) {
+            var c = ((ColumnName)_modelObj.GetType().GetProperty(columnName).GetMethod.GetCustomAttribute(typeof(ColumnName)));
+            var type = "";
+            if (c != null) {
+                if (c.ColumnType.GenericTypeArguments.Length == 1)
+                {
+                    type = c.ColumnType.GenericTypeArguments[0].Name;
+                }else{
+                    type = c.ColumnType.Name;
+                }
+            }            
+            if (type == "Int16" || type == "Int32" || type == "Int64" || type == "Double" || type == "Float" || type =="Decimal" || type =="decimal" || type =="float" || type =="short" || type=="Short") {
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        private bool columnTypeIsDateTime(string columnName)
+        {
+            var c = ((ColumnName)_modelObj.GetType().GetProperty(columnName).GetMethod.GetCustomAttribute(typeof(ColumnName)));
+            var type = "";
+            if (c != null)
+            {
+                if (c.ColumnType.GenericTypeArguments.Length == 1)
+                {
+                    type = c.ColumnType.GenericTypeArguments[0].Name;
+                }
+                else
+                {
+                    type = c.ColumnType.Name;
+                }
+            }   
+            
+            if (type == "DateTime" ) {
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        
     }
 }
