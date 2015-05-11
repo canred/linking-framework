@@ -134,7 +134,8 @@ create table {user}.ATTENDANT
   grade           VARCHAR2(10),
   id              VARCHAR2(100),
   src_uuid        VARCHAR2(36),
-  is_default_pass VARCHAR2(1) default 'Y'
+  is_default_pass VARCHAR2(1) default 'Y',
+  picture_url     varchar2(200) default '~/css/images/nopicture.jpg'
 );
 create index {user}.ATTENDANT_IDX1 on {user}.ATTENDANT (COMPANY_UUID, ID);
 create index {user}.ATTENDANT_IDX2 on {user}.ATTENDANT (SRC_UUID);

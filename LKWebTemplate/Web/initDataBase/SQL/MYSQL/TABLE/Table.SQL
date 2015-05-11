@@ -102,6 +102,7 @@ CREATE TABLE `attendant` (
   `id` varchar(100) DEFAULT NULL,
   `src_uuid` varchar(36) DEFAULT NULL,
   `is_default_pass` varchar(1) DEFAULT 'Y',
+  `picture_url` varchar(200) DEFAULT '~/css/images/nopicture.jpg',
   PRIMARY KEY (`uuid`),
   UNIQUE KEY `ATTENDANT_UK1` (`company_uuid`,`account`)
   
@@ -199,7 +200,7 @@ CREATE TABLE `appmenu` (
   `sitemap_uuid` varchar(36) DEFAULT NULL,
   `action_mode` varchar(50) DEFAULT NULL,
   `is_default_page` varchar(1) DEFAULT NULL,
-  `is_admin` varchar(1) DEFAULT 'N'
+  `is_admin` varchar(1) DEFAULT 'N',
   PRIMARY KEY (`uuid`),
   UNIQUE KEY `APPMENU_UK1` (`id`,`appmenu_uuid`,`action_mode`),
   KEY `APPMENU_APPLICATION_HEAD_FK1_idx` (`application_head_uuid`),

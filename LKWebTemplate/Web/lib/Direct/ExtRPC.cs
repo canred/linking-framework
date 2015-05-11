@@ -320,7 +320,7 @@ namespace ExtDirect.Direct
                 runAction = ((DirectMethodAttribute)(att)).Action;
             }
 
-            var d = new List<string>();
+            var d = new List<object>();
             try
             {
                 if (jobject["data"].ToString() != "")
@@ -446,6 +446,9 @@ namespace ExtDirect.Direct
                             {
                                 foreach (object tmp in (jobject["data"]).AsJEnumerable())
                                 {
+                                    if (tmp.GetType().Name == "JArray") {
+                                        d.Add(tmp);
+                                    }else 
                                     if ((((JValue)(tmp))).Type != JTokenType.Null)
                                     {
                                         var kv = tmp.ToString();
@@ -462,6 +465,7 @@ namespace ExtDirect.Direct
                 //}
             }
 
+            
             var dd = d.Cast<object>().ToList();
             /*
              原來的程式

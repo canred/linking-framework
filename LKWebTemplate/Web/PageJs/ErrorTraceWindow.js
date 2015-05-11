@@ -56,6 +56,17 @@ Ext.define('WS.ErrorTraceWindow', {
                 }
             }],
             fbar: [{
+                text: '標記全部已閱讀&關閉',
+                icon: SYSTEM_URL_ROOT + '/css/images/okA16x16.png',
+                style: {
+                    'background-color': '#F299A0'
+                },
+                handler: function() {
+                    WS.ErrorLogAction.UpdateAllRead(function(returnJs) {
+                        this.close();
+                    }, this.up('window'));
+                }
+            }, {
                 type: 'button',
                 text: '關閉',
                 handler: function() {

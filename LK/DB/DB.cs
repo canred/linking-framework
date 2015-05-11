@@ -200,9 +200,9 @@ namespace LK.DB
             return true;
         }
         public void ExecuteProcedure(string procedureName) {
+            this.openConnection();
             try
             {
-                this.openConnection();
                 _command_ = _connection.getConnection().CreateCommand();
                 _command_.CommandText = procedureName;
                 _command_.CommandType = CommandType.StoredProcedure;
@@ -212,31 +212,35 @@ namespace LK.DB
                 _command_.ExecuteNonQuery();
                 var e = DateTime.Now;
 
-                this.closeConnection();
+                
                 logSQL(ref _command_, true);
-                monitorSql(ref _command_, s,e);
+                monitorSql(ref _command_, s, e);
             }
             catch (Exception ex)
             {
                 log.Error(ex);
                 logSQL(ref _command_, false);
                 throw ex;
-            }    
+            }
+            finally {
+                this.closeConnection();
+            }
         }        
         public void ExecuteProcedure_NoParameter(string procedureName)
         {
+            this.openConnection();
             try
             {
-                this.openConnection();
+
                 _command_ = _connection.getConnection().CreateCommand();
                 _command_.CommandText = _SQLCreater_.__ExecuteProcedureAndReturnSQL(procedureName);
                 _command_.CommandType = CommandType.StoredProcedure;
                 var s = DateTime.Now;
                 _command_.ExecuteNonQuery();
                 var e = DateTime.Now;
-                this.closeConnection();
+
                 logSQL(ref _command_, true);
-                monitorSql(ref _command_, s,e);
+                monitorSql(ref _command_, s, e);
             }
             catch (Exception ex)
             {
@@ -244,12 +248,16 @@ namespace LK.DB
                 logSQL(ref _command_, false);
                 throw ex;
             }
+            finally {
+                this.closeConnection();
+            }
         }
         public void ExecuteProcedure(string procedureName, IDataParameter[] parameters)
         {
+            this.openConnection();
             try
             {
-                this.openConnection();
+
                 _command_ = _connection.getConnection().CreateCommand();
                 _command_.CommandText = _SQLCreater_.__ExecuteProcedureAndReturnSQL(procedureName);
                 _command_.CommandType = CommandType.StoredProcedure;
@@ -263,22 +271,26 @@ namespace LK.DB
                 var s = DateTime.Now;
                 _command_.ExecuteNonQuery();
                 var e = DateTime.Now;
-                this.closeConnection();
+                
                 logSQL(ref _command_, true);
-                monitorSql(ref _command_, s,e);
+                monitorSql(ref _command_, s, e);
             }
             catch (Exception ex)
             {
                 log.Error(ex);
                 logSQL(ref _command_, false);
                 throw ex;
-            }  
+            }
+            finally {
+                this.closeConnection();
+            }
         }
         public void ExecuteProcedureAndReturn(string procedureName, IDataParameter[] parameters)
         {
+            this.openConnection();
             try
             {
-                this.openConnection();
+
                 _command_ = _connection.getConnection().CreateCommand();
                 _command_.CommandText = _SQLCreater_.__ExecuteProcedureAndReturnSQL(procedureName);
                 _command_.CommandType = CommandType.StoredProcedure;
@@ -288,9 +300,9 @@ namespace LK.DB
                 var e = DateTime.Now;
                 DataTable tt = new DataTable();
                 tt.Load(r);
-                this.closeConnection();
+
                 logSQL(ref _command_, true);
-                monitorSql(ref _command_, s,e);
+                monitorSql(ref _command_, s, e);
             }
             catch (Exception ex)
             {
@@ -298,12 +310,16 @@ namespace LK.DB
                 logSQL(ref _command_, false);
                 throw ex;
             }
+            finally {
+                this.closeConnection();
+            }
         }
         public DataTable ExecuteProcedureAndReturnTable(string procedureName, IDataParameter[] parameters)
         {
+            this.openConnection();
             try
             {
-                this.openConnection();
+
                 _command_ = _connection.getConnection().CreateCommand();
                 this.initSQLCreater(_connection.getDataBaseConfigInfo());
                 _command_.CommandText = _SQLCreater_.__ExecuteProcedureAndReturnSQL(procedureName);
@@ -314,9 +330,9 @@ namespace LK.DB
                 var e = DateTime.Now;
                 DataTable tt = new DataTable();
                 tt.Load(r);
-                this.closeConnection();                
+            
                 logSQL(ref _command_, true);
-                monitorSql(ref _command_, s,e);
+                monitorSql(ref _command_, s, e);
                 return tt;
             }
             catch (Exception ex)
@@ -325,12 +341,16 @@ namespace LK.DB
                 logSQL(ref _command_, false);
                 throw ex;
             }
+            finally {
+                this.closeConnection();
+            }
         }
         public DataTable[] ExecuteProcedureAndReturnTables(string procedureName, IDataParameter[] parameters)
         {
+            this.openConnection();
             try
             {
-                this.openConnection();
+
                 _command_ = _connection.getConnection().CreateCommand();
                 this.initSQLCreater(_connection.getDataBaseConfigInfo());
                 _command_.CommandText = _SQLCreater_.__ExecuteProcedureAndReturnSQL(procedureName);
@@ -343,14 +363,15 @@ namespace LK.DB
                 DataTable tt = new DataTable();
                 tt.Load(r);
                 tbls.Add(tt);
-                while (r.IsClosed == false && r.Read()) {
+                while (r.IsClosed == false && r.Read())
+                {
                     DataTable tmp = new DataTable();
                     tmp.Load(r);
                     tbls.Add(tmp);
                 }
-                this.closeConnection();
+            
                 logSQL(ref _command_, true);
-                monitorSql(ref _command_, s,e);
+                monitorSql(ref _command_, s, e);
                 return tbls.ToArray();
             }
             catch (Exception ex)
@@ -358,6 +379,9 @@ namespace LK.DB
                 log.Error(ex);
                 logSQL(ref _command_, false);
                 throw ex;
+            }
+            finally {
+                this.closeConnection();
             }
         }
         public DB BeginTransaction()
@@ -519,9 +543,9 @@ namespace LK.DB
             return _connection.getConnection();
         }       
         public void ExecuteNonQuery() {
+            this.openConnection();
             try
-            {
-                this.openConnection();
+            {                
                 _command_ = _connection.getConnection().CreateCommand();
                 _command_.CommandText = this.CommandText;
                 _command_.CommandTimeout = _timeOut;
@@ -533,7 +557,7 @@ namespace LK.DB
                 var s = DateTime.Now;
                 _command_.ExecuteNonQuery();
                 var e = DateTime.Now;
-                this.closeConnection();
+                
                 logSQL(ref _command_, true);
                 monitorSql(ref _command_, s, e);
             }
@@ -542,13 +566,16 @@ namespace LK.DB
                 log.Error(ex);               
                 logSQL(ref _command_, false);
                 throw ex;
+            }finally{
+                this.closeConnection();
             }            
         }
         public void ExecuteNonQuery(DB db)
         {
+            this.openConnection();
             try
             {
-                this.openConnection();
+
                 _command_ = _connection.getConnection().CreateCommand();
                 _command_.CommandText = this.CommandText;
                 _command_.CommandTimeout = _timeOut;
@@ -564,7 +591,7 @@ namespace LK.DB
                 var s = DateTime.Now;
                 _command_.ExecuteNonQuery();
                 var e = DateTime.Now;
-                logSQL(ref _command_,true);
+                logSQL(ref _command_, true);
                 monitorSql(ref _command_, s, e);
             }
             catch (Exception ex)
@@ -573,6 +600,7 @@ namespace LK.DB
                 logSQL(ref _command_, false);
                 throw ex;
             }
+            
         }
         private void logSQL(ref IDbCommand cmd ,bool isSuccess) {
             var logSQL = LK.Config.DataBase.Factory.getInfo().GetTag("logSQL").ToLower();
@@ -653,10 +681,11 @@ namespace LK.DB
             System.Data.DataSet ds = new DataSet();
             /*針對MySQLClient設置的項目EnforceConstraints一定要為false不然會掛掉*/
             ds.EnforceConstraints = false;
+            this.openConnection();
             try
             {
                 System.Data.DataTable ret = new System.Data.DataTable(tableName);
-                this.openConnection();
+                
                 _command_ = _connection.getConnection().CreateCommand();
                 _command_.CommandText = this.CommandText;
                 _command_.CommandTimeout = _timeOut;
@@ -682,10 +711,7 @@ namespace LK.DB
                 ret.Load(reader);
                 logSQL(ref _command_, true);
                 monitorSql(ref _command_, s, e);
-                if (this.__transaction__ == null)
-                {
-                    this.closeConnection();
-                }
+                
                 return ret;
             }
             catch (Exception ex)
@@ -695,6 +721,10 @@ namespace LK.DB
                 throw ex;
             }
             finally {
+                if (this.__transaction__ == null)
+                {
+                    this.closeConnection();
+                }
                 ds.Dispose();
             }
         }
@@ -734,10 +764,10 @@ namespace LK.DB
                 {
                     _connection.getConnection().Close();
                 }
-                else
-                {
-                    throw new Exception("沒有初始資料連線!");
-                }
+                //else
+                //{
+                //    throw new Exception("沒有初始資料連線!");
+                //}
             }
             catch (Exception ex)
             {

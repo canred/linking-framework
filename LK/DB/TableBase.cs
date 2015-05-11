@@ -1192,13 +1192,14 @@ where T : RecordBase
         }
         public void Insert_Empty2Null(RecordBase oneData)
         {
+            DB db = new DB(this);
             try
             {
                 if (_sqlCreater_ == null)
                 {
                     setInit(this);
                 }
-                DB db = new DB(this);
+                
                 db.removeAllParameter();
                 _sqlCreater_.removeSelfParameter();
                 _sqlCreater_.isComplete = ASQLCreater.SQLComplete.NULL;
@@ -1211,6 +1212,9 @@ where T : RecordBase
             {
                 log.Error(ex);
                 throw ex;
+            }
+            finally { 
+                
             }
         }
         public void Insert_Empty2Null(RecordBase oneData, DB db)

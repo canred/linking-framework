@@ -18,19 +18,18 @@
     WS_LOGONPANEL.urlSuccess = '<%= Page.ResolveUrl(LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().DefaultPage)%>';
     WS_LOGONPANEL.urlFail = '<%= Page.ResolveUrl(LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().NoPermissionPage)%>';
     WS_LOGONPANEL.down('#ExtLogonForm').title = '<img src="' + SYSTEM_ROOT_PATH + '/css/custimages/login.gif" style="height:16px;margin-bottom:4px;margin-right:10px;" align="middle"><%= LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().SystemName%>';
-    WS_LOGONPANEL.render('logon');
+    var myWin = Ext.create('WS.LogonWindow',{
+        param:{
+            logonPanel:WS_LOGONPANEL
+        }
     });
-</script>
-<!--Echart Demo-->
 
-<table width="100%">
-    <tr>
-        <td width="30%"></td>
-        <td width="40%" >
-        <div id="logon" style="margin-bottom:5px;margin-top:5px;width:2"></div>
-        </td>
-        <td width="30%"></td>
-    </tr>
-</table>   
+    myWin.show();        
+    $('#divDefault').css("height",$(document).height()-130);
+});
+</script>
+<!--Echart Demo--> 
+
+<div id='divDefault' style="width:90%;"></div>   
 
 </asp:Content>

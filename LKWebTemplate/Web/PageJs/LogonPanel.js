@@ -162,7 +162,9 @@ Ext.define('WS.LogonPanel', {
                 text: '登入',
                 itemId: 'bntLogin',
                 handler: function() {
-                    Ext.getBody().mask();
+                    if( this.up('window')){
+                        this.up('window').mask('系統登入中…');
+                    };
                     WS_LOGONPANEL.down("#txt_pw").allowBlank = false;
                     this.up('form').getForm().isValid();
                     var urlSuccess = this.up('panel').up('panel').urlSuccess,

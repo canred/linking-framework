@@ -975,7 +975,7 @@ public partial class InitAction : BaseAction
     /*load Config*/
     public enum ConfigType
     {
-        DataBaseConfig, ParemterFilePath, CloudFilePath
+        DataBaseConfig, ParemterFilePath, CloudFilePath, SMTPConfig
     }
 
     public static string ConfigFilePath(ConfigType configType)
@@ -1021,6 +1021,308 @@ public partial class InitAction : BaseAction
         {
             log.Error(ex);
             throw ex;
+        }
+    }
+
+
+    [DirectMethod("loadSmtp", DirectAction.Load)]
+    public JObject loadSmtp(Request request)
+    {
+        #region Declare
+        List<JObject> jobject = new List<JObject>();
+        BasicModel basicModel = new BasicModel();
+        ErrorLog table = new ErrorLog();        
+        #endregion
+        try
+        { /*權限檢查*/
+            if (!checkProxy(new StackTrace().GetFrame(0)))
+            {
+                throw new Exception("Permission Denied!");
+            };
+            DataTable dt = new DataTable();
+            dt.Columns.Add("SMTPSERVERHOST");
+            dt.Columns.Add("SMTPSERVERPORT");
+            dt.Columns.Add("ISSEND");
+            dt.Columns.Add("FROMEMAIL");
+            dt.Columns.Add("ISSENDMAIL");
+            dt.Columns.Add("ISSENDADMINMAIL");
+            dt.Columns.Add("ADMINISTRATOREMAIL");
+            dt.Columns.Add("ISSENDDEBUGMAIL");
+            dt.Columns.Add("DEBUGEMAIL");
+            dt.Columns.Add("CREDENTIALSACCOUNT");
+            dt.Columns.Add("CREDENTIALSPASSWORD");
+            dt.AcceptChanges();
+            var row = dt.NewRow();
+            var smtp = new LK.Util.Mail.SMTPConfigInfo();
+
+            row["SMTPSERVERHOST"] = smtp.SMTPServerHost;
+            row["SMTPSERVERPORT"] = smtp.SMTPServerPort;
+            row["ISSEND"] = smtp.IsSend;
+            row["FROMEMAIL"] = smtp.FromEmail;
+            row["ISSENDMAIL"] = smtp.IsSendMail;
+            row["ISSENDADMINMAIL"] = smtp.IsSendAdminMail;
+            row["ADMINISTRATOREMAIL"] = smtp.AdministratorEmail;
+            row["ISSENDDEBUGMAIL"] = smtp.IsSendDebugMail;
+            row["CREDENTIALSACCOUNT"] = smtp.CredentialsAccount;
+            row["CREDENTIALSPASSWORD"] = smtp.CredentialsPassword;
+            row["DEBUGEMAIL"] = smtp.DebugEmail;
+          
+            /*使用Store Std out 『Sotre物件標準輸出格式』*/
+            return ExtDirect.Direct.Helper.Store.OutputJObject(JsonHelper.DataRowSerializerJObject(row));
+        }
+        catch (Exception ex)
+        {
+            log.Error(ex); LK.MyException.MyException.Error(this, ex);
+            /*將Exception轉成EXT Exception JSON格式*/
+            return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
+        }
+    }
+
+    [DirectMethod("submitSMTP", DirectAction.Load)]
+    public JObject submitSMTP(
+        string SMTPServerHost, string SMTPServerPort, string IsSend,
+        string FromEmail, string IsSendMail, string IsSendAdminMail,
+        string AdministratorEmail, string IsSendDebugMail, string DebugEmail,
+        string CredentialsAccount, string CredentialsPassword,Request request)
+    {
+        try
+        {
+            /*權限檢查*/
+            if (!checkProxy(new StackTrace().GetFrame(0)))
+            {
+                throw new Exception("Permission Denied!");
+            };
+            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+            doc.Load(ConfigFilePath(ConfigType.SMTPConfig));
+            doc.GetElementsByTagName("SMTPServerHost")[0].InnerText = SMTPServerHost;
+            doc.GetElementsByTagName("SMTPServerPort")[0].InnerText = SMTPServerPort;
+            doc.GetElementsByTagName("IsSend")[0].InnerText = IsSend;
+            doc.GetElementsByTagName("FromEmail")[0].InnerText = FromEmail;
+            doc.GetElementsByTagName("IsSendMail")[0].InnerText = IsSendMail;
+            doc.GetElementsByTagName("IsSendAdminMail")[0].InnerText = IsSendAdminMail;
+            doc.GetElementsByTagName("AdministratorEmail")[0].InnerText = AdministratorEmail;
+            doc.GetElementsByTagName("IsSendDebugMail")[0].InnerText = IsSendDebugMail;
+            doc.GetElementsByTagName("DebugEmail")[0].InnerText = DebugEmail;
+            doc.GetElementsByTagName("CredentialsAccount")[0].InnerText = CredentialsAccount;
+            doc.GetElementsByTagName("CredentialsPassword")[0].InnerText = CredentialsPassword;
+            doc.Save(ConfigFilePath(ConfigType.SMTPConfig));
+            return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
+        }
+        catch (Exception ex)
+        {
+            log.Error(ex); LK.MyException.MyException.Error(this, ex);
+            /*將Exception轉成EXT Exception JSON格式*/
+            return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
+        }
+    }
+
+    //[DirectMethod("loadDirectAuth", DirectAction.Load)]
+    //public JObject loadDirectAuth(Request request)
+    //{
+    //    #region Declare
+    //    List<JObject> jobject = new List<JObject>();
+    //    BasicModel basicModel = new BasicModel();
+    //    ErrorLog table = new ErrorLog();
+    //    #endregion
+    //    try
+    //    { /*權限檢查*/
+    //        if (!checkProxy(new StackTrace().GetFrame(0)))
+    //        {
+    //            throw new Exception("Permission Denied!");
+    //        };
+    //        DataTable dt = new DataTable();
+    //        dt.Columns.Add("AllowCrossPost");
+    //        dt.Columns.Add("Rule");
+    //        dt.Columns.Add("ProxyPermission");
+    //        dt.Columns.Add("NoPermissionAction");         
+    //        dt.AcceptChanges();
+    //        var row = dt.NewRow();
+    //        var cloud = new LK.Config.Cloud.CloudConfigInfo();
+
+    //        row["SMTPSERVERHOST"] = cloud.all;
+    //        row["SMTPSERVERPORT"] = cloud.SMTPServerPort;
+    //        row["ISSEND"] = cloud.IsSend;
+    //        row["FROMEMAIL"] = cloud.FromEmail;           
+
+    //        /*使用Store Std out 『Sotre物件標準輸出格式』*/
+    //        return ExtDirect.Direct.Helper.Store.OutputJObject(JsonHelper.DataRowSerializerJObject(row));
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        log.Error(ex); LK.MyException.MyException.Error(this, ex);
+    //        /*將Exception轉成EXT Exception JSON格式*/
+    //        return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
+    //    }
+    //}
+
+    [DirectMethod("loadCloud", DirectAction.Load)]
+    public JObject loadCloud(Request request)
+    {
+        #region Declare
+        List<JObject> jobject = new List<JObject>();
+        BasicModel basicModel = new BasicModel();
+        ErrorLog table = new ErrorLog();
+        #endregion
+        try
+        { /*權限檢查*/
+            if (!checkProxy(new StackTrace().GetFrame(0)))
+            {
+                throw new Exception("Permission Denied!");
+            };
+            DataTable dt = new DataTable();
+            dt.Columns.Add("SUPPORTCLOUD");
+            dt.Columns.Add("ROLE");
+            dt.Columns.Add("ISAUTHCENTER");
+            dt.Columns.Add("AUTHMASTER");
+            dt.Columns.Add("AUTHCENTERPROTOTYPE");
+            dt.Columns.Add("AUTHCENTERHOST");
+            dt.Columns.Add("AUTHCENTERIP");
+            dt.Columns.Add("AUTHCENTERWEBROOT");
+            dt.Columns.Add("SLAVE");
+            dt.Columns.Add("TWINS");
+            dt.Columns.Add("CLOUDKEYPUB");            
+            dt.AcceptChanges();
+            var row = dt.NewRow();
+
+            var cloud = LK.Config.Cloud.CloudConfigs.GetConfig();
+            row["SUPPORTCLOUD"] = cloud.SupportCloud;
+            row["ROLE"] = cloud.Role;
+            row["ISAUTHCENTER"] = cloud.IsAuthCenter;
+            row["AUTHMASTER"] = cloud.AuthMaster;
+            row["AUTHCENTERPROTOTYPE"] = cloud.AuthCenterPrototype;
+            row["AUTHCENTERHOST"] = cloud.AuthCenterHost;
+            row["AUTHCENTERIP"] = cloud.AuthCenterIP;
+            row["AUTHCENTERWEBROOT"] = cloud.AuthCenterWebRoot;
+            row["SLAVE"] = cloud.Slave;
+            //hmo p JObject.Parse("{"+cloud.Slave+"}")
+            row["TWINS"] = cloud.Twins;
+            row["CLOUDKEYPUB"] = cloud.CloudKeyPub;
+            /*使用Store Std out 『Sotre物件標準輸出格式』*/
+            var jObject = new JObject();
+            jObject["SUPPORTCLOUD"] = cloud.SupportCloud;
+            jObject["ROLE"] = cloud.Role;
+            jObject["ISAUTHCENTER"] = cloud.IsAuthCenter;
+            jObject["AUTHMASTER"] = cloud.AuthMaster;
+            jObject["AUTHCENTERPROTOTYPE"] = cloud.AuthCenterPrototype;
+            jObject["AUTHCENTERHOST"] = cloud.AuthCenterHost;
+            jObject["AUTHCENTERIP"] = cloud.AuthCenterIP;
+            jObject["AUTHCENTERWEBROOT"] = cloud.AuthCenterWebRoot;
+            //jObject.Add(JObject.Parse("{" + cloud.Slave + "}"));
+            jObject["SLAVE"] = JObject.Parse("{" + cloud.Slave + "}")["Slave"];
+            jObject["TWINS"] = JObject.Parse("{" + cloud.Twins + "}")["Twins"];
+            jObject["CLOUDKEYPUB"] = cloud.CloudKeyPub;
+
+
+            //return ExtDirect.Direct.Helper.Store.OutputJObject(JsonHelper.DataRowSerializerJObject(row));
+            return ExtDirect.Direct.Helper.Store.OutputJObject(jObject);
+        }
+        catch (Exception ex)
+        {
+            log.Error(ex); LK.MyException.MyException.Error(this, ex);
+            /*將Exception轉成EXT Exception JSON格式*/
+            return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
+        }
+    }
+
+    [DirectMethod("submitCloud", DirectAction.Load)]
+    public JObject submitCloud(
+        string SupportCloud, string Role, string IsAuthCenter,
+        string AuthMaster, string AuthCenterPrototype, string AuthCenterHost,
+        string AuthCenterIP, string AuthCenterWebRoot, JArray Slave,
+        JArray Twins, string CloudKeyPub, Request request)
+    {
+        try
+        {
+            /*權限檢查*/
+            if (!checkProxy(new StackTrace().GetFrame(0)))
+            {
+                throw new Exception("Permission Denied!");
+            };
+            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+            doc.Load(ConfigFilePath(ConfigType.CloudFilePath));
+            doc.GetElementsByTagName("SupportCloud")[0].InnerText = SupportCloud.ToLower();
+            doc.GetElementsByTagName("Role")[0].InnerText = Role;
+            doc.GetElementsByTagName("IsAuthCenter")[0].InnerText = IsAuthCenter.ToLower();
+            doc.GetElementsByTagName("AuthMaster")[0].InnerText = AuthMaster;
+            doc.GetElementsByTagName("AuthCenterPrototype")[0].InnerText = AuthCenterPrototype;
+            doc.GetElementsByTagName("AuthCenterHost")[0].InnerText = AuthCenterHost;
+            doc.GetElementsByTagName("AuthCenterIP")[0].InnerText = AuthCenterIP;
+            doc.GetElementsByTagName("AuthCenterWebRoot")[0].InnerText = AuthCenterWebRoot;
+            doc.GetElementsByTagName("CloudKeyPub")[0].InnerText = CloudKeyPub;
+            //bool hasCData = false;
+            //string strSlave = "<![CDATA[Slave:[";
+            //foreach (var item in Slave) {
+            //    hasCData = true;
+            //    strSlave += "{";
+            //    strSlave += "IP:\""+item["IP"]+"\",";
+            //    strSlave += "ACTIVE:\"" + item["ACTIVE"] + "\"";
+            //    strSlave += "},";
+            //}
+            //strSlave = strSlave.Substring(0, strSlave.Length - 1);
+            //strSlave += "]]]>";
+
+            //if (hasCData) {
+            //    doc.GetElementsByTagName("Slave")[0].InnerXml=strSlave;
+            //}
+            
+            //hasCData = false;
+
+            //var strTwins = "<![CDATA[Twins:[";
+            //foreach (var item in Twins)
+            //{
+            //    hasCData = true;
+            //    strTwins += "{";
+            //    strTwins += "IP:\"" + item["IP"] + "\",";
+            //    strTwins += "ACTIVE:\"" + item["ACTIVE"] + "\"";
+            //    strTwins += "},";
+            //}
+            //strTwins = strTwins.Substring(0, strTwins.Length - 1);
+            //strTwins += "]]]>";
+
+            //if (hasCData)
+            //{
+            //    doc.GetElementsByTagName("Twins")[0].InnerXml = strTwins;
+            //}
+            
+            doc.Save(ConfigFilePath(ConfigType.CloudFilePath));
+            return ExtDirect.Direct.Helper.Message.Success.OutputJObject();
+        }
+        catch (Exception ex)
+        {
+            log.Error(ex); LK.MyException.MyException.Error(this, ex);
+            /*將Exception轉成EXT Exception JSON格式*/
+            return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
+        }
+    }
+
+    [DirectMethod("loadDirect", DirectAction.Load)]
+    public JObject loadDirect(Request request)
+    {
+        #region Declare
+        List<JObject> jobject = new List<JObject>();
+        BasicModel basicModel = new BasicModel();
+        ErrorLog table = new ErrorLog();
+        #endregion
+        try
+        { /*權限檢查*/
+            if (!checkProxy(new StackTrace().GetFrame(0)))
+            {
+                throw new Exception("Permission Denied!");
+            };
+            var direct = LK.Config.DirectAuth.DirectAuthConfigs.GetConfig();            
+            var jObject = new JObject();
+            jObject["ALLOWCROSSPOST"] = direct.AllowCrossPost;
+            jObject["PROXYPERMISSION"] = direct.ProxyPermission;
+            jObject["ACCESS_ALL"] = JObject.Parse("{" + direct.Rule + "}")["access_all"];
+            jObject["RULE"] = JObject.Parse("{" + direct.Rule + "}")["directUrl"];
+            jObject["NOPERMISSIONACTION"] = JObject.Parse("{" + direct.NoPermissionAction + "}")["list"];            
+            return ExtDirect.Direct.Helper.Store.OutputJObject(jObject);
+        }
+        catch (Exception ex)
+        {
+            log.Error(ex); LK.MyException.MyException.Error(this, ex);
+            /*將Exception轉成EXT Exception JSON格式*/
+            return ExtDirect.Direct.Helper.Message.Fail.OutputJObject(ex);
         }
     }
 }

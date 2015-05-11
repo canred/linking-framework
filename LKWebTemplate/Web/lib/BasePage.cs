@@ -6,6 +6,8 @@ using System.Reflection;
 using LKWebTemplate.Model.Basic;
 using LKWebTemplate.Model.Basic.Table.Record;
 using System.Collections.Generic;
+using System.Web.UI;
+
 namespace LKWebTemplate
 {
     public class BasePage : System.Web.UI.Page
@@ -131,11 +133,11 @@ namespace LKWebTemplate
             return null;
         }
 
-        public IList<Limew.Model.Basic.Table.Record.AuthorityMenuV_Record> getUserMenu()
+        public IList<LKWebTemplate.Model.Basic.Table.Record.AuthorityMenuV_Record> getUserMenu()
         {
             if (ss.ExistKey("USERMENU"))
             {
-                return (IList<Limew.Model.Basic.Table.Record.AuthorityMenuV_Record>)ss.getObject("USERMENU");
+                return (IList<LKWebTemplate.Model.Basic.Table.Record.AuthorityMenuV_Record>)ss.getObject("USERMENU");
             }
             else
             {
@@ -143,11 +145,11 @@ namespace LKWebTemplate
             }
         }
 
-          public IList<Limew.Model.Basic.Table.Record.GroupAttendantV_Record> getUserGroup()
+        public IList<LKWebTemplate.Model.Basic.Table.Record.GroupAttendantV_Record> getUserGroup()
         {
             if (ss.ExistKey("USER_GROUP"))
             {
-                return (IList<Limew.Model.Basic.Table.Record.GroupAttendantV_Record>)ss.getObject("USER_GROUP");
+                return (IList<LKWebTemplate.Model.Basic.Table.Record.GroupAttendantV_Record>)ss.getObject("USER_GROUP");
             }
             else
             {
@@ -189,6 +191,59 @@ namespace LKWebTemplate
             }
             return ret;
         }
+
+        public bool checkPermission(Page page)
+        {
+            var a = getUserMenu();
+            var pageUrl = page.Request.Url.AbsolutePath.ToLower().Split('?')[0].Trim();
+            var arrUrl = pageUrl.Split('/');
+            pageUrl = "/";
+            for (var i = 2; i < arrUrl.Length; i++)
+            {
+                pageUrl += arrUrl[i];
+                if ((i + 1) < arrUrl.Length)
+                {
+                    pageUrl += '/';
+                }
+            };
+            try
+            {
+                var hasPermission = a.Count(c => c.URL.ToLower().Replace("~", "").Replace("\\", "/").Split('?')[0].Trim().Equals(pageUrl));
+                if (hasPermission >= 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public void checkPermissionAndRedirect(Page page)
+        {
+            if (checkPermission(page) == false)
+            {
+                page.Response.Redirect(LKWebTemplate.Parameter.Config.ParemterConfigs.GetConfig().DefaultPage);
+                page.Response.End();
+            }
+        }
+
+        public void checkPermissionAndRedirect(Page page, string redirectUrl)
+        {
+            if (checkPermission(page) == false)
+            {
+                page.Response.Redirect(redirectUrl);
+                page.Response.End();
+            }
+        }
     }
+
+
+           
   
 }

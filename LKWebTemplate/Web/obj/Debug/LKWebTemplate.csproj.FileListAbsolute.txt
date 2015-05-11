@@ -9,3 +9,13 @@ D:\Project13\LK4\trunk\LKWebTemplate\Web\bin\log4net.xml
 D:\Project13\LK4\trunk\LKWebTemplate\Web\obj\Debug\LKWebTemplate.dll
 D:\Project13\LK4\trunk\LKWebTemplate\Web\obj\Debug\LKWebTemplate.pdb
 D:\Project13\LK4\trunk\LKWebTemplate\Web\obj\Debug\LKWebTemplate.csprojResolveAssemblyReference.cache
+C:\Project13\LK4\trunk\LKWebTemplate\Web\obj\Debug\LKWebTemplate.dll
+C:\Project13\LK4\trunk\LKWebTemplate\Web\obj\Debug\LKWebTemplate.pdb
+C:\Project13\LK4\trunk\LKWebTemplate\Web\bin\LKWebTemplate.dll.config
+C:\Project13\LK4\trunk\LKWebTemplate\Web\bin\LKWebTemplate.dll
+C:\Project13\LK4\trunk\LKWebTemplate\Web\bin\LKWebTemplate.pdb
+C:\Project13\LK4\trunk\LKWebTemplate\Web\bin\LK.dll
+C:\Project13\LK4\trunk\LKWebTemplate\Web\bin\log4net.dll
+C:\Project13\LK4\trunk\LKWebTemplate\Web\bin\Newtonsoft.Json.Net35.dll
+C:\Project13\LK4\trunk\LKWebTemplate\Web\bin\LK.pdb
+C:\Project13\LK4\trunk\LKWebTemplate\Web\bin\log4net.xml

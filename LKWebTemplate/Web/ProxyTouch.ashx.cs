@@ -33,10 +33,10 @@ namespace LKWebTemplate
             {
                 INIT = context.Request.QueryString["init"].ToUpper();
             }
-            //if (ss.ExistKey("PROXY") && Parameter.Config.ParemterConfigs.GetConfig().IsProductionServer == true)
-            if (ss.ExistKey("PROXY"))
+            //if (ss.ExistKey("PROXY-TOUCH") && Parameter.Config.ParemterConfigs.GetConfig().IsProductionServer == true)
+            if (ss.ExistKey("PROXY-TOUCH"))
             {
-                context.Response.Write(ss.getObject("PROXY").ToString());
+                context.Response.Write(ss.getObject("PROXY-TOUCH").ToString());
                 return;
             }
             var isFrist = true;
@@ -134,7 +134,7 @@ namespace LKWebTemplate
                     sb.Append(rem);
                 }
             }
-            ss.setObject("PROXY", sb.ToString());
+            ss.setObject("PROXY-TOUCH", sb.ToString());
             context.Response.Write(sb.ToString());
         }
         public bool IsReusable

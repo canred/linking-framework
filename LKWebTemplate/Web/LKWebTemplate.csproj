@@ -19,7 +19,7 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -45,8 +45,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LK, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>refDll\LK.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL" />
-    <Reference Include="MySql.Data, Version=6.9.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.9.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json.Net35, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -68,6 +72,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\configs\Cloud.aspx" />
+    <Content Include="admin\configs\direct.aspx" />
+    <Content Include="admin\configs\smtp.aspx" />
     <Content Include="app\.sencha\workspace\codegen" />
     <Content Include="app\.sencha\workspace\sencha.cfg" />
     <Content Include="app\build.xml" />
@@ -2463,6 +2470,7 @@
     <Content Include="css\images\cal-month16x16.png" />
     <Content Include="css\images\cal-week.png" />
     <Content Include="css\images\cal-week16x16.png" />
+    <Content Include="css\images\check16x16.png" />
     <Content Include="css\images\check_red.png" />
     <Content Include="css\images\CloudDesc.png" />
     <Content Include="css\images\CloudJoinUs.png" />
@@ -2470,19 +2478,26 @@
     <Content Include="css\images\Cloud_Sync.png" />
     <Content Include="css\images\communication.png" />
     <Content Include="css\images\company16x16.png" />
+    <Content Include="css\images\connect16x16.png" />
     <Content Include="css\images\connector16x16.png" />
     <Content Include="css\images\delete16x16.png" />
+    <Content Include="css\images\doc16x16.png" />
     <Content Include="css\images\edit16x16.png" />
     <Content Include="css\images\info.png" />
     <Content Include="css\images\join.png" />
+    <Content Include="css\images\join16x16.png" />
     <Content Include="css\images\lock16x16.png" />
+    <Content Include="css\images\login32x32.png" />
     <Content Include="css\images\logo.ico" />
+    <Content Include="css\images\mail16x16.png" />
     <Content Include="css\images\man16x16.png" />
     <Content Include="css\images\manB16x16.png" />
     <Content Include="css\images\manC16x16.png" />
     <Content Include="css\images\map16x16.png" />
     <Content Include="css\images\menu16x16.png" />
     <Content Include="css\images\mouseSelect16x16.png" />
+    <Content Include="css\images\nopicture.jpg" />
+    <Content Include="css\images\nopicture.png" />
     <Content Include="css\images\ok16x16.png" />
     <Content Include="css\images\okA16x16.png" />
     <Content Include="css\images\organisation16x16.png" />
@@ -2496,6 +2511,7 @@
     <Content Include="css\images\sfmenu_shadow.gif" />
     <Content Include="css\images\source.png" />
     <Content Include="css\images\unknowMan.png" />
+    <Content Include="css\images\warning16x16.png" />
     <Content Include="css\menu.css" />
     <Content Include="css\mpStand.css" />
     <Content Include="Default.aspx" />
@@ -3070,6 +3086,7 @@
     <Content Include="js\echarts-2.2.1\test\performance\option.js" />
     <Content Include="js\echarts-2.2.1\test\performance\p.html" />
     <Content Include="js\echarts-2.2.1\test\performance\p.js" />
+    <Content Include="js\ext-all-debug.js" />
     <Content Include="js\JPN-Message.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\packages\ext-aria\.sencha\package\Boot.js" />
@@ -13262,8 +13279,13 @@
     <Content Include="js\ux\google\Api.js" />
     <Content Include="js\ux\google\Feeds.js" />
     <Content Include="LKWebTemplate4.png" />
+    <Content Include="PageJs\CloudPanel.js" />
     <Content Include="PageJs\Direct%40System.js" />
     <Content Include="PageJs\Direct-Basic.js" />
+    <Content Include="PageJs\DirectPanel.js" />
+    <Content Include="PageJs\JoinUsPanel.js" />
+    <Content Include="PageJs\LogonWindow.js" />
+    <Content Include="PageJs\LogoutWindow.js" />
     <Content Include="PageJs\Model%40System.js" />
     <Content Include="PageJs\Model-Basic.js" />
     <Content Include="PageJs\ApplicationWindow.js" />
@@ -13290,6 +13312,7 @@
     <Content Include="PageJs\MenuTreeStore.js" />
     <Content Include="PageJs\MenuWindow.js" />
     <Content Include="PageJs\NoPermissionPanel.js" />
+    <Content Include="PageJs\NoPermissionWindow.js" />
     <Content Include="PageJs\ProxyPickerWindow.js" />
     <Content Include="PageJs\ProxyQueryPanel.js" />
     <Content Include="PageJs\ProxyWindow.js" />
@@ -13298,6 +13321,7 @@
     <Content Include="PageJs\ServerInfoPanel.js" />
     <Content Include="PageJs\SitemapQueryPanel.js" />
     <Content Include="PageJs\SitemapTreeStore.js" />
+    <Content Include="PageJs\SmtpPanel.js" />
     <Content Include="PageJs\SystemQueryPanel.js" />
     <Content Include="PageJs\Util.js" />
     <Content Include="refDll\GenCode\LK_Gencode.exe" />
@@ -13319,6 +13343,10 @@
     <Content Include="Upload\myCompany\user\15040109365500382.jpg" />
     <Content Include="Upload\myCompany\user\15040109375600398.jpg" />
     <Content Include="Upload\myCompany\user\15040109380300402.jpg" />
+    <Content Include="Upload\myCompany\user\15041109540500167.jpg" />
+    <Content Include="Upload\myCompany\user\15041109541800174.jpg" />
+    <Content Include="Upload\myCompany\user\15041609230200095.jpg" />
+    <Content Include="Upload\myCompany\user\15041609514100152.jpg" />
     <Content Include="Warming\NoPermission.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -13337,6 +13365,27 @@
     </Compile>
     <Compile Include="admin\basic\changeattendant.aspx.designer.cs">
       <DependentUpon>changeattendant.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\configs\Cloud.aspx.cs">
+      <DependentUpon>Cloud.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\configs\Cloud.aspx.designer.cs">
+      <DependentUpon>Cloud.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\configs\direct.aspx.cs">
+      <DependentUpon>direct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\configs\direct.aspx.designer.cs">
+      <DependentUpon>direct.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\configs\smtp.aspx.cs">
+      <DependentUpon>smtp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\configs\smtp.aspx.designer.cs">
+      <DependentUpon>smtp.aspx</DependentUpon>
     </Compile>
     <Compile Include="directAdmin\ADAction.cs">
       <SubType>Code</SubType>
@@ -17109,6 +17158,7 @@
     <Content Include="css\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="css\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="css\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="css\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="css\images\application.psd" />
     <Content Include="css\images\CloudDesc.psd" />
     <Content Include="css\images\CloudJoinUs.psd" />
@@ -18097,12 +18147,6 @@
     <Folder Include="initDataBase\SQL\MYSQL\VIEW-Action\" />
     <Folder Include="initDataBase\SQL\ORACLE\VIEW-Action\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\LK\LK.csproj">
-      <Project>{432fae84-a610-4369-8b98-09eb97c269ca}</Project>
-      <Name>LK</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -18126,9 +18170,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>5766</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:37149/LKWebTemplate</IISUrl>
+          <IISUrl>http://localhost/LKWebTemplate</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
